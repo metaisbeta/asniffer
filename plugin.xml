@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Sample Category"
+            id="br.inpe.cap.Asniffer.commands.category">
+      </category>
+      <command
+            name="Sample Command"
+            categoryId="br.inpe.cap.Asniffer.commands.category"
+            id="br.inpe.cap.Asniffer.commands.sampleCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
+            class="br.inpe.cap.asniffer.handlers.SampleHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="Annotation Sniffer"
+               mnemonic="M"
+               id="br.inpe.cap.Asniffer.menus.sampleMenu">
+            <command
+                  commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
+                  mnemonic="S"
+                  id="br.inpe.cap.Asniffer.menus.sampleCommand">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="br.inpe.cap.Asniffer.toolbars.sampleToolbar">
+            <command
+                  commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
+                  icon="icons/sample.gif"
+                  tooltip="Activate Annotation Sniffer"
+                  id="br.inpe.cap.Asniffer.toolbars.sampleCommand">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>
