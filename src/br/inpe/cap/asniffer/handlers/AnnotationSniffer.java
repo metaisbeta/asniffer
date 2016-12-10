@@ -1,6 +1,7 @@
 package br.inpe.cap.asniffer.handlers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,11 +12,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.IAnnotatable;
 import org.eclipse.jdt.core.IAnnotation;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMember;
@@ -45,6 +45,7 @@ public class AnnotationSniffer {
 	IProject project;
 	IJavaProject javaProject;
 	List<MetricOutputRepresentation> metricsOutputRepresentation = new ArrayList<>();
+	int nestingCount = 0;
 	
 	public List<MetricOutputRepresentation> getMetricsOutputRepresentation() {
 		return metricsOutputRepresentation;
@@ -88,87 +89,63 @@ public class AnnotationSniffer {
 		return numberOfLines;
 	}
 
-	public List<Integer> getAC(String nameProject) {
+	public int getAC(ICompilationUnit compilationUnit) {
 		
-		project = fetchProject(nameProject);
-		javaProject = JavaCore.create(project);
 		anotList = new ArrayList<IAnnotation>();
-		List<Integer> ac = new ArrayList<>();
+		int ac = 0;
 		metricsOutputRepresentation.clear(); //Makes sure this list contains only metrics for current project
 		
 		try {
-			packages = javaProject.getPackageFragments();
-		} catch (JavaModelException e) {
-			e.printStackTrace();
-		} 
-		
-		for (IPackageFragment package_ : packages) {
-			try {
-				if (package_.getKind() == IPackageFragmentRoot.K_SOURCE)//Only source code
-				    for(ICompilationUnit unit : package_.getCompilationUnits()){
-				    	for(IType type : unit.getAllTypes()){
-				    		fetchAnnotations(type);
-				    		for(IField field : type.getFields())
-				    			fetchAnnotations(field);
-				    		for(IMethod method : type.getMethods()){
-				    			fetchAnnotations(method);
-				    			for(ILocalVariable parameter : method.getParameters())
-				    				fetchAnnotations(parameter);
-				    		}
-				    	}
-				    //All annotation classes has been fetched
-				    ac.add(anotList.size());
-				    //Save Metric Representation
-				    metricsOutputRepresentation.add(new MetricOutputRepresentation(package_.getElementName(), unit.getElementName(), "AC","Annotations in Class",anotList.size()));
-				    //Clear all annotations fetched
-				    anotList.clear();
-				    }
+			for(IType type : compilationUnit.getAllTypes()){
+				fetchAnnotations(type);
+				for(IField field : type.getFields())
+					fetchAnnotations(field);
+				for(IMethod method : type.getMethods()){
+					fetchAnnotations(method);
+					for(ILocalVariable parameter : method.getParameters())
+						fetchAnnotations(parameter);
+				}
+			}
+			//All annotation classes has been fetched
+			ac = (anotList.size());
+			//Save Metric Representation
+			metricsOutputRepresentation.add(new MetricOutputRepresentation("AC","Annotations in Class",anotList.size()));
+			//Clear all annotations fetched
+			anotList.clear();
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}
-		}
 		return ac;
 	}
 
-	public List<Integer> getUAC(String nameProject) {
-		project = fetchProject(nameProject);
-		javaProject = JavaCore.create(project);
-		anotSet = new HashSet<String>();
+	public int getUAC(ICompilationUnit compilationUnit) {
+		
+		
 		anotList = new ArrayList<IAnnotation>();
-		List<Integer> uac = new ArrayList<>();
+		int uac = 0;
+		metricsOutputRepresentation.clear(); //Makes sure this list contains only metrics for current project
 		StringBuilder uacBuilder = new StringBuilder();
 		try {
-			packages = javaProject.getPackageFragments();
-		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		for (IPackageFragment package_ : packages) {
-			try {
-				if (package_.getKind() == IPackageFragmentRoot.K_SOURCE)//Only source code
-				    for(ICompilationUnit unit : package_.getCompilationUnits()){
-				    	for(IType type : unit.getAllTypes()){
-				    		fetchAnnotations(type);
-				    		for(IField field : type.getFields())
-				    			fetchAnnotations(field);
-				    		for(IMethod method : type.getMethods()){
-				    			fetchAnnotations(method);
-				    			for(ILocalVariable parameter : method.getParameters())
-				    				fetchAnnotations(parameter);
-				    		}
-				    	}
-				    //All annotation classes has been fetched
-				    //Save only the unique ones
-				    anotSet = fetchUAC(uacBuilder);
-				    //anotSet.addAll(anotList);
-				    uac.add(anotSet.size());
-				    anotList.clear();//Clear all annotations fetched
-				    anotSet.clear();//Clear the array holding the unique annotations
-				    }
+			for(IType type : compilationUnit.getAllTypes()){
+				fetchAnnotations(type);
+				for(IField field : type.getFields())
+					fetchAnnotations(field);
+				for(IMethod method : type.getMethods()){
+					fetchAnnotations(method);
+					for(ILocalVariable parameter : method.getParameters())
+						fetchAnnotations(parameter);
+				}
+			}
+			//All annotation classes has been fetched
+			
+			uac = (fetchUAC(uacBuilder).size());
+			//Save Metric Representation
+			metricsOutputRepresentation.add(new MetricOutputRepresentation("UAC","Unique Annotations in Class",uac));
+			//Clear all annotations fetched
+			anotList.clear();
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}
-		}
 		return uac;
 	}
 
@@ -178,11 +155,13 @@ public class AnnotationSniffer {
 		//Check the array anotList, and retrives only distinct annotations
 		for(IAnnotation annotation : anotList){
 			uacBuilder.delete(0, uacBuilder.length());//Clear string buffer, for better performance
+			
 			try {
 				for(IMemberValuePair attr : annotation.getMemberValuePairs()){
+					String attributes[] = attr.getValue().toString().split(" ");
 					uacBuilder.append(attr.getMemberName());
 					uacBuilder.append("=");
-					uacBuilder.append(attr.getValue());
+					uacBuilder.append(attributes[0]);
 				}
 				uacBuilder.append(annotation.getElementName());
 				uacNames.add(uacBuilder.toString());
@@ -193,63 +172,78 @@ public class AnnotationSniffer {
 		return uacNames;
 	}
 
-	public int getNumeroAnotacaoElemento(String nameProject, String nomeClasse, String nomeElemento) {
-		 project = fetchProject(nameProject);
-		javaProject = JavaCore.create(project);
-		
-		anotList = new ArrayList<IAnnotation>();
-		try {
-			packages = javaProject.getPackageFragments();
-		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		
-		for (IPackageFragment pacote : packages) {
+	public List<Integer> getAED(ICompilationUnit compilationUnit) {
 			
-			try {
-				if (pacote.getKind() == IPackageFragmentRoot.K_SOURCE) {
-				        for(ICompilationUnit unit : pacote.getCompilationUnits()){
-				        	if(unit.getElementName().equals(nomeClasse)){
-				        		
-				        		for(IType type : unit.getAllTypes()){
-				        			
-				        			if(type.getElementName().equals(nomeElemento)){
-				        				annotations = ((IType) member).getAnnotations();
-			        					for(IAnnotation annotation : annotations)
-			        						anotList.add(annotation);
-				        			}
-				        			for (IField field : type.getFields()){
-				        				member = field;
-					        			if (member instanceof IField && member.getElementName().equals(nomeElemento)){
-					        				annotations = ((IField) member).getAnnotations();
-					        				for(IAnnotation annotation : annotations)
-					        					anotList.add(annotation);
-					        			}
-					        				
-				        			}
-				        			for (IMethod method : type.getMethods()){
-				        				member = method;
-				        				if (member instanceof IMethod && member.getElementName().equals(nomeElemento)){
-						        				annotations = ((IMethod) member).getAnnotations();
-					        				for(IAnnotation annotation : annotations)
-					        					anotList.add(annotation);
-				        				}
-				        			}
-				        		}
-				        						        		
-				        		return anotList.size();
-				    		}
-						}
+		Map<IJavaElement, Integer> annotMap = new HashMap<>();
+		List<Integer> numAED = new ArrayList<>();
+		anotList = new ArrayList<>();
+		int numAEDPerElement;
+		metricsOutputRepresentation.clear();//Start a clear report for AED
+		try {
+			for(IType type : compilationUnit.getAllTypes()){
+				numAEDPerElement = fetchAnnotations(type);
+				annotMap.put(type,numAEDPerElement );
+				for(IField field : type.getFields()){
+					numAEDPerElement = fetchAnnotations(field);
+					annotMap.put(field, numAEDPerElement);
 				}
-			} catch (JavaModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				for(IMethod method : type.getMethods()){
+					numAEDPerElement = fetchAnnotations(method);
+					annotMap.put(method, numAEDPerElement);
+					for(ILocalVariable parameter : method.getParameters()){
+						numAEDPerElement = fetchAnnotations(parameter);
+						annotMap.put(parameter, numAEDPerElement);
+					}
+						
+				}
 			}
-
+			//All annotations classes has been fetched
+			Set<Map.Entry<IJavaElement, Integer>> entries = annotMap.entrySet();
+			for(Map.Entry<IJavaElement, Integer> entry : entries){
+				String elementName = entry.getKey().getElementName();
+				int type = entry.getKey().getElementType();
+				metricsOutputRepresentation.add(new MetricOutputRepresentation("AED", "Annotations in Element Declaration",
+																			entry.getValue(), true, elementName, type));
+				
+				numAED.add(entry.getValue());
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		return 0;
+		return numAED;
+	}
+	
+	//AA
+	public List<Integer> getAA(ICompilationUnit compilationUnit) {
+		List<Integer> numAA = new ArrayList<>();
+		anotList = new ArrayList<>();
+		metricsOutputRepresentation.clear();//Start a clear report for AED
+		try {
+			for(IType type : compilationUnit.getAllTypes()){
+				fetchAnnotations(type);
+				for(IField field : type.getFields()){
+					fetchAnnotations(field);
+				}
+				for(IMethod method : type.getMethods()){
+					fetchAnnotations(method);
+					for(ILocalVariable parameter : method.getParameters())
+						fetchAnnotations(parameter);
+				}
+			}
+			//All annotations classes has been fetched
+			for(IAnnotation annotation : anotList){
+				numAA.add(annotation.getMemberValuePairs().length);
+				metricsOutputRepresentation.add(new MetricOutputRepresentation("AA", "Attributes in Annotations", annotation.getMemberValuePairs().length, 
+																				true, annotation.getElementName(), IJavaElement.ANNOTATION));
+			}
+			anotList.clear();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return numAA;
 	}
 	
 	public int getNumClasses(String nameProject) {
@@ -258,7 +252,7 @@ public class AnnotationSniffer {
 		javaProject = JavaCore.create(project);
 		
 		List<ICompilationUnit> classesList = new ArrayList<ICompilationUnit>();
-		classesList = buscaClassesproject(javaProject);
+		classesList = fetchNumberOfClasses(javaProject);
 		
 		return classesList.size();
 		
@@ -274,85 +268,44 @@ public class AnnotationSniffer {
 		return classesList.size();
 	}
 	
-	//AA
-	public int getNumAtributosAnotacao(String projectName, String className, String annotationName) {
-		
-		project = fetchProject(projectName);
-		javaProject = JavaCore.create(project);
-		anotList = new ArrayList<IAnnotation>();
-		try {
-			packages = javaProject.getPackageFragments();
-		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		
-		for (IPackageFragment pacote : packages) {
-			//fetchAnnotations(javaProject);
-			if(anotList!=null)
-				break;
-		}
-		
-		for(IAnnotation annotation: anotList){
-			if(annotation.getElementName().equals(annotationName))
-				try {
-					return annotation.getMemberValuePairs().length;
-				} catch (JavaModelException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
-		
-		return 0;
-	}
 
 	//LOCAD
-	public void getLOCAD(String projectName) {
+	public List<Integer> getLOCAD(ICompilationUnit compilationUnit) {
 		
-		project = fetchProject(projectName);
-		javaProject = JavaCore.create(project);
 		anotList = new ArrayList<IAnnotation>();
+		List<Integer> numLOCAD = new ArrayList<>();
 		metricsOutputRepresentation.clear(); //Makes sure this list contains only metrics for current project
-		try {
-			packages = javaProject.getPackageFragments();
-		} catch (JavaModelException e) {
-			e.printStackTrace();
-		}  
 		
-		for (IPackageFragment package_ : packages) {
 			try {
-				if (package_.getKind() == IPackageFragmentRoot.K_SOURCE)//Only source code
-				    for(ICompilationUnit unit : package_.getCompilationUnits()){
-				    	for(IType type : unit.getAllTypes()){
-				    		fetchAnnotations(type);
-				    		for(IField field : type.getFields())
-				    			fetchAnnotations(field);
-				    		for(IMethod method : type.getMethods()){
-				    			fetchAnnotations(method);
-				    			for(ILocalVariable parameter : method.getParameters())
-				    				fetchAnnotations(parameter);
-				    		}
-				    	}
-				    	//All annotation classes has been fetched
-					    for(IAnnotation annotation: anotList){
-								try {
-									metricsOutputRepresentation.add(new MetricOutputRepresentation(package_.getElementName(), unit.getElementName(), 
-																		"LOCAD", "Lines of Code for Annotation Declaration", numberOfLinesOfCode(annotation.getSource()), true, 
-																		annotation.getElementName(), "Annotation")); 
-								} catch (JavaModelException e) {
-									e.printStackTrace();
-								} catch (FileFormatException e) {
-									e.printStackTrace();
-								}
-						}
-					    anotList.clear();
+				for(IType type : compilationUnit.getAllTypes()){
+					fetchAnnotations(type);
+					for(IField field : type.getFields())
+				    	fetchAnnotations(field);
+				    for(IMethod method : type.getMethods()){
+				    	fetchAnnotations(method);
+				    	for(ILocalVariable parameter : method.getParameters())
+				    	fetchAnnotations(parameter);
 				    }
+				}
+				//All annotation classes has been fetched
+				//Fetch LOCAD for each annotation
+				for(IAnnotation annotation: anotList){
+					try {
+						metricsOutputRepresentation.add(new MetricOutputRepresentation("LOCAD", "Lines of Code for Annotation Declaration", numberOfLinesOfCode(annotation.getSource()), true, 
+														annotation.getElementName(), IJavaElement.ANNOTATION)); 
+						numLOCAD.add(numberOfLinesOfCode(annotation.getSource()));
+					} catch (JavaModelException e) {
+							e.printStackTrace();
+					} catch (FileFormatException e) {
+							e.printStackTrace();
+					}
+				}
+				anotList.clear();
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}
-		}
+		return numLOCAD;
 	}
-	
 	//ANL
 	public int getNivelAninhamentoAnotacao(String projectName, String className,
 	       								   String parentAnnotation, String targetAnnotation) {
@@ -496,38 +449,51 @@ public class AnnotationSniffer {
 	
 	
 	//Inner helper methods
-	private void fetchAnnotations(IMember member) throws JavaModelException {
+	private int fetchAnnotations(IMember member) throws JavaModelException {
+		
+		nestingCount = 0;
 		
 		if (member instanceof IType){
 			annotations = ((IType) member).getAnnotations();
 			for(IAnnotation annotation : annotations){
 				anotList.add(annotation);
-				fetchNestedAnnotation(annotation);
+				nestingCount++;
+				nestingCount = fetchNestedAnnotation(annotation, nestingCount);
 			}
 		} else if(member instanceof IField){
 			annotations = ((IField) member).getAnnotations();
 			for(IAnnotation annotation : annotations){
 				anotList.add(annotation);
-				fetchNestedAnnotation(annotation);
+				nestingCount++;
+				nestingCount = fetchNestedAnnotation(annotation, nestingCount);
 			}
 		} else if(member instanceof IMethod){
 			annotations = ((IMethod) member).getAnnotations();
 			for(IAnnotation annotation : annotations){
 				anotList.add(annotation);
-				fetchNestedAnnotation(annotation);
+				nestingCount++;
+				nestingCount = fetchNestedAnnotation(annotation, nestingCount);
 			}
 		}
+		
+		return nestingCount;
 	}
 	
 	//For method's parameter
-	private void fetchAnnotations(ILocalVariable parameter) throws JavaModelException {
+	private int fetchAnnotations(ILocalVariable parameter) throws JavaModelException {
+		
+		nestingCount = 0;
+		
 		annotations = parameter.getAnnotations();
 		for(IAnnotation annotation : annotations){
 			anotList.add(annotation);
-			fetchNestedAnnotation(annotation);
+			nestingCount++;
+			nestingCount = fetchNestedAnnotation(annotation, nestingCount);
 		}
+		
+		return nestingCount;
 	}
-	private void fetchNestedAnnotation(IAnnotation annotation) {
+	private int fetchNestedAnnotation(IAnnotation annotation, int nestingCount) {
 		
 		IMemberValuePair[] annotationAttr = null;
 		
@@ -542,12 +508,15 @@ public class AnnotationSniffer {
 				if (members.getValue() instanceof Object[]) {
 					Object[] innerAnnotations = (Object[]) members.getValue();
 					for (Object o : innerAnnotations){
-						fetchNestedAnnotation((IAnnotation) o);
+						fetchNestedAnnotation((IAnnotation) o, nestingCount);
 					}
 				} else {
 					anotList.add((IAnnotation) members.getValue());
+					nestingCount++;
 				}
 		}
+		
+		return nestingCount;
 	}
 
 	private List<IType> fetchAnnotatedClass(IJavaProject javaProject) {
@@ -633,7 +602,7 @@ public class AnnotationSniffer {
 		return false;
 	}
 
-	private List<ICompilationUnit> buscaClassesproject(IJavaProject javaProject) {
+	private List<ICompilationUnit> fetchNumberOfClasses(IJavaProject javaProject) {
 
 		List<ICompilationUnit> classeList = new ArrayList<ICompilationUnit>();
 		

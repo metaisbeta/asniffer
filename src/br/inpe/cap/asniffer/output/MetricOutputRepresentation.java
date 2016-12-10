@@ -1,22 +1,21 @@
 package br.inpe.cap.asniffer.output;
 
+import org.eclipse.jdt.core.IJavaElement;
+
 public class MetricOutputRepresentation {
 
 	private double metricValue;
-	private String name, alias, package_, className;
+	private String name, alias, package_, className, elementName, type;
 	private boolean multiMetric = false;
-	private String type, elementName;
 
-	public MetricOutputRepresentation(String package_, String className, String alias, String name, int metricValue, 
-			boolean multiMetric, String elementName, String type) {
+	public MetricOutputRepresentation(String alias, String name, int metricValue, 
+			boolean multiMetric, String elementName, int type) {
 		this.alias = alias;
 		this.name = name;
 		this.metricValue = metricValue;
-		this.className = className;
-		this.package_ = package_;
 		this.multiMetric = multiMetric;
 		this.elementName = elementName;
-		this.type = type;
+		setType(type);
 	}
 	
 	public MetricOutputRepresentation(String package_, String className, String alias, String name, int metricValue) {
@@ -75,8 +74,28 @@ public class MetricOutputRepresentation {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setType(int type) {
+
+		switch (type) {
+		case IJavaElement.ANNOTATION:
+			this.type = "Annotation";
+			break;
+		case IJavaElement.FIELD:
+			this.type = "Field";
+			break;
+		case IJavaElement.METHOD:
+			this.type = "Method";
+			break;
+		case IJavaElement.TYPE:
+			this.type = "Class";
+			break;
+		case IJavaElement.LOCAL_VARIABLE:
+			this.type = "Parameter";
+			break;
+		default:
+			break;
+		}
+	
 	}
 
 	public String getElementName() {

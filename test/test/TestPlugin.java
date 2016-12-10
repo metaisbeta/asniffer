@@ -37,10 +37,16 @@ public class TestPlugin {
 private static SWTWorkbenchBot bot;
 private static AnnotationSniffer aSniffer;
 private static SWTBotShell shell;
+private static IProject[] projects;
+private static IJavaProject javaProject = null;
+private static IPackageFragment[] packages = null;
+private static IWorkspace workspace;
+private static IWorkspaceRoot root;
+private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	
 	@BeforeClass
 	public static void beforeClass(){
-		
+		String projectName = "";
 		bot = new SWTWorkbenchBot();
 		aSniffer = new AnnotationSniffer();
 		try {
@@ -52,13 +58,45 @@ private static SWTBotShell shell;
 		
 		//Create a Java project to be tested
 		createTestProject("TestPlugin");
-		
+		bot.sleep(5000);
+		workspace = ResourcesPlugin.getWorkspace();
+		root = workspace.getRoot();
+		projects = root.getProjects();
+		//Now fetches the workspace for all projects and get the compilation units
+		for (IProject project : projects) {
+             try {
+                 projectName = project.getName();
+                 //Must be a java project
+                 if (project.isNatureEnabled("org.eclipse.jdt.core.javanature")){
+                   	javaProject = JavaCore.create(project);
+                   	packages = javaProject.getPackageFragments();
+                   	for (IPackageFragment package_ : packages) {
+               			try {
+               				if (package_.getKind() == IPackageFragmentRoot.K_SOURCE){//Only source code
+               					//For each compilation unit, fetch all metrics
+               					for(ICompilationUnit unit : package_.getCompilationUnits()){
+               						compilationUnits.add(unit);//Compilation Units are ready to serve as test inputs
+               					}
+                 				
+                 			}
+                 					
+                 		}catch (Exception e) {
+								e.printStackTrace();
+						}
+                 					
+                    }	
+                 }
+             }catch (Exception e) {
+            	 e.printStackTrace();
+             }
+		}
 	}
-	
+		
 	private static void createTestProject(String nameProject) {
-
-		 IWorkspace workspace = ResourcesPlugin.getWorkspace();
-         IWorkspaceRoot root = workspace.getRoot();
+		
+		 workspace = ResourcesPlugin.getWorkspace();
+		 root = workspace.getRoot();
+		 
          // Get all projects in the workspace
          IProject[] projects = root.getProjects();
          
@@ -130,7 +168,6 @@ private static SWTBotShell shell;
 		        try {
 					fragments.get(0).createCompilationUnit(pair.getKey().toString()+".java", contents, true, null);
 				} catch (JavaModelException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		        it.remove(); // avoids a ConcurrentModificationException
@@ -206,35 +243,50 @@ private static SWTBotShell shell;
 	public void testAC(){
 		
 		int expectedAC[] = {0,0,0,1,8,5};
-		int[] numberAnnotations = aSniffer.getAC("TestPlugin").stream().mapToInt(i->i).toArray();
+		List<Integer> numAC = new ArrayList<>(); 
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			numAC.add(aSniffer.getAC(compilationUnit));
+		}
+		int[] numACArray = numAC.stream().mapToInt(i->i).toArray();
+		
 		Arrays.sort(expectedAC);
-		Arrays.sort(numberAnnotations);
-		assertArrayEquals(expectedAC, numberAnnotations);
+		Arrays.sort(numACArray);
+		assertArrayEquals(expectedAC, numACArray);
 	}
 	//UAC
 	@Test
 	public void testUAC(){
-		int expectedUAC[] = {0,0,0,1,3,2};
-		int[] numberAnnotationsUnique = aSniffer.getUAC("TestPlugin").stream().mapToInt(i->i).toArray();
+		
+		int expectedUAC[] = {0,0,0,1,2,3};
+		List<Integer> numUAC = new ArrayList<>(); 
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			numUAC.add(aSniffer.getUAC(compilationUnit));
+		}
+		int[] numUACArray = numUAC.stream().mapToInt(i->i).toArray();
+		
 		Arrays.sort(expectedUAC);
-		Arrays.sort(numberAnnotationsUnique);
-		assertArrayEquals(expectedUAC, numberAnnotationsUnique);
+		Arrays.sort(numUACArray);
+		assertArrayEquals(expectedUAC, numUACArray);
 	}
 	
 	//AED
 	@Test
-	public void testNumeroDeAnotacoesPorElemento(){
+	public void testAED(){
 		
-		int numAnotacao = aSniffer.getNumeroAnotacaoElemento("TestPlugin", "Classe2.java", "b");
-		assertEquals(2, numAnotacao);
+		int expectedAED[] = {1,1,2,2,1,1,1,2,2,1,0,0,0,0,0,0,0,0};
+		List<Integer> numAED = new ArrayList<>(); 
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			numAED.addAll(aSniffer.getAED(compilationUnit));
+		}
+		int[] numAEDArray = numAED.stream().mapToInt(i->i).toArray();
 		
-		numAnotacao = aSniffer.getNumeroAnotacaoElemento("TestPlugin", "Classe2.java", "a");
-		assertEquals(1, numAnotacao);
-		
+		Arrays.sort(expectedAED);
+		Arrays.sort(numAEDArray);
+		assertArrayEquals(expectedAED, numAEDArray);
 	}
 	
 	@Test
-	public void testNumeroClasses(){
+	public void testNumberClasses(){
 		
 		int numClasses = aSniffer.getNumClasses("TestPlugin");
 		
@@ -252,18 +304,34 @@ private static SWTBotShell shell;
 	
 	//AA
 	@Test
-	public void testNumeroAtributosAnotacao(){
+	public void testAA(){
 		
-		int numAtributosAnotacao = aSniffer.getNumAtributosAnotacao("TestPlugin", "Classe2.java", "Annotation2");
+		int expectedAA[] = {0,0,0,0,0,0,1,1,0,0,0,2,2,0};
+		List<Integer> numAA = new ArrayList<>(); 
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			numAA.addAll(aSniffer.getAA(compilationUnit));
+		}
+		int[] numAAArray = numAA.stream().mapToInt(i->i).toArray();
 		
-		assertEquals(2, numAtributosAnotacao);
+		Arrays.sort(expectedAA);
+		Arrays.sort(numAAArray);
+		assertArrayEquals(expectedAA, numAAArray);
 	}
 	//LOCAD
 	@Test
 	public void testLOCAD(){
-			
-		//int numLOCAD = aSniffer.getLOCAD("TestPlugin", "Classe2.java", "Annotation2");
-		assertEquals(2, 0);
+		
+		int expectedLOCAD[] = {1,1,1,1,1,1,1,1,1,1,1,1,2,2};
+		
+		List<Integer> numLOCAD = new ArrayList<>();
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			numLOCAD.addAll(aSniffer.getLOCAD(compilationUnit));
+		}
+		int[] numLOCADArray = numLOCAD.stream().mapToInt(i->i).toArray();
+		
+		Arrays.sort(expectedLOCAD);
+		Arrays.sort(numLOCADArray);
+		assertArrayEquals(expectedLOCAD, numLOCADArray);
 	}
 	
 	//ANL
@@ -290,6 +358,7 @@ private static SWTBotShell shell;
 	}
 	
 	//Test to get the number of annotated elements
+	//NAC
 	@Test
 	public void testGetNumberAnnotatedElements(){
 		List<Integer> numberAnnotatedElements = new ArrayList<Integer>();

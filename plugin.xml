@@ -18,7 +18,7 @@
          point="org.eclipse.ui.handlers">
       <handler
             commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
-            class="br.inpe.cap.asniffer.handlers.SampleHandler">
+            class="br.inpe.cap.asniffer.handlers.AnnotationSnifferHandler">
       </handler>
    </extension>
    <extension

@@ -24,33 +24,89 @@ import br.inpe.cap.asniffer.output.MetricOutputRepresentation;
 
 public class XmlUtils {
 
-	public static void writeXml(List<MetricOutputRepresentation> metricValues, String projectName) {
+	public static void writeXMLBeginning(String projectName, String metricAlias){
 		Writer out = null;
 		try {
 			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
-			
 			StringBuffer sb = new StringBuffer("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 			sb.append("<?xml-stylesheet type=\"text/xsl\" href=\"metrics-results.xsl\"?>\n");
 			sb.append("<AnnotationMetricsResults project-name=\"");
 			sb.append(projectName);
 			sb.append("\">\n");
-			sb.append(XmlUtils.get(metricValues));
-			//sb.append(XmlUtils.tabText(badSmells));
-			sb.append("</AnnotationMetricsResults>");
-
 			Date today = new Date(System.currentTimeMillis());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
 
 			String xmlSource = folderPath + "metrics-results_"
-					+ projectName + "_" + sdf.format(today) + ".xml";
-			String htmlResult = folderPath + "metrics-results_"
+					+ projectName + "_" + metricAlias + ".xml";
+			/*String htmlResult = folderPath + "metrics-results_"
 					+ projectName + "_" + sdf.format(today) + ".html";
 			 
 			String path = "plugins/metrics-results.xsl";
 			StreamSource xslStreamSource = new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(path));
-			
+			*/
 			out = new OutputStreamWriter(new FileOutputStream(xmlSource));
 			out.write(sb.toString());
+			out.close();
+		} catch (Exception ex) {
+			MessageDialog.openInformation(null, "Error", ex.getMessage());
+			ex.printStackTrace();
+		} finally {
+			if (out != null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	public static void writeXMLEnd(String projectName, String metricAlias){
+		Writer out = null;
+		try {
+			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			StringBuffer sb = new StringBuffer();
+			sb.append("</package>\n");
+			sb.append("</AnnotationMetricsResults>");
+			
+			//Date today = new Date(System.currentTimeMillis());
+			//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
+
+			//String xmlSource = folderPath + "metrics-results_"
+			//		+ projectName + "_" + metricAlias + "_" + sdf.format(today) + ".xml";
+			//String htmlResult = folderPath + "metrics-results_"
+			//		+ projectName + "_" + sdf.format(today) + ".html";
+			
+			String xmlSource = folderPath + "metrics-results_"
+					+ projectName + "_" + metricAlias + ".xml";
+			
+			out = new OutputStreamWriter(new FileOutputStream(xmlSource, true));
+			out.append(sb.toString());
+			out.close();
+		} catch (Exception ex) {
+			MessageDialog.openInformation(null, "Error", ex.getMessage());
+			ex.printStackTrace();
+		} finally {
+			if (out != null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	public static void writeXml(List<MetricOutputRepresentation> metricValues, String projectName, String metricAlias) {
+		Writer out = null;
+		try {
+			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			StringBuffer sb = new StringBuffer();
+			sb.append(XmlUtils.get(metricValues));
+			sb.append("\t</class>\n");
+
+			String xmlSource = folderPath + "metrics-results_"
+					+ projectName + "_" + metricAlias + ".xml";
+			out = new OutputStreamWriter(new FileOutputStream(xmlSource, true));
+			out.append(sb.toString());
 			out.close();
 			/*TransformerFactory tFactory = TransformerFactory.newInstance();
 			Transformer transformer = tFactory.newTransformer(xslStreamSource);
@@ -74,40 +130,102 @@ public class XmlUtils {
 	private static String get(List<MetricOutputRepresentation> metricValues) {
 		
 		StringBuilder xml = new StringBuilder();
+		boolean flag = false;
+		
+		
 		
 		for(MetricOutputRepresentation metricValue : metricValues){
-			xml.append("<package name=\"");
-			xml.append(metricValue.getPackage_());
-			xml.append("\">\n");
-			xml.append("\t<class name=\"");
-			xml.append(metricValue.getClassName());
-			xml.append("\">\n");
-			xml.append("\t\t<metric alias=\"");
-			xml.append(metricValue.getAlias());
-			xml.append("\" name=\"");
-			xml.append(metricValue.getName());
-			xml.append("\">");
+			
+			if(!flag){
+				xml.append("\t\t<metric alias=\"");
+				xml.append(metricValue.getAlias());
+				xml.append("\" name=\"");
+				xml.append(metricValue.getName());
+				xml.append("\">");
+			}
+			
 			if(metricValue.isMultiMetric()){
-				xml.append("\t\t\t<element name=\"");
+				xml.append("\n\t\t\t<element name=\"");
 				xml.append(metricValue.getElementName());
 				xml.append("\" ");
 				xml.append("type=\"");
 				xml.append(metricValue.getType());
 				xml.append("\">");
 				xml.append(metricValue.getMetricValue());
-				xml.append("</element>\n");
-				xml.append("\t\t</metric>\n");
+				xml.append("</element>");
+				//xml.append("\t\t</metric>\n");
+				flag = true;
 			}else{
 				xml.append(metricValue.getMetricValue());
 				xml.append("</metric>\n");
 			}
-			xml.append("\t</class>\n");
-			xml.append("</package>\n");
-			
-			
 		}
 		
+		if(flag)
+			xml.append("\n\t\t</metric>\n");
+		
+		
 		return xml.toString();
+	}
+
+	public static void writePackage(String packageName, String projectName, String metricAlias) {
+
+		Writer out = null;
+		try {
+			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append("<package name=\"");
+			sb.append(packageName);
+			sb.append("\">\n");
+			
+			String xmlSource = folderPath + "metrics-results_"
+					+ projectName + "_" + metricAlias + ".xml";
+			out = new OutputStreamWriter(new FileOutputStream(xmlSource, true));
+			out.append(sb.toString());
+			out.close();
+		} catch (Exception ex) {
+			MessageDialog.openInformation(null, "Error", ex.getMessage());
+			ex.printStackTrace();
+		} finally {
+			if (out != null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		
+	}
+
+	public static void writeClass(String className, String projectName, String metricAlias) {
+		
+		Writer out = null;
+		try {
+			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append("\t<class name=\"");
+			sb.append(className);
+			sb.append("\">\n");
+			
+			String xmlSource = folderPath + "metrics-results_"
+					+ projectName + "_" + metricAlias + ".xml";
+			out = new OutputStreamWriter(new FileOutputStream(xmlSource, true));
+			out.append(sb.toString());
+			out.close();
+		} catch (Exception ex) {
+			MessageDialog.openInformation(null, "Error", ex.getMessage());
+			ex.printStackTrace();
+		} finally {
+			if (out != null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
 	}
 	
 }
