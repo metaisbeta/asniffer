@@ -65,7 +65,6 @@ public class XmlUtils {
 		try {
 			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
 			StringBuffer sb = new StringBuffer();
-			sb.append("</package>\n");
 			sb.append("</AnnotationMetricsResults>");
 			
 			//Date today = new Date(System.currentTimeMillis());
@@ -205,7 +204,6 @@ public class XmlUtils {
 			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
 			
 			StringBuffer sb = new StringBuffer();
-			
 			sb.append("\t<class name=\"");
 			sb.append(className);
 			sb.append("\">\n");
@@ -226,6 +224,34 @@ public class XmlUtils {
 					e.printStackTrace();
 				}
 		}
+	}
+
+	public static void finishPackage(String projectName, String metricAlias) {
+		
+		Writer out = null;
+		try {
+			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append("</package>\n");
+			
+			String xmlSource = folderPath + "metrics-results_"
+					+ projectName + "_" + metricAlias + ".xml";
+			out = new OutputStreamWriter(new FileOutputStream(xmlSource, true));
+			out.append(sb.toString());
+			out.close();
+		} catch (Exception ex) {
+			MessageDialog.openInformation(null, "Error", ex.getMessage());
+			ex.printStackTrace();
+		} finally {
+			if (out != null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		
 	}
 	
 }

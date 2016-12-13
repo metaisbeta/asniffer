@@ -133,7 +133,7 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	private static void createPackage(IProject project, String[] namePackages) 
 					throws JavaModelException {
 		Map<String, String> compilationUnitNames = new HashMap<String, String>();
-		compilationUnitNames = fillCompilationMap(namePackages.length);
+		compilationUnitNames = fillCompilationMap();
 		IJavaProject javaProject = JavaCore.create(project);
 		List<IPackageFragment> fragment = new ArrayList<IPackageFragment>();
         IFolder folder = project.getFolder("src");
@@ -147,12 +147,12 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
         createClass(javaProject, fragment, compilationUnitNames);
 	}
 
-	private static Map<String, String> fillCompilationMap(int numberOfPackages) {
+	private static Map<String, String> fillCompilationMap() {
 		Map<String, String> compilationUnitNames = new HashMap<String, String>();
 		
 		for(int i = 0; i < 3; i++)
 			compilationUnitNames.put("Classe"+(i+1),"Class");
-		for(int i = 0; i < 3; i++)
+		for(int i = 0; i < 4; i++)
 			compilationUnitNames.put("Annotation"+(i+1), "Annotation");
 		
 		return compilationUnitNames;
@@ -188,17 +188,22 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 		switch (compilationUnitName){
 		
 			case "Classe1":
+				buf.append("@Annotation4(arrayValue = {1,2,3,4})\n");
 				buf.append("private int y;\n");
+				buf.append("@Annotation4(arrayValue = {1,6,3,4})\n");
 				buf.append("private int z;\n");
 				break;
 			case "Classe2":
+				buf.append("final int xy = 3;\n");
 				buf.append("@Annotation1\n");
-				buf.append("@Annotation2(value1 = 2,\n");
-				buf.append("value2 = 3)\n"); 
+				buf.append("@Annotation2(value1 =  2,\n");
+				buf.append("value2 = 3,\n"); 
+				buf.append("value3 =\"String de teste: \" +  xy)\n"); 
 				buf.append("private int a;\n");
 				buf.append("@Annotation1\n");
 				buf.append("@Annotation2(value1 = 1,\n");
-				buf.append("value2 = 2)\n"); 
+				buf.append("value2 = 2,\n"); 
+				buf.append("value3 = \"String de teste: \" + xy)\n"); 
 				buf.append("private int b;\n");
 				break;
 			case "Classe3":
@@ -218,10 +223,13 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 			case "Annotation2":
 				buf.append("int value1();\n");
 				buf.append("double value2();\n");
+				buf.append("String value3();\n");
 				break;
 			case "Annotation3":
 				buf.append("Annotation1 value3();\n");
 				break;
+			case "Annotation4":
+				buf.append("int[] arrayValue();\n");
 		}
 		buf.append("}");
 		String content= buf.toString();
@@ -235,14 +243,14 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 		
 		List<Integer> numberOfLines = new ArrayList<Integer>();
 		numberOfLines  = aSniffer.getLOC("TestPlugin");
-		assertEquals(6, numberOfLines.size());
+		assertEquals(7, numberOfLines.size());
 		
 	}
 	//AC
 	@Test
 	public void testAC(){
 		
-		int expectedAC[] = {0,0,0,1,8,5};
+		int expectedAC[] = {0,0,0,3,8,5,0};
 		List<Integer> numAC = new ArrayList<>(); 
 		for(ICompilationUnit compilationUnit : compilationUnits){
 			numAC.add(aSniffer.getAC(compilationUnit));
@@ -257,7 +265,7 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	@Test
 	public void testUAC(){
 		
-		int expectedUAC[] = {0,0,0,1,2,3};
+		int expectedUAC[] = {0,0,0,3,2,3,0};
 		List<Integer> numUAC = new ArrayList<>(); 
 		for(ICompilationUnit compilationUnit : compilationUnits){
 			numUAC.add(aSniffer.getUAC(compilationUnit));
@@ -273,7 +281,7 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	@Test
 	public void testAED(){
 		
-		int expectedAED[] = {1,1,2,2,1,1,1,2,2,1,0,0,0,0,0,0,0,0};
+		int expectedAED[] = {1,1,2,2,1,1,1,2,2,1,0,0,0,0,0,0,0,0,1,1,0,0};
 		List<Integer> numAED = new ArrayList<>(); 
 		for(ICompilationUnit compilationUnit : compilationUnits){
 			numAED.addAll(aSniffer.getAED(compilationUnit));
@@ -285,12 +293,28 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 		assertArrayEquals(expectedAED, numAEDArray);
 	}
 	
+	//ASC
+	@Test
+	public void testASC(){
+		
+		int expectedASC[] = {0,0,0,0,0,0,0};
+		List<Integer> numASC = new ArrayList<>(); 
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			numASC.add(aSniffer.getASC(compilationUnit));
+		}
+		int[] numASCArray = numASC.stream().mapToInt(i->i).toArray();
+		
+		Arrays.sort(expectedASC);
+		Arrays.sort(numASCArray);
+		assertArrayEquals(expectedASC, numASCArray);
+	}
+	
 	@Test
 	public void testNumberClasses(){
 		
 		int numClasses = aSniffer.getNumClasses("TestPlugin");
 		
-		assertEquals(6, numClasses);
+		assertEquals(7, numClasses);
 	}
 	
 	//NAC
@@ -306,7 +330,7 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	@Test
 	public void testAA(){
 		
-		int expectedAA[] = {0,0,0,0,0,0,1,1,0,0,0,2,2,0};
+		int expectedAA[] = {0,0,0,0,0,0,1,1,0,0,0,3,3,0,1,1};
 		List<Integer> numAA = new ArrayList<>(); 
 		for(ICompilationUnit compilationUnit : compilationUnits){
 			numAA.addAll(aSniffer.getAA(compilationUnit));
@@ -321,7 +345,7 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	@Test
 	public void testLOCAD(){
 		
-		int expectedLOCAD[] = {1,1,1,1,1,1,1,1,1,1,1,1,2,2};
+		int expectedLOCAD[] = {1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1};
 		
 		List<Integer> numLOCAD = new ArrayList<>();
 		for(ICompilationUnit compilationUnit : compilationUnits){
@@ -348,7 +372,7 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	public void testGetNumberElements(){
 		List<Integer> numberElements = new ArrayList<Integer>();
 		numberElements = aSniffer.getNumberElements("TestPlugin");
-		assertEquals(6, numberElements.size());
+		assertEquals(7, numberElements.size());
 		/*assertEquals(3, numberElements.get(0).intValue());
 		assertEquals(4, numberElements.get(1).intValue());
 		assertEquals(6, numberElements.get(2).intValue());
@@ -363,7 +387,7 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	public void testGetNumberAnnotatedElements(){
 		List<Integer> numberAnnotatedElements = new ArrayList<Integer>();
 		numberAnnotatedElements = aSniffer.getNumberAnnotatedElements("TestPlugin");
-		assertEquals(6, numberAnnotatedElements.size());
+		assertEquals(7, numberAnnotatedElements.size());
 	}
 	
 	//Test to get the number of average number of attributes per annotations in a class
@@ -371,13 +395,29 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	@Test
 	public void testGetAverageNumberAttributesAnnotaton(){
 		
-		double expectedAAAC[] = {0,0,0,0,0.8,0.25};
+		double expectedAAAC[] = {0,0,0,0,1.2,0.25,0.66};
 		double[] numberAAA = aSniffer.getAvgNumberAtt("TestPlugin").stream().mapToDouble(i->i).toArray();
 		Arrays.sort(expectedAAAC);
 		Arrays.sort(numberAAA);
 		assertArrayEquals(expectedAAAC, numberAAA, 0.01);
 	}
 	
+	
+	//AA
+	@Test
+	public void testANL(){
+		
+		int expectedANL[] = {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0};
+		List<Integer> numANL = new ArrayList<>(); 
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			numANL.addAll(aSniffer.getANL(compilationUnit));
+		}
+		int[] numANLArray = numANL.stream().mapToInt(i->i).toArray();
+		
+		Arrays.sort(expectedANL);
+		Arrays.sort(numANLArray);
+		assertArrayEquals(expectedANL, numANLArray);
+	}
 	
 	
 	@AfterClass

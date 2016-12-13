@@ -38,13 +38,10 @@ public class AnnotationSnifferHandler extends AbstractHandler {
 	List<String> allValues = new ArrayList<>();
 	List<String> data = new ArrayList<String>();
 	GenerateCSV csvWriter = new GenerateCSV();
-	private List<Integer> numLOCAD = new ArrayList<>();
-	private List<Integer> numAED = new ArrayList<>();
-	private List<Integer> numNAECs = new ArrayList<>();
-	private List<Integer> numAA = new ArrayList<>();
-	private List<Integer> numAC = new ArrayList<>();
-	private List<Integer> numUAC = new ArrayList<>();
-	private String metricsAlias[] = {"AC", "LOCAD", "AED", "AA", "UAC"};
+	private List<Integer> numLOCAD = new ArrayList<>(), numAED = new ArrayList<>(), numNAECs = new ArrayList<>();
+	private List<Integer> numAA = new ArrayList<>(), numAC = new ArrayList<>(), numUAC = new ArrayList<>();
+	private List<Integer> numANL = new ArrayList<>(), numASC = new ArrayList<>();
+	private String metricsAlias[] = {"AC", "LOCAD", "AED", "AA", "UAC", "ANL", "ASC"};
 	
 	public Object execute(ExecutionEvent event) throws ExecutionException {
                 // Get the root of the workspace
@@ -67,11 +64,17 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                 for (IProject project : projects) {
                         try {
                             projectName = project.getName();
+                            MessageDialog.openInformation(
+                    				window.getShell(),
+                    				"Annotation Sniffer",
+                    				"Begin!");
                             //Must be a java project
                             if (project.isNatureEnabled("org.eclipse.jdt.core.javanature")){
-                               	javaProject = JavaCore.create(project);
+                            	//numClasses = aSniffer.getAnnotatedClass(projectName);
+                            	javaProject = JavaCore.create(project);
                                	packages = javaProject.getPackageFragments();
                                	//Creates XML file (beginning) for each metric
+                               	//numClassesAnotadas = aSniffer.getNumberAnnotatedElements(projectName);
                                	for(String metricAlias : metricsAlias){
                                		XmlUtils.writeXMLBeginning(projectName, metricAlias);
                                	}
@@ -97,9 +100,17 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                                 					XmlUtils.writeXml(aSniffer.getMetricsOutputRepresentation(), projectName, "AA");
                                 					numUAC.add(aSniffer.getUAC(unit));
                                 					XmlUtils.writeXml(aSniffer.getMetricsOutputRepresentation(), projectName, "UAC");
-                                					
-                                				}	
+                                					numANL.addAll(aSniffer.getANL(unit));
+                                					XmlUtils.writeXml(aSniffer.getMetricsOutputRepresentation(), projectName, "ANL");
+                                					numASC.add(aSniffer.getASC(unit));
+                                					XmlUtils.writeXml(aSniffer.getMetricsOutputRepresentation(), projectName, "ASC");
+                                				}
+                                				
+                                				for(String metricAlias : metricsAlias){
+                            						XmlUtils.finishPackage(projectName, metricAlias);
+                                               	}
                             				}
+                            				
                             			}
                             		}catch (Exception e) {
 										e.printStackTrace();
@@ -110,16 +121,20 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                                 e.printStackTrace();
                         }
                         //Finishes the XML file
-                        //XmlUtils.writeXml(aSniffer.getMetricsOutputRepresentation(), projectName);
                         for(String metricAlias : metricsAlias){
                         	XmlUtils.writeXMLEnd(projectName, metricAlias);
                        	}
+                        //Writes a csv file
+                        //for (Integer num : numUAC)
+      		  	  	  	//	allValues.add(String.valueOf(num));
+                        //csvWriter.writeCSV("AnnotationUsage", "AnnotationUsage.csv", cwdPath + "/output/", 
+                        	//	allValues, 10000);
                 }
                 
                 MessageDialog.openInformation(
         				window.getShell(),
         				"Annotation Sniffer",
-        				"Concluido! ");
+        				"Finished! ");
                 return null;
         }
 }

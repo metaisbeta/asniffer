@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.security.auth.kerberos.KerberosKey;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -15,6 +17,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IAnnotation;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IImportDeclaration;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.ILocalVariable;
@@ -34,7 +37,7 @@ import br.inpe.cap.asniffer.output.MetricOutputRepresentation;
 import static br.inpe.cap.asniffer.util.UnitParser.numberOfLinesOfCode;
 
 public class AnnotationSniffer {
-	
+	int count = 0;
 	IWorkspace workspace = ResourcesPlugin.getWorkspace();
     IWorkspaceRoot rootWorkspace = workspace.getRoot();
     IAnnotation[] annotations = new IAnnotation[0];
@@ -44,6 +47,7 @@ public class AnnotationSniffer {
 	IMember member = null;
 	IProject project;
 	IJavaProject javaProject;
+	Set<String> uacNames = new HashSet<>();
 	List<MetricOutputRepresentation> metricsOutputRepresentation = new ArrayList<>();
 	int nestingCount = 0;
 	
@@ -120,7 +124,7 @@ public class AnnotationSniffer {
 
 	public int getUAC(ICompilationUnit compilationUnit) {
 		
-		
+		count++;
 		anotList = new ArrayList<IAnnotation>();
 		int uac = 0;
 		metricsOutputRepresentation.clear(); //Makes sure this list contains only metrics for current project
@@ -137,8 +141,12 @@ public class AnnotationSniffer {
 				}
 			}
 			//All annotation classes has been fetched
+			System.out.println("Nome da classe: " + compilationUnit.getElementName());
 			
 			uac = (fetchUAC(uacBuilder).size());
+			//	uac = 0;
+			System.out.println("Valor do UAC "+ uac);
+			System.out.println("Valor contador " + count);
 			//Save Metric Representation
 			metricsOutputRepresentation.add(new MetricOutputRepresentation("UAC","Unique Annotations in Class",uac));
 			//Clear all annotations fetched
@@ -152,18 +160,12 @@ public class AnnotationSniffer {
 	private Set<String> fetchUAC(StringBuilder uacBuilder) {
 		
 		Set<String> uacNames = new HashSet<>();
+		String attributes = "teste";
 		//Check the array anotList, and retrives only distinct annotations
 		for(IAnnotation annotation : anotList){
 			uacBuilder.delete(0, uacBuilder.length());//Clear string buffer, for better performance
-			
 			try {
-				for(IMemberValuePair attr : annotation.getMemberValuePairs()){
-					String attributes[] = attr.getValue().toString().split(" ");
-					uacBuilder.append(attr.getMemberName());
-					uacBuilder.append("=");
-					uacBuilder.append(attributes[0]);
-				}
-				uacBuilder.append(annotation.getElementName());
+				uacBuilder.append(annotation.getSource().trim().replaceAll("\n", ""));
 				uacNames.add(uacBuilder.toString());
 			} catch (JavaModelException e) {
 				e.printStackTrace();
@@ -204,9 +206,7 @@ public class AnnotationSniffer {
 				int type = entry.getKey().getElementType();
 				metricsOutputRepresentation.add(new MetricOutputRepresentation("AED", "Annotations in Element Declaration",
 																			entry.getValue(), true, elementName, type));
-				
 				numAED.add(entry.getValue());
-				
 			}
 			
 		} catch (Exception e) {
@@ -246,6 +246,47 @@ public class AnnotationSniffer {
 		return numAA;
 	}
 	
+	public int getASC(ICompilationUnit compilationUnit){
+		
+		anotList = new ArrayList<IAnnotation>();
+		Set<String> ascSchemas = new HashSet<>();
+		int asc = 0;
+		metricsOutputRepresentation.clear(); //Makes sure this list contains only metrics for current project
+		
+		try {
+			for(IType type : compilationUnit.getAllTypes()){
+				fetchAnnotations(type);
+				for(IField field : type.getFields())
+					fetchAnnotations(field);
+				for(IMethod method : type.getMethods()){
+					fetchAnnotations(method);
+					for(ILocalVariable parameter : method.getParameters())
+						fetchAnnotations(parameter);
+				}
+			}
+			for (IAnnotation annotation : anotList) {
+				String annotationName = annotation.getElementName();
+				for (IImportDeclaration impDcl : compilationUnit.getImports())
+					if (!annotationName.contains(".")) {
+						String aName = getSimpleClassName(impDcl);
+						if (annotationName.equals(aName))
+							ascSchemas.add(getSchema(impDcl));
+					} else if (annotationName.equals(impDcl.getElementName()))
+						ascSchemas.add(getSchema(impDcl));
+			}
+			
+			//All annotation classes has been fetched
+			asc = ascSchemas.size();
+			//Save Metric Representation
+			metricsOutputRepresentation.add(new MetricOutputRepresentation("ASC","Annotations Schemas in Class",asc));
+			//Clear all annotations fetched
+			anotList.clear();
+			} catch (JavaModelException e) {
+				e.printStackTrace();
+			}
+		return asc;
+	}
+	
 	public int getNumClasses(String nameProject) {
 
 		project = fetchProject(nameProject);
@@ -268,6 +309,57 @@ public class AnnotationSniffer {
 		return classesList.size();
 	}
 	
+	public List<Integer> getANL(ICompilationUnit compilationUnit) {
+	
+		anotList = new ArrayList<IAnnotation>();
+		metricsOutputRepresentation.clear(); //Makes sure this list contains only metrics for current project
+		List<Integer> numANL = new ArrayList<>();
+		Map<IAnnotation, Integer> anlMap = new HashMap<>();
+		List<String> anlList = new ArrayList<>();
+		try {
+			for(IType type : compilationUnit.getAllTypes()){
+				fetchAnnotations(type);
+				for(IField field : type.getFields())
+					fetchAnnotations(field);
+				for(IMethod method : type.getMethods()){
+					fetchAnnotations(method);
+					for(ILocalVariable parameter : method.getParameters())
+						fetchAnnotations(parameter);
+				}
+			}
+			//All annotation classes has been fetched
+			//Save Metric Representation
+			//metricsOutputRepresentation.add(new MetricOutputRepresentation("ANL", "Annotation Nesting Level", 0, true, 
+			//															elementName, type);
+			//Clear all annotations fetched
+			for(IAnnotation annotation : anotList){
+				String attributes[] = annotation.toString().split(" ");
+				for(String att : attributes){
+					if(att.contains("@"))
+						anlList.add(att);
+				}
+				anlMap.put(annotation, anlList.size() - 1);//ANL starts at level 0
+				anlList.clear();
+			}
+			
+			Set<Map.Entry<IAnnotation, Integer>> entries = anlMap.entrySet();
+			for(Map.Entry<IAnnotation, Integer> entry : entries){
+				String elementName = entry.getKey().getElementName();
+				int type = entry.getKey().getElementType();
+				metricsOutputRepresentation.add(new MetricOutputRepresentation("ANL", "Annotation Nesting Level", entry.getValue(), true, 
+																					elementName, type));
+				numANL.add(entry.getValue());
+			}
+			
+			anotList.clear();
+
+		} catch (JavaModelException e) {
+			e.printStackTrace();
+		}
+		
+		return numANL;
+	
+	}
 
 	//LOCAD
 	public List<Integer> getLOCAD(ICompilationUnit compilationUnit) {
@@ -519,6 +611,11 @@ public class AnnotationSniffer {
 		return nestingCount;
 	}
 
+	private String resolverInnerAnnotations(){
+		
+		return null;
+	}
+	
 	private List<IType> fetchAnnotatedClass(IJavaProject javaProject) {
 
 		List<IType> classeList = new ArrayList<IType>();
@@ -614,7 +711,6 @@ public class AnnotationSniffer {
 		}  
 		
 		for (IPackageFragment pacote : packages) {
-			
 			try {
 				if (pacote.getKind() == IPackageFragmentRoot.K_SOURCE) {
 				   for(ICompilationUnit unit : pacote.getCompilationUnits()){
@@ -623,12 +719,27 @@ public class AnnotationSniffer {
 					}
 				}
 			} catch (JavaModelException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
 		}
 		return classeList;
 	
 	}
+	
+	private String getSimpleClassName(IImportDeclaration impDcl) {
+		String importName = impDcl.getElementName();
+		String[] tmp = importName.split("\\.");
+		return tmp[tmp.length - 1];
+	}
+	
+	private String getSchema(IImportDeclaration impDcl) {
+		String importName = impDcl.getElementName();
+		String[] tmp = importName.split("\\.");
+		String schema = "";
+		for (int i = 0; i < tmp.length - 2; i++)
+			schema += tmp[i] + ".";
+		schema += tmp[tmp.length -2];
+		return schema;
+	}
+	
 }
