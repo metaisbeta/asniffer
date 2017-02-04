@@ -4,30 +4,30 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.io.Writer;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.PlatformUI;
 
+import br.inpe.cap.asniffer.output.MetricRepresentation;
+import br.inpe.cap.asniffer.output.ClassRepresentation;
 import br.inpe.cap.asniffer.output.MetricOutputRepresentation;
+import br.inpe.cap.asniffer.output.PackageRepresentation;
 
 public class XmlUtils {
 
 	public static void writeXMLBeginning(String projectName, String metricAlias){
 		Writer out = null;
 		try {
-			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			String rootPath = new File("").getAbsolutePath();
+			File f = new File(rootPath + File.separator + projectName);
+			f.mkdir();
+			
+			String folderPath = f.getAbsolutePath() + File.separator + "asniffer";
+			
 			StringBuffer sb = new StringBuffer("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 			sb.append("<?xml-stylesheet type=\"text/xsl\" href=\"metrics-results.xsl\"?>\n");
 			sb.append("<AnnotationMetricsResults project-name=\"");
@@ -38,12 +38,6 @@ public class XmlUtils {
 
 			String xmlSource = folderPath + "metrics-results_"
 					+ projectName + "_" + metricAlias + ".xml";
-			/*String htmlResult = folderPath + "metrics-results_"
-					+ projectName + "_" + sdf.format(today) + ".html";
-			 
-			String path = "plugins/metrics-results.xsl";
-			StreamSource xslStreamSource = new StreamSource(XmlUtils.class.getClassLoader().getResourceAsStream(path));
-			*/
 			out = new OutputStreamWriter(new FileOutputStream(xmlSource));
 			out.write(sb.toString());
 			out.close();
@@ -63,7 +57,7 @@ public class XmlUtils {
 	public static void writeXMLEnd(String projectName, String metricAlias){
 		Writer out = null;
 		try {
-			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			String folderPath = new File("").getAbsolutePath() + File.separator + projectName + File.separator + "asniffer";
 			StringBuffer sb = new StringBuffer();
 			sb.append("</AnnotationMetricsResults>");
 			
@@ -94,10 +88,10 @@ public class XmlUtils {
 		}
 	}
 	
-	public static void writeXml(List<MetricOutputRepresentation> metricValues, String projectName, String metricAlias) {
+	public static void writeXml(List<MetricRepresentation> metricValues, String projectName, String metricAlias) {
 		Writer out = null;
 		try {
-			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			String folderPath = new File("").getAbsolutePath() + File.separator + projectName + File.separator + "asniffer";
 			StringBuffer sb = new StringBuffer();
 			sb.append(XmlUtils.get(metricValues));
 			sb.append("\t</class>\n");
@@ -107,12 +101,7 @@ public class XmlUtils {
 			out = new OutputStreamWriter(new FileOutputStream(xmlSource, true));
 			out.append(sb.toString());
 			out.close();
-			/*TransformerFactory tFactory = TransformerFactory.newInstance();
-			Transformer transformer = tFactory.newTransformer(xslStreamSource);
-			transformer.transform(new StreamSource(new StringReader(sb.toString())), new StreamResult(new FileOutputStream(htmlResult)));
 			
-			PlatformUI.getWorkbench().getBrowserSupport().createBrowser("internalBrowser").openURL(new URL("file://" + htmlResult));			
-			*/
 		} catch (Exception ex) {
 			MessageDialog.openInformation(null, "Error", ex.getMessage());
 			ex.printStackTrace();
@@ -126,14 +115,12 @@ public class XmlUtils {
 		}
 	}
 
-	private static String get(List<MetricOutputRepresentation> metricValues) {
+	private static String get(List<MetricRepresentation> metricValues) {
 		
 		StringBuilder xml = new StringBuilder();
 		boolean flag = false;
 		
-		
-		
-		for(MetricOutputRepresentation metricValue : metricValues){
+		for(MetricRepresentation metricValue : metricValues){
 			
 			if(!flag){
 				xml.append("\t\t<metric alias=\"");
@@ -148,14 +135,14 @@ public class XmlUtils {
 				xml.append(metricValue.getElementName());
 				xml.append("\" ");
 				xml.append("type=\"");
-				xml.append(metricValue.getType());
+				xml.append(metricValue.getElementType());
 				xml.append("\">");
-				xml.append(metricValue.getMetricValue());
+				xml.append(metricValue.getSingleMetricValue());
 				xml.append("</element>");
 				//xml.append("\t\t</metric>\n");
 				flag = true;
 			}else{
-				xml.append(metricValue.getMetricValue());
+				xml.append(metricValue.getSingleMetricValue());
 				xml.append("</metric>\n");
 			}
 		}
@@ -171,7 +158,7 @@ public class XmlUtils {
 
 		Writer out = null;
 		try {
-			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			String folderPath = new File("").getAbsolutePath() + File.separator + projectName + File.separator + "asniffer";
 			StringBuffer sb = new StringBuffer();
 			
 			sb.append("<package name=\"");
@@ -201,7 +188,7 @@ public class XmlUtils {
 		
 		Writer out = null;
 		try {
-			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			String folderPath = new File("").getAbsolutePath() + File.separator + projectName + File.separator + "asniffer";
 			
 			StringBuffer sb = new StringBuffer();
 			sb.append("\t<class name=\"");
@@ -230,7 +217,7 @@ public class XmlUtils {
 		
 		Writer out = null;
 		try {
-			String folderPath = new File("").getAbsolutePath() + File.separator + "asniffer";
+			String folderPath = new File("").getAbsolutePath() + File.separator + projectName + File.separator + "asniffer";
 			StringBuffer sb = new StringBuffer();
 			
 			sb.append("</package>\n");
@@ -254,4 +241,83 @@ public class XmlUtils {
 		
 	}
 	
+	public static StringBuffer prepareCompilationUnitXML(List<ClassRepresentation> classes_){
+		
+		StringBuffer sb = new StringBuffer();
+		
+		for(ClassRepresentation class_ : classes_){//Class
+			sb.append("\n\t<class name=\"" + class_.getClassName() + "\">");
+			for(MetricRepresentation metric : class_.getMetricRepresentation()){
+				sb.append("\n\t\t<metric alias=\"" + metric.getAlias());
+				sb.append("\" name=\"" + metric.getName() + "\">");
+				if(metric.isMultiMetric()){//Elements
+					for(int i = 0; i < metric.getMultiMetricValue().size(); i++){
+						sb.append("\n\t\t\t<element name=\"");
+						sb.append(metric.getElementName().get(i));
+						sb.append("\" ");
+						sb.append("type=\"");
+						sb.append(metric.getElementType().get(i));
+						sb.append("\">");
+						sb.append(metric.getMultiMetricValue().get(i));
+						sb.append("</element>");
+					}
+					sb.append("\n\t\t</metric>");
+				}else{
+					sb.append(metric.getSingleMetricValue() + "</metric>");
+				}
+			}
+			sb.append("\n\t</class>");
+		}
+		sb.append("\n");
+		return sb;
+		
+	}
+
+	public static StringBuffer preparePackage(PackageRepresentation package_) {
+
+		Writer out = null;
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("<package name=\"" + package_.getName() + "\">");
+		sb.append(prepareCompilationUnitXML(package_.getMetrics()));
+		sb.append("</package>\n");
+			
+		return sb;
+	}
+	
+	public static void writeXML2(MetricOutputRepresentation metricOutputRep){
+		
+		Writer out = null;
+		StringBuffer sb = new StringBuffer();
+		String cwd = new File("").getAbsolutePath();
+
+		try {
+			File dir = new File(cwd + File.separator + metricOutputRep.getProjectName());
+			dir.mkdir();
+			out = new OutputStreamWriter(new FileOutputStream(dir.getAbsolutePath() + File.separator + 
+								metricOutputRep.getProjectName() + ".xml"));
+			
+			sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+			sb.append("<?xml-stylesheet type=\"text/xsl\" href=\"metrics-results.xsl\"?>\n");
+			sb.append("<AnnotationMetricsResults/>\n");
+			sb.append("<project name=\"" + metricOutputRep.getProjectName() + "\"/>\n");
+			
+			for(PackageRepresentation package_ : metricOutputRep.getPackages_()){//Package
+				sb.append(preparePackage(package_));
+			}
+			
+			out.append(sb.toString());
+			out.close();
+		} catch (Exception ex) {
+			MessageDialog.openInformation(null, "Error", ex.getMessage());
+			ex.printStackTrace();
+		} finally {
+			if (out != null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		}
 }

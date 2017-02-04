@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="metrics-results.xsl"?>
+<AnnotationMetricsResults/>
+<project name="Project"/>
+<package name="Package0">
+	<class name="Class0">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class1">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class2">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class3">
+		<metric alias="AC" name="Annotations in Class">3.0</metric>
+	</class>
+	<class name="Class4">
+		<metric alias="AC" name="Annotations in Class">8.0</metric>
+	</class>
+	<class name="Class5">
+		<metric alias="AC" name="Annotations in Class">5.0</metric>
+	</class>
+	<class name="Class6">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+</package>
+<package name="Package1">
+	<class name="Class0">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class1">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class2">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class3">
+		<metric alias="AC" name="Annotations in Class">3.0</metric>
+	</class>
+	<class name="Class4">
+		<metric alias="AC" name="Annotations in Class">8.0</metric>
+	</class>
+	<class name="Class5">
+		<metric alias="AC" name="Annotations in Class">5.0</metric>
+	</class>
+	<class name="Class6">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+</package>
+<package name="Package2">
+	<class name="Class0">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class1">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class2">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+	<class name="Class3">
+		<metric alias="AC" name="Annotations in Class">3.0</metric>
+	</class>
+	<class name="Class4">
+		<metric alias="AC" name="Annotations in Class">8.0</metric>
+	</class>
+	<class name="Class5">
+		<metric alias="AC" name="Annotations in Class">5.0</metric>
+	</class>
+	<class name="Class6">
+		<metric alias="AC" name="Annotations in Class">0.0</metric>
+	</class>
+</package>

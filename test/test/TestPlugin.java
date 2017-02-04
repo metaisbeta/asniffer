@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,16 +21,20 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jface.text.Document;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import br.inpe.cap.asniffer.handlers.AnnotationSniffer;
+import br.inpe.cap.asniffer.output.MetricRepresentation;
+import br.inpe.cap.asniffer.util.XmlUtils;
 
+@RunWith(SWTBotJunit4ClassRunner.class)
 public class TestPlugin {
 
 private static SWTWorkbenchBot bot;
@@ -43,7 +46,7 @@ private static IPackageFragment[] packages = null;
 private static IWorkspace workspace;
 private static IWorkspaceRoot root;
 private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
-	
+
 	@BeforeClass
 	public static void beforeClass(){
 		String projectName = "";
@@ -104,11 +107,11 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
          
          
          if(!root.getProject("TestPlugin").exists()){
-	         bot.menu("File").menu("New").menu("Java Project").click();
-	 		 shell = bot.shell("New Java Project");
+	         bot.menu("File").menu("New").menu("Project...").click();
+	 		 shell = bot.shell("New Project");
 	 		 shell.activate();
-	 		 //bot.tree().expandNode("General").select("Project");
-	 		 //bot.button("Next >").click();
+	 		 bot.tree().expandNode("Java").select("Java Project");
+	 		 bot.button("Next >").click();
 	 		 bot.textWithLabel("Project name:").
 	 			setText("TestPlugin");
 	 		 bot.button("Finish").click();
@@ -249,45 +252,57 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	//AC
 	@Test
 	public void testAC(){
-		
+
 		int expectedAC[] = {0,0,0,3,8,5,0};
-		List<Integer> numAC = new ArrayList<>(); 
+		int[] numACArray = {0,0,0,0,0,0,0};
+		List<MetricRepresentation> acMetricOutput = new ArrayList<>(); 
 		for(ICompilationUnit compilationUnit : compilationUnits){
-			numAC.add(aSniffer.getAC(compilationUnit));
+			acMetricOutput.add(aSniffer.getAC(compilationUnit));
 		}
-		int[] numACArray = numAC.stream().mapToInt(i->i).toArray();
-		
+		for(int i = 0; i < acMetricOutput.size(); i++){
+			numACArray[i] = (int) acMetricOutput.get(i).getSingleMetricValue();
+		}
 		Arrays.sort(expectedAC);
 		Arrays.sort(numACArray);
 		assertArrayEquals(expectedAC, numACArray);
+
 	}
 	//UAC
 	@Test
 	public void testUAC(){
 		
 		int expectedUAC[] = {0,0,0,3,2,3,0};
-		List<Integer> numUAC = new ArrayList<>(); 
+		int[] numUACArray = {0,0,0,0,0,0,0};
+		List<MetricRepresentation> uacMetricOutput = new ArrayList<>(); 
 		for(ICompilationUnit compilationUnit : compilationUnits){
-			numUAC.add(aSniffer.getUAC(compilationUnit));
+			uacMetricOutput.add(aSniffer.getUAC(compilationUnit));
 		}
-		int[] numUACArray = numUAC.stream().mapToInt(i->i).toArray();
-		
+		for(int i = 0; i < uacMetricOutput.size(); i++){
+			numUACArray[i] = (int) uacMetricOutput.get(i).getSingleMetricValue();
+		}
 		Arrays.sort(expectedUAC);
 		Arrays.sort(numUACArray);
 		assertArrayEquals(expectedUAC, numUACArray);
-	}
-	
+		//Metricas coletadas
+		
+	}	
 	//AED
 	@Test
 	public void testAED(){
 		
 		int expectedAED[] = {1,1,2,2,1,1,1,2,2,1,0,0,0,0,0,0,0,0,1,1,0,0};
-		List<Integer> numAED = new ArrayList<>(); 
-		for(ICompilationUnit compilationUnit : compilationUnits){
-			numAED.addAll(aSniffer.getAED(compilationUnit));
-		}
-		int[] numAEDArray = numAED.stream().mapToInt(i->i).toArray();
+		int[] numAEDArray = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		List<Integer> numAED = new ArrayList<>();
 		
+		List<MetricRepresentation> aedMetricOutput = new ArrayList<>();
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			aedMetricOutput.add(aSniffer.getAED(compilationUnit));
+		}
+		
+		for(MetricRepresentation classRep : aedMetricOutput)
+			for(Integer metricValue : classRep.getMultiMetricValue())
+				numAED.add(metricValue);
+		numAEDArray = numAED.stream().mapToInt(i->i).toArray();
 		Arrays.sort(expectedAED);
 		Arrays.sort(numAEDArray);
 		assertArrayEquals(expectedAED, numAEDArray);
@@ -298,12 +313,14 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	public void testASC(){
 		
 		int expectedASC[] = {0,0,0,0,0,0,0};
-		List<Integer> numASC = new ArrayList<>(); 
+		int[] numASCArray = {0,0,0,0,0,0,0};
+		List<MetricRepresentation> ascMetricOutput = new ArrayList<>(); 
 		for(ICompilationUnit compilationUnit : compilationUnits){
-			numASC.add(aSniffer.getASC(compilationUnit));
+			ascMetricOutput.add(aSniffer.getASC(compilationUnit));
 		}
-		int[] numASCArray = numASC.stream().mapToInt(i->i).toArray();
-		
+		for(int i = 0; i < ascMetricOutput.size(); i++){
+			numASCArray[i] = (int) ascMetricOutput.get(i).getSingleMetricValue();
+		}
 		Arrays.sort(expectedASC);
 		Arrays.sort(numASCArray);
 		assertArrayEquals(expectedASC, numASCArray);
@@ -325,18 +342,21 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 		
 		assertEquals(3, numAnnotatedClass);
 	}
-	
 	//AA
 	@Test
 	public void testAA(){
 		
-		int expectedAA[] = {0,0,0,0,0,0,1,1,0,0,0,3,3,0,1,1};
-		List<Integer> numAA = new ArrayList<>(); 
+		int[] expectedAA = {0,0,0,0,0,0,1,1,0,0,0,3,3,0,1,1};
+		int[] numAAArray = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		List<Integer> numAA = new ArrayList<>();
+		List<MetricRepresentation> aaMetricOutput = new ArrayList<>();
 		for(ICompilationUnit compilationUnit : compilationUnits){
-			numAA.addAll(aSniffer.getAA(compilationUnit));
+			aaMetricOutput.add(aSniffer.getAA(compilationUnit));
 		}
-		int[] numAAArray = numAA.stream().mapToInt(i->i).toArray();
-		
+		for(MetricRepresentation classRep : aaMetricOutput)
+			for(Integer metricValue : classRep.getMultiMetricValue())
+				numAA.add(metricValue);
+		numAAArray = numAA.stream().mapToInt(i->i).toArray();
 		Arrays.sort(expectedAA);
 		Arrays.sort(numAAArray);
 		assertArrayEquals(expectedAA, numAAArray);
@@ -346,25 +366,21 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	public void testLOCAD(){
 		
 		int expectedLOCAD[] = {1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1};
-		
+		int[] numLOCADArray = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		List<Integer> numLOCAD = new ArrayList<>();
-		for(ICompilationUnit compilationUnit : compilationUnits){
-			numLOCAD.addAll(aSniffer.getLOCAD(compilationUnit));
-		}
-		int[] numLOCADArray = numLOCAD.stream().mapToInt(i->i).toArray();
 		
+		List<MetricRepresentation> locadMetricOutput = new ArrayList<>();
+		for(ICompilationUnit compilationUnit : compilationUnits){
+			locadMetricOutput.add(aSniffer.getLOCAD(compilationUnit));
+		}
+		
+		for(MetricRepresentation classRep : locadMetricOutput)
+			for(Integer metricValue : classRep.getMultiMetricValue())
+				numLOCAD.add(metricValue);
+		numLOCADArray = numLOCAD.stream().mapToInt(i->i).toArray();
 		Arrays.sort(expectedLOCAD);
 		Arrays.sort(numLOCADArray);
 		assertArrayEquals(expectedLOCAD, numLOCADArray);
-	}
-	
-	//ANL
-	//@Test
-	public void testAninhamentoAnotacao(){
-			
-		int nivelAninhamentoAnotacao = aSniffer.getNivelAninhamentoAnotacao("TestPlugin", "Classe2.java", "Annotation3", "Annotation1");
-			
-		assertEquals(2, nivelAninhamentoAnotacao);
 	}
 	
 	//Test to get number of elements in a class(class declaration, attributes, methods and etc..)
@@ -373,12 +389,6 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 		List<Integer> numberElements = new ArrayList<Integer>();
 		numberElements = aSniffer.getNumberElements("TestPlugin");
 		assertEquals(7, numberElements.size());
-		/*assertEquals(3, numberElements.get(0).intValue());
-		assertEquals(4, numberElements.get(1).intValue());
-		assertEquals(6, numberElements.get(2).intValue());
-		assertEquals(1, numberElements.get(3).intValue());
-		assertEquals(3, numberElements.get(4).intValue());
-		assertEquals(2, numberElements.get(5).intValue());*/
 	}
 	
 	//Test to get the number of annotated elements
@@ -403,25 +413,30 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 	}
 	
 	
-	//AA
+	//ANL
 	@Test
 	public void testANL(){
 		
-		int expectedANL[] = {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0};
-		List<Integer> numANL = new ArrayList<>(); 
+		int[] expectedANL = {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0};
+		int[] numANLArray = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		List<Integer> numANL = new ArrayList<>();
+		List<MetricRepresentation> anlMetricOutput = new ArrayList<>();
 		for(ICompilationUnit compilationUnit : compilationUnits){
-			numANL.addAll(aSniffer.getANL(compilationUnit));
+			anlMetricOutput.add(aSniffer.getANL(compilationUnit));
 		}
-		int[] numANLArray = numANL.stream().mapToInt(i->i).toArray();
-		
+		for(MetricRepresentation classRep : anlMetricOutput)
+			for(Integer metricValue : classRep.getMultiMetricValue())
+				numANL.add(metricValue);
+		numANLArray = numANL.stream().mapToInt(i->i).toArray();
 		Arrays.sort(expectedANL);
 		Arrays.sort(numANLArray);
 		assertArrayEquals(expectedANL, numANLArray);
 	}
 	
 	
+	
 	@AfterClass
-	public static void finaliza(){
+	public static void endEclipse(){
 		
 		bot.menu("File").menu("Exit").click();
 		
