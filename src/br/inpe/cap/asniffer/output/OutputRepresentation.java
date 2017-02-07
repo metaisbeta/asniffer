@@ -3,12 +3,12 @@ package br.inpe.cap.asniffer.output;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetricOutputRepresentation {
+public class OutputRepresentation {
 	
 	private List<PackageRepresentation> packages_;
 	private String projectName;
 	
-	public MetricOutputRepresentation(List<PackageRepresentation> packages_, String projectName){
+	public OutputRepresentation(List<PackageRepresentation> packages_, String projectName){
 		
 		this.packages_ = new ArrayList<>(packages_);
 		this.projectName = projectName;

@@ -175,8 +175,6 @@ private static List<ICompilationUnit> compilationUnits = new ArrayList<>();
 				}
 		        it.remove(); // avoids a ConcurrentModificationException
 		    }
-		
-		
 	}
 
 	private static String classContents(String compilationUnitName, String packageName) {

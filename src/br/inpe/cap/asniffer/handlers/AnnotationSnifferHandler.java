@@ -22,7 +22,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import br.inpe.cap.asniffer.output.ClassRepresentation;
 import br.inpe.cap.asniffer.output.GenerateCSV;
-import br.inpe.cap.asniffer.output.MetricOutputRepresentation;
+import br.inpe.cap.asniffer.output.OutputRepresentation;
 import br.inpe.cap.asniffer.output.MetricRepresentation;
 import br.inpe.cap.asniffer.output.PackageRepresentation;
 import br.inpe.cap.asniffer.util.XmlUtils;
@@ -31,14 +31,10 @@ public class AnnotationSnifferHandler extends AbstractHandler {
 
     AnnotationSniffer aSniffer = new AnnotationSniffer();    
 	GenerateCSV csvWriter = new GenerateCSV();
-	private List<Integer> numLOCAD = new ArrayList<>(), numAED = new ArrayList<>(),
-		numAA = new ArrayList<>(), numUAC = new ArrayList<>(),
-		numANL = new ArrayList<>(), numASC = new ArrayList<>();
 	
-	private String metricsAlias[] = {"AC", "LOCAD", "AED", "AA", "UAC", "ANL", "ASC"};
 	private List<ClassRepresentation> classOutputRep = new ArrayList<>();
 	private List<PackageRepresentation> packageOutputRep = new ArrayList<>();
-	private MetricOutputRepresentation metricOutputRep = null;
+	private OutputRepresentation metricOutputRep = null;
 	private List<MetricRepresentation> metricRep = new ArrayList<>();
 	
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -62,7 +58,6 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                             projectName = project.getName();
                             //Must be a java project
                             if (project.isNatureEnabled("org.eclipse.jdt.core.javanature") && project.isOpen()){
-                            	//numClasses = aSniffer.getAnnotatedClass(projectName);
                             	javaProject = JavaCore.create(project);
                                	packages = javaProject.getPackageFragments();
                                	for (IPackageFragment package_ : packages) {
@@ -71,13 +66,16 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                             				if(package_.getCompilationUnits().length != 0){//The package has no compilation unit
                                 				//For each compilation unit, fetch all metrics
                             					for(ICompilationUnit unit : package_.getCompilationUnits()){
-                                					metricRep.add(aSniffer.getAC(unit));
-                                					metricRep.add(aSniffer.getUAC(unit));
-                                					metricRep.add(aSniffer.getASC(unit));
-                                					metricRep.add(aSniffer.getLOCAD(unit));
-                                					metricRep.add(aSniffer.getAED(unit));
-                                					metricRep.add(aSniffer.getAA(unit));
-                                					metricRep.add(aSniffer.getANL(unit));
+                                					MetricRepresentation metric = aSniffer.getAC(unit);
+                                					metricRep.add(metric);
+                            						if(metric.getSingleMetricValue()!=0){
+                                    					metricRep.add(aSniffer.getUAC(unit));
+                                    					metricRep.add(aSniffer.getASC(unit));
+                                    					metricRep.add(aSniffer.getLOCAD(unit));
+                                    					metricRep.add(aSniffer.getAED(unit));
+                                    					metricRep.add(aSniffer.getAA(unit));
+                                    					metricRep.add(aSniffer.getANL(unit));
+                            						}
                                 					classOutputRep.add(new ClassRepresentation(metricRep, unit.getElementName()));
                                 					metricRep.clear();
                             					}
@@ -92,14 +90,13 @@ public class AnnotationSnifferHandler extends AbstractHandler {
 									}
                                	}
                                	//At this point all metrics have been fetched for a specific project
-                               	metricOutputRep = new MetricOutputRepresentation(packageOutputRep, projectName);
+                               	metricOutputRep = new OutputRepresentation(packageOutputRep, projectName);
                                	packageOutputRep.clear();
-                               	XmlUtils.writeXML2(metricOutputRep);
-                            }
+                               	XmlUtils.writeXML(metricOutputRep);
+                               	}
                         } catch (CoreException e) {
                                 e.printStackTrace();
                         }
-                        //Finishes the XML file
                 }
                 //Writes a csv file
                 /*for (Integer num : numUAC)
