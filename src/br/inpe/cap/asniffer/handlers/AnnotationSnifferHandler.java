@@ -1,5 +1,6 @@
 package br.inpe.cap.asniffer.handlers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class AnnotationSnifferHandler extends AbstractHandler {
 
     AnnotationSniffer aSniffer = new AnnotationSniffer();    
 	GenerateCSV csvWriter = new GenerateCSV();
+	private String cwd = new File("").getAbsolutePath();
 	
 	private List<ClassRepresentation> classOutputRep = new ArrayList<>();
 	private List<PackageRepresentation> packageOutputRep = new ArrayList<>();
@@ -52,7 +54,7 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                 MessageDialog.openInformation(
         				window.getShell(),
         				"Annotation Sniffer",
-        				"Begin!");
+        				"Initiate Extraction Process");
                 for (IProject project : projects) {
                         try {
                             projectName = project.getName();
@@ -63,6 +65,10 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                                	for (IPackageFragment package_ : packages) {
                             		try {
                             			if (package_.getKind() == IPackageFragmentRoot.K_SOURCE){//Only source code
+                            				 //GAMBI
+                                            if(package_.getElementName().contains("example") || package_.getElementName().contains("integration")
+                                            		|| package_.getElementName().contains("date"))
+                                            	continue;
                             				if(package_.getCompilationUnits().length != 0){//The package has no compilation unit
                                 				//For each compilation unit, fetch all metrics
                             					for(ICompilationUnit unit : package_.getCompilationUnits()){
@@ -106,7 +112,7 @@ public class AnnotationSnifferHandler extends AbstractHandler {
                 MessageDialog.openInformation(
         				window.getShell(),
         				"Annotation Sniffer",
-        				"Finished! ");
+        				"Metrics Extracted. XML report availabe at " + cwd);
                 return null;
         }
 }

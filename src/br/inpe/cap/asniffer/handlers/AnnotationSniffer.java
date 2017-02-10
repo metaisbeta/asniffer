@@ -37,6 +37,8 @@ import static br.inpe.cap.asniffer.util.UnitParser.numberOfLinesOfCode;
 
 public class AnnotationSniffer {
 	int count = 0;
+	
+	int overallAc = 0, overallAA = 0, overallLOCAD = 0;
 	IWorkspace workspace = ResourcesPlugin.getWorkspace();
     IWorkspaceRoot rootWorkspace = workspace.getRoot();
     IAnnotation[] annotations = new IAnnotation[0];
@@ -119,6 +121,12 @@ public class AnnotationSniffer {
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}
+		//GAMBI
+		overallAc += ac;
+		//All annotation classes has been fetched
+		System.out.println("Nome da classe: " + compilationUnit.getElementName());
+		System.out.println("AC: " + ac);
+		System.out.println("Cummulative AC: " + overallAc);
 		return new MetricRepresentation("AC","Annotations in Class",ac);
 	}
 
@@ -140,9 +148,6 @@ public class AnnotationSniffer {
 						fetchAnnotations(parameter);
 				}
 			}
-			//All annotation classes has been fetched
-			System.out.println("Nome da classe: " + compilationUnit.getElementName());
-			
 			uac = (fetchUAC(uacBuilder).size());
 			//Clear all annotations fetched
 			anotList.clear();

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: AnnotationSniffer
-Bundle-SymbolicName: br.inpe.cap.Asniffer;singleton:=true
+Bundle-SymbolicName: ASniffer2;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: annotationsniffer.Activator
 Bundle-Vendor: INPE

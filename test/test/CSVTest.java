@@ -28,8 +28,6 @@ public class CSVTest {
 		
 		char acValues[] = {'0','0','0','3','8','5','0'} ;
 		
-		
-		
 		String cwd = new File("").getAbsolutePath();
 		
 		FileWriter fileWriter = null;
@@ -64,10 +62,6 @@ public class CSVTest {
 			}
 			
 		}
-
-		
-		
-		
 		//List<MetricRepresentation> metricRep = fetchMetricRepresentation(acValues, "AC", "Annotations in Class");
 		//CSVUtils.writeCSV_DATA(metricRep);
 		

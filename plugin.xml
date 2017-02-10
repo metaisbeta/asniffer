@@ -5,11 +5,11 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            name="Sample Category"
+            name="Extract Annotation Metrics Category"
             id="br.inpe.cap.Asniffer.commands.category">
       </category>
       <command
-            name="Sample Command"
+            name="Extract Annotation Metrics Command"
             categoryId="br.inpe.cap.Asniffer.commands.category"
             id="br.inpe.cap.Asniffer.commands.sampleCommand">
       </command>
@@ -40,8 +40,8 @@
                id="br.inpe.cap.Asniffer.menus.sampleMenu">
             <command
                   commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
-                  mnemonic="S"
-                  id="br.inpe.cap.Asniffer.menus.sampleCommand">
+                  id="br.inpe.cap.Asniffer.menus.sampleCommand"
+                  label="Extract Annotation Metrics">
             </command>
          </menu>
       </menuContribution>
@@ -52,7 +52,7 @@
             <command
                   commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
                   icon="icons/sample.gif"
-                  tooltip="Activate Annotation Sniffer"
+                  tooltip="Extract Annotation Metrics"
                   id="br.inpe.cap.Asniffer.toolbars.sampleCommand">
             </command>
          </toolbar>
