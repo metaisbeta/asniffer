@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: AnnotationSniffer
 Bundle-SymbolicName: ASniffer2;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: annotationsniffer.Activator
+Bundle-Activator: br.inpe.cap.asniffer.Activator
 Bundle-Vendor: INPE
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.junit;bundle-version="3.9.0",

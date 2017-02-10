@@ -1,4 +1,4 @@
-package annotationsniffer;
+package br.inpe.cap.asniffer;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
