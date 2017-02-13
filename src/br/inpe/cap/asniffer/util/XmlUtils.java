@@ -61,7 +61,7 @@ public class XmlUtils {
 		
 		Writer out = null;
 		StringBuffer sb = new StringBuffer();
-		String cwd = new File("").getAbsolutePath();
+		String cwd = System.getProperty("user.dir");
 
 		try {
 			File dir = new File(cwd + File.separator + metricOutputRep.getProjectName());

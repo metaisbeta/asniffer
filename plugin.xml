@@ -5,26 +5,26 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            name="Extract Annotation Metrics Category"
-            id="br.inpe.cap.Asniffer.commands.category">
+            name="Sample Category"
+            id="AnnotationSniffer.commands.category">
       </category>
       <command
-            name="Extract Annotation Metrics Command"
-            categoryId="br.inpe.cap.Asniffer.commands.category"
-            id="br.inpe.cap.Asniffer.commands.sampleCommand">
+            name="Sample Command"
+            categoryId="AnnotationSniffer.commands.category"
+            id="AnnotationSniffer.commands.sampleCommand">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
+            commandId="AnnotationSniffer.commands.sampleCommand"
             class="br.inpe.cap.asniffer.handlers.AnnotationSnifferHandler">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
       <key
-            commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
+            commandId="AnnotationSniffer.commands.sampleCommand"
             contextId="org.eclipse.ui.contexts.window"
             sequence="M1+6"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
@@ -37,23 +37,24 @@
          <menu
                label="Annotation Sniffer"
                mnemonic="M"
-               id="br.inpe.cap.Asniffer.menus.sampleMenu">
+               id="AnnotationSniffer.menus.sampleMenu">
             <command
-                  commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
-                  id="br.inpe.cap.Asniffer.menus.sampleCommand"
-                  label="Extract Annotation Metrics">
+                  commandId="AnnotationSniffer.commands.sampleCommand"
+                  id="AnnotationSniffer.menus.sampleCommand"
+                  label="Extract Annotation Metrics!"
+                  mnemonic="S">
             </command>
          </menu>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
-               id="br.inpe.cap.Asniffer.toolbars.sampleToolbar">
+               id="AnnotationSniffer.toolbars.sampleToolbar">
             <command
-                  commandId="br.inpe.cap.Asniffer.commands.sampleCommand"
+                  commandId="AnnotationSniffer.commands.sampleCommand"
                   icon="icons/sample.gif"
                   tooltip="Extract Annotation Metrics"
-                  id="br.inpe.cap.Asniffer.toolbars.sampleCommand">
+                  id="AnnotationSniffer.toolbars.sampleCommand">
             </command>
          </toolbar>
       </menuContribution>

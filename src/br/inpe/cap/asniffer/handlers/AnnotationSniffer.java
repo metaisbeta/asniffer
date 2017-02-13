@@ -31,14 +31,12 @@ import org.eclipse.jface.text.Document;
 
 import br.inpe.cap.asniffer.exceptions.FileFormatException;
 import br.inpe.cap.asniffer.output.MetricRepresentation;
-import br.inpe.cap.asniffer.util.XmlUtils;
 
 import static br.inpe.cap.asniffer.util.UnitParser.numberOfLinesOfCode;
 
 public class AnnotationSniffer {
 	int count = 0;
 	
-	int overallAc = 0, overallAA = 0, overallLOCAD = 0;
 	IWorkspace workspace = ResourcesPlugin.getWorkspace();
     IWorkspaceRoot rootWorkspace = workspace.getRoot();
     IAnnotation[] annotations = new IAnnotation[0];
@@ -121,12 +119,6 @@ public class AnnotationSniffer {
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}
-		//GAMBI
-		overallAc += ac;
-		//All annotation classes has been fetched
-		System.out.println("Nome da classe: " + compilationUnit.getElementName());
-		System.out.println("AC: " + ac);
-		System.out.println("Cummulative AC: " + overallAc);
 		return new MetricRepresentation("AC","Annotations in Class",ac);
 	}
 
@@ -160,7 +152,6 @@ public class AnnotationSniffer {
 	private Set<String> fetchUAC(StringBuilder uacBuilder) {
 		
 		Set<String> uacNames = new HashSet<>();
-		String attributes = "teste";
 		//Check the array anotList, and retrives only distinct annotations
 		for(IAnnotation annotation : anotList){
 			uacBuilder.delete(0, uacBuilder.length());//Clear string buffer, for better performance
@@ -602,11 +593,6 @@ public class AnnotationSniffer {
 		}
 		
 		return nestingCount;
-	}
-
-	private String resolverInnerAnnotations(){
-		
-		return null;
 	}
 	
 	private List<IType> fetchAnnotatedClass(IJavaProject javaProject) {

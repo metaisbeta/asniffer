@@ -1,4 +1,4 @@
-package test;
+package br.inpe.cap.asniffer.test;
 
 import java.io.File;
 import java.io.FileWriter;

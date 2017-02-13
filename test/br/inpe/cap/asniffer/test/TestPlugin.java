@@ -1,4 +1,5 @@
-package test;
+package br.inpe.cap.asniffer.test;
+
 
 import static org.junit.Assert.*;
 
