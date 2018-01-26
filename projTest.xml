@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="projTest">
+    <package name="org.hibernate.test.bulkid">
+        <class name="AbstractBulkCompositeIdTest.java">
+            <metric name="aed">
+                <element name="getAnnotatedClasses" value="1"/>
+                <element name="constructConfiguration" value="1"/>
+                <element name="isCleanupTestDataRequired" value="1"/>
+                <element name="isCleanupTestDataUsingBulkDelete" value="1"/>
+                <element name="setUp" value="1"/>
+                <element name="testUpdate" value="2"/>
+                <element name="testDeleteFromPerson" value="1"/>
+                <element name="testDeleteFromEngineer" value="1"/>
+                <element name="Person" value="5"/>
+                <element name="id" value="1"/>
+                <element name="companyName" value="1"/>
+                <element name="equals" value="1"/>
+                <element name="hashCode" value="1"/>
+                <element name="Doctor" value="1"/>
+                <element name="Engineer" value="1"/>
+            </metric>
+            <metric name="aa">
+                <element name="AssociationOverrides" value="1"/>
+                <element name="AssociationOverride" value="2"/>
+                <element name="JoinColumn" value="1"/>
+                <element name="AssociationOverride" value="2"/>
+                <element name="JoinColumn" value="1"/>
+                <element name="NamedQuery" value="2"/>
+                <element name="Test" value="3"/>
+                <element name="Entity" value="2"/>
+                <element name="Inheritance" value="1"/>
+                <element name="Entity" value="1"/>
+                <element name="Entity" value="1"/>
+                <element name="Test" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+                <element name="Override" value="0"/>
+                <element name="Override" value="0"/>
+                <element name="Override" value="0"/>
+                <element name="Before" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="AssociationOverrides" value="0"/>
+                <element name="AssociationOverride" value="1"/>
+                <element name="JoinColumn" value="2"/>
+                <element name="AssociationOverride" value="1"/>
+                <element name="JoinColumn" value="2"/>
+                <element name="NamedQuery" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Annotation0" value="1"/>
+                <element name="Annotation2" value="1"/>
+                <element name="Entity" value="0"/>
+                <element name="Inheritance" value="0"/>
+                <element name="Id" value="0"/>
+                <element name="Id" value="0"/>
+                <element name="Override" value="0"/>
+                <element name="Override" value="0"/>
+                <element name="Entity" value="0"/>
+                <element name="Entity" value="0"/>
+            </metric>
+            <metric name="locad">
+                <element name="Override" value="1"/>
+                <element name="Override" value="1"/>
+                <element name="Override" value="1"/>
+                <element name="Override" value="1"/>
+                <element name="Before" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="AssociationOverrides" value="5"/>
+                <element name="AssociationOverride" value="2"/>
+                <element name="JoinColumn" value="1"/>
+                <element name="AssociationOverride" value="2"/>
+                <element name="JoinColumn" value="1"/>
+                <element name="NamedQuery" value="4"/>
+                <element name="Test" value="1"/>
+                <element name="Annotation0" value="1"/>
+                <element name="Annotation2" value="1"/>
+                <element name="Entity" value="1"/>
+                <element name="Inheritance" value="1"/>
+                <element name="Id" value="1"/>
+                <element name="Id" value="1"/>
+                <element name="Override" value="1"/>
+                <element name="Override" value="1"/>
+                <element name="Entity" value="1"/>
+                <element name="Entity" value="1"/>
+            </metric>
+            <metric name="asc" value="2"/>
+            <metric name="ac" value="26"/>
+            <metric name="uac" value="18"/>
+        </class>
+    </package>
+</project>

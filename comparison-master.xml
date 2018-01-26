@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="comparison-master">
+    <package name="net.sf.esfinge.comparison.example">
+        <class name="WeightComparisonReader.java">
+            <metric name="locad">
+                <element name="Anot1" value="1"/>
+                <element name="Teste" value="1"/>
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Anot1" value="0"/>
+                <element name="Teste" value="0"/>
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="WeightComparisonReader" value="1"/>
+                <element name="teste" value="1"/>
+                <element name="readAnnotation" value="1"/>
+            </metric>
+            <metric name="ac" value="3"/>
+            <metric name="uac" value="3"/>
+        </class>
+        <class name="Teste.java">
+            <metric name="locad">
+                <element name="Test" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Test" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="test" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="Address.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="Person.java">
+            <metric name="locad">
+                <element name="DeepComparison" value="1"/>
+                <element name="CompareSubstring" value="1"/>
+                <element name="Weight" value="1"/>
+                <element name="IgnoreInComparison" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="DeepComparison" value="0"/>
+                <element name="CompareSubstring" value="0"/>
+                <element name="Weight" value="0"/>
+                <element name="IgnoreInComparison" value="0"/>
+            </metric>
+            <metric name="aa">
+                <element name="CompareSubstring" value="1"/>
+            </metric>
+            <metric name="aed">
+                <element name="getAddress" value="1"/>
+                <element name="getName" value="1"/>
+                <element name="getWeight" value="1"/>
+                <element name="getAge" value="1"/>
+            </metric>
+            <metric name="ac" value="4"/>
+            <metric name="uac" value="4"/>
+        </class>
+        <class name="Weight.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.integration">
+        <class name="ComparisonTest.java">
+            <metric name="locad">
+                <element name="Before" value="1"/>
+                <element name="BeforeClass" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Before" value="0"/>
+                <element name="BeforeClass" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="createClasses" value="1"/>
+                <element name="setReaderProvider" value="1"/>
+                <element name="regularComparison" value="1"/>
+                <element name="comparisonWithIgnore" value="1"/>
+                <element name="comparisonWithOtherObject" value="1"/>
+                <element name="compositeComparison" value="1"/>
+                <element name="recursiveComparison" value="1"/>
+                <element name="comparisonBasedOnJPA" value="1"/>
+            </metric>
+            <metric name="ac" value="8"/>
+            <metric name="uac" value="3"/>
+        </class>
+        <class name="IntBean.java">
+            <metric name="locad">
+                <element name="Entity" value="1"/>
+                <element name="Id" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Entity" value="0"/>
+                <element name="Id" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="IntBean" value="1"/>
+                <element name="id" value="1"/>
+            </metric>
+            <metric name="ac" value="2"/>
+            <metric name="uac" value="2"/>
+        </class>
+        <class name="Bean.java">
+            <metric name="locad">
+                <element name="CollectionComparison" value="1"/>
+                <element name="CollectionComparison" value="1"/>
+                <element name="DeepComparison" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="CollectionComparison" value="0"/>
+                <element name="CollectionComparison" value="0"/>
+                <element name="DeepComparison" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="getList" value="1"/>
+                <element name="getCompList" value="2"/>
+            </metric>
+            <metric name="ac" value="3"/>
+            <metric name="uac" value="2"/>
+        </class>
+        <class name="ListComparisonTest.java">
+            <metric name="locad">
+                <element name="BeforeClass" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="BeforeClass" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="setReaderProvider" value="1"/>
+                <element name="differencesInStringList" value="1"/>
+                <element name="differencesInCompositeList" value="1"/>
+                <element name="differencesInCompositeListWithNullID" value="1"/>
+                <element name="differencesInListItensProp" value="1"/>
+            </metric>
+            <metric name="ac" value="5"/>
+            <metric name="uac" value="2"/>
+        </class>
+    </package>
+    <package name="net.sf.comparsion.date">
+        <class name="TestDate.java">
+            <metric name="locad">
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+                <element name="Test" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+                <element name="Test" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="dayToleranceTrue" value="1"/>
+                <element name="dayToleranceFalse" value="1"/>
+                <element name="dayToleranceIgnoreDayTrue" value="1"/>
+                <element name="dayToleranceIgnoreDayFalse" value="1"/>
+                <element name="locateTrue" value="1"/>
+                <element name="locateFalse" value="1"/>
+            </metric>
+            <metric name="ac" value="6"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="LocateDay.java">
+            <metric name="locad">
+                <element name="IgnoreLocale" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="IgnoreLocale" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="getCal" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="DayCompTolerance.java">
+            <metric name="locad">
+                <element name="IgnoreHour" value="1"/>
+                <element name="DayTolerance" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="IgnoreHour" value="0"/>
+                <element name="DayTolerance" value="0"/>
+            </metric>
+            <metric name="aa">
+                <element name="DayTolerance" value="1"/>
+            </metric>
+            <metric name="aed">
+                <element name="getCal" value="2"/>
+            </metric>
+            <metric name="ac" value="2"/>
+            <metric name="uac" value="2"/>
+        </class>
+        <class name="DayCompIgnoreDay.java">
+            <metric name="locad">
+                <element name="IgnoreHour" value="1"/>
+                <element name="IgnoreDay" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="IgnoreHour" value="0"/>
+                <element name="IgnoreDay" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="getCal" value="2"/>
+            </metric>
+            <metric name="ac" value="2"/>
+            <metric name="uac" value="2"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison">
+        <class name="PropertyDescriptor.java">
+            <metric name="locad">
+                <element name="ContainerFor" value="1"/>
+                <element name="ElementName" value="1"/>
+                <element name="PropertyProcessors" value="1"/>
+                <element name="Associate" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="ContainerFor" value="0"/>
+                <element name="ElementName" value="0"/>
+                <element name="PropertyProcessors" value="0"/>
+                <element name="Associate" value="0"/>
+            </metric>
+            <metric name="aa">
+                <element name="ContainerFor" value="1"/>
+                <element name="PropertyProcessors" value="1"/>
+                <element name="Associate" value="1"/>
+            </metric>
+            <metric name="aed">
+                <element name="PropertyDescriptor" value="1"/>
+                <element name="name" value="1"/>
+                <element name="processorNew" value="1"/>
+                <element name="associateType" value="1"/>
+            </metric>
+            <metric name="ac" value="4"/>
+            <metric name="uac" value="4"/>
+        </class>
+        <class name="Repository.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="CompareException.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="ComparisonDescriptor.java">
+            <metric name="locad">
+                <element name="ContainerFor" value="1"/>
+                <element name="ElementPropertyWithoutAnnotation" value="1"/>
+                <element name="ElementName" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="ContainerFor" value="0"/>
+                <element name="ElementPropertyWithoutAnnotation" value="0"/>
+                <element name="ElementName" value="0"/>
+            </metric>
+            <metric name="aa">
+                <element name="ContainerFor" value="1"/>
+                <element name="ElementPropertyWithoutAnnotation" value="1"/>
+            </metric>
+            <metric name="aed">
+                <element name="ComparisonDescriptor" value="1"/>
+                <element name="properties" value="1"/>
+                <element name="idProp" value="1"/>
+            </metric>
+            <metric name="ac" value="3"/>
+            <metric name="uac" value="3"/>
+        </class>
+        <class name="ComparisonComponent.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.reader">
+        <class name="JPAComparisonMetadataReader.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="populateContainer" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="ChainComparisonMetatataReader.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="populateContainer" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="MetadataReaderProvider.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="ComparisonMetadataReader.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.reader.delegate">
+        <class name="IgnoreDayReader.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="DelegateReader.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="DayToleranceReader.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="AnnotationReader.java">
+            <metric name="locad">
+                <element name="InitProcessor" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="InitProcessor" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="readAnnotation" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="IgnoreHourReader.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="SubstringComparisonReader.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="readAnnotation" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="CollectionComparisonReader.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="readAnnotation" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="IgnoreLocaleReader.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="DeepComparisonReader.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="readAnnotation" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="ToleranceReader.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="readAnnotation" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.processor">
+        <class name="ComparisonProcessor.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="IgnoreHourProcessor.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="IgnoreDayProcessor.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="DayToleranceProcessor.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="IgnoreLocaleProcessor.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="RegularProcessor.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="SubstringProcessor.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+                <element name="toString" value="1"/>
+            </metric>
+            <metric name="ac" value="2"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="ToleranceProcessor.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.annotation">
+        <class name="CollectionComparison.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="DayTolerance.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="CompareSubstring.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="DeepComparison.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="Tolerance.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="IgnoreInComparison.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="IgnoreHour.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="IgnoreDay.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="IgnoreLocale.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.utils">
+        <class name="BeanUtils.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.difference">
+        <class name="ListChange.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="Difference.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="ListChanceDifference.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="toString" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="PropertyDifference.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="toString" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.layer">
+        <class name="ComparisonLayer.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+        <class name="CollectionItensComparisonLayer.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="ValueComparisonLayer.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="DeepComparisonLayer.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="NullComparisonLayer.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="compare" value="1"/>
+            </metric>
+            <metric name="ac" value="1"/>
+            <metric name="uac" value="1"/>
+        </class>
+    </package>
+    <package name="net.sf.esfinge.comparison.metadata">
+        <class name="AssociateReadingProcessor.java">
+            <metric name="locad">
+                <element name="Override" value="1"/>
+                <element name="Override" value="1"/>
+            </metric>
+            <metric name="anl">
+                <element name="Override" value="0"/>
+                <element name="Override" value="0"/>
+            </metric>
+            <metric name="aa"/>
+            <metric name="aed">
+                <element name="initAnnotation" value="1"/>
+                <element name="read" value="1"/>
+            </metric>
+            <metric name="ac" value="2"/>
+            <metric name="uac" value="1"/>
+        </class>
+        <class name="Associate.java">
+            <metric name="locad"/>
+            <metric name="anl"/>
+            <metric name="aa"/>
+            <metric name="aed"/>
+            <metric name="ac" value="0"/>
+            <metric name="uac" value="0"/>
+        </class>
+    </package>
+</project>
