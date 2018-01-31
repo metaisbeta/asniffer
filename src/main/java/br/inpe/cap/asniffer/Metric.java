@@ -45,12 +45,22 @@ public class Metric {
 		this.type = type;
 	}
 	
-	//public void addElementMetric(String elementName)
-	
 	public int getClassMetric(String metricName) {
 		return classMetric.getMetricValue(metricName);
 	}
 	public void addClassMetric(String metricName, int metricValue) {
 		this.classMetric.addMetricValue(metricName, metricValue); 
+	}
+
+	public Map<String, Integer> getElementMetric(String metricName) {
+		if(elementMetric.containsKey(metricName))
+			return elementMetric.get(metricName).getMetricValue();
+		return null;
+	}
+
+	public void addElementMetric(String metricName, Map<String,Integer> metricValues) {
+		ElementMetric element = new ElementMetric();
+		element.addMetricValue(metricValues);
+		this.elementMetric.put(metricName, element);
 	}
 }

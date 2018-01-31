@@ -10,7 +10,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 
+import br.inpe.cap.asniffer.metric.AA;
 import br.inpe.cap.asniffer.metric.AC;
+import br.inpe.cap.asniffer.metric.AED;
 import br.inpe.cap.asniffer.metric.ASC;
 import br.inpe.cap.asniffer.metric.MetricCollector;
 import br.inpe.cap.asniffer.metric.NAEC;
@@ -81,7 +83,7 @@ private static final int MAX_AT_ONCE;
 	}
 
 	private List<MetricCollector> defaultMetrics() {
-		return new ArrayList<>(Arrays.asList(new AC(), new UAC(), new ASC(), new NAEC()));
+		return new ArrayList<>(Arrays.asList(new AC(), new UAC(), new ASC(), new NAEC(), new AED(), new AA()));
 	}
 
 	private List<MetricCollector> userMetrics() {

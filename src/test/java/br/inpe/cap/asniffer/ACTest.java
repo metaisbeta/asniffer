@@ -12,7 +12,7 @@ public class ACTest {
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report =  new AM().calculate(testFilePath);
+		report = new AM().calculate(testFilePath);
 	}
 	
 	@Test

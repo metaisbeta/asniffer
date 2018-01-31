@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 public class ElementVisitor extends ASTVisitor {
 	
@@ -31,6 +32,11 @@ public class ElementVisitor extends ASTVisitor {
 	
 	@Override
 	public boolean visit(FieldDeclaration node) {
+		Object o = node.fragments().get(0);
+		if(o instanceof VariableDeclarationFragment){
+			String name = ((VariableDeclarationFragment) o).getName().toString();
+			//if(name.toUpperCase().equals(name))
+		}
 		checkForAnnotations(node);
 		return super.visit(node);
 	}

@@ -11,15 +11,12 @@ public class ElementMetric {
 		metricValue = new HashMap<>();
 	}
 	
-	public int getMetricValue(String metric) {
-		if(metricValue.containsKey(metric))
-			return metricValue.get(metric);
-		else
-			return -1;
+	public Map<String, Integer> getMetricValue() {
+		return this.metricValue;
 	}
 
-	public void addMetricValue(String metricName, int metricValue) {
-		this.metricValue.put(metricName, metricValue);
+	public void addMetricValue(Map<String, Integer> metricValue) {
+		this.metricValue = metricValue;
 	}
 
 }

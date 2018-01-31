@@ -1,13 +1,16 @@
 package br.inpe.cap.asniffer;
 
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
+import java.util.Map;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class NAECTest {
+public class AATest {
 
 	private static AMReport report;
+	private int entries = 0;
 	
 	@BeforeClass
 	public static void setUp() {
@@ -16,8 +19,17 @@ public class NAECTest {
 	}
 	
 	@Test
-	public void testNAEC() {
+	public void testAA() {
+		
 		Metric a = report.getByClassName("annotationtest.AnnotationTest");
-		Assert.assertEquals(16, a.getClassMetric("NAEC"));
+		Map<String,Integer> aa = a.getElementMetric("AA");
+		
+		aa.forEach((k,v)->{
+			System.out.println("Annotation : " + k + " AA : " + v);
+			entries++;
+		});
+		
+		assertEquals(17, entries);
 	}
+	
 }

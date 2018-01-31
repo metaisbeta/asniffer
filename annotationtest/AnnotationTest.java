@@ -8,8 +8,6 @@ package annotationtest;
 
 	https://www.sciencedirect.com/science/article/pii/S016412121730273X
 
-
-
 */
 
 import java.io.Serializable;
