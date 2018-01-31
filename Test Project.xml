@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="Test Project">
+    <package name="package.com.br.1">
+        <class name="Classe1">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+        <class name="Classe2">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+        <class name="Classe3">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+    </package>
+    <package name="package.com.br.2">
+        <class name="Classe1">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+        <class name="Classe2">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+        <class name="Classe3">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+    </package>
+    <package name="package.com.br.3">
+        <class name="Classe1">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+        <class name="Classe2">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+        <class name="Classe3">
+            <metric name="AED">
+                <element name="Atributo1" value="2"/>
+                <element name="Atributo2" value="3"/>
+                <element name="Atributo3" value="4"/>
+            </metric>
+            <metric name="AA">
+                <element name="Annotation1" value="5"/>
+                <element name="Annotation2" value="6"/>
+                <element name="Annotation3" value="7"/>
+            </metric>
+            <metric name="AC" value="2"/>
+            <metric name="UAC" value="3"/>
+            <metric name="ASC" value="4"/>
+        </class>
+    </package>
+</project>

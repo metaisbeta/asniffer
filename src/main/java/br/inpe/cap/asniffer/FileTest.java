@@ -30,7 +30,7 @@ public class FileTest {
 
 	static ASniffer aSniffer = ASniffer.getInstance();
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 	    List<Path> paths = new ArrayList<Path>();
 		for (Path path : FileUtils.listProjects("/Users/phillima/Documents/teste")) {
@@ -43,7 +43,7 @@ public class FileTest {
 			    search(paths);
 			prepareXML(MetricMapping.getPackagePojo(), projectName);
 		}
-	}
+	}*/
 	
 	private static void search(List<Path> paths) {
 		
@@ -62,7 +62,7 @@ public class FileTest {
 				}
 		}
 		for (Path path : dir) {
-			search(FileUtils.findFiles(path.toString()));
+			//search(FileUtils.findFiles(path.toString()));
 		}
 		
 	}
@@ -73,11 +73,11 @@ public class FileTest {
 	    AnnotationVisitor annotationVisitor = new AnnotationVisitor();
 	    ElementVisitor elementsVisitor = new ElementVisitor();
 	    
-	    String javaFile = FileUtils.readFileAsString(sourceFilePath);
+	    //String javaFile = FileUtils.readFileAsString(sourceFilePath);
 		String packageName = "";
 		String className = "";
 	    
-	    parser.setSource(javaFile.toCharArray());
+	    /*parser.setSource(javaFile.toCharArray());
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		parser.setResolveBindings(true);
 				
@@ -107,7 +107,7 @@ public class FileTest {
 		aSniffer.setProgrammingElements(elementsVisitor.getElementsAnnotation());
 		aSniffer.setPackageName(packageName);
 		aSniffer.setClassName(className);
-		aSniffer.execute(cu);
+		aSniffer.execute(cu);*/
 	}
 
 	private static void prepareXML(List<PackagePojo> packages_, String projectName) {

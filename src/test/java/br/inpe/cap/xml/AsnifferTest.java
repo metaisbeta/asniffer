@@ -31,8 +31,8 @@ public class AsnifferTest {
 	public static void initialize() {
 		aSniffer = ASniffer.getInstance();
 		String path = "/Users/phillima/Documents/eclipse-workspace/teste/AbstractBulkCompositeIdTest.java";
-		handleAnnotation(Paths.get(path));
-		initializeMultiMetrics();
+		//handleAnnotation(Paths.get(path));
+		//initializeMultiMetrics();
 	}
 	
 	@Test
@@ -96,7 +96,7 @@ public class AsnifferTest {
 		assertEquals(aedString, aedBuilder.toString());
 	}
 	
-	private static void handleAnnotation(Path sourceFilePath) {
+	/*private static void handleAnnotation(Path sourceFilePath) {
 		
 		ASTParser parser = ASTParser.newParser(AST.JLS8);
 	    AnnotationVisitor annotationVisitor = new AnnotationVisitor();
@@ -145,5 +145,5 @@ public class AsnifferTest {
 		aedString = FileUtils.readFileAsString("/Users/phillima/Documents/eclipse-workspace/teste/aedTest.txt");
 		 
 	}
-	
+	*/
 }
