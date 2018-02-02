@@ -5,7 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-public class MultiMetric {
+public class MultiMetric {/*
 
 	private String metricName;
 	private List<MetricsValues> metricsValues;
@@ -35,6 +35,6 @@ public class MultiMetric {
 	@XmlElement(name = "element")
 	public void setMetricsValues(List<MetricsValues> metricsValues) {
 		this.metricsValues = metricsValues;
-	}
+	}*/
 	
 }

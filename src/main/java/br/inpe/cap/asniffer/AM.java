@@ -13,7 +13,9 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import br.inpe.cap.asniffer.metric.AA;
 import br.inpe.cap.asniffer.metric.AC;
 import br.inpe.cap.asniffer.metric.AED;
+import br.inpe.cap.asniffer.metric.ANL;
 import br.inpe.cap.asniffer.metric.ASC;
+import br.inpe.cap.asniffer.metric.LOCAD;
 import br.inpe.cap.asniffer.metric.MetricCollector;
 import br.inpe.cap.asniffer.metric.NAEC;
 import br.inpe.cap.asniffer.metric.UAC;
@@ -51,11 +53,11 @@ private static final int MAX_AT_ONCE;
 		return this;
 	}
 	
-	public AMReport calculate(String path) {
+	public AMReport calculate(String path, String projectName) {
 		String[] srcDirs = FileUtils.getAllDirs(path);
 		String[] javaFiles = FileUtils.getAllJavaFiles(path);
 		
-		MetricsExecutor storage = new MetricsExecutor(() -> metrics());
+		MetricsExecutor storage = new MetricsExecutor(() -> metrics(), projectName);
 		
 		List<List<String>> partitions = Lists.partition(Arrays.asList(javaFiles), MAX_AT_ONCE);
 
@@ -83,7 +85,8 @@ private static final int MAX_AT_ONCE;
 	}
 
 	private List<MetricCollector> defaultMetrics() {
-		return new ArrayList<>(Arrays.asList(new AC(), new UAC(), new ASC(), new NAEC(), new AED(), new AA()));
+		return new ArrayList<>(Arrays.asList(new AC(), new UAC(), new ASC(), new NAEC(), new AED(), 
+				new AA(), new ANL(), new LOCAD()));
 	}
 
 	private List<MetricCollector> userMetrics() {

@@ -15,23 +15,23 @@ public class MetricsExecutor extends FileASTRequestor{
 	private Callable<List<MetricCollector>> metrics;
 	
 	
-	public MetricsExecutor(Callable<List<MetricCollector>> metrics) {
+	public MetricsExecutor(Callable<List<MetricCollector>> metrics, String projectName) {
 		this.metrics = metrics;
-		this.report = new AMReport();
+		this.report = new AMReport(projectName);
 	}
 
 	@Override
 	public void acceptAST(String sourceFilePath, 
 			CompilationUnit cu) {
 		
-		Metric result = null;
+		MetricResult result = null;
 		
 		try {
 			ClassInfo info = new ClassInfo();
 			cu.accept(info);
 			if(info.getClassName()==null) return;
 		
-			result = new Metric(sourceFilePath, info.getClassName(), info.getType());
+			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType());
 			
 			//int loc = new LOCCalculator().calculate(new FileInputStream(sourceFilePath));
 			//result.setLoc(loc);

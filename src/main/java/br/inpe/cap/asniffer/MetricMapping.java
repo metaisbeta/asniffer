@@ -17,13 +17,10 @@ import br.inpe.cap.asniffer.annotations.Clazz;
 import br.inpe.cap.asniffer.annotations.MultMetric;
 import br.inpe.cap.asniffer.annotations.Package_;
 import br.inpe.cap.asniffer.annotations.SimpMetric;
-import br.inpe.cap.asniffer.output.ClassPojo;
-import br.inpe.cap.asniffer.output.MetricsValues;
 import br.inpe.cap.asniffer.output.MultiMetric;
-import br.inpe.cap.asniffer.output.PackagePojo;
 import br.inpe.cap.asniffer.output.SimpleMetric;
 
-public class MetricMapping {
+public class MetricMapping {/*
 
 	private static List<SimpleMetric> simpleMetric;
 	private static List<MultiMetric> multiMetric;
@@ -121,5 +118,5 @@ public class MetricMapping {
 				metricValues.add(new MetricsValues(((Annotation)k).getTypeName().toString(),v));
 		});
 		multiMetric.add(new MultiMetric(propName,metricValues));
-	}
+	}*/
 }

@@ -7,7 +7,7 @@ import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import br.inpe.cap.asniffer.AMReport;
-import br.inpe.cap.asniffer.Metric;
+import br.inpe.cap.asniffer.MetricResult;
 
 public class AC extends ASTVisitor implements MetricCollector{
 
@@ -32,13 +32,13 @@ public class AC extends ASTVisitor implements MetricCollector{
 	}
 	
 	@Override
-	public void execute(CompilationUnit cu, Metric result, AMReport report) {
+	public void execute(CompilationUnit cu, MetricResult result, AMReport report) {
 		cu.accept(this);
 		
 	}
 
 	@Override
-	public void setResult(Metric result) {
+	public void setResult(MetricResult result) {
 		result.addClassMetric("AC",annotations);
 		
 	}

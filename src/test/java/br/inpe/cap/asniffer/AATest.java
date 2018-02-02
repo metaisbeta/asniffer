@@ -15,20 +15,18 @@ public class AATest {
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report = new AM().calculate(testFilePath);
+		report = new AM().calculate(testFilePath, "project");
 	}
 	
 	@Test
 	public void testAA() {
 		
-		Metric a = report.getByClassName("annotationtest.AnnotationTest");
+		MetricResult a = report.getByClassName("annotationtest.AnnotationTest");
 		Map<String,Integer> aa = a.getElementMetric("AA");
-		
 		aa.forEach((k,v)->{
 			System.out.println("Annotation : " + k + " AA : " + v);
 			entries++;
 		});
-		
 		assertEquals(17, entries);
 	}
 	

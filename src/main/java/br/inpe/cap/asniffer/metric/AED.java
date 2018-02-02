@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import br.inpe.cap.asniffer.AMReport;
-import br.inpe.cap.asniffer.Metric;
+import br.inpe.cap.asniffer.MetricResult;
 
 public class AED extends ASTVisitor implements MetricCollector{
 
@@ -69,13 +69,13 @@ public class AED extends ASTVisitor implements MetricCollector{
 	}
 	
 	@Override
-	public void execute(CompilationUnit cu, Metric result, AMReport report) {
+	public void execute(CompilationUnit cu, MetricResult result, AMReport report) {
 		this.cu = cu;
 		cu.accept(this);
 	}
 
 	@Override
-	public void setResult(Metric result) {
+	public void setResult(MetricResult result) {
 		Map<String, Integer> aedValue = new HashMap<>();
 		aed.forEach((k,v)->{
 			aedValue.put(k, v);

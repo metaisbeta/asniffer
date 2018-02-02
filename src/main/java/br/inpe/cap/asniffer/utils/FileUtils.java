@@ -1,7 +1,12 @@
 package br.inpe.cap.asniffer.utils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtils {
 	
@@ -52,5 +57,29 @@ public class FileUtils {
 		}
 	}
 	
+	public static List<Path> getProjectsPath(String projectPath){
+		
+		List<Path> projectsPaths = new ArrayList<>();
+		
+		try {
+			Files.list(Paths.get(projectPath))
+					.filter(Files::isDirectory)
+					.forEach(projectsPaths::add);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return projectsPaths;
+		
+	}
+
+	public static String getProjectName(Path projectPath) {
+		
+		String path = projectPath.toString();
+		int index = path.lastIndexOf("/");
+		if(index != -1)
+			return path.substring(index+1);
+		return null;
+	}
 	
 }

@@ -11,13 +11,13 @@ public class ASCTest {
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report =  new AM().calculate(testFilePath);
+		report = new AM().calculate(testFilePath, "project");
 	}
 	
 	@Test
 	public void testASC() {
 		
-		Metric a = report.getByClassName("annotationtest.AnnotationTest");
+		MetricResult a = report.getByClassName("annotationtest.AnnotationTest");
 		Assert.assertEquals(2, a.getClassMetric("ASC"));
 	
 	}

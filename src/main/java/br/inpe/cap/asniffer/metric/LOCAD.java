@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
@@ -13,26 +14,27 @@ import br.inpe.cap.asniffer.AMReport;
 import br.inpe.cap.asniffer.ElementMetric;
 import br.inpe.cap.asniffer.MetricResult;
 
-public class AA extends ASTVisitor implements MetricCollector {
+public class LOCAD extends ASTVisitor implements MetricCollector {
 
-	private Map<String, Integer> aa = new HashMap<>();
+	private Map<String, Integer> locad = new HashMap<>();
 	private CompilationUnit cu;
 	
 	@Override
 	public boolean visit(MarkerAnnotation node) {
-		aa.put(node.getTypeName().getFullyQualifiedName(), 0);
+		locad.put(node.getTypeName().getFullyQualifiedName(), 1);
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(SingleMemberAnnotation node) {
-		aa.put(node.getTypeName().getFullyQualifiedName(), 1);
+		locad.put(node.getTypeName().getFullyQualifiedName(), 1);
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(NormalAnnotation node) {
-		aa.put(node.getTypeName().getFullyQualifiedName() + "_" + cu.getLineNumber(node.getStartPosition()) , node.values().size());
+		locad.put(node.getTypeName().getFullyQualifiedName() + "_" + cu.getLineNumber(node.getStartPosition()),
+				getNumLines(node));
 		return super.visit(node);
 	}
 	
@@ -45,7 +47,17 @@ public class AA extends ASTVisitor implements MetricCollector {
 
 	@Override
 	public void setResult(MetricResult result) {
-		result.addElementMetric("AA", aa);
+		result.addElementMetric("LOCAD", locad);
+	}
+	
+	private int getNumLines(Annotation annotation) {
+
+		int locad = 0;
+		int startLineNumber = cu.getLineNumber(annotation.getStartPosition());
+		int nodeLength = annotation.getLength();
+		int endLineNumber = cu.getLineNumber(annotation.getStartPosition() + nodeLength);
+		locad = endLineNumber - startLineNumber + 1;
+		return locad;
 	}
 
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="project">
+    <class>
+        <xmlPreparedOutput name="annotationtest.AnnotationTest">
+            <class-metric>
+                <metric>
+                    <metric name="ASC">2</metric>
+                    <metric name="AC">28</metric>
+                    <metric name="NAEC">16</metric>
+                    <metric name="UAC">18</metric>
+                </metric>
+            </class-metric>
+            <element-metric>
+                <metric name="AED">
+                    <element name="isCleanupTestDataRequired_66">1</element>
+                    <element name="getName_175">0</element>
+                    <element name="isCleanupTestDataUsingBulkDelete_71">1</element>
+                    <element name="companyName">1</element>
+                    <element name="setEmployed_187">0</element>
+                    <element name="testDeleteFromEngineer_124">1</element>
+                    <element name="employed">0</element>
+                    <element name="setUp_76">1</element>
+                    <element name="hashCode_204">1</element>
+                    <element name="setCompanyName_171">0</element>
+                    <element name="Engineer">1</element>
+                    <element name="getId_159">0</element>
+                    <element name="getMultiTableBulkIdStrategyClass_64">0</element>
+                    <element name="id">2</element>
+                    <element name="getAnnotatedClasses_39">1</element>
+                    <element name="AnnotationTest">0</element>
+                    <element name="equals_191">1</element>
+                    <element name="setId_163">0</element>
+                    <element name="setName_179">0</element>
+                    <element name="Doctor">1</element>
+                    <element name="getCompanyName_167">0</element>
+                    <element name="testDeleteFromPerson_114">1</element>
+                    <element name="isEmployed_183">0</element>
+                    <element name="entityCount_98">0</element>
+                    <element name="fellow">0</element>
+                    <element name="setFellow_223">0</element>
+                    <element name="name">0</element>
+                    <element name="getAnnotatedClasses_48">1</element>
+                    <element name="isFellow_219">0</element>
+                    <element name="Person">11</element>
+                    <element name="constructConfiguration_57">1</element>
+                    <element name="testUpdate_101">2</element>
+                </metric>
+                <metric name="AA">
+                    <element name="Before">0</element>
+                    <element name="Test_143">3</element>
+                    <element name="Entity_144">2</element>
+                    <element name="Entity_210">1</element>
+                    <element name="Entity_214">1</element>
+                    <element name="NamedQuery_139">2</element>
+                    <element name="Inheritance_145">1</element>
+                    <element name="JoinColumn_136">1</element>
+                    <element name="AssociationOverrides_134">1</element>
+                    <element name="JoinColumn_138">1</element>
+                    <element name="AssociationOverride_135">2</element>
+                    <element name="Annotation2">0</element>
+                    <element name="Test">0</element>
+                    <element name="AssociationOverride_137">2</element>
+                    <element name="Annotation0">0</element>
+                    <element name="Id">0</element>
+                    <element name="Override">0</element>
+                </metric>
+                <metric name="LOCAD">
+                    <element name="Before">1</element>
+                    <element name="Test_143">1</element>
+                    <element name="Entity_144">1</element>
+                    <element name="Entity_210">1</element>
+                    <element name="Entity_214">1</element>
+                    <element name="NamedQuery_139">4</element>
+                    <element name="Inheritance_145">1</element>
+                    <element name="JoinColumn_136">1</element>
+                    <element name="AssociationOverrides_134">5</element>
+                    <element name="JoinColumn_138">1</element>
+                    <element name="AssociationOverride_135">2</element>
+                    <element name="Annotation2">1</element>
+                    <element name="Test">1</element>
+                    <element name="AssociationOverride_137">2</element>
+                    <element name="Annotation0">1</element>
+                    <element name="Id">1</element>
+                    <element name="Override">1</element>
+                </metric>
+                <metric name="ANL">
+                    <element name="Override_57">0</element>
+                    <element name="Test_114">0</element>
+                    <element name="Entity_144">0</element>
+                    <element name="Id_149">0</element>
+                    <element name="NamedQuery_139">0</element>
+                    <element name="Override_39">0</element>
+                    <element name="Inheritance_145">0</element>
+                    <element name="AssociationOverride_135">1</element>
+                    <element name="AssociationOverride_137">1</element>
+                    <element name="Override_71">0</element>
+                    <element name="Test_143">0</element>
+                    <element name="Override_204">0</element>
+                    <element name="Override_48">0</element>
+                    <element name="Entity_210">0</element>
+                    <element name="Override_66">0</element>
+                    <element name="Test_102">0</element>
+                    <element name="Test_124">0</element>
+                    <element name="Test_101">0</element>
+                    <element name="Entity_214">0</element>
+                    <element name="Before_76">0</element>
+                    <element name="Annotation2_143">1</element>
+                    <element name="JoinColumn_136">2</element>
+                    <element name="AssociationOverrides_134">0</element>
+                    <element name="JoinColumn_138">2</element>
+                    <element name="Annotation0_143">1</element>
+                    <element name="Id_152">0</element>
+                    <element name="Override_191">0</element>
+                    <element name="Annotation0_148">0</element>
+                </metric>
+            </element-metric>
+        </xmlPreparedOutput>
+    </class>
+</project>
