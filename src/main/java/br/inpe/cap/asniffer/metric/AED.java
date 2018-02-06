@@ -1,9 +1,7 @@
 package br.inpe.cap.asniffer.metric;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -21,34 +19,35 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import br.inpe.cap.asniffer.AMReport;
+import br.inpe.cap.asniffer.ElementMetric;
 import br.inpe.cap.asniffer.MetricResult;
 
 public class AED extends ASTVisitor implements MetricCollector{
 
-	private Map<String, Integer> aed = new HashMap<>();
+	private List<ElementMetric> aed = new ArrayList<>();
 	private CompilationUnit cu;
 	
 	@Override
 	public boolean visit(EnumDeclaration node) {
-		aed.put(node.getName().getFullyQualifiedName(), checkForAnnotations(node));
+		addElement(node.getName().getFullyQualifiedName(),"enum", checkForAnnotations(node), cu.getLineNumber(node.getStartPosition()));
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		aed.put(node.getName().getFullyQualifiedName(), checkForAnnotations(node));
+		addElement(node.getName().getFullyQualifiedName(),"compiltation-unit", checkForAnnotations(node), cu.getLineNumber(node.getStartPosition()));
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(AnnotationTypeDeclaration node) {
-		aed.put(node.getName().getFullyQualifiedName(), checkForAnnotations(node));
+		addElement(node.getName().getFullyQualifiedName(),"annotation-definition", checkForAnnotations(node), cu.getLineNumber(node.getStartPosition()));
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(MethodDeclaration node) {
-		aed.put(node.getName().getFullyQualifiedName() +"_"+ cu.getLineNumber(node.getStartPosition()) , checkForAnnotations(node));
+		addElement(node.getName().getFullyQualifiedName(),"method", checkForAnnotations(node), cu.getLineNumber(node.getStartPosition()));
 		return super.visit(node);
 	}
 	
@@ -57,14 +56,14 @@ public class AED extends ASTVisitor implements MetricCollector{
 		Object o = node.fragments().get(0);
 		if(o instanceof VariableDeclarationFragment){
 			String name = ((VariableDeclarationFragment) o).getName().toString();
-			aed.put(name, checkForAnnotations(node));
+			addElement(name,"field", checkForAnnotations(node), cu.getLineNumber(node.getStartPosition()));
 		}
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(EnumConstantDeclaration node) {
-		aed.put(node.getName().getFullyQualifiedName(), checkForAnnotations(node));
+		addElement(node.getName().getFullyQualifiedName(),"enum-constant", checkForAnnotations(node), cu.getLineNumber(node.getStartPosition()));
 		return super.visit(node);
 	}
 	
@@ -76,13 +75,7 @@ public class AED extends ASTVisitor implements MetricCollector{
 
 	@Override
 	public void setResult(MetricResult result) {
-		Map<String, Integer> aedValue = new HashMap<>();
-		aed.forEach((k,v)->{
-			aedValue.put(k, v);
-		});
-		
-		result.addElementMetric("AED", aedValue);
-		
+		result.addElementMetric("AED", aed);
 	}
 
 	private int checkForAnnotations(BodyDeclaration node) {
@@ -96,6 +89,11 @@ public class AED extends ASTVisitor implements MetricCollector{
 			}
 		}
 		return aedCount;
+	}
+	
+	private void addElement(String elementName, String type, int value, int line) {
+		ElementMetric _element = new ElementMetric(value,type,line,elementName);
+		aed.add(_element);
 	}
 	
 	private int checkNestedAnnotation(NormalAnnotation annotation) {

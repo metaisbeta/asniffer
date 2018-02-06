@@ -4,6 +4,7 @@ import br.inpe.cap.asniffer.output.ClassMetricAdapter;
 import br.inpe.cap.asniffer.output.ElementMetricAdapter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,7 +30,7 @@ public class MetricResult {
 	
 	@XmlElement(name = "element-metric")
 	@XmlJavaTypeAdapter(ElementMetricAdapter.class)
-	private Map<String, Map<String,Integer>> elementMetric;
+	private Map<String, List<ElementMetric>> elementMetric;
 	
 	//JAXB requires an empty constructor
 	public MetricResult() {
@@ -74,13 +75,13 @@ public class MetricResult {
 		this.classMetric.put(metricName, metricValue);
 	}
 	
-	public Map<String, Integer> getElementMetric(String metricName) {
+	public List<ElementMetric> getElementMetric(String metricName) {
 		if(elementMetric.containsKey(metricName))
 			return elementMetric.get(metricName);
 		return null;
 	}
 
-	public void addElementMetric(String metricName, Map<String,Integer> metricValues) {
+	public void addElementMetric(String metricName, List<ElementMetric> metricValues) {
 		elementMetric.put(metricName,metricValues);
 	}
 }

@@ -1,7 +1,7 @@
 package br.inpe.cap.asniffer.metric;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -16,25 +16,24 @@ import br.inpe.cap.asniffer.MetricResult;
 
 public class LOCAD extends ASTVisitor implements MetricCollector {
 
-	private Map<String, Integer> locad = new HashMap<>();
+	private List<ElementMetric> locad = new ArrayList<>();
 	private CompilationUnit cu;
 	
 	@Override
 	public boolean visit(MarkerAnnotation node) {
-		locad.put(node.getTypeName().getFullyQualifiedName(), 1);
+		locad.add(new ElementMetric(1, null, cu.getLineNumber(node.getStartPosition()), node.getTypeName().getFullyQualifiedName()));
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(SingleMemberAnnotation node) {
-		locad.put(node.getTypeName().getFullyQualifiedName(), 1);
+		locad.add(new ElementMetric(1, null, cu.getLineNumber(node.getStartPosition()), node.getTypeName().getFullyQualifiedName()));
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(NormalAnnotation node) {
-		locad.put(node.getTypeName().getFullyQualifiedName() + "_" + cu.getLineNumber(node.getStartPosition()),
-				getNumLines(node));
+		locad.add(new ElementMetric(getNumLines(node), null, cu.getLineNumber(node.getStartPosition()), node.getTypeName().getFullyQualifiedName()));
 		return super.visit(node);
 	}
 	

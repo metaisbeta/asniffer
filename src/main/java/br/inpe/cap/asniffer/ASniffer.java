@@ -1,5 +1,6 @@
 package br.inpe.cap.asniffer;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ASniffer {
@@ -19,9 +20,14 @@ public class ASniffer {
 					+ "java -jar asniffer.jar <path to project> "
 					+ "<path to xml report> "
 					+ "<path to xml configuration file>");
-		else
+		else {
 			userConfigXml = args[2];
-		
+			if(!new File(userConfigXml).exists()) {
+				System.out.println("XML configuration file not found");
+				System.out.println("Supplied path: " + userConfigXml);
+				System.exit(1);
+			}
+		}
 		Runner runner = new Runner(args[0], args[1], userConfigXml);
 		try {
 			runner.collect();

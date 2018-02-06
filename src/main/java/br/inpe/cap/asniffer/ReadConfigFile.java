@@ -38,7 +38,7 @@ public class ReadConfigFile extends DefaultHandler {
 		this.xmlFile = new File(xmlFile);
         factory = SAXParserFactory.newInstance();
         metricsNames = new ArrayList<>();
-        try {
+		try {
 			saxParser = factory.newSAXParser();
 		} catch (ParserConfigurationException | SAXException e) {
 			e.printStackTrace();

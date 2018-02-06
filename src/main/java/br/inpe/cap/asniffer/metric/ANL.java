@@ -1,7 +1,7 @@
 package br.inpe.cap.asniffer.metric;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -12,31 +12,32 @@ import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import br.inpe.cap.asniffer.AMReport;
+import br.inpe.cap.asniffer.ElementMetric;
 import br.inpe.cap.asniffer.MetricResult;
 
 public class ANL extends ASTVisitor implements MetricCollector {
 
-	private Map<String, Integer> anl = new HashMap<>();
+	private List<ElementMetric> anl = new ArrayList<>();
 	private CompilationUnit cu;
 	
 	@Override
 	public boolean visit(MarkerAnnotation node) {
-		anl.put(node.getTypeName().getFullyQualifiedName() + "_" + cu.getLineNumber(node.getStartPosition()), 
-				getNestingLevel(node));
+		anl.add(new ElementMetric(getNestingLevel(node), null, cu.getLineNumber(node.getStartPosition()), 
+					node.getTypeName().getFullyQualifiedName()));
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(SingleMemberAnnotation node) {
-		anl.put(node.getTypeName().getFullyQualifiedName() + "_" + cu.getLineNumber(node.getStartPosition()), 
-				getNestingLevel(node));
+		anl.add(new ElementMetric(getNestingLevel(node), null, cu.getLineNumber(node.getStartPosition()), 
+					node.getTypeName().getFullyQualifiedName()));
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(NormalAnnotation node) {
-		anl.put(node.getTypeName().getFullyQualifiedName() + "_" + cu.getLineNumber(node.getStartPosition()),
-				getNestingLevel(node));
+		anl.add(new ElementMetric(getNestingLevel(node), null, cu.getLineNumber(node.getStartPosition()), 
+				node.getTypeName().getFullyQualifiedName()));
 		return super.visit(node);
 	}
 	

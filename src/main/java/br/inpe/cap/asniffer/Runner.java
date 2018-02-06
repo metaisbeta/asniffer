@@ -10,7 +10,7 @@ public class Runner {
 	
 	String projectsPath = "";
 	String xmlPath = "";
-	String userConfigPath = "";
+	String userConfigPath = null;
 	
 	public Runner(String projectPath, String xmlPath, String userConfigPath) {
 		this.projectsPath = projectPath;

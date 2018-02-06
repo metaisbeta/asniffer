@@ -1,30 +1,44 @@
 package br.inpe.cap.asniffer;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import br.inpe.cap.asniffer.output.ElementMetricAdapter;
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType (propOrder={"elementName", "type", "sourceCodeLine"})
 public class ElementMetric {
 	
-	@XmlElement
-	@XmlJavaTypeAdapter(ElementMetricAdapter.class)
-	private Map<String,Integer> metricValue;
-	
+	@XmlValue
+	private Integer metricValue;
+	@XmlAttribute(required = false)
 	private String type;
-	private String line;
-
-	public ElementMetric() {
-		metricValue = new HashMap<>();
-	}
+	@XmlAttribute(name = "code-line")
+	private int sourceCodeLine;
+	@XmlAttribute(name = "name")
+	private String elementName;
 	
-	public Map<String, Integer> getMetricValue() {
-		return this.metricValue;
-	}
-
-	public void addMetricValue(Map<String, Integer> metricValue) {
+	//JAXB
+	public ElementMetric() {	}
+	
+	public ElementMetric(Integer metricValue, String type, int line, String elementName) {
 		this.metricValue = metricValue;
+		this.type = type;
+		this.sourceCodeLine = line;
+		this.elementName = elementName;
+	}
+	public Integer getMetricValue() {
+		return metricValue;
+	}
+	public String getType() {
+		return type;
+	}
+	public int getLine() {
+		return sourceCodeLine;
+	}
+	public String getElementName() {
+		return elementName;
 	}
 
 }

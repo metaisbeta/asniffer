@@ -6,8 +6,6 @@ import java.util.Map.Entry;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import br.inpe.cap.asniffer.MetricResult;
-
 public class ClassMetricAdapter extends XmlAdapter<ClassMetricMap, Map<String,Integer>> {
 
 	@Override
