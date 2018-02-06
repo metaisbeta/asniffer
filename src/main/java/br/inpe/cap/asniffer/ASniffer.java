@@ -3,11 +3,10 @@ package br.inpe.cap.asniffer;
 import java.io.FileNotFoundException;
 
 public class ASniffer {
-
-	
-	
+                                                               
+	//Called as an executable jar                                                 	                                          
 	public static void main(String[] args) {
-		
+		                                                    
 		String userConfigXml = null;
 		if(args==null || args.length < 2) {
 			System.out.println("Usage java -jar asniffer.jar <path to project> <path to xml report> <path to xml configuration file>");
@@ -31,6 +30,7 @@ public class ASniffer {
 		}
 	}
 	
+	//Called from other applications
 	public void run(String projectPath, String xmlPath, String userConfigXML) {
 		Runner runner = new Runner(projectPath, xmlPath, userConfigXML);
 		try {

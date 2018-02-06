@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -20,7 +20,7 @@ public class AMReport {
 	@XmlTransient
 	private Map<String, MetricResult> results;
 
-	@XmlElementWrapper(name = "class")
+	@XmlElement(name = "class")
 	private List<MetricResult> xmlPreparedOutput;
 	
 	@XmlAttribute(name = "name")

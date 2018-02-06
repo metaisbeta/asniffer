@@ -11,6 +11,9 @@ public class ElementMetric {
 	@XmlElement
 	@XmlJavaTypeAdapter(ElementMetricAdapter.class)
 	private Map<String,Integer> metricValue;
+	
+	private String type;
+	private String line;
 
 	public ElementMetric() {
 		metricValue = new HashMap<>();
