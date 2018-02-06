@@ -13,7 +13,6 @@ public class ElementMetricAdapter extends XmlAdapter<ElementMetricMapWrapper, Ma
 
 	@Override
 	public Map<String, List<ElementMetric>> unmarshal(ElementMetricMapWrapper v) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -1,29 +1,26 @@
 package br.inpe.cap.asniffer.output;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class ClassMetricAdapter extends XmlAdapter<ClassMetricMap, Map<String,Integer>> {
+public class ClassMetricAdapter extends XmlAdapter<ClassMetricMapWrapper, Map<String,Integer>> {
 
 	@Override
-	public Map<String, Integer> unmarshal(ClassMetricMap v) throws Exception {
-		// TODO Auto-generated method stub
+	public Map<String, Integer> unmarshal(ClassMetricMapWrapper v) throws Exception {
 		return null;
 	}
 
 	@Override
-	public ClassMetricMap marshal(Map<String,Integer> map) throws Exception {
-		ClassMetricMap myMap = new ClassMetricMap();
-        myMap.metric = new ArrayList<ClassMetricColumn>();
+	public ClassMetricMapWrapper marshal(Map<String,Integer> map) throws Exception {
+		ClassMetricMapWrapper myWrapper = new ClassMetricMapWrapper();
         for (Entry<String,Integer> entry : map.entrySet()) {
-        		ClassMetricColumn col = new ClassMetricColumn();
-            col.value = entry.getValue();
-            col.metricName = entry.getKey();
-            myMap.metric.add(col);
+        		ClassMetricMap myMap = new ClassMetricMap();
+            myMap.setValue(entry.getValue());
+            myMap.setMetricName(entry.getKey());
+            myWrapper.addClassMetric(myMap);
         }
-        return myMap;
+        return myWrapper;
     }
 }

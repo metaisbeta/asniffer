@@ -1,11 +1,21 @@
 package br.inpe.cap.asniffer.output;
 
-import java.util.List;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlValue;
 
 public class ClassMetricMap {
+   
+	@XmlAttribute(name = "name")
+    private String metricName;
 	
-	@XmlElementWrapper
-	List<ClassMetricColumn> metric;
-	
+	@XmlValue
+    private Integer value;
+
+	public void setMetricName(String metricName) {
+		this.metricName = metricName;
+	}
+
+	public void setValue(Integer value) {
+		this.value = value;
+	}
 }
