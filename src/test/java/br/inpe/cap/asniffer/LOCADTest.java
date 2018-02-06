@@ -15,7 +15,7 @@ public class LOCADTest {
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report = new AM().calculate(testFilePath, "project");
+		report = new AM(null).calculate(testFilePath, "project");
 	}
 	
 	@Test

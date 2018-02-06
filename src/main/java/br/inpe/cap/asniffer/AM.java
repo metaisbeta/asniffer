@@ -25,8 +25,9 @@ import com.google.common.collect.Lists;
 //Annotation Metric
 public class AM {
 
-private static final int MAX_AT_ONCE;
-	
+	private static final int MAX_AT_ONCE;
+	private String userConfigFile;
+
 	static {
 		String jdtMax = System.getProperty("jdt.max");
 		if(jdtMax!=null) {
@@ -42,22 +43,15 @@ private static final int MAX_AT_ONCE;
 		}
 	}
 
-	public List<Callable<MetricCollector>> pluggedMetrics; 
 
-	public AM() {
-		this.pluggedMetrics = new ArrayList<>();
+	public AM(String userConfigFile) {
+		this.userConfigFile = userConfigFile;
 	}
-	
-	public AM plug(Callable<MetricCollector> metric) {
-		this.pluggedMetrics.add(metric);
-		return this;
-	}
-	
 	public AMReport calculate(String path, String projectName) {
 		String[] srcDirs = FileUtils.getAllDirs(path);
 		String[] javaFiles = FileUtils.getAllJavaFiles(path);
 		
-		MetricsExecutor storage = new MetricsExecutor(() -> metrics(), projectName);
+		MetricsExecutor storage = new MetricsExecutor(() -> includeMetrics(), projectName);
 		
 		List<List<String>> partitions = Lists.partition(Arrays.asList(javaFiles), MAX_AT_ONCE);
 
@@ -77,31 +71,27 @@ private static final int MAX_AT_ONCE;
 		return storage.getReport();
 	}
 	
-	private List<MetricCollector> metrics() {
-		List<MetricCollector> all = defaultMetrics();
-		all.addAll(userMetrics());
+	private List<MetricCollector> includeMetrics(){
 		
-		return all;
-	}
-
-	private List<MetricCollector> defaultMetrics() {
-		return new ArrayList<>(Arrays.asList(new AC(), new UAC(), new ASC(), new NAEC(), new AED(), 
+		List<MetricCollector> metrics = new ArrayList<>();
+		//Read the default metrics
+		metrics.addAll(Arrays.asList(new AC(), new UAC(), new ASC(),new NAEC(), new AED(), 
 				new AA(), new ANL(), new LOCAD()));
-	}
-
-	private List<MetricCollector> userMetrics() {
-		try {
-			List<MetricCollector> userMetrics = new ArrayList<MetricCollector>();
-			
-			for(Callable<MetricCollector> metricToBeCreated : pluggedMetrics) {
-				userMetrics.add(metricToBeCreated.call());
-			}
-
-			return userMetrics;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
 	
+		//Read the user metrics, if config file was supplied
+		if(userConfigFile!=null) {
+			ReadConfigFile configFile = new ReadConfigFile(userConfigFile);
+			for (String metricName : configFile.getMetrics()) {
+				try {
+					Class<?> clazz = Class.forName(metricName);
+					metrics.add((MetricCollector) clazz.newInstance());
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return metrics;
+	}
 
 }
