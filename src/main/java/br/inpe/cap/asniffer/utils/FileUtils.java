@@ -1,12 +1,14 @@
 package br.inpe.cap.asniffer.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileUtils {
 	
@@ -80,6 +82,26 @@ public class FileUtils {
 		if(index != -1)
 			return path.substring(index+1);
 		return null;
+	}
+	
+	public static String[] getJarDependencies(String dependeciesListPath) {
+		
+		File f = new File(dependeciesListPath);
+		List<String> jarFileNames = new ArrayList<>();
+		Scanner inputLines = null;
+		try {
+			inputLines = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		while(inputLines.hasNextLine())
+			jarFileNames.add(inputLines.nextLine());
+		
+		String[] jarFileNamesArray = new String[jarFileNames.size()];
+		jarFileNamesArray = jarFileNames.toArray(jarFileNamesArray);
+		
+		return jarFileNamesArray;
 	}
 	
 }

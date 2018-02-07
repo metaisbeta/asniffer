@@ -3,6 +3,7 @@ package br.inpe.cap.asniffer;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import br.inpe.cap.asniffer.AMReport;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

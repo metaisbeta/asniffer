@@ -13,7 +13,9 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import br.inpe.cap.asniffer.AMReport;
 import br.inpe.cap.asniffer.ElementMetric;
 import br.inpe.cap.asniffer.MetricResult;
+import br.inpe.cap.asniffer.annotations.AnnotationMetric;
 
+@AnnotationMetric
 public class LOCAD extends ASTVisitor implements MetricCollector {
 
 	private List<ElementMetric> locad = new ArrayList<>();

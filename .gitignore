@@ -117,3 +117,11 @@ teste.xml
 teste.xml
 Test Project.xml
 testeproject.xml
+ignoreJarDependencies.py
+ignoreJarDependencies.txt
+.classpath
+.classpath
+.DS_Store
+.classpath
+.settings/org.eclipse.core.resources.prefs
+*.prefs

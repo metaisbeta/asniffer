@@ -9,6 +9,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 
+import br.inpe.cap.asniffer.AMReport;
 import br.inpe.cap.asniffer.metric.AA;
 import br.inpe.cap.asniffer.metric.AC;
 import br.inpe.cap.asniffer.metric.AED;
@@ -18,7 +19,7 @@ import br.inpe.cap.asniffer.metric.LOCAD;
 import br.inpe.cap.asniffer.metric.MetricCollector;
 import br.inpe.cap.asniffer.metric.NAEC;
 import br.inpe.cap.asniffer.metric.UAC;
-import br.inpe.cap.asniffer.utils.FileUtils;
+import br.inpe.cap.asniffer.utils.*;
 import com.google.common.collect.Lists;
 
 //Annotation Metric
@@ -73,20 +74,14 @@ public class AM {
 	private List<MetricCollector> includeMetrics(){
 		
 		List<MetricCollector> metrics = new ArrayList<>();
-		//Read the default metrics
-		metrics.addAll(Arrays.asList(new AC(), new UAC(), new ASC(),new NAEC(), new AED(), 
-				new AA(), new ANL(), new LOCAD()));
-	
-		//Read the user metrics, if config file was supplied
-		if(userConfigFile!=null) {
-			ReadConfigFile configFile = new ReadConfigFile(userConfigFile);
-			for (String metricName : configFile.getMetrics()) {
-				try {
-					Class<?> clazz = Class.forName(metricName);
-					metrics.add((MetricCollector) clazz.newInstance());
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
-					e.printStackTrace();
-				}
+		MetricContainer metricContainer = new MetricContainer();
+
+		for (String metricName : metricContainer.getMetrics()) {
+			try {
+				Class<?> clazz = Class.forName(metricName);
+				metrics.add((MetricCollector) clazz.newInstance());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
+				e.printStackTrace();
 			}
 		}
 		

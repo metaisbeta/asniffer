@@ -22,11 +22,8 @@ public class ASniffer {
 					+ "<path to xml configuration file>");
 		else {
 			userConfigXml = args[2];
-			if(!new File(userConfigXml).exists()) {
-				System.out.println("XML configuration file not found");
-				System.out.println("Supplied path: " + userConfigXml);
-				System.exit(1);
-			}
+			testFile(userConfigXml);
+			
 		}
 		Runner runner = new Runner(args[0], args[1], userConfigXml);
 		try {
@@ -38,6 +35,7 @@ public class ASniffer {
 	
 	//Called from other applications
 	public void run(String projectPath, String xmlPath, String userConfigXML) {
+		testFile(userConfigXML);
 		Runner runner = new Runner(projectPath, xmlPath, userConfigXML);
 		try {
 			runner.collect();
@@ -48,6 +46,14 @@ public class ASniffer {
 	
 	public void run(String projectPath, String xmlPath) {
 		run(projectPath, xmlPath, null);
+	}
+	
+	private static void testFile(String userConfigXml) {
+		if(!new File(userConfigXml).exists()) {
+			System.out.println("XML configuration file not found");
+			System.out.println("Supplied path: " + userConfigXml);
+			System.exit(1);
+		}
 	}
 
 }

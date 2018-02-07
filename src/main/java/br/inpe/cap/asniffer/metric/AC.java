@@ -8,7 +8,9 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import br.inpe.cap.asniffer.AMReport;
 import br.inpe.cap.asniffer.MetricResult;
+import br.inpe.cap.asniffer.annotations.AnnotationMetric;
 
+@AnnotationMetric
 public class AC extends ASTVisitor implements MetricCollector{
 
 	private int annotations = 0;

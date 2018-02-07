@@ -2,82 +2,130 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>br.inpe.cap</groupId>
-  <artifactId>asniffer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
-  <name>asniffer</name>
-  <url>http://maven.apache.org</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
-
-   <build>
-   	<plugins>
-   	<plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-eclipse-plugin</artifactId>
-		<version>2.10</version>
-		<configuration>
-			<downloadSources>true</downloadSources>
-			<downloadJavadocs>false</downloadJavadocs>
-		</configuration>
-	</plugin>
+	<groupId>br.inpe.cap</groupId>
+	<artifactId>asniffer</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>asniffer</name>
+	<url>http://maven.apache.org</url>
 	
-	<!-- Copy project dependency -->
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-dependency-plugin</artifactId>
-			<version>2.5.1</version>
-			<executions>	
-			  <execution>
-				<id>copy-dependencies</id>
-				<phase>package</phase>
-				<goals>
-					<goal>copy-dependencies</goal>
-				</goals>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	
+	<dependencies>
+	    <dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		    <scope>test</scope>
+		</dependency>
+	    <dependency>
+	      <groupId>org.eclipse.jdt</groupId>
+	      <artifactId>org.eclipse.jdt.core</artifactId>
+	      <version>3.12.2</version>
+	    </dependency>
+	    <dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>18.0</version>
+		</dependency>
+	    <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.github.lukehutch</groupId>
+		    <artifactId>fast-classpath-scanner</artifactId>
+		    <version>2.18.0</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/ASniffer</outputDirectory>
+							<resources>
+								<resource>
+									<directory>resources</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
-				  <!-- exclude junit, we need runtime dependency only -->
-				  <includeScope>runtime</includeScope>
-				  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>br.inpe.cap.asniffer.ASniffer</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+ 
+					<finalName>ASniffer/ASniffer</finalName>
 				</configuration>
-			  </execution>
-			</executions>
-		</plugin>
-	
-   	</plugins>
-	
+			</plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>exec-maven-plugin</artifactId>
+		        <executions>
+		            <execution>
+		                <configuration>
+		                    <executable>python</executable>
+		                    <workingDirectory>scripts</workingDirectory>
+		                    <arguments>
+		                        <argument>ignoreJarDependencies.py</argument>
+		                    </arguments>    
+				                </configuration>
+		                <id>python-build</id>
+		                <phase>prepare-package</phase>
+		                <goals>
+		                    <goal>exec</goal>
+		                </goals>
+		            </execution>
+		        </executions>
+	    		</plugin>
+		</plugins>
 	</build>
-
-  <dependencies>
-    <dependency>
-	    <groupId>junit</groupId>
-	    <artifactId>junit</artifactId>
-	    <version>4.12</version>
-	    <scope>test</scope>
-	</dependency>
-    
-    <dependency>
-      <groupId>org.eclipse.jdt</groupId>
-      <artifactId>org.eclipse.jdt.core</artifactId>
-      <version>3.12.2</version>
-    </dependency>
-    
-    <dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>18.0</version>
-	</dependency>
-    
-    <dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-lang3</artifactId>
-	    <version>3.0</version>
-	</dependency>
-    
-  </dependencies>
- </project>
+	
+</project>

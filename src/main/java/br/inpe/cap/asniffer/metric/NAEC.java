@@ -14,7 +14,9 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.inpe.cap.asniffer.AMReport;
 import br.inpe.cap.asniffer.MetricResult;
+import br.inpe.cap.asniffer.annotations.AnnotationMetric;
 
+@AnnotationMetric
 public class NAEC extends ASTVisitor implements MetricCollector{
 
 	private int annotatedElements = 0;

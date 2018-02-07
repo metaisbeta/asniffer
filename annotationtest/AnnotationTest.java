@@ -1,13 +1,10 @@
 package annotationtest;
 
 /*
-
 	This is a class extracted from the Hibernate Project.
 	It is being used as a test case for Annotation Metrics.
 	Regarding Annotation Metrics, check:
-
 	https://www.sciencedirect.com/science/article/pii/S016412121730273X
-
 */
 
 import java.io.Serializable;

@@ -13,7 +13,9 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import br.inpe.cap.asniffer.AMReport;
 import br.inpe.cap.asniffer.MetricResult;
+import br.inpe.cap.asniffer.annotations.AnnotationMetric;
 
+@AnnotationMetric
 public class ASC extends ASTVisitor implements MetricCollector {
 
 	Map<String,String> annotations = new HashMap<>();

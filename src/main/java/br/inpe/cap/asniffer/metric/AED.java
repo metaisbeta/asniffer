@@ -21,7 +21,9 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import br.inpe.cap.asniffer.AMReport;
 import br.inpe.cap.asniffer.ElementMetric;
 import br.inpe.cap.asniffer.MetricResult;
+import br.inpe.cap.asniffer.annotations.AnnotationMetric;
 
+@AnnotationMetric
 public class AED extends ASTVisitor implements MetricCollector{
 
 	private List<ElementMetric> aed = new ArrayList<>();
