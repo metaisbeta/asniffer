@@ -76,6 +76,7 @@ public class FileUtils {
 	public static String getProjectName(Path projectPath) {
 		
 		String path = projectPath.toString();
+		path = path.replace("\\", "/");
 		int index = path.lastIndexOf("/");
 		if(index != -1)
 			return path.substring(index+1);
