@@ -10,19 +10,17 @@ public class Runner {
 	
 	String projectsPath = "";
 	String xmlPath = "";
-	String userConfigPath = null;
 	
-	public Runner(String projectPath, String xmlPath, String userConfigPath) {
+	public Runner(String projectPath, String xmlPath) {
 		this.projectsPath = projectPath;
 		this.xmlPath = xmlPath;
-		this.userConfigPath = userConfigPath;
 	}
 	
 	public void collect() throws FileNotFoundException {
 		
 		for (Path projectPath : FileUtils.getProjectsPath(projectsPath)) {
 			String projectName = FileUtils.getProjectName(projectPath);
-			AMReport report = new AM(userConfigPath).calculate(projectPath.toString(), projectName);
+			AMReport report = new AM().calculate(projectPath.toString(), projectName);
 			XMLUtils.createXMLFile(report, xmlPath);
 		}
 	}

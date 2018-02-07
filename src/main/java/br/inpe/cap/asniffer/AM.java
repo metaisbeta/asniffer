@@ -10,15 +10,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 
 import br.inpe.cap.asniffer.AMReport;
-import br.inpe.cap.asniffer.metric.AA;
-import br.inpe.cap.asniffer.metric.AC;
-import br.inpe.cap.asniffer.metric.AED;
-import br.inpe.cap.asniffer.metric.ANL;
-import br.inpe.cap.asniffer.metric.ASC;
-import br.inpe.cap.asniffer.metric.LOCAD;
 import br.inpe.cap.asniffer.metric.MetricCollector;
-import br.inpe.cap.asniffer.metric.NAEC;
-import br.inpe.cap.asniffer.metric.UAC;
 import br.inpe.cap.asniffer.utils.*;
 import com.google.common.collect.Lists;
 
@@ -26,7 +18,6 @@ import com.google.common.collect.Lists;
 public class AM {
 
 	private static final int MAX_AT_ONCE;
-	private String userConfigFile;
 
 	static {
 		String jdtMax = System.getProperty("jdt.max");
@@ -43,10 +34,6 @@ public class AM {
 		}
 	}
 
-
-	public AM(String userConfigFile) {
-		this.userConfigFile = userConfigFile;
-	}
 	public AMReport calculate(String path, String projectName) {
 		String[] srcDirs = FileUtils.getAllDirs(path);
 		String[] javaFiles = FileUtils.getAllJavaFiles(path);
