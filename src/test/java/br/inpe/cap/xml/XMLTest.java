@@ -21,7 +21,7 @@ public class XMLTest {
 		
 	@Test	
 	public void firstTest() {
-		XMLUtils.createXMLFile(report, "teste");
+		XMLUtils.createXMLFile(report, "annotationtest");
 		assertTrue(true);
 	}
 	

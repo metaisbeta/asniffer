@@ -1,6 +1,5 @@
 package br.inpe.cap.asniffer;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ASniffer {

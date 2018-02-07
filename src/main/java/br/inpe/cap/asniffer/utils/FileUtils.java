@@ -1,14 +1,12 @@
 package br.inpe.cap.asniffer.utils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class FileUtils {
 	
@@ -84,22 +82,28 @@ public class FileUtils {
 		return null;
 	}
 	
-	public static String[] getJarDependencies(String dependeciesListPath) {
+	public static String[] getJarDependencies() {
 		
-		File f = new File(dependeciesListPath);
-		List<String> jarFileNames = new ArrayList<>();
-		Scanner inputLines = null;
-		try {
-			inputLines = new Scanner(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 		
-		while(inputLines.hasNextLine())
-			jarFileNames.add(inputLines.nextLine());
-		
-		String[] jarFileNamesArray = new String[jarFileNames.size()];
-		jarFileNamesArray = jarFileNames.toArray(jarFileNamesArray);
+		String[] jarFileNamesArray = {"-jar:org.eclipse.core.expressions-3.6.0.jar",
+				"-jar:org.eclipse.equinox.app-1.3.400.jar",
+				"-jar:fast-classpath-scanner-2.18.0.jar",
+				"-jar:org.eclipse.core.filesystem-1.7.0.jar",
+				"-jar:junit-4.12.jar",
+				"-jar:guava-18.0.jar",
+				"-jar:org.eclipse.core.contenttype-3.6.0.jar",
+				"-jar:org.eclipse.equinox.common-3.9.0.jar",
+				"-jar:org.eclipse.equinox.preferences-3.7.0.jar",
+				"-jar:org.eclipse.jdt.core-3.12.2.jar",
+				"-jar:org.eclipse.core.resources-3.12.0.jar",
+				"-jar:org.eclipse.text-3.6.100.jar",
+				"-jar:hamcrest-core-1.3.jar",
+				"-jar:org.eclipse.equinox.registry-3.7.0.jar",
+				"-jar:org.eclipse.core.runtime-3.13.0.jar",
+				"-jar:commons-lang3-3.0.jar",
+				"-jar:org.eclipse.osgi-3.12.50.jar",
+				"-jar:org.eclipse.core.commands-3.9.0.jar",
+				"-jar:org.eclipse.core.jobs-3.9.2.jar"};
 		
 		return jarFileNamesArray;
 	}

@@ -20,6 +20,7 @@ public class Runner {
 		
 		for (Path projectPath : FileUtils.getProjectsPath(projectsPath)) {
 			String projectName = FileUtils.getProjectName(projectPath);
+			System.out.println("Initializing extraction for project " + projectName);
 			AMReport report = new AM().calculate(projectPath.toString(), projectName);
 			XMLUtils.createXMLFile(report, xmlPath);
 		}

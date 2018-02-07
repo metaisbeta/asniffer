@@ -112,7 +112,7 @@
 		            <execution>
 		                <configuration>
 		                    <executable>python</executable>
-		                    <workingDirectory>scripts</workingDirectory>
+		                    <workingDirectory>src/main/resources</workingDirectory>
 		                    <arguments>
 		                        <argument>ignoreJarDependencies.py</argument>
 		                    </arguments>    
