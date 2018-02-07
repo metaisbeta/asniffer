@@ -13,7 +13,7 @@ public class XMLUtils {
 	public static void createXMLFile(AMReport report, String xmlPath) {
 		 report.preapareXMLFiles();
 		 try {
-	        File file = new File(xmlPath + File.pathSeparator + report.getProjectName() + ".xml");
+	        File file = new File(xmlPath + File.separator + report.getProjectName() + ".xml");
 	        JAXBContext jaxbContext = JAXBContext.newInstance(AMReport.class);
 	        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
