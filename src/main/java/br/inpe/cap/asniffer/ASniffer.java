@@ -5,29 +5,27 @@ import java.io.FileNotFoundException;
 public class ASniffer {
                                                                
 	//Called as an executable jar                                                 	                                          
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		                                                    
-		if(args==null || args.length < 2) {
-			System.out.println("Usage java -jar asniffer.jar <path to project> <path to xml report> <path to xml configuration file>");
-			System.out.println("<path to xml configuration file> is optional");
+		if(args==null || args.length < 3) {
+			System.out.println("Usage java -jar asniffer.jar <path to project> <path to xml report> <single/multi>");
+			System.out.println("multi specifies that the directory contains multiple projects");
 			System.exit(1);
 		}
 		
 		Runner runner = new Runner(args[0], args[1]);
-		try {
-			runner.collect();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		if(args[2].toLowerCase().contains("single"))
+			runner.collectSingle();
+		else
+			runner.collectMultiple();
 	}
 	
 	//Called from other applications
-	public void run(String projectPath, String xmlPath) {
+	public void run(String projectPath, String xmlPath, boolean singleProject) throws FileNotFoundException {
 		Runner runner = new Runner(projectPath, xmlPath);
-		try {
-			runner.collect();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		if(singleProject)
+			runner.collectSingle();
+		else
+			runner.collectMultiple();
 	}
 }

@@ -1,7 +1,7 @@
 package br.inpe.cap.asniffer;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import br.inpe.cap.asniffer.utils.FileUtils;
 import br.inpe.cap.asniffer.utils.XMLUtils;
@@ -16,13 +16,21 @@ public class Runner {
 		this.xmlPath = xmlPath;
 	}
 	
-	public void collect() throws FileNotFoundException {
-		
-		for (Path projectPath : FileUtils.getProjectsPath(projectsPath)) {
-			String projectName = FileUtils.getProjectName(projectPath);
-			System.out.println("Initializing extraction for project " + projectName);
-			AMReport report = new AM().calculate(projectPath.toString(), projectName);
-			XMLUtils.createXMLFile(report, xmlPath);
-		}
+	//project path is a root directory to multiple project directories
+	public void collectMultiple(){
+		for (Path projectPath : FileUtils.getProjectsPath(projectsPath)) 
+			collect(projectPath);
+	}
+	
+	//project path is a directory to a single
+	public void collectSingle() {
+		collect(Paths.get(projectsPath));
+	}
+	
+	private void collect(Path projectPath) {
+		String projectName = FileUtils.getProjectName(projectPath);
+		System.out.println("Initializing extraction for project " + projectName);
+		AMReport report = new AM().calculate(projectPath.toString(), projectName);
+		XMLUtils.createXMLFile(report, xmlPath);
 	}
 }
