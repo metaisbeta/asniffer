@@ -10,10 +10,10 @@ Download the source code and generate an executable jar file.
 ### How to use
 
 ```
-java -jar asniffer.jar <path to project> <path to xml report>
+java -jar asniffer.jar <path to project> <path to xml report> <single/multi>
 ```
 
-The path must be a root folder that contains other projects directories. Even if only one project will be used in the extraction. 
+The path must be a root folder that contains other projects directories, for the "multi" case. 
 Follow the directory arrangement below.
 
     .
@@ -21,6 +21,12 @@ Follow the directory arrangement below.
         ├── project1            # Contains the source files for project1
         ├── project2            # Contains the source files for project2
         └── ...         
+
+If the option "single" is used, then the path provided references only a single project, with all the source files inside that folder. 
+
+    .
+    ├── project                # Directory containing the source file for the project. This is the path provided
+      
 
 For each project an xml output is generated with the report. The reports will be placed on the provided "path to xml".
 
