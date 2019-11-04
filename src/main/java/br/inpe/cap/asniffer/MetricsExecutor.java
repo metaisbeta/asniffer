@@ -1,11 +1,13 @@
 package br.inpe.cap.asniffer;
 
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FileASTRequestor;
 
+import br.inpe.cap.asniffer.metric.LOCCalculator;
 import br.inpe.cap.asniffer.metric.MetricCollector;
 
 
@@ -31,10 +33,9 @@ public class MetricsExecutor extends FileASTRequestor{
 			cu.accept(info);
 			if(info.getClassName()==null) return;
 		
-			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType());
+			int loc = new LOCCalculator().calculate(new FileInputStream(sourceFilePath));
 			
-			//int loc = new LOCCalculator().calculate(new FileInputStream(sourceFilePath));
-			//result.setLoc(loc);
+			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType(),loc);
 			
 			for(MetricCollector visitor : metrics.call()) {
 				visitor.execute(cu, result, report);

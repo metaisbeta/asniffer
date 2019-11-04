@@ -23,10 +23,20 @@ public class MetricResult {
 	private String className;
 	@XmlTransient
 	private String type;
+
+	@XmlAttribute(name = "loc")
+	private int loc;
+	
+	@XmlAttribute(name = "nec")
+	private int nec;
 	
 	@XmlElement(name = "class-metric")
 	@XmlJavaTypeAdapter(ClassMetricAdapter.class)
 	private Map<String,Integer> classMetric;
+	
+	@XmlElement(name = "elements")
+	@XmlJavaTypeAdapter(ElementMetricAdapter.class)
+	private Map<String, List<ElementMetric>> elementReport;
 	
 	@XmlElement(name = "element-metric")
 	@XmlJavaTypeAdapter(ElementMetricAdapter.class)
@@ -37,13 +47,15 @@ public class MetricResult {
 		
 	}
 	
-	public MetricResult(String sourceFilePath, String className, String type) {
+	public MetricResult(String sourceFilePath, String className, String type, int loc) {
 		super();
 		this.sourceFilePath = sourceFilePath;
 		this.className = className;
 		this.type = type;
+		this.loc = loc;
 		this.classMetric = new HashMap<>();
 		this.elementMetric = new HashMap<>();
+		this.elementReport = new HashMap<>();
 	}
 	
 	public String getClassName() {
@@ -64,6 +76,18 @@ public class MetricResult {
 	public void setType(String type) {
 		this.type = type;
 	}
+	public int getLoc() {
+		return loc;
+	}
+	public void setLoc(int loc) {
+		this.loc = loc;
+	}
+	public int getNec() {
+		return nec;
+	}
+	public void setNec(int nec) {
+		this.nec = nec;
+	}
 	
 	public int getClassMetric(String metricName) {
 		if(classMetric.containsKey(metricName))
@@ -83,5 +107,15 @@ public class MetricResult {
 
 	public void addElementMetric(String metricName, List<ElementMetric> metricValues) {
 		elementMetric.put(metricName,metricValues);
+	}
+	
+	public List<ElementMetric> getElementReport(String elementName) {
+		if(elementReport.containsKey(elementName))
+			return elementReport.get(elementName);
+		return null;
+	}
+
+	public void addElementReport(String elementName, List<ElementMetric> elementAnnotations) {
+		elementReport.put(elementName,elementAnnotations);
 	}
 }

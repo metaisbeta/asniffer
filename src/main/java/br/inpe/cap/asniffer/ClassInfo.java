@@ -2,7 +2,9 @@ package br.inpe.cap.asniffer;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.ITypeBinding;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 public class ClassInfo extends ASTVisitor{
@@ -12,7 +14,6 @@ public class ClassInfo extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		
 		getFullClassName(node.resolveBinding());
 		
 		if(node.isInterface()) type = "interface";
@@ -20,12 +21,22 @@ public class ClassInfo extends ASTVisitor{
 		
 		return false;
 	}
-
+	
 	@Override
 	public boolean visit(EnumDeclaration node) {
 		type = "enum";
 		getFullClassName(node.resolveBinding());
 		return false;
+	}
+	
+	@Override
+	public boolean visit(MethodDeclaration node) {
+		return super.visit(node);
+	}
+	
+	@Override
+	public boolean visit(FieldDeclaration node) {
+		return super.visit(node);
 	}
 	
 	public String getClassName() {

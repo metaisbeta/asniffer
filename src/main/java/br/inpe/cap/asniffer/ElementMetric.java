@@ -19,6 +19,9 @@ public class ElementMetric {
 	@XmlAttribute(name = "name")
 	private String elementName;
 	
+	@XmlAttribute(name = "arguments")
+	private int aa;
+
 	//JAXB
 	public ElementMetric() {	}
 	
@@ -27,6 +30,12 @@ public class ElementMetric {
 		this.type = type;
 		this.sourceCodeLine = line;
 		this.elementName = elementName;
+	}
+	
+	public ElementMetric(String annotationName, int line, int aa) {
+		this.sourceCodeLine = line;
+		this.elementName = annotationName;
+		this.aa = aa;
 	}
 	public Integer getMetricValue() {
 		return metricValue;
@@ -40,5 +49,10 @@ public class ElementMetric {
 	public String getElementName() {
 		return elementName;
 	}
-
+	public int getAa() {
+		return aa;
+	}
+	public void setAa(int aa) {
+		this.aa = aa;
+	}
 }
