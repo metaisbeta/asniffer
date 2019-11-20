@@ -9,12 +9,13 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 
+import com.google.common.collect.Lists;
+
 import br.inpe.cap.asniffer.interfaces.IAnnotationMetricCollector;
 import br.inpe.cap.asniffer.interfaces.IClassMetricCollector;
 import br.inpe.cap.asniffer.interfaces.ICodeElementMetricCollector;
 import br.inpe.cap.asniffer.model.AMReport;
-import br.inpe.cap.asniffer.utils.*;
-import com.google.common.collect.Lists;
+import br.inpe.cap.asniffer.utils.FileUtils;
 
 //Annotation Metric
 public class AM {

@@ -1,21 +1,14 @@
 package br.inpe.cap.asniffer;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.dom.Annotation;
-import org.eclipse.jdt.core.dom.ArrayInitializer;
-import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FileASTRequestor;
-import org.eclipse.jdt.core.dom.MemberValuePair;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
 
 import br.inpe.cap.asniffer.interfaces.IAnnotationMetricCollector;
 import br.inpe.cap.asniffer.interfaces.IClassMetricCollector;
@@ -23,7 +16,6 @@ import br.inpe.cap.asniffer.interfaces.ICodeElementMetricCollector;
 import br.inpe.cap.asniffer.metric.LOCCalculator;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
-import br.inpe.cap.asniffer.model.CodeElementModel;
 import br.inpe.cap.asniffer.model.MetricResult;
 import br.inpe.cap.asniffer.model.PackageModel;
 import br.inpe.cap.asniffer.utils.AnnotationUtils;

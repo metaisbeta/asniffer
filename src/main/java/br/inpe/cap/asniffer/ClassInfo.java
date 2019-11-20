@@ -2,6 +2,7 @@ package br.inpe.cap.asniffer;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;

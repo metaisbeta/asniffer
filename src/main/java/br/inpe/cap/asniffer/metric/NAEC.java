@@ -11,7 +11,6 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import br.inpe.cap.asniffer.annotations.AnnotationMetric;
 import br.inpe.cap.asniffer.annotations.ClassMetric;
 import br.inpe.cap.asniffer.interfaces.IClassMetricCollector;
 import br.inpe.cap.asniffer.model.AMReport;

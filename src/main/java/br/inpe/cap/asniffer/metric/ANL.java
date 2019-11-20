@@ -4,6 +4,7 @@ package br.inpe.cap.asniffer.metric;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+
 import br.inpe.cap.asniffer.annotations.AnnotationMetric;
 import br.inpe.cap.asniffer.interfaces.IAnnotationMetricCollector;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
