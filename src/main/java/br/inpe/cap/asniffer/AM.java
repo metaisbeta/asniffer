@@ -9,8 +9,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 
-import br.inpe.cap.asniffer.AMReport;
-import br.inpe.cap.asniffer.metric.MetricCollector;
+import br.inpe.cap.asniffer.interfaces.IAnnotationMetricCollector;
+import br.inpe.cap.asniffer.interfaces.IClassMetricCollector;
+import br.inpe.cap.asniffer.interfaces.ICodeElementMetricCollector;
+import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.utils.*;
 import com.google.common.collect.Lists;
 
@@ -38,7 +40,7 @@ public class AM {
 		String[] srcDirs = FileUtils.getAllDirs(path);
 		String[] javaFiles = FileUtils.getAllJavaFiles(path);
 		
-		MetricsExecutor storage = new MetricsExecutor(() -> includeMetrics(), projectName);
+		MetricsExecutor storage = new MetricsExecutor(() -> includeClassMetrics(), () -> includeAnnotationMetrics(), () -> includeCodeElementMetrics() , projectName);
 		
 		List<List<String>> partitions = Lists.partition(Arrays.asList(javaFiles), MAX_AT_ONCE);
 
@@ -58,15 +60,49 @@ public class AM {
 		return storage.getReport();
 	}
 	
-	private List<MetricCollector> includeMetrics(){
+	private List<IClassMetricCollector> includeClassMetrics(){
 		
-		List<MetricCollector> metrics = new ArrayList<>();
+		List<IClassMetricCollector> metrics = new ArrayList<>();
 		MetricContainer metricContainer = new MetricContainer();
 
-		for (String metricName : metricContainer.getMetrics()) {
+		for (String metricName : metricContainer.getClassMetrics()) {
 			try {
 				Class<?> clazz = Class.forName(metricName);
-				metrics.add((MetricCollector) clazz.newInstance());
+				metrics.add((IClassMetricCollector) clazz.newInstance());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return metrics;
+	}
+	
+	private List<IAnnotationMetricCollector> includeAnnotationMetrics(){
+		
+		List<IAnnotationMetricCollector> metrics = new ArrayList<>();
+		MetricContainer metricContainer = new MetricContainer();
+
+		for (String metricName : metricContainer.getAnnotationMetric()) {
+			try {
+				Class<?> clazz = Class.forName(metricName);
+				metrics.add((IAnnotationMetricCollector) clazz.newInstance());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return metrics;
+	}
+	
+	private List<ICodeElementMetricCollector> includeCodeElementMetrics(){
+			
+		List<ICodeElementMetricCollector> metrics = new ArrayList<>();
+		MetricContainer metricContainer = new MetricContainer();
+
+		for (String metricName : metricContainer.getCodeElementMetric()) {
+			try {
+				Class<?> clazz = Class.forName(metricName);
+				metrics.add((ICodeElementMetricCollector) clazz.newInstance());
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
 				e.printStackTrace();
 			}

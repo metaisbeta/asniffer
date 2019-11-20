@@ -11,12 +11,14 @@ import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-import br.inpe.cap.asniffer.AMReport;
-import br.inpe.cap.asniffer.MetricResult;
 import br.inpe.cap.asniffer.annotations.AnnotationMetric;
+import br.inpe.cap.asniffer.annotations.ClassMetric;
+import br.inpe.cap.asniffer.interfaces.IClassMetricCollector;
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.MetricResult;
 
-@AnnotationMetric
-public class ASC extends ASTVisitor implements MetricCollector {
+@ClassMetric
+public class ASC extends ASTVisitor implements IClassMetricCollector {
 
 	Map<String,String> annotations = new HashMap<>();
 	Set<String> aSchemas = new HashSet<>();

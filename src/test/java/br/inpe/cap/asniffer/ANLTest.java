@@ -7,6 +7,10 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.CodeElementModel;
+import br.inpe.cap.asniffer.model.MetricResult;
+
 public class ANLTest {
 
 	private static AMReport report;
@@ -21,9 +25,9 @@ public class ANLTest {
 	public void testANL() {
 		
 		MetricResult a = report.getByClassName("annotationtest.AnnotationTest");
-		List<ElementMetric> anl = a.getElementMetric("ANL");
+		List<CodeElementModel> anl = a.getElementMetric("ANL");
 		
-		for (ElementMetric elementMetric : anl) {
+		for (CodeElementModel elementMetric : anl) {
 			System.out.println("Element: " + elementMetric.getElementName());
 			System.out.println("Line: " + elementMetric.getLine());
 			System.out.println("Metric Value: " + elementMetric.getMetricValue());

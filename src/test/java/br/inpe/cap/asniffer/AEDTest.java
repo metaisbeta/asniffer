@@ -7,6 +7,10 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.CodeElementModel;
+import br.inpe.cap.asniffer.model.MetricResult;
+
 public class AEDTest {
 
 	private static AMReport report;
@@ -23,9 +27,9 @@ public class AEDTest {
 		MetricResult a = report.getByClassName("annotationtest.AnnotationTest");
 		//Assert.assertEquals(2, a.getElementMetric("AED"));
 	
-		List<ElementMetric> aed = a.getElementMetric("AED");
+		List<CodeElementModel> aed = a.getElementMetric("AED");
 		
-		for (ElementMetric elementMetric : aed) {
+		for (CodeElementModel elementMetric : aed) {
 			System.out.println("Element: " + elementMetric.getElementName());
 			System.out.println("Type: " + elementMetric.getType());
 			System.out.println("Line: " + elementMetric.getLine());

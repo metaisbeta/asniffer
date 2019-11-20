@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.MetricResult;
+
 public class ASCTest {
 
 	private static AMReport report;

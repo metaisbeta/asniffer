@@ -11,13 +11,14 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-
-import br.inpe.cap.asniffer.AMReport;
-import br.inpe.cap.asniffer.MetricResult;
 import br.inpe.cap.asniffer.annotations.AnnotationMetric;
+import br.inpe.cap.asniffer.annotations.ClassMetric;
+import br.inpe.cap.asniffer.interfaces.IClassMetricCollector;
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.MetricResult;
 
-@AnnotationMetric
-public class NAEC extends ASTVisitor implements MetricCollector{
+@ClassMetric
+public class NAEC extends ASTVisitor implements IClassMetricCollector{
 
 	private int annotatedElements = 0;
 	

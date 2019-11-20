@@ -1,16 +1,30 @@
 package br.inpe.cap.asniffer;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.BodyDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+import br.inpe.cap.asniffer.model.CodeElementModel;
 
 public class ClassInfo extends ASTVisitor{
 
+	private CompilationUnit cu;
 	private String className;
 	private String type;
+	private Map<BodyDeclaration,CodeElementModel> codeElementsInfo = new HashMap<BodyDeclaration, CodeElementModel>();
+	private String packageName;
+
+	public ClassInfo(CompilationUnit cu) {
+		this.cu = cu;
+	}
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
@@ -19,24 +33,41 @@ public class ClassInfo extends ASTVisitor{
 		if(node.isInterface()) type = "interface";
 		else type = "class";
 		
-		return false;
+		CodeElementModel codeElementModel = new CodeElementModel(className, type, cu.getLineNumber(node.getStartPosition()));
+		codeElementsInfo.put(node,codeElementModel);
+		
+		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(EnumDeclaration node) {
 		type = "enum";
 		getFullClassName(node.resolveBinding());
-		return false;
+		CodeElementModel codeElementModel = new CodeElementModel(className, type, cu.getLineNumber(node.getStartPosition()));
+		codeElementsInfo.put(node,codeElementModel);
+		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(MethodDeclaration node) {
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), "method", cu.getLineNumber(node.getStartPosition()));
+		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(FieldDeclaration node) {
+		Object o = node.fragments().get(0);
+		if(o instanceof VariableDeclarationFragment){
+			String fieldName = ((VariableDeclarationFragment) o).getName().toString();
+			CodeElementModel codeElementModel = new CodeElementModel(fieldName, "field", cu.getLineNumber(node.getStartPosition()));
+			codeElementsInfo.put(node,codeElementModel);
+		}
 		return super.visit(node);
+	}
+	
+	public String getPackageName() {
+		return this.packageName;
 	}
 	
 	public String getClassName() {
@@ -46,10 +77,16 @@ public class ClassInfo extends ASTVisitor{
 	public String getType() {
 		return type;
 	}
-	
-	private void getFullClassName(ITypeBinding binding) {
-		if(binding!=null)
-			this.className = binding.getBinaryName();
+
+	public Map<BodyDeclaration, CodeElementModel> getCodeElementsInfo() {
+		return codeElementsInfo;
 	}
 	
+	//Inner methods
+	private void getFullClassName(ITypeBinding binding) {
+		if(binding!=null) {
+			this.className = binding.getBinaryName();
+			this.packageName = binding.getPackage().getName();
+		}
+	}
 }

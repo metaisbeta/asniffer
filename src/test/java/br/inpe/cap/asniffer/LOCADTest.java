@@ -7,6 +7,10 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.CodeElementModel;
+import br.inpe.cap.asniffer.model.MetricResult;
+
 public class LOCADTest {
 
 	private static AMReport report;
@@ -21,8 +25,8 @@ public class LOCADTest {
 	public void testLOCAD() {
 		
 		MetricResult a = report.getByClassName("annotationtest.AnnotationTest");
-		List<ElementMetric> locad = a.getElementMetric("LOCAD");
-		for (ElementMetric elementMetric : locad) {
+		List<CodeElementModel> locad = a.getElementMetric("LOCAD");
+		for (CodeElementModel elementMetric : locad) {
 			System.out.println("Element: " + elementMetric.getElementName());
 			System.out.println("Line: " + elementMetric.getLine());
 			System.out.println("Metric Value: " + elementMetric.getMetricValue());

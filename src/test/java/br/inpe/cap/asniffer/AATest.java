@@ -3,7 +3,10 @@ package br.inpe.cap.asniffer;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import br.inpe.cap.asniffer.AMReport;
+
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.CodeElementModel;
+import br.inpe.cap.asniffer.model.MetricResult;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,9 +25,9 @@ public class AATest {
 	public void testAA() {
 		
 		MetricResult a = report.getByClassName("annotationtest.AnnotationTest");
-		List<ElementMetric> aa = a.getElementMetric("AA");
+		List<CodeElementModel> aa = a.getElementMetric("AA");
 		
-		for (ElementMetric elementMetric : aa) {
+		for (CodeElementModel elementMetric : aa) {
 			System.out.println("Element: " + elementMetric.getElementName());
 			System.out.println("Type: " + elementMetric.getType());
 			System.out.println("Line: " + elementMetric.getLine());

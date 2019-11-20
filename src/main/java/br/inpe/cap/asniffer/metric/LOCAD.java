@@ -1,54 +1,23 @@
 package br.inpe.cap.asniffer.metric;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.MarkerAnnotation;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
-import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-import br.inpe.cap.asniffer.AMReport;
-import br.inpe.cap.asniffer.ElementMetric;
-import br.inpe.cap.asniffer.MetricResult;
 import br.inpe.cap.asniffer.annotations.AnnotationMetric;
+import br.inpe.cap.asniffer.interfaces.IAnnotationMetricCollector;
+import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 
 @AnnotationMetric
-public class LOCAD extends ASTVisitor implements MetricCollector {
+public class LOCAD implements IAnnotationMetricCollector {
 
-	private List<ElementMetric> locad = new ArrayList<>();
 	private CompilationUnit cu;
 	
 	@Override
-	public boolean visit(MarkerAnnotation node) {
-		locad.add(new ElementMetric(1, null, cu.getLineNumber(node.getStartPosition()), node.getTypeName().getFullyQualifiedName()));
-		return super.visit(node);
-	}
-	
-	@Override
-	public boolean visit(SingleMemberAnnotation node) {
-		locad.add(new ElementMetric(1, null, cu.getLineNumber(node.getStartPosition()), node.getTypeName().getFullyQualifiedName()));
-		return super.visit(node);
-	}
-	
-	@Override
-	public boolean visit(NormalAnnotation node) {
-		locad.add(new ElementMetric(getNumLines(node), null, cu.getLineNumber(node.getStartPosition()), node.getTypeName().getFullyQualifiedName()));
-		return super.visit(node);
-	}
-	
-	@Override
-	public void execute(CompilationUnit cu, MetricResult result, AMReport report) {
+	public void execute(CompilationUnit cu, AnnotationMetricModel annotationMetricModel,
+			Annotation annotation) {
 		this.cu= cu;
-		cu.accept(this);
-
-	}
-
-	@Override
-	public void setResult(MetricResult result) {
-		result.addElementMetric("LOCAD", locad);
+		int locad = getNumLines(annotation);
+		annotationMetricModel.addAnnotationMetric("LOCAD", locad);
 	}
 	
 	private int getNumLines(Annotation annotation) {
@@ -60,5 +29,4 @@ public class LOCAD extends ASTVisitor implements MetricCollector {
 		locad = endLineNumber - startLineNumber + 1;
 		return locad;
 	}
-
 }

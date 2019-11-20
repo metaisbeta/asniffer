@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.inpe.cap.asniffer.AM;
-import br.inpe.cap.asniffer.AMReport;
+import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.utils.XMLUtils;
 
 public class XMLTest {

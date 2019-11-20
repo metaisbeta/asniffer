@@ -9,15 +9,41 @@ import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
 
 public class MetricContainer{
 
-	public List<String> getMetrics(){
-		
+	ScanResult result = null;
+	
+	public MetricContainer() {
 		FastClasspathScanner scan = new FastClasspathScanner(FileUtils.getJarDependencies());
-		ScanResult result = scan.scan();
-		List<String> metricNames = new ArrayList<>();
+		result = scan.scan();
+	}
+	
+	public List<String> getClassMetrics(){
+		
+		List<String> classMetricNames = new ArrayList<>();
+		
+		for (String metricName : result.getNamesOfClassesWithAnnotation("br.inpe.cap.asniffer.annotations.ClassMetric")) 
+			classMetricNames.add(metricName);
+			
+		return classMetricNames;
+	}
+	
+	public List<String> getAnnotationMetric(){
+		
+		List<String> annotationMetric = new ArrayList<>();
 		
 		for (String metricName : result.getNamesOfClassesWithAnnotation("br.inpe.cap.asniffer.annotations.AnnotationMetric")) 
-			metricNames.add(metricName);
+			annotationMetric.add(metricName);
 			
-		return metricNames;
+		return annotationMetric;
+		
+	}
+	
+	public List<String> getCodeElementMetric(){
+		
+		List<String> codeElementMetric = new ArrayList<>();
+				
+		for (String metricName : result.getNamesOfClassesWithAnnotation("br.inpe.cap.asniffer.annotations.CodeElementMetric")) 
+			codeElementMetric.add(metricName);
+			
+		return codeElementMetric;
 	}
 }

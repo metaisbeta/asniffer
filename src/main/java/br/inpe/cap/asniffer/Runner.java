@@ -3,8 +3,10 @@ package br.inpe.cap.asniffer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.output.IReport;
+import br.inpe.cap.asniffer.output.xml.XMLReport;
 import br.inpe.cap.asniffer.utils.FileUtils;
-import br.inpe.cap.asniffer.utils.XMLUtils;
 
 public class Runner {
 	
@@ -31,6 +33,7 @@ public class Runner {
 		String projectName = FileUtils.getProjectName(projectPath);
 		System.out.println("Initializing extraction for project " + projectName);
 		AMReport report = new AM().calculate(projectPath.toString(), projectName);
-		XMLUtils.createXMLFile(report, xmlPath);
+		IReport xmlReport = new XMLReport();
+		xmlReport.generateReport(report, xmlPath);
 	}
 }
