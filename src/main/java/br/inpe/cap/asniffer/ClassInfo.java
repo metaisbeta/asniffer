@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
@@ -18,7 +19,7 @@ import br.inpe.cap.asniffer.model.CodeElementModel;
 public class ClassInfo extends ASTVisitor{
 
 	private CompilationUnit cu;
-	private String className;
+	private String className = null;
 	private String type;
 	private Map<BodyDeclaration,CodeElementModel> codeElementsInfo = new HashMap<BodyDeclaration, CodeElementModel>();
 	private String packageName;
@@ -29,12 +30,11 @@ public class ClassInfo extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		getFullClassName(node.resolveBinding());
+		String name = getFullClassName(node.resolveBinding());
 		
 		if(node.isInterface()) type = "interface";
 		else type = "class";
-		
-		CodeElementModel codeElementModel = new CodeElementModel(className, type, cu.getLineNumber(node.getStartPosition()));
+		CodeElementModel codeElementModel = new CodeElementModel(name, type, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		
 		return super.visit(node);
@@ -43,8 +43,17 @@ public class ClassInfo extends ASTVisitor{
 	@Override
 	public boolean visit(EnumDeclaration node) {
 		type = "enum";
-		getFullClassName(node.resolveBinding());
-		CodeElementModel codeElementModel = new CodeElementModel(className, type, cu.getLineNumber(node.getStartPosition()));
+		String name = getFullClassName(node.resolveBinding());
+		CodeElementModel codeElementModel = new CodeElementModel(name, type, cu.getLineNumber(node.getStartPosition()));
+		codeElementsInfo.put(node,codeElementModel);
+		return super.visit(node);
+	}
+	
+	@Override
+	public boolean visit(AnnotationTypeDeclaration node) {
+		type = "annotation-declaration";
+		String name = getFullClassName(node.resolveBinding());
+		CodeElementModel codeElementModel = new CodeElementModel(name, type, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
@@ -84,10 +93,15 @@ public class ClassInfo extends ASTVisitor{
 	}
 	
 	//Inner methods
-	private void getFullClassName(ITypeBinding binding) {
+	private String getFullClassName(ITypeBinding binding) {
 		if(binding!=null) {
-			this.className = binding.getBinaryName();
-			this.packageName = binding.getPackage().getName();
+			if(className==null) {
+				this.className = binding.getBinaryName();
+				this.packageName = binding.getPackage().getName();
+			}else
+				return binding.getBinaryName();
 		}
+		return null;
+		
 	}
 }

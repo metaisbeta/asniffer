@@ -48,13 +48,12 @@ public class AM {
 		for(List<String> partition : partitions) {
 			ASTParser parser = ASTParser.newParser(AST.JLS8);
 			
-			parser.setResolveBindings(true);
-			parser.setBindingsRecovery(true);
-			
 			Map<String, String> options = JavaCore.getOptions();
 			JavaCore.setComplianceOptions(JavaCore.VERSION_1_8, options);
 			parser.setCompilerOptions(options);
 			parser.setEnvironment(null, srcDirs, null, true);
+			parser.setResolveBindings(true);
+			parser.setBindingsRecovery(true);
 			parser.createASTs(partition.toArray(new String[partition.size()]), null, new String[0], storage, null);
 		}
 		

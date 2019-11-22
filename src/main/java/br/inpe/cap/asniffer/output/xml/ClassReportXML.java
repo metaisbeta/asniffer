@@ -1,6 +1,8 @@
 package br.inpe.cap.asniffer.output.xml;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,6 +16,9 @@ public class ClassReportXML {
 	@XmlAttribute(name = "type")
 	private String type;
 
+	@XmlElement(name = "schema")
+	private List<String> annotationSchemas;
+	
 	@XmlElement(name = "metric")
 	private List<ClassMetricXML> classMetricXML;
 	
@@ -32,6 +37,10 @@ public class ClassReportXML {
 	
 	public void setCodeElementXMLReport(List<CodeElementXMLReport> codeElementXMLReport) {
 		this.codeElementXMLReport = codeElementXMLReport;
+	}
+	
+	public void setAnnotationSchemas(Set<String> annotationSchemas) {
+		this.annotationSchemas = new ArrayList<String>(annotationSchemas);
 	}
 	
 }

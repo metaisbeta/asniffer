@@ -63,6 +63,7 @@ public class XMLReport implements IReport {
 			ClassReportXML classReportXML = new ClassReportXML(classReport.getClassName(), classReport.getType());
 			classReportXML.setClassMetricsXML(fetchClassMetrics(classReport, classReportXML));
 			classReportXML.setCodeElementXMLReport(fetchCodeElementReport(classReport, classReportXML));
+			classReportXML.setAnnotationSchemas(classReport.getAnnotationSchemas());
 			classesReportXML.add(classReportXML);
 		}
 		

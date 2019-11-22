@@ -2,8 +2,10 @@ package br.inpe.cap.asniffer;
 
 import java.io.FileInputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.eclipse.jdt.core.dom.Annotation;
@@ -19,7 +21,6 @@ import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.MetricResult;
 import br.inpe.cap.asniffer.model.PackageModel;
 import br.inpe.cap.asniffer.utils.AnnotationUtils;
-
 
 public class MetricsExecutor extends FileASTRequestor{
 
@@ -53,8 +54,9 @@ public class MetricsExecutor extends FileASTRequestor{
 			PackageModel packageModel = getPackageModel(packageName);
 			
 			int loc = new LOCCalculator().calculate(new FileInputStream(sourceFilePath));
+			int nec = info.getCodeElementsInfo().size();
 			
-			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType(),loc);
+			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType(),loc, nec);
 			
 			//Obtain class metrics
 			for(IClassMetricCollector visitor : classMetrics.call()) {
@@ -62,12 +64,9 @@ public class MetricsExecutor extends FileASTRequestor{
 				visitor.setResult(result);
 			}
 			
-			
-			
-			
 			info.getCodeElementsInfo().forEach((node,codeElement)->{
 				//Obtain annotations
-				System.out.println(codeElement.getElementName());
+				//System.out.println(codeElement.getElementName());
 				
 				//Obtain code element metrics
 				try {

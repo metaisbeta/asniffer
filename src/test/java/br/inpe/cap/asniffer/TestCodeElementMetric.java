@@ -8,10 +8,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
 import br.inpe.cap.asniffer.model.MetricResult;
 
-public class AEDTest {
+public class TestCodeElementMetric {
 
 	private static AMReport report;
 	
@@ -24,20 +25,17 @@ public class AEDTest {
 	@Test
 	public void testAED() {
 		
-		MetricResult a = report.getByClassName("annotationtest.AnnotationTest");
-		//Assert.assertEquals(2, a.getElementMetric("AED"));
-	
-		List<CodeElementModel> aed = a.getElementMetric("AED");
+		MetricResult result = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
+		List<CodeElementModel> codeElements = result.getElementsReport();
+		int aedValue = 0;
 		
-		for (CodeElementModel elementMetric : aed) {
-			System.out.println("Element: " + elementMetric.getElementName());
-			System.out.println("Type: " + elementMetric.getType());
-			System.out.println("Line: " + elementMetric.getLine());
-			System.out.println("Metric Value: " + elementMetric.getMetricValue());
+		for (CodeElementModel codeElement : codeElements) {
+			if(codeElement.getLine()==131) {
+				aedValue = codeElement.getAed();
+			}
 		}
 		
-		
-		assertEquals(32, aed.size());
+		assertEquals(11, aedValue);
 		
 	}
 	

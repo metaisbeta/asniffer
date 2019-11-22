@@ -2,33 +2,24 @@ package br.inpe.cap.asniffer.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-
-@XmlAccessorType(XmlAccessType.FIELD)
 public class MetricResult {
 	
 	private String sourceFilePath;
 	private String className;
 	private String type;
 	
-	@XmlElement(name = "class-metric")
-	//@XmlJavaTypeAdapter(MapXMLAdapter.class)
+	private Set<String> annotationSchemas;
+	
 	private Map<String,Integer> classMetric;
 	
-	@XmlElementWrapper(name = "code-elements")
-	@XmlElement(name = "code-element")
 	private List<CodeElementModel> elementsReport;
 	
-	//JAXB requires an empty constructor
-	public MetricResult() {}
-	
-	public MetricResult(String sourceFilePath, String className, String type, int loc) {
+	public MetricResult(String sourceFilePath, String className, String type, int loc, int nec) {
 		super();
 		this.sourceFilePath = sourceFilePath;
 		this.className = className;
@@ -36,6 +27,8 @@ public class MetricResult {
 		this.classMetric = new HashMap<>();
 		this.elementsReport = new ArrayList<CodeElementModel>();
 		addClassMetric("LOC", loc);
+		addClassMetric("NEC", nec);
+		this.annotationSchemas = new HashSet<>();
 	}
 	
 	public int getClassMetric(String metricName) {
@@ -46,6 +39,14 @@ public class MetricResult {
 	
 	public void addClassMetric(String metricName, int metricValue) {
 		this.classMetric.put(metricName, metricValue);
+	}
+	
+	public Set<String> getAnnotationSchemas() {
+		return this.annotationSchemas;
+	}
+	
+	public void setSchemas(Set<String> annotationSchemas) {
+		this.annotationSchemas = annotationSchemas;
 	}
 	
 	public CodeElementModel getElementReport(String elementName) {
