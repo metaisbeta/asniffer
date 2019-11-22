@@ -33,7 +33,7 @@ For each project an xml output is generated with the report. The reports will be
 Annotation Metrics
 ==================
 
-The Annotations Sniffer was developed to aid research in code annotations analysis. It collects 7 annotation metrics. These metrics were proposed and defined in the the paper [A Metrics Suite for Code Annoation Assessment](https://www.sciencedirect.com/science/article/pii/S016412121730273X)
+The Annotations Sniffer was developed to aid research in code annotations analysis. It collects 9 annotation metrics. These metrics were proposed and defined in the the paper [A Metrics Suite for Code Annoation Assessment](https://www.sciencedirect.com/science/article/pii/S016412121730273X)
 
 ### Collected metrics
 
@@ -44,39 +44,57 @@ The Annotations Sniffer was developed to aid research in code annotations analys
 * AA: Attributes in Annotation
 * ANL: Annotation Nesting Level
 * LOCAD: LOC in Annotation Declaration
+* NEC: Number of Elements in Class
+* NAEC: Number of Annotated Elements in Class
 
 ### XML Output Format
 
-* Class Metrics: These metrics have one value per class, they are AC, UAC, ASC
-* Element Metrics: These metrics have multiple values per class. They evaluate the annotation itself (AA, LOCAD, ANL) or a code element (AED).
-                   The report contains the element name, element type (field, method, etc), the source code line where the element is located and the metric value.
-                   For metrics measuring code annotations itself (AA,ANL,LOCAD), the element type is "annotation", and therefore not explicitly informed on the report
+* Class Metrics: These metrics have one value per class, they are AC, UAC, ASC, NAEC and NEC
+* Code Element Metrics: These metrics have one value per code element (method, field, enum, type). Our suite has one metric, AED (Annotations in Element Declaration), that measures the number of annotations declared in any given code element.
+* Annotation Metrics: These metrics have one value values per annotation declared in the class. They evaluate the annotation itself (AA, LOCAD, ANL). 
 
-One XML file is generated for each project, containing both class metrics and element metrics in the report. 
+* For each code element, the report contains the element name, type (field, method, enum, etc), the source code line where the element is located and "code element metric values" (for now, only AED fits this category)
+* If the AED is greater than zero, then the code element contains annotations, and so the "annotation metrics" values printed on the XML. The report has the annotation name,source-code line and the values for AA, ANL and LOCAD.
+                   
+* In case of multiple projects, one XML file is generated for each one of them
+
+* Following is an example of an XML report
+
 ```
 <project name="project1">
-    <class name="className">
-        <class-metric>
-            <metric>
-                <metric name="AC">VALUE</metric>
-                ...
-            </metric>
-        </class-metric>
-        <element-metric>
-            <metric name="AA">
-                <elements name="name" code-line="code-line">value</elements>
-                ...
-            </metric>
-            <metric name="AED">
-                <elements name="name" type="type" code-line="code-line">VALUE</elements>
+    <package name="pacakge1">
+        <class name="pacakge1.Class1" type="class">
+            <schema>java.lang</schema>
+            <schema>javax.persistence</schema>
             ...
-       </element-metric>
-    </class>
+            <metric name="LOC" value="50"/>
+            <metric name="ASC" value="5"/>
+            <metric name="AC" value="28"/>
+            <metric name="NAEC" value="16"/>
+            <metric name="UAC" value="18"/>
+            <metric name="NEC" value="32"/>
+            <code-elements>
+                <code-element name="method1" type="method" code-line="20" aed="1"/>
+                    <annotation name="Override" code-line="201">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            ...
+            </codelements>
+        ...
+        </class>
     ...
-</project>
+    </package>
+...
+</project>  
+
 ```
 
-### Creating new Metric for Annotation Sniffer
+### Creating a new Metric for Annotation Sniffer
 
 The Annotation Sniffer uses Reflection to know which metrics it should collect. If you wish to use Annotation Sniffer on your project and create custom metrics, follow these steps:
 
