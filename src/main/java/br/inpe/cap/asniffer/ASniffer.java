@@ -2,8 +2,13 @@ package br.inpe.cap.asniffer;
 
 import java.io.FileNotFoundException;
 
+import org.apache.log4j.Logger;
+
 public class ASniffer {
-                                                               
+            
+	private static final Logger logger = 
+		      Logger.getLogger(ASniffer.class);
+	
 	//Called as an executable jar                                                 	                                          
 	public static void main(String[] args) throws FileNotFoundException {
 		                                                    
@@ -13,19 +18,20 @@ public class ASniffer {
 			System.exit(1);
 		}
 		
-		Runner runner = new Runner(args[0], args[1]);
-		if(args[2].toLowerCase().contains("single"))
-			runner.collectSingle();
-		else
-			runner.collectMultiple();
+		run(args[0], args[1], args[2].toLowerCase().contains("single"));
+			
 	}
 	
 	//Called from other applications
-	public void run(String projectPath, String xmlPath, boolean singleProject) throws FileNotFoundException {
+	public static void run(String projectPath, String xmlPath, boolean singleProject) throws FileNotFoundException {
 		Runner runner = new Runner(projectPath, xmlPath);
-		if(singleProject)
+		if(singleProject) {
+			logger.info("Initializing extraction for single project.");
 			runner.collectSingle();
-		else
+		}
+		else {
+			logger.info("Initializing extraction for multiple projects.");
 			runner.collectMultiple();
+		}
 	}
 }

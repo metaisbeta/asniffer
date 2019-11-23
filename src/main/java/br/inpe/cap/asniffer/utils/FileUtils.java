@@ -82,7 +82,8 @@ public class FileUtils {
 		int index = path.lastIndexOf("/");
 		if(index != -1)
 			return path.substring(index+1);
-		return null;
+		else
+		 return path;
 	}
 	
 	public static String[] getJarDependencies() {

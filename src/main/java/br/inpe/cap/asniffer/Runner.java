@@ -3,6 +3,8 @@ package br.inpe.cap.asniffer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.log4j.Logger;
+
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.output.IReport;
 import br.inpe.cap.asniffer.output.xml.XMLReport;
@@ -12,6 +14,9 @@ public class Runner {
 	
 	String projectsPath = "";
 	String xmlPath = "";
+	
+	private static final Logger logger = 
+		      Logger.getLogger(Runner.class);
 	
 	public Runner(String projectPath, String xmlPath) {
 		this.projectsPath = projectPath;
@@ -31,8 +36,9 @@ public class Runner {
 	
 	private void collect(Path projectPath) {
 		String projectName = FileUtils.getProjectName(projectPath);
-		System.out.println("Initializing extraction for project " + projectName);
+		logger.info("Initializing extraction for project " + projectName);
 		AMReport report = new AM().calculate(projectPath.toString(), projectName);
+		logger.info("Extraction concluded for project " + projectName);
 		IReport xmlReport = new XMLReport();
 		xmlReport.generateReport(report, xmlPath);
 	}

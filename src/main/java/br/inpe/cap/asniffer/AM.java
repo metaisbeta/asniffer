@@ -41,7 +41,9 @@ public class AM {
 		String[] srcDirs = FileUtils.getAllDirs(path);
 		String[] javaFiles = FileUtils.getAllJavaFiles(path);
 		
-		MetricsExecutor storage = new MetricsExecutor(() -> includeClassMetrics(), () -> includeAnnotationMetrics(), () -> includeCodeElementMetrics() , projectName);
+		MetricsExecutor storage = new MetricsExecutor(() -> includeClassMetrics(), 
+						includeAnnotationMetrics(),
+						includeCodeElementMetrics() , projectName);
 		
 		List<List<String>> partitions = Lists.partition(Arrays.asList(javaFiles), MAX_AT_ONCE);
 

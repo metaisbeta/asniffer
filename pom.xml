@@ -42,6 +42,11 @@
 		    <artifactId>fast-classpath-scanner</artifactId>
 		    <version>2.18.0</version>
 		</dependency>
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>1.2.17</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -70,61 +75,26 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
+				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
+						<phase>package</phase>
 						<goals>
-							<goal>copy-dependencies</goal>
+							<goal>single</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
+							<archive>
+								<manifest>
+									<mainClass>br.inpe.cap.asniffer.ASniffer</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>br.inpe.cap.asniffer.ASniffer</mainClass>
-						</manifest>
-						<manifestEntries>
-							<Class-Path>.</Class-Path>
-						</manifestEntries>
-					</archive>
- 
-					<finalName>ASniffer/ASniffer</finalName>
-				</configuration>
-			</plugin>
-			<plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>exec-maven-plugin</artifactId>
-		        <executions>
-		            <execution>
-		                <configuration>
-		                    <executable>python</executable>
-		                    <workingDirectory>src/main/resources</workingDirectory>
-		                    <arguments>
-		                        <argument>ignoreJarDependencies.py</argument>
-		                    </arguments>    
-				                </configuration>
-		                <id>python-build</id>
-		                <phase>prepare-package</phase>
-		                <goals>
-		                    <goal>exec</goal>
-		                </goals>
-		            </execution>
-		        </executions>
-	    		</plugin>
 		</plugins>
 	</build>
 	

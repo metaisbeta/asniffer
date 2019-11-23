@@ -1,7 +1,7 @@
 package br.inpe.cap.asniffer;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
@@ -21,11 +21,12 @@ public class ClassInfo extends ASTVisitor{
 	private CompilationUnit cu;
 	private String className = null;
 	private String type;
-	private Map<BodyDeclaration,CodeElementModel> codeElementsInfo = new HashMap<BodyDeclaration, CodeElementModel>();
+	private Map<BodyDeclaration,CodeElementModel> codeElementsInfo;
 	private String packageName;
 
 	public ClassInfo(CompilationUnit cu) {
 		this.cu = cu;
+		this.codeElementsInfo = new ConcurrentHashMap<BodyDeclaration, CodeElementModel>();
 	}
 
 	@Override

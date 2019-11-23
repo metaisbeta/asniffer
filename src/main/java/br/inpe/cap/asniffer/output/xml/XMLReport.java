@@ -8,6 +8,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import org.apache.log4j.Logger;
+
+import br.inpe.cap.asniffer.ASniffer;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
@@ -18,7 +21,8 @@ import br.inpe.cap.asniffer.output.IReport;
 public class XMLReport implements IReport {
 
 	ProjectReportXML projectReport;
-	
+	private static final Logger logger = 
+		      Logger.getLogger(XMLReport.class);
 	
 	@Override
 	public void generateReport(AMReport report, String path) {
@@ -33,8 +37,7 @@ public class XMLReport implements IReport {
 	        jaxbMarshaller.marshal(projectReport, file);
 	        //Uncomment line below if you wish to see the generated XML on console output
 	        //jaxbMarshaller.marshal(report, System.out);
-	        System.out.println("XML file for project " + report.getProjectName() + " created on " + file.getAbsolutePath());
-
+	        logger.info("XML file for project " + report.getProjectName() + " created on " + file.getAbsolutePath());
 	      } catch (JAXBException e) {
 	        e.printStackTrace();
 	      }

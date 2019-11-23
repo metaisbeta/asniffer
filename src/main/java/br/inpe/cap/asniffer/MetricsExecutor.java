@@ -2,13 +2,13 @@ package br.inpe.cap.asniffer;
 
 import java.io.FileInputStream;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Callable;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jdt.core.dom.Annotation;
+import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FileASTRequestor;
 
@@ -18,6 +18,7 @@ import br.inpe.cap.asniffer.interfaces.ICodeElementMetricCollector;
 import br.inpe.cap.asniffer.metric.LOCCalculator;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
+import br.inpe.cap.asniffer.model.CodeElementModel;
 import br.inpe.cap.asniffer.model.MetricResult;
 import br.inpe.cap.asniffer.model.PackageModel;
 import br.inpe.cap.asniffer.utils.AnnotationUtils;
@@ -28,11 +29,14 @@ public class MetricsExecutor extends FileASTRequestor{
 	private Map<String, PackageModel> packagesModel;
 	MetricResult result = null;
 	private Callable<List<IClassMetricCollector>> classMetrics;
-	private Callable<List<IAnnotationMetricCollector>> annotationMetrics;
-	private Callable<List<ICodeElementMetricCollector>> codeElementMetrics;
+	private List<IAnnotationMetricCollector> annotationMetrics;
+	private List<ICodeElementMetricCollector> codeElementMetrics;
 	
-	public MetricsExecutor(Callable<List<IClassMetricCollector>> classMetrics, Callable<List<IAnnotationMetricCollector>> annotationMetrics, 
-						   Callable<List<ICodeElementMetricCollector>> codeElementMetrics, String projectName) {
+	private static final Logger logger = 
+		      Logger.getLogger(MetricsExecutor.class);
+	
+	public MetricsExecutor(Callable<List<IClassMetricCollector>> classMetrics, List<IAnnotationMetricCollector> annotationMetrics, 
+						   List<ICodeElementMetricCollector> codeElementMetrics, String projectName) {
 		this.classMetrics = classMetrics;
 		this.annotationMetrics = annotationMetrics;
 		this.codeElementMetrics = codeElementMetrics;
@@ -57,48 +61,42 @@ public class MetricsExecutor extends FileASTRequestor{
 			int nec = info.getCodeElementsInfo().size();
 			
 			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType(),loc, nec);
-			
+			logger.info("Initializing extraction of class metrics.");
 			//Obtain class metrics
 			for(IClassMetricCollector visitor : classMetrics.call()) {
 				visitor.execute(cu, result, report);
 				visitor.setResult(result);
 			}
-			
-			info.getCodeElementsInfo().forEach((node,codeElement)->{
-				//Obtain annotations
-				//System.out.println(codeElement.getElementName());
-				
+			logger.info("Finished extracting class metrics.");
+			info.getCodeElementsInfo().entrySet().parallelStream().forEach(entry ->{
+				BodyDeclaration codeElementBody = entry.getKey();
+				CodeElementModel codeElementModel = entry.getValue();
+				logger.info("Initializing extraction of code element metrics for element: " + codeElementModel.getElementName());
 				//Obtain code element metrics
-				try {
-					for(ICodeElementMetricCollector visitor : codeElementMetrics.call()) {
-						visitor.execute(cu, codeElement, node);
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				for(ICodeElementMetricCollector visitor : codeElementMetrics) {
+					visitor.execute(cu, codeElementModel, codeElementBody);
 				}
-				
+				logger.info("Finished extraction of code element metrics for element: " + codeElementModel.getElementName());
 				//Annotation Metrics
-				List<Annotation> annotations = AnnotationUtils.checkForAnnotations(node);
-				for (Annotation annotation : annotations) {
-					AnnotationMetricModel annotationMetricModel = new AnnotationMetricModel(annotation.getTypeName().toString(), 
-																		   cu.getLineNumber(annotation.getStartPosition()));
-					try {
-						for (IAnnotationMetricCollector annotationCollector : annotationMetrics.call()) {
-							annotationCollector.execute(cu, annotationMetricModel, annotation);
-						}
-						codeElement.addAnnotationMetric(annotationMetricModel);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
+				List<Annotation> annotations = AnnotationUtils.checkForAnnotations(codeElementBody);
 				
-				result.addElementReport(codeElement);
+				logger.info("Initializing extraction of annotation metrics for code element: " + codeElementModel.getElementName());
+				annotations.parallelStream().forEach(annotation -> {
+					AnnotationMetricModel annotationMetricModel = new AnnotationMetricModel(annotation.getTypeName().toString(), 
+							   cu.getLineNumber(annotation.getStartPosition()));
+					for (IAnnotationMetricCollector annotationCollector : annotationMetrics) {
+						annotationCollector.execute(cu, annotationMetricModel, annotation);
+					}
+					codeElementModel.addAnnotationMetric(annotationMetricModel);
+				});
+				logger.info("Finished extraction of annotation metrics for code element: " + codeElementModel.getElementName());
+				result.addElementReport(codeElementModel);
 			});
 			
 			packageModel.add(result);
 			report.addPackageModel(packageModel);
 		} catch(Exception e) {
-			//if(result!=null) result.error();
+			e.printStackTrace();
 		}
 	}
 	
