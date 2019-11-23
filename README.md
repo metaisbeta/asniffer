@@ -7,6 +7,9 @@ Annotation Sniffer is a tool that extracts code annotation metrics from java sou
 
 Download the source code and generate an executable jar file.
 
+```
+mvn clean package
+```
 ### How to use
 
 ```
@@ -96,12 +99,11 @@ The Annotations Sniffer was developed to aid research in code annotations analys
 
 ### Creating a new Metric for Annotation Sniffer
 
-The Annotation Sniffer uses Reflection to know which metrics it should collect. If you wish to use Annotation Sniffer on your project and create custom metrics, follow these steps:
+The Annotation Sniffer uses Reflection to know which metrics it should collect. If you wish to use Annotation Sniffer on your project and create you owrn custom metrics, follow these steps:
 
-* Your new metric class must extend ASTVisitor, implement MetricCollector and be annotated with @AnnotationMetric
-* The MetricCollector interface contains two methods: execute(CompilationUnity, MetricResult, AMReport) and setResult(MetricResult). The MetricResult class is where you want to store your value.
-  * Class Metric: If your metric outputs only one value per class, then, in this context, it is a class metric. The result must be store using addClassMetric(string metricName, integer metricValue).
-  * Element Metric: If your metric measures elements, then it outputs more than one value per class, therefore it is a element metric. The result must be store using addElementMetric(string name, List<ElementMetric> elementMetric)
-  The ElementMetric class is a JavaBean with properties such as metricValue, type, source-code line and element name.
-  
-  Check the metrics included in the package br.inpe.cap.asniffer.metric for more information.
+* Class Metrics: If you wish to create your own class metric, your Metric Class must extend ASTVisitor (to visit the compilation unit), and implement the  IClassMetricCollector interfnace and be annotated with @ClassMetric
+* The IClassMetricCollector interface contains two methods: execute(CompilationUnit, MetricResult, AMReport) and setResult(MetricResult). The MetricResult class is where you want to store your value. Check the code for AC, ASC and UAC for example
+
+* If you wish to create new Annotation Metrics, then you need to annotate the class with @AnnotationMetric and implement the interface IAnnotationMetricCollector. This interface has only one method: execute(CompilationUnit, AnnotationMetricModel, Annotation). The AnnotionMetricModel is where you will store the result, and the "Annotation" is the JDT representation of the annotation that you can perform your analysis. Check the code for: ANL, AA and LOCAD for more examples.
+
+* Check the metrics included in the package br.inpe.cap.asniffer.metric for more information.
