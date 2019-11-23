@@ -101,9 +101,14 @@ The Annotations Sniffer was developed to aid research in code annotations analys
 
 The Annotation Sniffer uses Reflection to know which metrics it should collect. If you wish to use Annotation Sniffer on your project and create you owrn custom metrics, follow these steps:
 
-* Class Metrics: If you wish to create your own class metric, your Metric Class must extend ASTVisitor (to visit the compilation unit), and implement the  IClassMetricCollector interfnace and be annotated with @ClassMetric
-* The IClassMetricCollector interface contains two methods: execute(CompilationUnit, MetricResult, AMReport) and setResult(MetricResult). The MetricResult class is where you want to store your value. Check the code for AC, ASC and UAC for example
+* Class Metrics: If you wish to create your own Metric Class, your class must:
+    - Extend ASTVisitor (to visit the compilation unit)
+    - Implement the ```IClassMetricCollector```interface. It contains two methods, ```execute(CompilationUnit, MetricResult, AMReport)``` and ```setResult(MetricResult)```. The ```MetricResult``` class is where you want to store your value, as well as the name of your custom metric. Check the code for AC, ASC and UAC for examplee
+    - Annotate the class with ```@ClassMetric```.
 
-* If you wish to create new Annotation Metrics, then you need to annotate the class with @AnnotationMetric and implement the interface IAnnotationMetricCollector. This interface has only one method: execute(CompilationUnit, AnnotationMetricModel, Annotation). The AnnotionMetricModel is where you will store the result, and the "Annotation" is the JDT representation of the annotation that you can perform your analysis. Check the code for: ANL, AA and LOCAD for more examples.
+
+* If you wish to create new Annotation Metrics, then you need to:
+    - Annotate the class with @AnnotationMetric.
+    - Implement the interface ```IAnnotationMetricCollector```. This interface has only one method, ```execute(CompilationUnit, AnnotationMetricModel, Annotation)```. The ```AnnotionMetricModel``` class is where you will store the metric value and name. The ```Annotation``` class is the JDT (Java Development Tools) representation of the annotation that you can perform your analysis. Check the code for: ANL, AA and LOCAD for more examples.
 
 * Check the metrics included in the package br.inpe.cap.asniffer.metric for more information.
