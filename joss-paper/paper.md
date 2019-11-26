@@ -41,7 +41,7 @@ The first version of this tool was previously presented and published on a works
 
 # Metadata and Code Annotations
 
-The term `metadata` is used in a variety of contexts in the computer science field. In all of them, it means data referring to the data itself. In databases, the data are the ones persisted, and the metadata is their description, i.e., the structure of the table. In the object-oriented context, the data are the instances, and the metadata is their description, i.e., information that describes the class. As such, fields, methods, super-classes, and interfaces are all metadata of a class instance. A class field, in turn, has its type, access modifiers, and name as its metadata [@guerra2014]. 
+The term "metadata" is used in a variety of contexts in the computer science field. In all of them, it means data referring to the data itself. In databases, the data are the ones persisted, and the metadata is their description, i.e., the structure of the table. In the object-oriented context, the data are the instances, and the metadata is their description, i.e., information that describes the class. As such, fields, methods, super-classes, and interfaces are all metadata of a class instance. A class field, in turn, has its type, access modifiers, and name as its metadata [@guerra2014]. 
 
 Some programming languages provide features that allow custom metadata to be defined and included directly on programming elements. This feature is supported in languages such as Java, through the use of annotations and in C#, by attributes. A benefit is that the metadata definition is closer to the programming element, and its definition is less verbose than external approaches. Annotations are a feature of the Java language, which became official on version 1.5. The code on Listing 1 presents a simple ```Player``` class using code annotation to perform object-relational mapping.
 
@@ -124,13 +124,13 @@ Listing 2: Example code to extract annotation metrics.
 
 # Annotation Sniffer 
 
-The ASniffer tool uses the JDT[ˆ3](Java Development Tools) API to build the Abstract Syntax Tree (AST) from text file contaning the source code. The ASniffer traverses this AST, visiting the nodes and gathering information about the code elements. After the processing is done, an ouput XML is generated. 
+The ASniffer tool uses the JDT[^3](Java Development Tools) API to build the Abstract Syntax Tree (AST) from text file contaning the source code. The ASniffer traverses this AST, visiting the nodes and gathering information about the code elements. After the processing is done, an ouput XML is generated. 
 
-[ˆ3]: \url{https://www.eclipse.org/jdt/} 
+[^3]: \url{https://www.eclipse.org/jdt/} 
 
 To create the AST (Abstract Syntax Tree), we use the method \texttt{ASTParser.createASTs}. This method is exposed by the JDT and receives an array of strings containing the file path of each and every source code that we wish to analyze. Another parameter for the method is a class that will handle the compilation units. Our class is the \texttt{MetricsExecutor} and this class must extend the \texttt{FileASTRequestor}. From inside \texttt{MetricsExecutor} we call every metric class and pass in the compilation unit (generated the \texttt{ASTParser}).
 
-To understand the extraction process, we will use a snippet from the code that collects the `Annotations in Class` metric, presented on Listing 3. Since this is a `Class Metric`, it must extend the \texttt{ASTVisitor} class and implement our custom interface ```IClassMetricCollector```. The superclass provides methods that are used to visit the nodes from the Compilation Unit. For instance, for the AC metric we visit every annotation encountered, and simply increment the value for ```annotations```. Our custom interface provides two methods, the first one (\texttt{execute()}) is to begin the execution process, while the second (\texttt{setResult()}) is where the result is stored. 
+To understand the extraction process, we will use a snippet from the code that collects the `Annotations in Class` metric, presented on Listing 3. Since this is a `Class Metric`, it must extend the \texttt{ASTVisitor} class and implement our custom interface ```IClassMetricCollector```. The superclass provides methods that are used to visit the nodes from the Compilation Unit. For instance, for the AC metric we visit every annotation encountered, and simply increment the value for ```annotations```. Our custom interface provides two methods, the first one, (\texttt{execute()}), initializes the extraction process, while the second one, (\texttt{setResult()}), is where the result is stored. 
 
 ```java
 @ClassMetric
@@ -152,6 +152,7 @@ public class AC extends ASTVisitor implements IClassMetricCollector{
 	}
 }
 ```
+Listing 3: Snippet from the code that implements the Annotations in Class metric 
 
 Following is the command line to run the ASniffer:
 
