@@ -31,11 +31,11 @@ public class ClassInfo extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		String name = getFullClassName(node.resolveBinding());
+		getFullClassName(node.resolveBinding());
 		
 		if(node.isInterface()) type = "interface";
 		else type = "class";
-		CodeElementModel codeElementModel = new CodeElementModel(name, type, cu.getLineNumber(node.getStartPosition()));
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		
 		return super.visit(node);
@@ -44,8 +44,8 @@ public class ClassInfo extends ASTVisitor{
 	@Override
 	public boolean visit(EnumDeclaration node) {
 		type = "enum";
-		String name = getFullClassName(node.resolveBinding());
-		CodeElementModel codeElementModel = new CodeElementModel(name, type, cu.getLineNumber(node.getStartPosition()));
+		getFullClassName(node.resolveBinding());
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
@@ -53,8 +53,8 @@ public class ClassInfo extends ASTVisitor{
 	@Override
 	public boolean visit(AnnotationTypeDeclaration node) {
 		type = "annotation-declaration";
-		String name = getFullClassName(node.resolveBinding());
-		CodeElementModel codeElementModel = new CodeElementModel(name, type, cu.getLineNumber(node.getStartPosition()));
+		getFullClassName(node.resolveBinding());
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
@@ -103,6 +103,5 @@ public class ClassInfo extends ASTVisitor{
 				return binding.getBinaryName();
 		}
 		return null;
-		
 	}
 }
