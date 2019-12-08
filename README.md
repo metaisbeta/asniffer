@@ -8,6 +8,7 @@ Annotation Sniffer is a tool that extracts code annotation metrics from java sou
 Download the source code and generate an executable jar file.
 
 ```
+mvn install
 mvn clean package
 ```
 ### How to use
