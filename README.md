@@ -79,7 +79,7 @@ The Annotations Sniffer was developed to aid research in code annotations analys
             <metric name="NEC" value="32"/>
             <code-elements>
                 <code-element name="method1" type="method" code-line="20" aed="1"/>
-                    <annotation name="Override" code-line="201">
+                    <annotation name="Override" code-line="201" schema="java.lang">
                         <annotation-metrics>
                             <item metric="AA" value="0"/>
                             <item metric="LOCAD" value="1"/>
