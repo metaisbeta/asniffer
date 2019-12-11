@@ -83,7 +83,9 @@ public class MetricsExecutor extends FileASTRequestor{
 				logger.info("Initializing extraction of annotation metrics for code element: " + codeElementModel.getElementName());
 				annotations.parallelStream().forEach(annotation -> {
 					AnnotationMetricModel annotationMetricModel = new AnnotationMetricModel(annotation.getTypeName().toString(), 
-							   cu.getLineNumber(annotation.getStartPosition()));
+							   cu.getLineNumber(annotation.getStartPosition()), 
+						   		   result.getAnnotationSchema(annotation.getTypeName().getFullyQualifiedName()
+								   +"-"+cu.getLineNumber(annotation.getStartPosition())));
 					for (IAnnotationMetricCollector annotationCollector : annotationMetrics) {
 						annotationCollector.execute(cu, annotationMetricModel, annotation);
 					}

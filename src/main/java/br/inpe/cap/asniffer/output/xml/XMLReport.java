@@ -10,7 +10,6 @@ import javax.xml.bind.Marshaller;
 
 import org.apache.log4j.Logger;
 
-import br.inpe.cap.asniffer.ASniffer;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
@@ -96,7 +95,10 @@ public class XMLReport implements IReport {
 		List<AnnotationXMLReport> annotationMetricsXMLReport = new ArrayList<>();
 		
 		for (AnnotationMetricModel annotationMetricModel : codeElementXMLReport.getAnnotationMetrics()) {
-			AnnotationXMLReport annotationXMLReport = new AnnotationXMLReport(annotationMetricModel.getName(), annotationMetricModel.getLine());
+			AnnotationXMLReport annotationXMLReport = new AnnotationXMLReport(
+							annotationMetricModel.getName(), 
+							annotationMetricModel.getLine(),
+							annotationMetricModel.getSchema());
 			annotationXMLReport.setAnnotationMetrics(annotationMetricModel.getAnnotationMetrics());
 			annotationMetricsXMLReport.add(annotationXMLReport);
 		}

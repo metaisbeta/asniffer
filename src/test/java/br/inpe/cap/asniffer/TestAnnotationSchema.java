@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
 import br.inpe.cap.asniffer.model.MetricResult;
 
-public class TestAnnotationMetrics {
+public class TestAnnotationSchema {
 
 	private static AMReport report;
 	
@@ -27,23 +28,31 @@ public class TestAnnotationMetrics {
 		
 		MetricResult a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
 		List<CodeElementModel> codeElements = a.getElementsReport();
-		int aa = 0, anl = 0, locad = 0;
+		String schema1 = "java.lang", expectedSchema1 = null;
+		String schema2 = "javax.persistence", expectedSchema2 = null;
+		String annot1 = "Override";
+		String annot2 = "Entity";
 		
 		for (CodeElementModel codeElement : codeElements) {
+			if(codeElement.getLine()==36) {
+				for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
+					if(annotationMetric.getName().equals(annot1)) {
+						expectedSchema1 = annotationMetric.getSchema();
+						break;
+					}
+				} 
+			}
 			if(codeElement.getLine()==131) {
 				for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
-					if(annotationMetric.getName().equals("Test"))
-						aa = annotationMetric.getAnnotationMetrics().get("AA");
-					if(annotationMetric.getName().equals("JoinColumn"))
-						anl = annotationMetric.getAnnotationMetrics().get("ANL");
-					if(annotationMetric.getName().equals("AssociationOverrides"))
-						locad = annotationMetric.getAnnotationMetrics().get("LOCAD");
+					if(annotationMetric.getName().equals(annot2)) {
+						expectedSchema2 = annotationMetric.getSchema();
+						break;
+					}
 				} 
 			}
 		}
-		assertEquals(3, aa);
-		assertEquals(2, anl);
-		assertEquals(5, locad);
+		assertEquals(schema1, expectedSchema1);
+		assertEquals(schema2, expectedSchema2);
 	}
 	
 }

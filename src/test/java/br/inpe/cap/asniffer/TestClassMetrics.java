@@ -28,9 +28,13 @@ public class TestClassMetrics {
 		int naec = a.getClassMetric("NAEC");
 		int nec = a.getClassMetric("NEC"); 
 		
+		for (String schema : a.getAnnotationSchemas()) {
+			System.out.println(schema);
+		}
+		
 		Assert.assertEquals(28, ac);
 		Assert.assertEquals(18, uac);
-		Assert.assertEquals(5, asc);
+		Assert.assertEquals(4, asc);
 		Assert.assertEquals(16, naec);
 		Assert.assertEquals(32, nec);
 	

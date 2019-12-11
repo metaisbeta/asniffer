@@ -7,12 +7,14 @@ public class AnnotationMetricModel {
 
 	private String annotationName;
 	private int sourceCodeLine;
+	private String schema;
 
 	private Map<String, Integer> annotationMetrics = new HashMap<String, Integer>();
 	
-	public AnnotationMetricModel(String annotationName, int sourceCodeLine) {
+	public AnnotationMetricModel(String annotationName, int sourceCodeLine, String schema) {
 		this.annotationName = annotationName;
 		this.sourceCodeLine = sourceCodeLine;
+		this.schema = schema;
 	}
 	
 	public void addAnnotationMetric(String metricName, int metricValue) {
@@ -29,5 +31,13 @@ public class AnnotationMetricModel {
 
 	public int getLine() {
 		return this.sourceCodeLine;
+	}
+	
+	public String getSchema() {
+		return schema;
+	}
+
+	public void setSchema(String schema) {
+		this.schema = schema;
 	}
 }

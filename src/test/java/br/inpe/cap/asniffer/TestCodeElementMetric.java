@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.inpe.cap.asniffer.model.AMReport;
-import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
 import br.inpe.cap.asniffer.model.MetricResult;
 

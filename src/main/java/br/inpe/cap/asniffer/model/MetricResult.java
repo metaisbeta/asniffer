@@ -13,7 +13,7 @@ public class MetricResult {
 	private String className;
 	private String type;
 	
-	private Set<String> annotationSchemas;
+	private HashMap<String,String> annotSchemasMap;//simple name + code line, fully qualified name 
 	
 	private Map<String,Integer> classMetric;
 	
@@ -28,7 +28,7 @@ public class MetricResult {
 		this.elementsReport = new ArrayList<CodeElementModel>();
 		addClassMetric("LOC", loc);
 		addClassMetric("NEC", nec);
-		this.annotationSchemas = new HashSet<>();
+		this.annotSchemasMap = new HashMap<>();
 	}
 	
 	public int getClassMetric(String metricName) {
@@ -41,12 +41,8 @@ public class MetricResult {
 		this.classMetric.put(metricName, metricValue);
 	}
 	
-	public Set<String> getAnnotationSchemas() {
-		return this.annotationSchemas;
-	}
-	
-	public void setSchemas(Set<String> annotationSchemas) {
-		this.annotationSchemas = annotationSchemas;
+	public void addAnnotationSchema(String fullyqualifiedName, String simpleName) {
+		annotSchemasMap.put(fullyqualifiedName, simpleName);
 	}
 	
 	public CodeElementModel getElementReport(String elementName) {
@@ -59,6 +55,13 @@ public class MetricResult {
 
 	public void addElementReport(CodeElementModel elementReport) {
 		this.elementsReport.add(elementReport);
+	}
+	
+	public String getAnnotationSchema(String annotationName) {
+		if(annotSchemasMap.containsKey(annotationName))
+			return annotSchemasMap.get(annotationName);
+		else
+			return null;
 	}
 	
 	//GETTERS and SETTERS
@@ -83,8 +86,20 @@ public class MetricResult {
 	public List<CodeElementModel> getElementsReport(){
 		return elementsReport;
 	}
-	
 	public Map<String, Integer> getAllClassMetrics() {
 		return classMetric;
 	}
+	
+	public Set<String> getAnnotationSchemas() {
+		Set<String> schemas = new HashSet<>();
+		this.annotSchemasMap.forEach((k,v) -> {
+			schemas.add(v);
+		});;
+		return schemas;
+	}
+	
+	public void setSchemas(HashMap<String, String> annotationSchemas) {
+		this.annotSchemasMap = annotationSchemas;
+	}
+	
 }

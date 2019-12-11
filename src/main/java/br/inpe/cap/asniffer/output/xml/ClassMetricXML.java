@@ -13,8 +13,6 @@ public class ClassMetricXML {
 	@XmlAttribute(name = "value")
 	private int metricValue;
 	
-	//public ClassMetricXML() {}
-
 	public ClassMetricXML(String metricName, int metricValue) {
 		this.metricName = metricName;
 		this.metricValue = metricValue;

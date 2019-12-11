@@ -1,7 +1,6 @@
 package br.inpe.cap.xml;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import br.inpe.cap.asniffer.AM;
 import br.inpe.cap.asniffer.model.AMReport;
