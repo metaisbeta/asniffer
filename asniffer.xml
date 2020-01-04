@@ -1,0 +1,1706 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="asniffer">
+    <package name="annotationtest">
+        <class name="annotationtest.AnnotationTest" type="class">
+            <schema>java.lang</schema>
+            <schema>javax.persistence</schema>
+            <schema>org.hibernate.testing.junit4</schema>
+            <schema>org.junit</schema>
+            <metric name="LOC" value="186"/>
+            <metric name="ASC" value="4"/>
+            <metric name="AC" value="28"/>
+            <metric name="NAEC" value="16"/>
+            <metric name="UAC" value="18"/>
+            <metric name="NEC" value="32"/>
+            <code-elements>
+                <code-element name="setName" type="method" code-line="176" aed="0"/>
+                <code-element name="AnnotationTest" type="class" code-line="31" aed="0"/>
+                <code-element name="isCleanupTestDataUsingBulkDelete" type="method" code-line="68" aed="1">
+                    <annotation name="Override" code-line="68" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="isFellow" type="method" code-line="216" aed="0"/>
+                <code-element name="constructConfiguration" type="method" code-line="54" aed="1">
+                    <annotation name="Override" code-line="54" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="isCleanupTestDataRequired" type="method" code-line="63" aed="1">
+                    <annotation name="Override" code-line="63" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setUp" type="method" code-line="73" aed="1">
+                    <annotation name="Before" code-line="73" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="fellow" type="field" code-line="214" aed="0"/>
+                <code-element name="testDeleteFromEngineer" type="method" code-line="121" aed="1">
+                    <annotation name="Test" code-line="121" schema="org.hibernate.testing.junit4">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="testDeleteFromPerson" type="method" code-line="111" aed="1">
+                    <annotation name="Test" code-line="111" schema="org.hibernate.testing.junit4">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setCompanyName" type="method" code-line="168" aed="0"/>
+                <code-element name="employed" type="field" code-line="154" aed="0"/>
+                <code-element name="isEmployed" type="method" code-line="180" aed="0"/>
+                <code-element name="getMultiTableBulkIdStrategyClass" type="method" code-line="61" aed="0"/>
+                <code-element name="setId" type="method" code-line="160" aed="0"/>
+                <code-element name="testUpdate" type="method" code-line="98" aed="2">
+                    <annotation name="Test" code-line="99" schema="org.hibernate.testing.junit4">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Test" code-line="98" schema="org.hibernate.testing.junit4">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="getCompanyName" type="method" code-line="164" aed="0"/>
+                <code-element name="hashCode" type="method" code-line="201" aed="1">
+                    <annotation name="Override" code-line="201" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="getId" type="method" code-line="156" aed="0"/>
+                <code-element name="setEmployed" type="method" code-line="184" aed="0"/>
+                <code-element name="equals" type="method" code-line="188" aed="1">
+                    <annotation name="Override" code-line="188" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="getAnnotatedClasses" type="method" code-line="36" aed="1">
+                    <annotation name="Override" code-line="36" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="Doctor" type="class" code-line="207" aed="1">
+                    <annotation name="Entity" code-line="207" schema="javax.persistence">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="Engineer" type="class" code-line="211" aed="1">
+                    <annotation name="Entity" code-line="211" schema="javax.persistence">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="getAnnotatedClasses" type="method" code-line="45" aed="1">
+                    <annotation name="Override" code-line="45" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="name" type="field" code-line="152" aed="0"/>
+                <code-element name="id" type="field" code-line="145" aed="2">
+                    <annotation name="Id" code-line="146" schema="javax.persistence">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Annotation0" code-line="145" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="entityCount" type="method" code-line="95" aed="0"/>
+                <code-element name="companyName" type="field" code-line="149" aed="1">
+                    <annotation name="Id" code-line="149" schema="javax.persistence">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="getName" type="method" code-line="172" aed="0"/>
+                <code-element name="Person" type="class" code-line="131" aed="11">
+                    <annotation name="Test" code-line="140" schema="org.hibernate.testing.junit4">
+                        <annotation-metrics>
+                            <item metric="AA" value="3"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Annotation0" code-line="140" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="1"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="NamedQuery" code-line="136" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="2"/>
+                            <item metric="LOCAD" value="4"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Entity" code-line="141" schema="javax.persistence">
+                        <annotation-metrics>
+                            <item metric="AA" value="2"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Inheritance" code-line="142" schema="javax.persistence">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Annotation2" code-line="140" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="1"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="JoinColumn" code-line="133" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="2"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="JoinColumn" code-line="135" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="2"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="AssociationOverride" code-line="134" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="2"/>
+                            <item metric="LOCAD" value="2"/>
+                            <item metric="ANL" value="1"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="AssociationOverride" code-line="132" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="2"/>
+                            <item metric="LOCAD" value="2"/>
+                            <item metric="ANL" value="1"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="AssociationOverrides" code-line="131" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="5"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setFellow" type="method" code-line="220" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.xml">
+        <class name="br.inpe.cap.xml.XMLTest" type="class">
+            <metric name="LOC" value="36"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="6"/>
+            <code-elements>
+                <code-element name="outputProcessor" type="field" code-line="20" aed="0"/>
+                <code-element name="setUp" type="method" code-line="24" aed="0"/>
+                <code-element name="report" type="field" code-line="19" aed="0"/>
+                <code-element name="XMLTest" type="class" code-line="17" aed="0"/>
+                <code-element name="testFilePath" type="field" code-line="21" aed="0"/>
+                <code-element name="firstTest" type="method" code-line="31" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer">
+        <class name="br.inpe.cap.asniffer.TestCodeElementMetric" type="class">
+            <schema>org.junit</schema>
+            <metric name="LOC" value="28"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="4"/>
+            <code-elements>
+                <code-element name="report" type="field" code-line="16" aed="0"/>
+                <code-element name="TestCodeElementMetric" type="class" code-line="14" aed="0"/>
+                <code-element name="testAED" type="method" code-line="24" aed="1">
+                    <annotation name="Test" code-line="24" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setUp" type="method" code-line="18" aed="1">
+                    <annotation name="BeforeClass" code-line="18" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.ASniffer" type="class">
+            <metric name="LOC" value="43"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="4"/>
+            <code-elements>
+                <code-element name="ASniffer" type="class" code-line="7" aed="0"/>
+                <code-element name="run" type="method" code-line="45" aed="0"/>
+                <code-element name="main" type="method" code-line="13" aed="0"/>
+                <code-element name="logger" type="field" code-line="9" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.TestClassMetrics" type="class">
+            <schema>org.junit</schema>
+            <metric name="LOC" value="31"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="4"/>
+            <code-elements>
+                <code-element name="TestClassMetrics" type="class" code-line="11" aed="0"/>
+                <code-element name="setUp" type="method" code-line="15" aed="1">
+                    <annotation name="BeforeClass" code-line="15" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="report" type="field" code-line="13" aed="0"/>
+                <code-element name="testClassMetrics" type="method" code-line="21" aed="1">
+                    <annotation name="Test" code-line="21" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.ClassInfo" type="class">
+            <schema>java.lang</schema>
+            <metric name="LOC" value="89"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="5"/>
+            <metric name="NAEC" value="5"/>
+            <metric name="UAC" value="1"/>
+            <metric name="NEC" value="17"/>
+            <code-elements>
+                <code-element name="type" type="field" code-line="23" aed="0"/>
+                <code-element name="className" type="field" code-line="22" aed="0"/>
+                <code-element name="packageName" type="field" code-line="25" aed="0"/>
+                <code-element name="getPackageName" type="method" code-line="80" aed="0"/>
+                <code-element name="visit" type="method" code-line="62" aed="1">
+                    <annotation name="Override" code-line="62" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="69" aed="1">
+                    <annotation name="Override" code-line="69" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="53" aed="1">
+                    <annotation name="Override" code-line="53" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="44" aed="1">
+                    <annotation name="Override" code-line="44" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="ClassInfo" type="class" code-line="19" aed="0"/>
+                <code-element name="getType" type="method" code-line="88" aed="0"/>
+                <code-element name="getFullClassName" type="method" code-line="97" aed="0"/>
+                <code-element name="getClassName" type="method" code-line="84" aed="0"/>
+                <code-element name="codeElementsInfo" type="field" code-line="24" aed="0"/>
+                <code-element name="ClassInfo" type="method" code-line="27" aed="0"/>
+                <code-element name="getCodeElementsInfo" type="method" code-line="92" aed="0"/>
+                <code-element name="cu" type="field" code-line="21" aed="0"/>
+                <code-element name="visit" type="method" code-line="32" aed="1">
+                    <annotation name="Override" code-line="32" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.MetricsExecutor" type="class">
+            <schema>java.lang</schema>
+            <metric name="LOC" value="99"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="1"/>
+            <metric name="NAEC" value="1"/>
+            <metric name="UAC" value="1"/>
+            <metric name="NEC" value="12"/>
+            <code-elements>
+                <code-element name="getReport" type="method" code-line="105" aed="0"/>
+                <code-element name="annotationMetrics" type="field" code-line="32" aed="0"/>
+                <code-element name="classMetrics" type="field" code-line="31" aed="0"/>
+                <code-element name="codeElementMetrics" type="field" code-line="33" aed="0"/>
+                <code-element name="acceptAST" type="method" code-line="47" aed="1">
+                    <annotation name="Override" code-line="47" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="packagesModel" type="field" code-line="29" aed="0"/>
+                <code-element name="MetricsExecutor" type="method" code-line="38" aed="0"/>
+                <code-element name="MetricsExecutor" type="class" code-line="26" aed="0"/>
+                <code-element name="report" type="field" code-line="28" aed="0"/>
+                <code-element name="getPackageModel" type="method" code-line="109" aed="0"/>
+                <code-element name="logger" type="field" code-line="35" aed="0"/>
+                <code-element name="result" type="field" code-line="30" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.Runner" type="class">
+            <metric name="LOC" value="35"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="8"/>
+            <code-elements>
+                <code-element name="collect" type="method" code-line="37" aed="0"/>
+                <code-element name="collectMultiple" type="method" code-line="27" aed="0"/>
+                <code-element name="Runner" type="class" code-line="13" aed="0"/>
+                <code-element name="collectSingle" type="method" code-line="33" aed="0"/>
+                <code-element name="projectsPath" type="field" code-line="15" aed="0"/>
+                <code-element name="xmlPath" type="field" code-line="16" aed="0"/>
+                <code-element name="logger" type="field" code-line="18" aed="0"/>
+                <code-element name="Runner" type="method" code-line="21" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.AM" type="class">
+            <metric name="LOC" value="89"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="6"/>
+            <code-elements>
+                <code-element name="includeAnnotationMetrics" type="method" code-line="82" aed="0"/>
+                <code-element name="calculate" type="method" code-line="40" aed="0"/>
+                <code-element name="MAX_AT_ONCE" type="field" code-line="23" aed="0"/>
+                <code-element name="includeCodeElementMetrics" type="method" code-line="99" aed="0"/>
+                <code-element name="includeClassMetrics" type="method" code-line="65" aed="0"/>
+                <code-element name="AM" type="class" code-line="21" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.MetricContainer" type="class">
+            <metric name="LOC" value="31"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="6"/>
+            <code-elements>
+                <code-element name="getAnnotationMetric" type="method" code-line="29" aed="0"/>
+                <code-element name="result" type="field" code-line="12" aed="0"/>
+                <code-element name="MetricContainer" type="class" code-line="10" aed="0"/>
+                <code-element name="getCodeElementMetric" type="method" code-line="40" aed="0"/>
+                <code-element name="getClassMetrics" type="method" code-line="19" aed="0"/>
+                <code-element name="MetricContainer" type="method" code-line="14" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.TestAnnotationMetrics" type="class">
+            <schema>org.junit</schema>
+            <metric name="LOC" value="38"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="4"/>
+            <code-elements>
+                <code-element name="report" type="field" code-line="17" aed="0"/>
+                <code-element name="testAnnotationSchema" type="method" code-line="25" aed="1">
+                    <annotation name="Test" code-line="25" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="TestAnnotationMetrics" type="class" code-line="15" aed="0"/>
+                <code-element name="setUp" type="method" code-line="19" aed="1">
+                    <annotation name="BeforeClass" code-line="19" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.TestAnnotationSchema" type="class">
+            <schema>org.junit</schema>
+            <metric name="LOC" value="47"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="4"/>
+            <code-elements>
+                <code-element name="report" type="field" code-line="18" aed="0"/>
+                <code-element name="testAnnotationSchema" type="method" code-line="26" aed="1">
+                    <annotation name="Test" code-line="26" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setUp" type="method" code-line="20" aed="1">
+                    <annotation name="BeforeClass" code-line="20" schema="org.junit">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="TestAnnotationSchema" type="class" code-line="16" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer.output.xml">
+        <class name="br.inpe.cap.asniffer.output.xml.ClassReportXML" type="class">
+            <schema>javax.xml.bind.annotation</schema>
+            <metric name="LOC" value="33"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="6"/>
+            <metric name="NAEC" value="5"/>
+            <metric name="UAC" value="6"/>
+            <metric name="NEC" value="10"/>
+            <code-elements>
+                <code-element name="classMetricXML" type="field" code-line="22" aed="1">
+                    <annotation name="XmlElement" code-line="22" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="ClassReportXML" type="method" code-line="29" aed="0"/>
+                <code-element name="type" type="field" code-line="16" aed="1">
+                    <annotation name="XmlAttribute" code-line="16" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="className" type="field" code-line="13" aed="1">
+                    <annotation name="XmlAttribute" code-line="13" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setCodeElementXMLReport" type="method" code-line="38" aed="0"/>
+                <code-element name="setAnnotationSchemas" type="method" code-line="42" aed="0"/>
+                <code-element name="ClassReportXML" type="class" code-line="11" aed="0"/>
+                <code-element name="codeElementXMLReport" type="field" code-line="25" aed="2">
+                    <annotation name="XmlElement" code-line="26" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="XmlElementWrapper" code-line="25" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="annotationSchemas" type="field" code-line="19" aed="1">
+                    <annotation name="XmlElement" code-line="19" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setClassMetricsXML" type="method" code-line="34" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.xml.CodeElementXMLReport" type="class">
+            <schema>javax.xml.bind.annotation</schema>
+            <metric name="LOC" value="27"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="5"/>
+            <metric name="NAEC" value="5"/>
+            <metric name="UAC" value="3"/>
+            <metric name="NEC" value="8"/>
+            <code-elements>
+                <code-element name="setAnnotationXMlReport" type="method" code-line="31" aed="0"/>
+                <code-element name="CodeElementXMLReport" type="class" code-line="9" aed="0"/>
+                <code-element name="name" type="field" code-line="11" aed="1">
+                    <annotation name="XmlAttribute" code-line="11" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="type" type="field" code-line="13" aed="1">
+                    <annotation name="XmlAttribute" code-line="13" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="codeLine" type="field" code-line="15" aed="1">
+                    <annotation name="XmlAttribute" code-line="15" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="annotationXMlReport" type="field" code-line="20" aed="1">
+                    <annotation name="XmlElement" code-line="20" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="aed" type="field" code-line="17" aed="1">
+                    <annotation name="XmlAttribute" code-line="17" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="CodeElementXMLReport" type="method" code-line="23" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.xml.ClassMetricXML" type="class">
+            <schema>javax.xml.bind.annotation</schema>
+            <metric name="LOC" value="15"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="3"/>
+            <metric name="NAEC" value="3"/>
+            <metric name="UAC" value="3"/>
+            <metric name="NEC" value="4"/>
+            <code-elements>
+                <code-element name="ClassMetricXML" type="class" code-line="7" aed="1">
+                    <annotation name="XmlAccessorType" code-line="7" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="ClassMetricXML" type="method" code-line="16" aed="0"/>
+                <code-element name="metricValue" type="field" code-line="13" aed="1">
+                    <annotation name="XmlAttribute" code-line="13" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="metricName" type="field" code-line="10" aed="1">
+                    <annotation name="XmlAttribute" code-line="10" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.xml.XMLReport" type="class">
+            <schema>java.lang</schema>
+            <metric name="LOC" value="92"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="1"/>
+            <metric name="NAEC" value="1"/>
+            <metric name="UAC" value="1"/>
+            <metric name="NEC" value="9"/>
+            <code-elements>
+                <code-element name="prepareXML" type="method" code-line="50" aed="0"/>
+                <code-element name="logger" type="field" code-line="25" aed="0"/>
+                <code-element name="XMLReport" type="class" code-line="22" aed="0"/>
+                <code-element name="fetchAnnotationMetricReport" type="method" code-line="96" aed="0"/>
+                <code-element name="generateReport" type="method" code-line="28" aed="1">
+                    <annotation name="Override" code-line="28" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="fetchCodeElementReport" type="method" code-line="79" aed="0"/>
+                <code-element name="fetchClassReport" type="method" code-line="64" aed="0"/>
+                <code-element name="projectReport" type="field" code-line="24" aed="0"/>
+                <code-element name="fetchClassMetrics" type="method" code-line="113" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.xml.ProjectReportXML" type="class">
+            <schema>javax.xml.bind.annotation</schema>
+            <metric name="LOC" value="25"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="4"/>
+            <metric name="NAEC" value="3"/>
+            <metric name="UAC" value="4"/>
+            <metric name="NEC" value="6"/>
+            <code-elements>
+                <code-element name="addPackageXML" type="method" code-line="26" aed="0"/>
+                <code-element name="ProjectReportXML" type="method" code-line="21" aed="0"/>
+                <code-element name="packagesXML" type="field" code-line="18" aed="1">
+                    <annotation name="XmlElement" code-line="18" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="ProjectReportXML" type="class" code-line="12" aed="2">
+                    <annotation name="XmlAccessorType" code-line="13" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="XmlRootElement" code-line="12" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="projectName" type="field" code-line="16" aed="1">
+                    <annotation name="XmlAttribute" code-line="16" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="ProjectReportXML" type="method" code-line="31" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.xml.PackageReportXML" type="class">
+            <schema>javax.xml.bind.annotation</schema>
+            <metric name="LOC" value="21"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="3"/>
+            <metric name="NAEC" value="3"/>
+            <metric name="UAC" value="3"/>
+            <metric name="NEC" value="5"/>
+            <code-elements>
+                <code-element name="classReportXML" type="field" code-line="17" aed="1">
+                    <annotation name="XmlElement" code-line="17" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="PackageReportXML" type="method" code-line="20" aed="0"/>
+                <code-element name="PackageReportXML" type="class" code-line="11" aed="1">
+                    <annotation name="XmlAccessorType" code-line="11" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="packageName" type="field" code-line="14" aed="1">
+                    <annotation name="XmlAttribute" code-line="14" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setClassReportXML" type="method" code-line="25" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.xml.AnnotationXMLReport" type="class">
+            <schema>javax.xml.bind.annotation</schema>
+            <schema>javax.xml.bind.annotation.adapters</schema>
+            <metric name="LOC" value="27"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="5"/>
+            <metric name="NAEC" value="4"/>
+            <metric name="UAC" value="4"/>
+            <metric name="NEC" value="7"/>
+            <code-elements>
+                <code-element name="codeLine" type="field" code-line="16" aed="1">
+                    <annotation name="XmlAttribute" code-line="16" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="AnnotationXMLReport" type="class" code-line="12" aed="0"/>
+                <code-element name="annotationMetrics" type="field" code-line="21" aed="2">
+                    <annotation name="XmlJavaTypeAdapter" code-line="22" schema="javax.xml.bind.annotation.adapters">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="XmlElement" code-line="21" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setAnnotationMetrics" type="method" code-line="33" aed="0"/>
+                <code-element name="schema" type="field" code-line="18" aed="1">
+                    <annotation name="XmlAttribute" code-line="18" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="name" type="field" code-line="14" aed="1">
+                    <annotation name="XmlAttribute" code-line="14" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="AnnotationXMLReport" type="method" code-line="26" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer.output">
+        <class name="br.inpe.cap.asniffer.output.IReport" type="interface">
+            <metric name="LOC" value="5"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="2"/>
+            <code-elements>
+                <code-element name="IReport" type="interface" code-line="5" aed="0"/>
+                <code-element name="generateReport" type="method" code-line="7" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.MapXMLAdapter" type="class">
+            <schema>java.lang</schema>
+            <metric name="LOC" value="18"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="1"/>
+            <metric name="NEC" value="3"/>
+            <code-elements>
+                <code-element name="MapXMLAdapter" type="class" code-line="7" aed="0"/>
+                <code-element name="unmarshal" type="method" code-line="21" aed="1">
+                    <annotation name="Override" code-line="21" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="marshal" type="method" code-line="9" aed="1">
+                    <annotation name="Override" code-line="9" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.output.MapXMLModel" type="class">
+            <schema>javax.xml.bind.annotation</schema>
+            <metric name="LOC" value="20"/>
+            <metric name="ASC" value="1"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="7"/>
+            <code-elements>
+                <code-element name="metricValue" type="field" code-line="10" aed="1">
+                    <annotation name="XmlAttribute" code-line="10" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="MapXMLModel" type="class" code-line="5" aed="0"/>
+                <code-element name="MapXMLModel" type="method" code-line="14" aed="0"/>
+                <code-element name="setMetricName" type="method" code-line="21" aed="0"/>
+                <code-element name="metricName" type="field" code-line="7" aed="1">
+                    <annotation name="XmlAttribute" code-line="7" schema="javax.xml.bind.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setMetricValue" type="method" code-line="25" aed="0"/>
+                <code-element name="MapXMLModel" type="method" code-line="16" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer.utils">
+        <class name="br.inpe.cap.asniffer.utils.FileUtils" type="class">
+            <metric name="LOC" value="103"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="9"/>
+            <code-elements>
+                <code-element name="getFileAsString" type="method" code-line="118" aed="0"/>
+                <code-element name="getJarDependencies" type="method" code-line="92" aed="0"/>
+                <code-element name="FileUtils" type="class" code-line="15" aed="0"/>
+                <code-element name="getProjectName" type="method" code-line="80" aed="0"/>
+                <code-element name="getAllJavaFiles" type="method" code-line="49" aed="0"/>
+                <code-element name="getProjectsPath" type="method" code-line="64" aed="0"/>
+                <code-element name="getAllDirs" type="method" code-line="17" aed="0"/>
+                <code-element name="getAllJavaFiles" type="method" code-line="40" aed="0"/>
+                <code-element name="getAllDirs" type="method" code-line="26" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.utils.AnnotationUtils" type="class">
+            <metric name="LOC" value="38"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="3"/>
+            <code-elements>
+                <code-element name="checkForNestedAnnotations" type="method" code-line="26" aed="0"/>
+                <code-element name="AnnotationUtils" type="class" code-line="13" aed="0"/>
+                <code-element name="checkForAnnotations" type="method" code-line="16" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer.annotations">
+        <class name="br.inpe.cap.asniffer.annotations.AnnotationMetric" type="annotation-declaration">
+            <schema>java.lang.annotation</schema>
+            <schema>java.lang.annotation.RetentionPolicy</schema>
+            <metric name="LOC" value="9"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="1"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="1"/>
+            <code-elements>
+                <code-element name="AnnotationMetric" type="annotation-declaration" code-line="9" aed="2">
+                    <annotation name="Target" code-line="10" schema="java.lang.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Retention" code-line="9" schema="java.lang.annotation.RetentionPolicy">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.annotations.CodeElementMetric" type="annotation-declaration">
+            <schema>java.lang.annotation</schema>
+            <schema>java.lang.annotation.RetentionPolicy</schema>
+            <metric name="LOC" value="8"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="1"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="1"/>
+            <code-elements>
+                <code-element name="CodeElementMetric" type="annotation-declaration" code-line="9" aed="2">
+                    <annotation name="Target" code-line="10" schema="java.lang.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Retention" code-line="9" schema="java.lang.annotation.RetentionPolicy">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.annotations.ClassMetric" type="annotation-declaration">
+            <schema>java.lang.annotation</schema>
+            <schema>java.lang.annotation.RetentionPolicy</schema>
+            <metric name="LOC" value="9"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="1"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="1"/>
+            <code-elements>
+                <code-element name="ClassMetric" type="annotation-declaration" code-line="9" aed="2">
+                    <annotation name="Target" code-line="10" schema="java.lang.annotation">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                    <annotation name="Retention" code-line="9" schema="java.lang.annotation.RetentionPolicy">
+                        <annotation-metrics>
+                            <item metric="AA" value="1"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer.model">
+        <class name="br.inpe.cap.asniffer.model.AMReport" type="class">
+            <metric name="LOC" value="27"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="8"/>
+            <code-elements>
+                <code-element name="AMReport" type="class" code-line="7" aed="0"/>
+                <code-element name="getProjectName" type="method" code-line="18" aed="0"/>
+                <code-element name="projectName" type="field" code-line="9" aed="0"/>
+                <code-element name="setProjectName" type="method" code-line="22" aed="0"/>
+                <code-element name="addPackageModel" type="method" code-line="26" aed="0"/>
+                <code-element name="packages" type="field" code-line="11" aed="0"/>
+                <code-element name="AMReport" type="method" code-line="13" aed="0"/>
+                <code-element name="getPackages" type="method" code-line="34" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.model.CodeElementModel" type="class">
+            <metric name="LOC" value="36"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="14"/>
+            <code-elements>
+                <code-element name="getLine" type="method" code-line="24" aed="0"/>
+                <code-element name="type" type="field" code-line="8" aed="0"/>
+                <code-element name="CodeElementModel" type="method" code-line="15" aed="0"/>
+                <code-element name="CodeElementModel" type="class" code-line="6" aed="0"/>
+                <code-element name="getType" type="method" code-line="21" aed="0"/>
+                <code-element name="setAed" type="method" code-line="31" aed="0"/>
+                <code-element name="aedValue" type="field" code-line="11" aed="0"/>
+                <code-element name="sourceCodeLine" type="field" code-line="9" aed="0"/>
+                <code-element name="getElementName" type="method" code-line="27" aed="0"/>
+                <code-element name="annotationMetrics" type="field" code-line="13" aed="0"/>
+                <code-element name="getAed" type="method" code-line="35" aed="0"/>
+                <code-element name="addAnnotationMetric" type="method" code-line="39" aed="0"/>
+                <code-element name="elementName" type="field" code-line="10" aed="0"/>
+                <code-element name="getAnnotationMetrics" type="method" code-line="43" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.model.MetricResult" type="class">
+            <metric name="LOC" value="88"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="24"/>
+            <code-elements>
+                <code-element name="MetricResult" type="class" code-line="10" aed="0"/>
+                <code-element name="setSourceFilePath" type="method" code-line="77" aed="0"/>
+                <code-element name="getElementReport" type="method" code-line="48" aed="0"/>
+                <code-element name="elementsReport" type="field" code-line="20" aed="0"/>
+                <code-element name="classMetric" type="field" code-line="18" aed="0"/>
+                <code-element name="getType" type="method" code-line="80" aed="0"/>
+                <code-element name="getAllClassMetrics" type="method" code-line="89" aed="0"/>
+                <code-element name="addClassMetric" type="method" code-line="40" aed="0"/>
+                <code-element name="sourceFilePath" type="field" code-line="12" aed="0"/>
+                <code-element name="className" type="field" code-line="13" aed="0"/>
+                <code-element name="MetricResult" type="method" code-line="22" aed="0"/>
+                <code-element name="addElementReport" type="method" code-line="56" aed="0"/>
+                <code-element name="getClassMetric" type="method" code-line="34" aed="0"/>
+                <code-element name="setSchemas" type="method" code-line="101" aed="0"/>
+                <code-element name="getSourceFilePath" type="method" code-line="74" aed="0"/>
+                <code-element name="setClassName" type="method" code-line="71" aed="0"/>
+                <code-element name="addAnnotationSchema" type="method" code-line="44" aed="0"/>
+                <code-element name="type" type="field" code-line="14" aed="0"/>
+                <code-element name="getAnnotationSchemas" type="method" code-line="93" aed="0"/>
+                <code-element name="getAnnotationSchema" type="method" code-line="60" aed="0"/>
+                <code-element name="setType" type="method" code-line="83" aed="0"/>
+                <code-element name="getClassName" type="method" code-line="68" aed="0"/>
+                <code-element name="getElementsReport" type="method" code-line="86" aed="0"/>
+                <code-element name="annotSchemasMap" type="field" code-line="16" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.model.PackageModel" type="class">
+            <metric name="LOC" value="31"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="9"/>
+            <code-elements>
+                <code-element name="get" type="method" code-line="22" aed="0"/>
+                <code-element name="all" type="method" code-line="26" aed="0"/>
+                <code-element name="add" type="method" code-line="18" aed="0"/>
+                <code-element name="packageName" type="field" code-line="9" aed="0"/>
+                <code-element name="PackageModel" type="method" code-line="13" aed="0"/>
+                <code-element name="getPackageName" type="method" code-line="38" aed="0"/>
+                <code-element name="results" type="field" code-line="11" aed="0"/>
+                <code-element name="PackageModel" type="class" code-line="7" aed="0"/>
+                <code-element name="getByClassName" type="method" code-line="30" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.model.AnnotationMetricModel" type="class">
+            <metric name="LOC" value="32"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="12"/>
+            <code-elements>
+                <code-element name="annotationMetrics" type="field" code-line="12" aed="0"/>
+                <code-element name="sourceCodeLine" type="field" code-line="9" aed="0"/>
+                <code-element name="addAnnotationMetric" type="method" code-line="20" aed="0"/>
+                <code-element name="setSchema" type="method" code-line="40" aed="0"/>
+                <code-element name="schema" type="field" code-line="10" aed="0"/>
+                <code-element name="annotationName" type="field" code-line="8" aed="0"/>
+                <code-element name="AnnotationMetricModel" type="method" code-line="14" aed="0"/>
+                <code-element name="AnnotationMetricModel" type="class" code-line="6" aed="0"/>
+                <code-element name="getName" type="method" code-line="28" aed="0"/>
+                <code-element name="getAnnotationMetrics" type="method" code-line="24" aed="0"/>
+                <code-element name="getLine" type="method" code-line="32" aed="0"/>
+                <code-element name="getSchema" type="method" code-line="36" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer.metric">
+        <class name="br.inpe.cap.asniffer.metric.AED" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="15"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="2"/>
+            <code-elements>
+                <code-element name="AED" type="class" code-line="11" aed="1">
+                    <annotation name="CodeElementMetric" code-line="11" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="execute" type="method" code-line="14" aed="1">
+                    <annotation name="Override" code-line="14" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.AA" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="21"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="2"/>
+            <code-elements>
+                <code-element name="AA" type="class" code-line="12" aed="1">
+                    <annotation name="AnnotationMetric" code-line="12" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="execute" type="method" code-line="15" aed="1">
+                    <annotation name="Override" code-line="15" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.ASC" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="70"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="6"/>
+            <metric name="NAEC" value="6"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="11"/>
+            <code-elements>
+                <code-element name="setResult" type="method" code-line="54" aed="1">
+                    <annotation name="Override" code-line="54" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="ASC" type="class" code-line="22" aed="1">
+                    <annotation name="ClassMetric" code-line="22" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="29" aed="1">
+                    <annotation name="Override" code-line="29" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="schemasMapper" type="field" code-line="26" aed="0"/>
+                <code-element name="execute" type="method" code-line="47" aed="1">
+                    <annotation name="Override" code-line="47" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="imports" type="field" code-line="25" aed="0"/>
+                <code-element name="findSchema" type="method" code-line="62" aed="0"/>
+                <code-element name="cu" type="field" code-line="27" aed="0"/>
+                <code-element name="findImports" type="method" code-line="78" aed="0"/>
+                <code-element name="visit" type="method" code-line="41" aed="1">
+                    <annotation name="Override" code-line="41" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="35" aed="1">
+                    <annotation name="Override" code-line="35" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.LOCCalculator" type="class">
+            <metric name="LOC" value="27"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="3"/>
+            <code-elements>
+                <code-element name="empty" type="method" code-line="31" aed="0"/>
+                <code-element name="calculate" type="method" code-line="11" aed="0"/>
+                <code-element name="LOCCalculator" type="class" code-line="8" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.AC" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="37"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="6"/>
+            <metric name="NAEC" value="6"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="7"/>
+            <code-elements>
+                <code-element name="visit" type="method" code-line="25" aed="1">
+                    <annotation name="Override" code-line="25" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="AC" type="class" code-line="14" aed="1">
+                    <annotation name="ClassMetric" code-line="14" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="31" aed="1">
+                    <annotation name="Override" code-line="31" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="annotations" type="field" code-line="17" aed="0"/>
+                <code-element name="setResult" type="method" code-line="43" aed="1">
+                    <annotation name="Override" code-line="43" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="19" aed="1">
+                    <annotation name="Override" code-line="19" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="execute" type="method" code-line="37" aed="1">
+                    <annotation name="Override" code-line="37" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.NAEC" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="65"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="9"/>
+            <metric name="NAEC" value="9"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="11"/>
+            <code-elements>
+                <code-element name="checkForAnnotations" type="method" code-line="71" aed="0"/>
+                <code-element name="visit" type="method" code-line="36" aed="1">
+                    <annotation name="Override" code-line="36" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="24" aed="1">
+                    <annotation name="Override" code-line="24" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="NAEC" type="class" code-line="19" aed="1">
+                    <annotation name="ClassMetric" code-line="19" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="48" aed="1">
+                    <annotation name="Override" code-line="48" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="annotatedElements" type="field" code-line="22" aed="0"/>
+                <code-element name="visit" type="method" code-line="54" aed="1">
+                    <annotation name="Override" code-line="54" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="setResult" type="method" code-line="66" aed="1">
+                    <annotation name="Override" code-line="66" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="42" aed="1">
+                    <annotation name="Override" code-line="42" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="execute" type="method" code-line="60" aed="1">
+                    <annotation name="Override" code-line="60" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="30" aed="1">
+                    <annotation name="Override" code-line="30" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.ANL" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="28"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="3"/>
+            <code-elements>
+                <code-element name="getNestingLevel" type="method" code-line="23" aed="0"/>
+                <code-element name="ANL" type="class" code-line="12" aed="1">
+                    <annotation name="AnnotationMetric" code-line="12" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="execute" type="method" code-line="15" aed="1">
+                    <annotation name="Override" code-line="15" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.LOCAD" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="25"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="2"/>
+            <metric name="NAEC" value="2"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="4"/>
+            <code-elements>
+                <code-element name="execute" type="method" code-line="15" aed="1">
+                    <annotation name="Override" code-line="15" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="cu" type="field" code-line="13" aed="0"/>
+                <code-element name="LOCAD" type="class" code-line="10" aed="1">
+                    <annotation name="AnnotationMetric" code-line="10" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="getNumLines" type="method" code-line="23" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.metric.UAC" type="class">
+            <schema>java.lang</schema>
+            <schema>br.inpe.cap.asniffer.annotations</schema>
+            <metric name="LOC" value="39"/>
+            <metric name="ASC" value="2"/>
+            <metric name="AC" value="6"/>
+            <metric name="NAEC" value="6"/>
+            <metric name="UAC" value="2"/>
+            <metric name="NEC" value="7"/>
+            <code-elements>
+                <code-element name="visit" type="method" code-line="22" aed="1">
+                    <annotation name="Override" code-line="22" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="34" aed="1">
+                    <annotation name="Override" code-line="34" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="UAC" type="class" code-line="17" aed="1">
+                    <annotation name="ClassMetric" code-line="17" schema="br.inpe.cap.asniffer.annotations">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="visit" type="method" code-line="28" aed="1">
+                    <annotation name="Override" code-line="28" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="execute" type="method" code-line="41" aed="1">
+                    <annotation name="Override" code-line="41" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+                <code-element name="uniqueAnnotations" type="field" code-line="20" aed="0"/>
+                <code-element name="setResult" type="method" code-line="47" aed="1">
+                    <annotation name="Override" code-line="47" schema="java.lang">
+                        <annotation-metrics>
+                            <item metric="AA" value="0"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+                </code-element>
+            </code-elements>
+        </class>
+    </package>
+    <package name="br.inpe.cap.asniffer.interfaces">
+        <class name="br.inpe.cap.asniffer.interfaces.IAnnotationMetricCollector" type="interface">
+            <metric name="LOC" value="7"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="2"/>
+            <code-elements>
+                <code-element name="execute" type="method" code-line="10" aed="0"/>
+                <code-element name="IAnnotationMetricCollector" type="interface" code-line="8" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.interfaces.ICodeElementMetricCollector" type="interface">
+            <metric name="LOC" value="7"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="2"/>
+            <code-elements>
+                <code-element name="ICodeElementMetricCollector" type="interface" code-line="8" aed="0"/>
+                <code-element name="execute" type="method" code-line="10" aed="0"/>
+            </code-elements>
+        </class>
+        <class name="br.inpe.cap.asniffer.interfaces.IClassMetricCollector" type="interface">
+            <metric name="LOC" value="8"/>
+            <metric name="ASC" value="0"/>
+            <metric name="AC" value="0"/>
+            <metric name="NAEC" value="0"/>
+            <metric name="UAC" value="0"/>
+            <metric name="NEC" value="3"/>
+            <code-elements>
+                <code-element name="setResult" type="method" code-line="11" aed="0"/>
+                <code-element name="execute" type="method" code-line="10" aed="0"/>
+                <code-element name="IClassMetricCollector" type="interface" code-line="8" aed="0"/>
+            </code-elements>
+        </class>
+    </package>
+</project>

@@ -12,13 +12,32 @@ public class ASniffer {
 	//Called as an executable jar                                                 	                                          
 	public static void main(String[] args) throws FileNotFoundException {
 		                                                    
-		if(args==null || args.length < 3) {
+		
+		String pathProject = null, pathXML = null;
+		boolean single = true;
+		
+		if(args==null || args.length < 2) {
+			System.out.println("To use ASniffer please run the "
+					+ "command as following, providing three parameters:");
 			System.out.println("Usage java -jar asniffer.jar <path to project> <path to xml report> <single/multi>");
 			System.out.println("multi specifies that the directory contains multiple projects");
+			System.out.println("If no <path to xml> is provided, the ASniffer will place the report on the <path to project>");
 			System.exit(1);
 		}
 		
-		run(args[0], args[1], args[2].toLowerCase().contains("single"));
+		if(args.length >= 2) {
+			pathProject = args[0];
+			if(args.length > 2) {
+				pathXML = args[1];
+				single = args[2].toLowerCase().contains("single");
+			}else {
+				pathXML = args[0];
+				single = args[1].toLowerCase().contains("single");
+			}
+			
+		}
+		
+		run(pathProject, pathXML, single);
 			
 	}
 	

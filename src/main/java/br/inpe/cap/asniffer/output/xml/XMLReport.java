@@ -1,6 +1,8 @@
 package br.inpe.cap.asniffer.output.xml;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +30,10 @@ public class XMLReport implements IReport {
 		
 		projectReport = prepareXML(report);
 		
+		Path xmlFilePath = Paths.get(path + File.separator + report.getProjectName() + ".xml").normalize();
+		
 		try {
-	        File file = new File(path + File.separator + report.getProjectName() + ".xml");
+	        File file = xmlFilePath.toFile();
 	        JAXBContext jaxbContext = JAXBContext.newInstance(ProjectReportXML.class);
 	        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

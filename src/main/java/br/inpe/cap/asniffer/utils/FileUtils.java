@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.SystemUtils;
+
 public class FileUtils {
 	
 	public static String[] getAllDirs(String path) {
@@ -77,8 +79,9 @@ public class FileUtils {
 
 	public static String getProjectName(Path projectPath) {
 		
-		String path = projectPath.toString();
-		path = path.replace("\\", "/");
+		
+		String path = projectPath.toAbsolutePath().normalize().toString();
+		
 		int index = path.lastIndexOf("/");
 		if(index != -1)
 			return path.substring(index+1);

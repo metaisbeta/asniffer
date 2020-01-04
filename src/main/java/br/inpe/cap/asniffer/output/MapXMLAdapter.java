@@ -22,5 +22,5 @@ public class MapXMLAdapter extends XmlAdapter<MapXMLModel[], Map<String,Integer>
 	public Map<String, Integer> unmarshal(MapXMLModel[] v) throws Exception {
 		return null;
 	}
-
+	
 }
