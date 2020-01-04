@@ -9,7 +9,4 @@
  	  - .autoconf
  	  - $HOME/.m2
 
- notifications:
-   email: true
-
  script: mvn clean verify --fae
