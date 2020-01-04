@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/phillima/asniffer.svg?branch=master)](https://travis-ci.com/phillima/asniffer)
+
 Annotation Sniffer
 ==================
 

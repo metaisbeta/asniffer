@@ -1,15 +1,12 @@
- language: java
- sudo: false
+language: java
+sudo: false
 
- jdk:
-   - openjdk8
+jdk:
+  - openjdk8
 
- cache:
-   directories:
- 	  - .autoconf
- 	  - $HOME/.m2
-
- notifications:
-   email: true
-
+cache:
+ directories:
+  - .autoconf
+  - $HOME/.m2
+  
  script: mvn clean verify --fae
