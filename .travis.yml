@@ -1,0 +1,15 @@
+ language: java
+ sudo: false
+
+ jdk:
+   - openjdk8
+
+ cache:
+   directories:
+ 	  - .autoconf
+ 	  - $HOME/.m2
+
+ notifications:
+   email: true
+
+ script: mvn clean verify --fae
