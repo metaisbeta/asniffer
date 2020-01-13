@@ -3,7 +3,8 @@ package br.inpe.cap.asniffer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.output.IReport;
@@ -16,7 +17,7 @@ public class Runner {
 	String xmlPath = "";
 	
 	private static final Logger logger = 
-		      Logger.getLogger(Runner.class);
+		      LogManager.getLogger(Runner.class);
 	
 	public Runner(String projectPath, String xmlPath) {
 		this.projectsPath = projectPath;

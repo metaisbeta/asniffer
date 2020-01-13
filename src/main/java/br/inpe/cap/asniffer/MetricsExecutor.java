@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -33,7 +34,7 @@ public class MetricsExecutor extends FileASTRequestor{
 	private List<ICodeElementMetricCollector> codeElementMetrics;
 	
 	private static final Logger logger = 
-		      Logger.getLogger(MetricsExecutor.class);
+		      LogManager.getLogger(MetricsExecutor.class);
 	
 	public MetricsExecutor(Callable<List<IClassMetricCollector>> classMetrics, List<IAnnotationMetricCollector> annotationMetrics, 
 						   List<ICodeElementMetricCollector> codeElementMetrics, String projectName) {

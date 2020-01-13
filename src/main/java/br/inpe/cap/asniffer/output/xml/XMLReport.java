@@ -10,7 +10,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
@@ -23,7 +24,7 @@ public class XMLReport implements IReport {
 
 	ProjectReportXML projectReport;
 	private static final Logger logger = 
-		      Logger.getLogger(XMLReport.class);
+		      LogManager.getLogger(XMLReport.class);
 	
 	@Override
 	public void generateReport(AMReport report, String path) {

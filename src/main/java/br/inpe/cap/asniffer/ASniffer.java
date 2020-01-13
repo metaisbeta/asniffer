@@ -2,12 +2,14 @@ package br.inpe.cap.asniffer;
 
 import java.io.FileNotFoundException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class ASniffer {
             
 	private static final Logger logger = 
-		      Logger.getLogger(ASniffer.class);
+			LogManager.getLogger(ASniffer.class);
 	
 	//Called as an executable jar                                                 	                                          
 	public static void main(String[] args) throws FileNotFoundException {
