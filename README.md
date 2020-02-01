@@ -178,3 +178,46 @@ The Annotation Sniffer uses Reflection to know which metrics it should collect. 
     - Implement the interface ```IAnnotationMetricCollector```. This interface has only one method, ```execute(CompilationUnit, AnnotationMetricModel, Annotation)```. The ```AnnotionMetricModel``` class is where you will store the metric value and name. The ```Annotation``` class is the JDT (Java Development Tools) representation of the annotation that you can perform your analysis. Check the code for: ANL, AA and LOCAD for more examples.
 
 * Check the metrics included in the package br.inpe.cap.asniffer.metric for more information.
+
+ASniffer API
+============
+
+If you wish to use the ASniffer as an API on your own projects, we provide some methods for this. The first thing you need is an instance of the ```Runner``` class, passing to its constructor two parameters: A path to the source code to be analyzed and the path to where you wish to store the XML file. Afterwards you may call ```collectSingle()``` or ```collectMultiple()```.
+
+```java
+ 
+ String pathToCode = "path to the source code to by analyzed";
+ String pathToXML = "path to where you wish to store the generated XML report";
+
+ Runner runner = new Runner(pathToCode, pathToXML);
+ 
+ runner.collectSingle(); //for a single project
+ 
+ runner.collectMultiple(); //for multiple projects. It will operate considering the diretory structure is prepared for
+                           //multiple projects, as pointed out in the "How to Use" section on this Readme.
+ 
+```
+
+With these calls, the ASniffer will run, collect the annotation metrics, and place the XML report file on the provided path. However, if would like to perform some analysis on the metrics values, both ```collectSingle()``` and ```collectMultiple()``` return, respectively, an instance of ```AMReport``` and a ```List<AMReport>```. The ```AMReport``` class contains the complete report of the collected metrics for each Java project. For this reason the ```collectMultiple()``` returns a list of ```AMReports``` (one for each Java project). 
+
+The ```AMReport``` located [here](https://github.com/phillima/asniffer/blob/master/src/main/java/br/inpe/cap/asniffer/model/AMReport.java) contains the project's name, and the list of packages. The packages are store in the ```PackageModel``` class, which in turn contains the ```MetricResult``` class that stores the annotation metrics values.
+
+The following example collects multiple projects, prints their name and the name of every package.
+
+```java
+
+    List<AMReport> reports;
+	String path = "/projects";
+	
+	Runner runner = new Runner(path, path);
+	reports = runner.collectMultiple();
+	
+	for (AMReport amReport : reports) {
+		System.out.println(amReport.getProjectName());
+		
+		for (PackageModel packages : amReport.getPackages()) {
+			System.out.println(packages.getPackageName());
+		}
+	}
+
+```
