@@ -40,6 +40,65 @@ The second parameter, "path to xml", is optional. It tells the ASniffer where to
 The third parameter (single/multi) informs the ASniffer if the "path to project" contains only one project (i.e, every ```.java``` file belongs to only one project) or several projects (i.e, the root directory contains several sub-directories, with each being a separate project).
 
 
+### Example Usage
+
+As a running example we will collect annotation metrics from the ASniffer code itself. Consider that both the ```asniffer.jar``` and the ```asniffer``` directory with the source code are on the same root directory. We have the following directory structure.
+
+    .
+    ├── Documents                
+        ├── asniffer.jar         # The ASniffer jar file. Can be manually generated or downloaded from the release sections
+        ├── asniffer/            # The ASniffer project folder, downloaded from its Github repository   
+
+To run the tool, we use the following command:
+
+```
+java -jar asniffer.jar asniffer single
+```
+
+Notice that only two arguments are being passed, ```asniffer``` and ```single```. The first one is the path to the source code being analyzed, and the second one informs the ASniffer that this is a single project, i.e., every ```.java``` file inside the directory ```asniffer\``` belongs to one project, i.e., the asniffer project. Since no XML path was provided, the XML report will be placed under ```asniffer\``` with the name ```asniffer.xml```. 
+
+After executing the command, the ```asniffer.xml``` was generated and placed under ```asniffer\```. The following is a sample of the ```asniffer``` directory.  
+
+    .
+    ├── asniffer                
+        ├── asniffer.xml   # The XML report generated after the ASniffer collected metrics from the ASniffer project
+        ├── src            # The source code folder 
+        ├── pom.xml        # The pom file 
+        └── ... 
+
+The generated XML can be found in the repository, under [annotationtest/asniffer.xml](https://github.com/phillima/asniffer/blob/master/annotationtest/asniffer.xml)
+
+Here is a sample of this XML file.
+
+```
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="asniffer">
+    <package name="annotationtest">
+        <class name="annotationtest.AnnotationTest" type="class">
+            <schema>java.lang</schema>
+            <schema>javax.persistence</schema>
+            <schema>org.hibernate.testing.junit4</schema>
+            <schema>org.junit</schema>
+            <metric name="LOC" value="186"/>
+            <metric name="ASC" value="4"/>
+            <metric name="AC" value="28"/>
+            <metric name="NAEC" value="16"/>
+            <metric name="UAC" value="18"/>
+            <metric name="NEC" value="32"/>
+            <code-elements>
+                <code-element name="Person" type="class" code-line="131" aed="11">
+                    <annotation name="Test" code-line="140" schema="org.hibernate.testing.junit4">
+                        <annotation-metrics>
+                            <item metric="AA" value="3"/>
+                            <item metric="LOCAD" value="1"/>
+                            <item metric="ANL" value="0"/>
+                        </annotation-metrics>
+                    </annotation>
+...
+```
+
+
+
 Annotation Metrics
 ==================
 
