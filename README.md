@@ -46,8 +46,8 @@ As a running example we will collect annotation metrics from the ASniffer code i
 
     .
     ├── Documents                
-        ├── asniffer.jar         # The ASniffer jar file. Can be manually generated or downloaded from the release sections
-        ├── asniffer/            # The ASniffer project folder, downloaded from its Github repository   
+        ├── asniffer.jar         # The ASniffer jar file. Can be manually generated or downloaded from the release section
+        ├── asniffer/            # The ASniffer project folder, downloaded from its GitHub repository   
 
 To run the tool, we use the following command:
 
@@ -55,9 +55,9 @@ To run the tool, we use the following command:
 java -jar asniffer.jar asniffer single
 ```
 
-Notice that only two arguments are being passed, ```asniffer``` and ```single```. The first one is the path to the source code being analyzed, and the second one informs the ASniffer that this is a single project, i.e., every ```.java``` file inside the directory ```asniffer\``` belongs to one project, i.e., the asniffer project. Since no XML path was provided, the XML report will be placed under ```asniffer\``` with the name ```asniffer.xml```. 
+Notice that only two arguments are being passed, ```asniffer``` and ```single```. The first one is the path to the source code being analyzed, and the second one informs the ASniffer that this is a single project, i.e., every ```.java``` file inside the directory ```asniffer/``` belongs to one project, i.e., the asniffer project. Since no XML path was provided, the XML report will be placed under ```asniffer/``` with the name ```asniffer.xml```. 
 
-After executing the command, the ```asniffer.xml``` was generated and placed under ```asniffer\```. The following is a sample of the ```asniffer``` directory.  
+After executing the command, the ```asniffer.xml``` was generated and placed under ```asniffer/```. The following is a sample of the ```asniffer``` directory.  
 
     .
     ├── asniffer                
@@ -193,14 +193,14 @@ If you wish to use the ASniffer as an API on your own projects, we provide some 
  
  runner.collectSingle(); //for a single project
  
- runner.collectMultiple(); //for multiple projects. It will operate considering the diretory structure is prepared for
-                           //multiple projects, as pointed out in the "How to Use" section on this Readme.
+ runner.collectMultiple(); //for multiple projects. It will run considering the directory structure is prepared for
+                           //multiple projects, as described in the "How to Use" section on this Readme.
  
 ```
 
-With these calls, the ASniffer will run, collect the annotation metrics, and place the XML report file on the provided path. However, if would like to perform some analysis on the metrics values, both ```collectSingle()``` and ```collectMultiple()``` return, respectively, an instance of ```AMReport``` and a ```List<AMReport>```. The ```AMReport``` class contains the complete report of the collected metrics for each Java project. For this reason the ```collectMultiple()``` returns a list of ```AMReports``` (one for each Java project). 
+With these calls, the ASniffer will run, collect the annotation metrics, and place the XML report file on the provided path. However, if you would like to perform some analysis on the metrics values, both ```collectSingle()``` and ```collectMultiple()``` return, respectively, an instance of ```AMReport``` and a ```List<AMReport>```. The ```AMReport``` class contains the complete report of the collected metrics for each Java project. For this reason the ```collectMultiple()``` returns a list of ```AMReports``` (one for each Java project). 
 
-The ```AMReport``` located [here](https://github.com/phillima/asniffer/blob/master/src/main/java/br/inpe/cap/asniffer/model/AMReport.java) contains the project's name, and the list of packages. The packages are store in the ```PackageModel``` class, which in turn contains the ```MetricResult``` class that stores the annotation metrics values.
+The ```AMReport``` located [here](https://github.com/phillima/asniffer/blob/master/src/main/java/br/inpe/cap/asniffer/model/AMReport.java) contains the project's name, and the list of packages. The packages are stored in the ```PackageModel``` class, which in turn contains the ```MetricResult``` class that stores the annotation metrics values.
 
 The following example collects multiple projects, prints their name and the name of every package.
 
