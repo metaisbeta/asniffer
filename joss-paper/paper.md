@@ -23,7 +23,7 @@ affiliations:
    index: 2
  - name: DHI, Federal University of São Paulo - UNIFESP, Brazil
    index: 3
-date: 24 Novembrt 2019
+date: 01 February 2020
 bibliography: paper.bib
 ---
 
@@ -157,6 +157,10 @@ public class AC extends ASTVisitor implements IClassMetricCollector{
 }
 ```
 Listing 3: Snippet from the code that implements the Annotations in Class metric 
+
+# Related Work
+
+The ASniffer tool was developed to support the research published on [@LIMA2018], i.e., collect the novel suite of annotation metrics. Given that these were unpublished metrics, there are no available tools for a comparison. However, there are other tools that perform static code analysis and collect metrics, such as the CK Tool [@aniche2015]. This open-source tool collects the well-known CK Metrics Suite [@ck91] as well as other OO metrics for Java projects. The CK Tool was also developed using the JDT API to build the Abstract Syntax Tree, which served as reference for the development of the ASniffer. 
 
 # License 
 Annotation Sniffer is licensed under the GNU Lesser General Public License v3.0
