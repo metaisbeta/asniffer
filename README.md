@@ -206,15 +206,15 @@ The following example collects multiple projects, prints their name and the name
 
 ```java
 
-    List<AMReport> reports;
+	List<AMReport> reports;
 	String path = "/projects";
-	
+
 	Runner runner = new Runner(path, path);
 	reports = runner.collectMultiple();
-	
+
 	for (AMReport amReport : reports) {
 		System.out.println(amReport.getProjectName());
-		
+
 		for (PackageModel packages : amReport.getPackages()) {
 			System.out.println(packages.getPackageName());
 		}
