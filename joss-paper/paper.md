@@ -15,15 +15,17 @@ authors:
     affiliation: "2" #
   - name: Paulo Meirelles
     orcid: 0000-0002-8923-2814
-    affiliation: "3"
+    affiliation: "3,4"
 affiliations:
  - name: CDG, National Institute of Telecommunications - INATEL, Brazil
    index: 1
  - name: LAC, National Institute for Space Research - INPE, Brazil
    index: 2
- - name: DHI, Federal University of São Paulo - UNIFESP, Brazil
+ - name: EPM, Federal University of São Paulo - UNIFESP, Brazil
    index: 3
-date: 01 February 2020
+ - name: IME, University of São Paulo - USP, Brazil
+   index: 3
+date: 02 February 2020
 bibliography: paper.bib
 ---
 
@@ -64,17 +66,17 @@ public class Player {
 ```
 Listing 1: Example of code annotations
 
-To map this `Player` class to a table in a database, to store the player's information, we need to pass in some `extra information` about these code elements. In other words, we need to define an object-relational mapping, and we need to configure which elements should be mapped to a column, table, and so forth. Using code annotations provided by the JPA API, this mapping is easily achieved. When this code gets executed, the framework consuming the annotations knows how to perform the expected behavior. 
+To map this `Player` class to a table in a database, to store the player's information, we need to pass in some `extra information` about these code elements. In other words, we need to define an object-relational mapping, and we need to configure which elements should be mapped to a column, table, and among others. Using code annotations provided by the JPA API, this mapping is easily achieved. When this code gets executed, the framework consuming the annotations knows how to perform the expected behavior.
 
 # Annotation Metrics
 
 Our work in [@LIMA2018] proposed a novel suite of software metrics dedicated to code annotations. In this section, we briefly describe them and demonstrate how they are calculated. We have three categories of metrics:
 
 - Class Metric: Outputs one value per class.
-- Code Element Metric: Outputs one value per code element (fields, methods, etc.).
+- Code Element Metric: Outputs one value per code element (fields, methods, among others).
 - Annotation Metric: Outputs one value per code annotation.
 
-We use the code presented in Listing 2 as an example. 
+We use the code presented in Listing 2 as an example.
 
 
 ```java
@@ -110,7 +112,7 @@ public class Example {...
 Listing 2: Example of code to extract annotation metrics.
 
 
-- Annotations in Class (AC): This metric counts the number of annotations declared on all code elements in a class, including nested annotations. In our example code, the value of AC is equal to 10. It is a ```Class Metric```.
+- Annotations in Class (AC): It counts the number of annotations declared on all code elements in a class, including nested annotations. In our example code, the value of AC is equal to 10. It is a ```Class Metric```.
 
 - Unique Annotations in Class (UAC): While AC counts all annotations, even repeated ones, UAC counts only distinct annotations. Two annotations are equal if they have the same name, and all arguments match. For instance, both annotations \texttt{@AssociationOverride} are different, for they have a nested annotation \texttt{@JoinColumn} that have different arguments. The first is \texttt{EX\_ID} while the latter is \texttt{O\_ID}. Hence they are distinct annotations and will be computed separately. The UAC value for the example class is nine. Note that the annotation \texttt{@TransactionAttribute()} is counted only once. It is a ```Class Metric```.
 
@@ -122,12 +124,12 @@ Listing 2: Example of code to extract annotation metrics.
 
 - Annotation Nesting Level (ANL): Annotations can have other annotations as arguments, which translates into nested annotations. ANL measures how deep an annotation is nested. The root level is considered value zero. The annotations \texttt{@Stateless} has ANL value of zero, while \texttt{@JoinColumn} has ANL equals two. This data is because it has \texttt{@AssociationOverride} as a first level, and then the \texttt{@AssociationOverrides} adds another nesting level, hence the value ANL is two. It is an ```Annotation Metric```.
 
-- LOC in Annotation Declaration (LOCAD): LOC (Line of Code), is a well-known metric that counts the number of code lines. The LOCAD is proposed as a variant of LOC that counts the number of lines used in an annotation declaration. \texttt{@AssociationOverrides} has a LOCAD value of five, while \texttt{@NamedQuery} has LOCAD equals four. It is an ```Annotation Metric```.
+- LOC in Annotation Declaration (LOCAD): LOC (Line of Code), is a well-known metric that counts the number of code lines. We proposed LOCAD as a variant of LOC that counts the number of lines used in an annotation declaration. \texttt{@AssociationOverrides} has a LOCAD value of five, while \texttt{@NamedQuery} has LOCAD equals four. It is an ```Annotation Metric```.
 
 
 # Annotation Sniffer 
 
-The ASniffer tool uses the JDT[^1](Java Development Tools) API to build the Abstract Syntax Tree (AST) from a text file containing the source code. The ASniffer traverses this AST, visiting the nodes and gathering information about the code elements. After the processing is done, an XML is generated as output. 
+The ASniffer tool uses the JDT[^1](Java Development Tools) API to build the Abstract Syntax Tree (AST) from a text file containing the source code. The ASniffer traverses this AST, visiting the nodes and gathering information about the code elements. After the processing is done, it generates an XML as output. 
 
 [^1]: \url{https://www.eclipse.org/jdt/} 
 
@@ -160,7 +162,7 @@ Listing 3: Snippet from the code that implements the Annotations in Class metric
 
 # Related Work
 
-The ASniffer tool was developed to support the research published on [@LIMA2018], i.e., collect the novel suite of annotation metrics. Given that these were unpublished metrics, there are no available tools for a comparison. However, there are other tools that perform static code analysis and collect metrics, such as the CK Tool [@aniche2015]. This open-source tool collects the well-known CK Metrics Suite [@ck91] as well as other OO metrics for Java projects. The CK Tool was also developed using the JDT API to build the Abstract Syntax Tree, which served as reference for the development of the ASniffer. 
+We developed the ASniffer tool to support the research published on [@LIMA2018], i.e., collect the novel suite of annotation metrics. Given that these were unpublished metrics, there are no available tools for comparison. However, other tools perform static code analysis and collect metrics, such as the CK Tool [@aniche2015]. This open-source tool collects the well-known CK (Chidamber-Kemerer) Metrics Suite [@ck91] as well as other object-oriented metrics for Java projects. The CK Tool was also developed using the JDT API to build the Abstract Syntax Tree, which served as a reference for the development of the ASniffer. 
 
 # License 
 Annotation Sniffer is licensed under the GNU Lesser General Public License v3.0
