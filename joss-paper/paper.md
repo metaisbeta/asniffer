@@ -15,7 +15,7 @@ authors:
     affiliation: "2" #
   - name: Paulo Meirelles
     orcid: 0000-0002-8923-2814
-    affiliation: "3,4"
+    affiliation: "3,4" #
 affiliations:
  - name: CDG, National Institute of Telecommunications - INATEL, Brazil
    index: 1
@@ -24,7 +24,7 @@ affiliations:
  - name: EPM, Federal University of São Paulo - UNIFESP, Brazil
    index: 3
  - name: IME, University of São Paulo - USP, Brazil
-   index: 3
+   index: 4
 date: 02 February 2020
 bibliography: paper.bib
 ---
