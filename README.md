@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/phillima/asniffer.svg?branch=master)](https://travis-ci.com/phillima/asniffer)
 [![DOI](https://zenodo.org/badge/76030375.svg)](https://zenodo.org/badge/latestdoi/76030375)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.01960/status.svg)](https://doi.org/10.21105/joss.01960)
 
 Annotation Sniffer
 ==================
