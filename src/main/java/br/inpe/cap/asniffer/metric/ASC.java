@@ -64,20 +64,23 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 		for (String import_ : imports) {
 			if(import_.contains(annotation.getTypeName().getFullyQualifiedName())) {
 				int lastIndex = import_.lastIndexOf(".");
-				schemasMapper.put(annotation.getTypeName().getFullyQualifiedName() + "-" +
+				String annotationName = annotation.getTypeName().getFullyQualifiedName();
+				if(annotationName.equals(import_.substring(lastIndex+1))) {
+					schemasMapper.put(annotationName + "-" +
 							cu.getLineNumber(annotation.getStartPosition())
 							,import_.substring(0,lastIndex));
-				return;
+					return;
+				}	
 			}
 		}
 		schemasMapper.put(annotation.getTypeName().getFullyQualifiedName() + "-" +
 				cu.getLineNumber(annotation.getStartPosition())
-	    ,"java.lang");
+	    		,"java.lang");
 	}
 	
 	private void findImports(CompilationUnit cu) {
 		for (Object import_ : cu.imports()) {
-			if(import_ instanceof ImportDeclaration) {
+			if(import_ instanceof ImportDeclaration && !((ImportDeclaration) import_).isStatic()) {
 				imports.add(((ImportDeclaration) import_).getName().getFullyQualifiedName());
 			}
 		}

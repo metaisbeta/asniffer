@@ -43,7 +43,6 @@ public class AC extends ASTVisitor implements IClassMetricCollector{
 	@Override
 	public void setResult(MetricResult result) {
 		result.addClassMetric("AC",annotations);
-		
 	}
 
 }
