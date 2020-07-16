@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.output.IReport;
-import br.inpe.cap.asniffer.output.json.JSONReport;
 import br.inpe.cap.asniffer.output.xml.XMLReport;
 import br.inpe.cap.asniffer.utils.FileUtils;
 
