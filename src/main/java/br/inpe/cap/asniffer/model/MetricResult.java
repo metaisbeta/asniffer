@@ -98,6 +98,9 @@ public class MetricResult {
 		return schemas;
 	}
 	
+	public HashMap<String, String> getAnnotationSchemasMap() {
+		return annotSchemasMap;
+	}
 	public void setSchemas(HashMap<String, String> annotationSchemas) {
 		this.annotSchemasMap = annotationSchemas;
 	}

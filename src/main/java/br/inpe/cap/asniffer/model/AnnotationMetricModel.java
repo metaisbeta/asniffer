@@ -36,8 +36,4 @@ public class AnnotationMetricModel {
 	public String getSchema() {
 		return schema;
 	}
-
-	public void setSchema(String schema) {
-		this.schema = schema;
-	}
 }
