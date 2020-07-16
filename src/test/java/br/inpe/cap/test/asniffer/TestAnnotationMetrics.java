@@ -1,4 +1,4 @@
-package br.inpe.cap.asniffer;
+package br.inpe.cap.test.asniffer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.inpe.cap.asniffer.AM;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;

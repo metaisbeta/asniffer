@@ -1,10 +1,11 @@
-package br.inpe.cap.asniffer;
+package br.inpe.cap.test.asniffer;
 
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.inpe.cap.asniffer.AM;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.MetricResult;
 
@@ -34,7 +35,7 @@ public class TestClassMetrics {
 		
 		Assert.assertEquals(28, ac);
 		Assert.assertEquals(18, uac);
-		Assert.assertEquals(4, asc);
+		Assert.assertEquals(3, asc);
 		Assert.assertEquals(16, naec);
 		Assert.assertEquals(32, nec);
 	
