@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,14 +63,14 @@ public class MetricsExecutor extends FileASTRequestor{
 			int nec = info.getCodeElementsInfo().size();
 			
 			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType(),loc, nec);
-			logger.info("Initializing extraction of class metrics.");
+			logger.info("Initializing extraction of class metrics for class: " + info.getClassName());
 			//Obtain class metrics
 			for(IClassMetricCollector visitor : classMetrics.call()) {
 				visitor.execute(cu, result, report);
 				visitor.setResult(result);
 			}
 			logger.info("Finished extracting class metrics.");
-			info.getCodeElementsInfo().entrySet().parallelStream().forEach(entry ->{
+			info.getCodeElementsInfo().entrySet().forEach(entry ->{
 				BodyDeclaration codeElementBody = entry.getKey();
 				CodeElementModel codeElementModel = entry.getValue();
 				logger.info("Initializing extraction of code element metrics for element: " + codeElementModel.getElementName());
@@ -82,10 +83,12 @@ public class MetricsExecutor extends FileASTRequestor{
 				List<Annotation> annotations = AnnotationUtils.checkForAnnotations(codeElementBody);
 				
 				logger.info("Initializing extraction of annotation metrics for code element: " + codeElementModel.getElementName());
-				annotations.parallelStream().forEach(annotation -> {
-					AnnotationMetricModel annotationMetricModel = new AnnotationMetricModel(annotation.getTypeName().toString(), 
-							   cu.getLineNumber(annotation.getStartPosition()), 
-						   		   result.getAnnotationSchema(annotation.getTypeName().getFullyQualifiedName()
+				
+				annotations.forEach(annotation -> {
+					AnnotationMetricModel annotationMetricModel = new AnnotationMetricModel(
+								annotation.getTypeName().toString(), 
+							    cu.getLineNumber(annotation.getStartPosition()), 
+						   		result.getAnnotationSchema(annotation.getTypeName().getFullyQualifiedName()
 								   +"-"+cu.getLineNumber(annotation.getStartPosition())));
 					for (IAnnotationMetricCollector annotationCollector : annotationMetrics) {
 						annotationCollector.execute(cu, annotationMetricModel, annotation);

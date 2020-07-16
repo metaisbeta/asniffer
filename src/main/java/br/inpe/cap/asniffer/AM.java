@@ -17,11 +17,15 @@ import br.inpe.cap.asniffer.interfaces.ICodeElementMetricCollector;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.utils.FileUtils;
 
-//Annotation Metric
 public class AM {
 
 	private static final int MAX_AT_ONCE;
+	private MetricContainer metricContainer;
 
+	public AM() {
+		metricContainer = MetricContainer.getInstance();
+	}
+	
 	static {
 		String jdtMax = System.getProperty("jdt.max");
 		if(jdtMax!=null) {
@@ -44,7 +48,6 @@ public class AM {
 		MetricsExecutor storage = new MetricsExecutor(() -> includeClassMetrics(), 
 						includeAnnotationMetrics(),
 						includeCodeElementMetrics() , projectName);
-		
 		List<List<String>> partitions = Lists.partition(Arrays.asList(javaFiles), MAX_AT_ONCE);
 
 		for(List<String> partition : partitions) {
@@ -65,8 +68,6 @@ public class AM {
 	private List<IClassMetricCollector> includeClassMetrics(){
 		
 		List<IClassMetricCollector> metrics = new ArrayList<>();
-		MetricContainer metricContainer = new MetricContainer();
-
 		for (String metricName : metricContainer.getClassMetrics()) {
 			try {
 				Class<?> clazz = Class.forName(metricName);
@@ -82,8 +83,6 @@ public class AM {
 	private List<IAnnotationMetricCollector> includeAnnotationMetrics(){
 		
 		List<IAnnotationMetricCollector> metrics = new ArrayList<>();
-		MetricContainer metricContainer = new MetricContainer();
-
 		for (String metricName : metricContainer.getAnnotationMetric()) {
 			try {
 				Class<?> clazz = Class.forName(metricName);
@@ -99,8 +98,6 @@ public class AM {
 	private List<ICodeElementMetricCollector> includeCodeElementMetrics(){
 			
 		List<ICodeElementMetricCollector> metrics = new ArrayList<>();
-		MetricContainer metricContainer = new MetricContainer();
-
 		for (String metricName : metricContainer.getCodeElementMetric()) {
 			try {
 				Class<?> clazz = Class.forName(metricName);

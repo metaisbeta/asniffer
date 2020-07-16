@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.output.IReport;
+import br.inpe.cap.asniffer.output.json.JSONReport;
 import br.inpe.cap.asniffer.output.xml.XMLReport;
 import br.inpe.cap.asniffer.utils.FileUtils;
 
@@ -44,6 +45,8 @@ public class Runner {
 		logger.info("Initializing extraction for project " + projectName);
 		AMReport report = new AM().calculate(projectPath.toString(), projectName);
 		logger.info("Extraction concluded for project " + projectName);
+		//IReport jsonReport = new JSONReport();
+		//jsonReport.generateReport(report, xmlPath);
 		IReport xmlReport = new XMLReport();
 		xmlReport.generateReport(report, xmlPath);
 		return report;

@@ -11,7 +11,15 @@ public class MetricContainer{
 
 	ScanResult result = null;
 	
-	public MetricContainer() {
+	private static MetricContainer instance;
+	
+	public static MetricContainer getInstance() {
+		if(instance == null)
+			return new MetricContainer();
+		return instance;
+	}
+	
+	private MetricContainer() {
 		FastClasspathScanner scan = new FastClasspathScanner(FileUtils.getJarDependencies());
 		result = scan.scan();
 	}
