@@ -51,7 +51,6 @@ public class TestAnnotationSchema {
 		
 		//Hibernate class
 		a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
-		System.out.println(a.getClassName());
 		List<CodeElementModel> codeElements = a.getElementsReport();
 		
 		String schema1 = "java.lang", expectedSchema1 = null;
@@ -61,21 +60,10 @@ public class TestAnnotationSchema {
 		
 		for (CodeElementModel codeElement : codeElements) {
 			
-			System.out.println("CLASS TEST");
-			for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
-				System.out.println(annotationMetric.getName());
-				System.out.println(annotationMetric.getSchema());
-			}
-			
 			if(codeElement.getLine()==36) {
-				System.out.println(codeElement.getElementName());
 				for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
-					System.out.println(annotationMetric.getName());
-					System.out.println(annotationMetric.getSchema());
 					if(annotationMetric.getName().equals(annot1)) {
-						System.out.println("Here");
 						expectedSchema1 = annotationMetric.getSchema();
-						System.out.println(expectedSchema1);
 						break;
 					}
 				} 
@@ -84,8 +72,6 @@ public class TestAnnotationSchema {
 				for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
 					if(annotationMetric.getName().equals(annot2)) {
 						expectedSchema2 = annotationMetric.getSchema();
-						System.out.println("EXPECTED2");
-						System.out.println(expectedSchema2);
 						break;
 					}
 				} 
