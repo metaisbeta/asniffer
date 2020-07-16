@@ -1,4 +1,4 @@
-package br.inpe.cap.xml;
+package br.inpe.cap.test.xml;
 
 import static org.junit.Assert.assertEquals;
 
