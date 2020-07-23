@@ -1,13 +1,17 @@
 package br.inpe.cap.asniffer.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.SystemUtils;
@@ -17,7 +21,6 @@ public class FileUtils {
 	public static String[] getAllDirs(String path) {
 		ArrayList<String> dirs = new ArrayList<String>();
 		getAllDirs(path, dirs);
-		
 		String[] ar = new String[dirs.size()];
 		ar = dirs.toArray(ar);
 		return ar;
@@ -127,6 +130,34 @@ public class FileUtils {
 	        e.printStackTrace();
 	    }
 	    return contentBuilder.toString();
+	}
+	
+	
+	public static String getReportType(String reportType) {
+		
+		Properties prop = new Properties();
+		String workingDir = Paths.get("").toAbsolutePath().toString();
+		String reportClassName = "";
+		InputStream inputStream = null;
+		
+		try {
+			inputStream = new FileInputStream(workingDir+"/src/main/resources/report.properties");
+			prop.load(inputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(inputStream != null)
+					inputStream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		reportClassName = prop.getProperty(reportType);
+		System.out.println(reportClassName);
+		
+		return reportClassName;
 	}
 	
 }
