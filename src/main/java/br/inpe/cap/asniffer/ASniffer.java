@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.inpe.cap.asniffer.model.AMReport;
+import br.inpe.cap.asniffer.parameters.ParamMapper;
+import br.inpe.cap.asniffer.parameters.Parameters;
 
 
 public class ASniffer {
@@ -15,40 +16,33 @@ public class ASniffer {
 	
 	//Called as an executable jar                                                 	                                          
 	public static void main(String[] args) throws FileNotFoundException {
-		                                                    
-		
-		String pathProject = null, pathXML = null;
-		boolean single = true;
-		
+		    
 		if(args==null || args.length < 2) {
 			System.out.println("To use ASniffer please run the "
-					+ "command as following, providing three parameters:");
-			System.out.println("Usage java -jar asniffer.jar <path to project> <path to xml report> <single/multi>");
-			System.out.println("multi specifies that the directory contains multiple projects");
-			System.out.println("If no <path to xml> is provided, the ASniffer will place the report on the <path to project>");
+					+ "command as following, providing four parameters:");
+			System.out.println("java -jar asniffer.jar ");
+			System.out.println("-p <path to project> (A complete path to where your project(s) is located)");
+			System.out.println("-r <path to report> (Path where you would like to store your report. "
+					+ "If no path is provided, ASniffer will place the report in your project folder.");
+			System.out.println("-m <single/multi> (you have to specify single or multi. Single is the default value. Multi specifies that the directory contains multiple projects");
+					System.out.println("report type can be xml or json. Please type one of them");
+			System.out.println("-t <report type> (as of version 2.3.0, the report type can be xml or json. If no value is specified, an XML file will be generated");
 			System.exit(1);
 		}
 		
-		if(args.length >= 2) {
-			pathProject = args[0];
-			if(args.length > 2) {
-				pathXML = args[1];
-				single = args[2].toLowerCase().contains("single");
-			}else {
-				pathXML = args[0];
-				single = args[1].toLowerCase().contains("single");
-			}
-			
-		}
+		//Read the parameters
+		Parameters param = new ParamMapper().map(args, Parameters.class);
 		
-		run(pathProject, pathXML, single);
+		run(param.getProjectPath(), param.getReportPath(), 
+				param.isAMultiProject(), param.getReportType());
 			
 	}
 	
 	//Called from other applications
-	public static void run(String projectPath, String xmlPath, boolean singleProject) throws FileNotFoundException {
-		Runner runner = new Runner(projectPath, xmlPath);
-		if(singleProject) {
+	public static void run(String projectPath, String reportPath, boolean multiProject,
+			String reportType) throws FileNotFoundException {
+		Runner runner = new Runner(projectPath, reportPath,reportType);
+		if(!multiProject) {
 			logger.info("Initializing extraction for single project.");
 			runner.collectSingle();
 		}

@@ -10,20 +10,21 @@ import org.apache.logging.log4j.Logger;
 
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.output.IReport;
-import br.inpe.cap.asniffer.output.xml.XMLReport;
 import br.inpe.cap.asniffer.utils.FileUtils;
 
 public class Runner {
 	
-	String projectsPath = "";
-	String xmlPath = "";
+	private String projectsPath = "";
+	private String reportPath = "";
+	private String reportType = ""; 
 	
 	private static final Logger logger = 
 		      LogManager.getLogger(Runner.class);
 	
-	public Runner(String projectPath, String xmlPath) {
+	public Runner(String projectPath, String reportPath, String reportType) {
 		this.projectsPath = projectPath;
-		this.xmlPath = xmlPath;
+		this.reportPath = reportPath;
+		this.reportType = reportType;
 	}
 	
 	//project path is a root directory to multiple project directories
@@ -44,10 +45,20 @@ public class Runner {
 		logger.info("Initializing extraction for project " + projectName);
 		AMReport report = new AM().calculate(projectPath.toString(), projectName);
 		logger.info("Extraction concluded for project " + projectName);
-		//IReport jsonReport = new JSONReport();
-		//jsonReport.generateReport(report, xmlPath);
-		IReport xmlReport = new XMLReport();
-		xmlReport.generateReport(report, xmlPath);
+		
+		Object reportInstance = null;
+		try {
+			String classReport = FileUtils.getReportType(reportType);
+			Class<?> reportClazz = Class.forName(classReport);
+			reportInstance = reportClazz.newInstance();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		
+		if(reportInstance instanceof IReport)
+			((IReport) reportInstance).generateReport(report, reportPath);
+		else
+			System.out.println("Unable to generate report!");
 		return report;
 	}
 }

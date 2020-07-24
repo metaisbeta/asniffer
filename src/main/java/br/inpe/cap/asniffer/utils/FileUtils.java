@@ -16,6 +16,8 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.SystemUtils;
 
+import br.inpe.cap.asniffer.parameters.ParameterReadingException;
+
 public class FileUtils {
 	
 	public static String[] getAllDirs(String path) {
@@ -155,9 +157,10 @@ public class FileUtils {
 		}
 		
 		reportClassName = prop.getProperty(reportType);
-		System.out.println(reportClassName);
-		
-		return reportClassName;
+		if(reportClassName != null)
+			return reportClassName;
+		else
+			throw new ParameterReadingException("Illegal parameter for project report type: Should be \"xml\" or \"json\".");
 	}
 	
 }
