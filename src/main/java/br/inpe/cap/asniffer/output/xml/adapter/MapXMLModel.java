@@ -1,4 +1,4 @@
-package br.inpe.cap.asniffer.output;
+package br.inpe.cap.asniffer.output.xml.adapter;
 
 import javax.xml.bind.annotation.XmlAttribute;
 

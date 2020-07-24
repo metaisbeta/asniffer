@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.inpe.cap.asniffer.output.MapXMLAdapter;
+import br.inpe.cap.asniffer.output.xml.adapter.MapXMLAdapter;
 
 public class AnnotationXMLReport {
 
