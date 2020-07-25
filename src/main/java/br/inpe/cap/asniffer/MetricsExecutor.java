@@ -21,7 +21,7 @@ import br.inpe.cap.asniffer.metric.LOCCalculator;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
-import br.inpe.cap.asniffer.model.MetricResult;
+import br.inpe.cap.asniffer.model.ClassModel;
 import br.inpe.cap.asniffer.model.PackageModel;
 import br.inpe.cap.asniffer.utils.AnnotationUtils;
 
@@ -29,7 +29,7 @@ public class MetricsExecutor extends FileASTRequestor{
 
 	private AMReport report;
 	private Map<String, PackageModel> packagesModel;
-	MetricResult result = null;
+	ClassModel result = null;
 	private Callable<List<IClassMetricCollector>> classMetrics;
 	private List<IAnnotationMetricCollector> annotationMetrics;
 	private List<ICodeElementMetricCollector> codeElementMetrics;
@@ -62,7 +62,7 @@ public class MetricsExecutor extends FileASTRequestor{
 			int loc = new LOCCalculator().calculate(new FileInputStream(sourceFilePath));
 			int nec = info.getCodeElementsInfo().size();
 			
-			result = new MetricResult(sourceFilePath, info.getClassName(), info.getType(),loc, nec);
+			result = new ClassModel(sourceFilePath, info.getClassName(), info.getType(),loc, nec);
 			logger.info("Initializing extraction of class metrics for class: " + info.getClassName());
 			//Obtain class metrics
 			for(IClassMetricCollector visitor : classMetrics.call()) {

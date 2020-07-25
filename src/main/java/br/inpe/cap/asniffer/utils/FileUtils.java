@@ -135,32 +135,6 @@ public class FileUtils {
 	}
 	
 	
-	public static String getReportType(String reportType) {
-		
-		Properties prop = new Properties();
-		String workingDir = Paths.get("").toAbsolutePath().toString();
-		String reportClassName = "";
-		InputStream inputStream = null;
-		
-		try {
-			inputStream = new FileInputStream(workingDir+"/src/main/resources/report.properties");
-			prop.load(inputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(inputStream != null)
-					inputStream.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		reportClassName = prop.getProperty(reportType);
-		if(reportClassName != null)
-			return reportClassName;
-		else
-			throw new ParameterReadingException("Illegal parameter for project report type: Should be \"xml\" or \"json\".");
-	}
+	
 	
 }

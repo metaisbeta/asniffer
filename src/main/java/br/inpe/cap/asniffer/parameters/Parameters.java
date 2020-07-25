@@ -6,8 +6,8 @@ import br.inpe.cap.asniffer.annotations.TextValue;
 
 public class Parameters {
 	
-	private final String DEFAULT_PROJECT_REPORT = "json";
-	private final String DEFAULT_SINGLE_MULTI = "single";
+	public static final String DEFAULT_PROJECT_REPORT = "json";
+	public static final String DEFAULT_SINGLE_MULTI = "single";
 	
 	@IsParameterPresent(name = "p")
 	private boolean projPathPresent;

@@ -15,7 +15,7 @@ import br.inpe.cap.asniffer.AM;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
-import br.inpe.cap.asniffer.model.MetricResult;
+import br.inpe.cap.asniffer.model.ClassModel;
 
 public class TestAnnotationSchema {
 
@@ -31,7 +31,7 @@ public class TestAnnotationSchema {
 	public void testAnnotationSchema() {
 		
 		//Google Guava class
-		MetricResult a = report.getPackages().get(0).getByClassName("annotationtest.AbstractService");
+		ClassModel a = report.getPackages().get(0).getByClassName("annotationtest.AbstractService");
 		
 		Map<String, String> expectedSchemas = new HashMap<String, String>();
 		expectedSchemas.put("GwtIncompatible","com.google.common.annotations");
@@ -53,6 +53,33 @@ public class TestAnnotationSchema {
 		a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
 		List<CodeElementModel> codeElements = a.getElementsReport();
 		
+		
+		Map<String, String> expectedSchemas2 = new HashMap<String, String>();
+		expectedSchemas2.put("Override","java.lang");
+		expectedSchemas2.put("Entity","javax.persistence");
+		expectedSchemas2.put("GeneratedValue","javax.persistence");
+		expectedSchemas2.put("Id","javax.persistence");
+		expectedSchemas2.put("Inheritance","javax.persistence");
+		expectedSchemas2.put("InheritanceType","javax.persistence");
+		expectedSchemas2.put("Before","org.junit");
+		expectedSchemas2.put("Test","org.junit");
+		expectedSchemas2.put("Annotation0","java.lang");
+		expectedSchemas2.put("AssociationOverrides","javax.persistence");
+		expectedSchemas2.put("AssociationOverride","javax.persistence");
+		expectedSchemas2.put("NamedQuery","javax.persistence");
+		expectedSchemas2.put("JoinColumn","javax.persistence");
+		expectedSchemas2.put("Annotation2","java.lang");
+		
+		
+		
+		
+		a.getAnnotationSchemasMap().forEach((annotation,schema) -> {
+			int lastIndex = annotation.lastIndexOf("-");
+			String annotName = annotation.substring(0,lastIndex);
+			assertEquals(expectedSchemas2.get(annotName), schema);
+		});
+		
+		
 		String schema1 = "java.lang", expectedSchema1 = null;
 		String schema2 = "javax.persistence", expectedSchema2 = null;
 		String annot1 = "Override";
@@ -60,7 +87,7 @@ public class TestAnnotationSchema {
 		
 		for (CodeElementModel codeElement : codeElements) {
 			
-			if(codeElement.getLine()==36) {
+			if(codeElement.getLine()==40) {
 				for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
 					if(annotationMetric.getName().equals(annot1)) {
 						expectedSchema1 = annotationMetric.getSchema();
@@ -68,7 +95,7 @@ public class TestAnnotationSchema {
 					}
 				} 
 			}
-			if(codeElement.getLine()==131) {
+			if(codeElement.getLine()==135) {
 				for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
 					if(annotationMetric.getName().equals(annot2)) {
 						expectedSchema2 = annotationMetric.getSchema();

@@ -10,6 +10,7 @@ import br.inpe.cap.asniffer.parameters.ParamMapper;
 import br.inpe.cap.asniffer.parameters.ParameterReadingException;
 import br.inpe.cap.asniffer.parameters.Parameters;
 import br.inpe.cap.asniffer.utils.FileUtils;
+import br.inpe.cap.asniffer.utils.PropertiesUtil;
 
 public class ParametersTest {
 	
@@ -72,15 +73,6 @@ public class ParametersTest {
 		ParamMapper mapper = new ParamMapper();
 		String[] args ="-p -r other text".split(" ");
 		mapper.map(args , Parameters.class);
-	}
-	
-	@Test(expected = ParameterReadingException.class)
-	public void illegalReportType() {
-		ParamMapper mapper = new ParamMapper();
-		String[] args ="-p any path -r other path -t wrong type for report".split(" ");
-		mapper.map(args , Parameters.class);
-		
-		FileUtils.getReportType("wrong type");
 	}
 	
 	@Test

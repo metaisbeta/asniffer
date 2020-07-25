@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import br.inpe.cap.asniffer.annotations.ExcludeSerialisation;
 
-public class ClassReportJSON {
+public class ClassReportJSOND3 {
 
 	@SerializedName("name")
 	private String className;
@@ -18,22 +18,22 @@ public class ClassReportJSON {
 	//private List<ClassMetricJSON> classMetricsJSON;
 	
 	@SerializedName("children")
-	private List<CodeElementJSON> codeElementsJSON;
+	private List<CodeElementJSOND3> codeElementsJSON;
 	
-	public ClassReportJSON(String className, String type, int ac) {
+	public ClassReportJSOND3(String className, String type, int ac) {
 		this.className = (className + " - " + type);
 		this.ac = ac;
 	}
 	
-	public void setClassMetricsJSON(List<ClassMetricJSON> classMetricsJSON) {
+	public void setClassMetricsJSON(List<ClassMetricJSOND3> classMetricsJSON) {
 	//	this.classMetricsJSON = classMetricsJSON;
 	}
 	
 	//Getters and Setters
-	public void setCodeElementsJSON(List<CodeElementJSON> codeElementsJSON) {
+	public void setCodeElementsJSON(List<CodeElementJSOND3> codeElementsJSON) {
 		this.codeElementsJSON = codeElementsJSON;
 	}
-	public List<CodeElementJSON> getCodeElementsJSON() {
+	public List<CodeElementJSOND3> getCodeElementsJSON() {
 		return codeElementsJSON;
 	}
 	public int getAc() {

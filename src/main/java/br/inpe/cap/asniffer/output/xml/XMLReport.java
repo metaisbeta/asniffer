@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
-import br.inpe.cap.asniffer.model.MetricResult;
+import br.inpe.cap.asniffer.model.ClassModel;
 import br.inpe.cap.asniffer.model.PackageModel;
 import br.inpe.cap.asniffer.output.IReport;
 
@@ -66,7 +66,7 @@ public class XMLReport implements IReport {
 
 		List<ClassReportXML> classesReportXML = new ArrayList<ClassReportXML>();
 		
-		for (MetricResult classReport : package_.all()) {
+		for (ClassModel classReport : package_.all()) {
 			ClassReportXML classReportXML = new ClassReportXML(classReport.getClassName(), classReport.getType());
 			classReportXML.setClassMetricsXML(fetchClassMetrics(classReport, classReportXML));
 			classReportXML.setCodeElementXMLReport(fetchCodeElementReport(classReport, classReportXML));
@@ -77,7 +77,7 @@ public class XMLReport implements IReport {
 		return classesReportXML;
 	}
 
-	private List<CodeElementXMLReport> fetchCodeElementReport(MetricResult classReport, ClassReportXML classReportXML) {
+	private List<CodeElementXMLReport> fetchCodeElementReport(ClassModel classReport, ClassReportXML classReportXML) {
 		List<CodeElementXMLReport> codeElementReportsXML = new ArrayList<>();
 		
 		for (CodeElementModel codeElementXMLReport : classReport.getElementsReport()) {
@@ -111,7 +111,7 @@ public class XMLReport implements IReport {
 		return annotationMetricsXMLReport;
 	}
 
-	private List<ClassMetricXML> fetchClassMetrics(MetricResult classReport, ClassReportXML classReportXML) {
+	private List<ClassMetricXML> fetchClassMetrics(ClassModel classReport, ClassReportXML classReportXML) {
 		List<ClassMetricXML> classMetricsXML = new ArrayList<>();
 		
 		classReport.getAllClassMetrics().forEach((metricName, metricValue) -> {

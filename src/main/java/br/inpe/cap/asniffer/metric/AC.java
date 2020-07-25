@@ -9,7 +9,7 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import br.inpe.cap.asniffer.annotations.ClassMetric;
 import br.inpe.cap.asniffer.interfaces.IClassMetricCollector;
 import br.inpe.cap.asniffer.model.AMReport;
-import br.inpe.cap.asniffer.model.MetricResult;
+import br.inpe.cap.asniffer.model.ClassModel;
 
 @ClassMetric
 public class AC extends ASTVisitor implements IClassMetricCollector{
@@ -35,13 +35,13 @@ public class AC extends ASTVisitor implements IClassMetricCollector{
 	}
 	
 	@Override
-	public void execute(CompilationUnit cu, MetricResult result, AMReport report) {
+	public void execute(CompilationUnit cu, ClassModel result, AMReport report) {
 		cu.accept(this);
 		
 	}
 
 	@Override
-	public void setResult(MetricResult result) {
+	public void setResult(ClassModel result) {
 		result.addClassMetric("AC",annotations);
 	}
 

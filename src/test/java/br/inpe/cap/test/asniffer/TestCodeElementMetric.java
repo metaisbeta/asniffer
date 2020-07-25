@@ -10,7 +10,7 @@ import org.junit.Test;
 import br.inpe.cap.asniffer.AM;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.CodeElementModel;
-import br.inpe.cap.asniffer.model.MetricResult;
+import br.inpe.cap.asniffer.model.ClassModel;
 
 public class TestCodeElementMetric {
 
@@ -25,12 +25,12 @@ public class TestCodeElementMetric {
 	@Test
 	public void testAED() {
 		
-		MetricResult result = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
+		ClassModel result = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
 		List<CodeElementModel> codeElements = result.getElementsReport();
 		int aedValue = 0;
 		
 		for (CodeElementModel codeElement : codeElements) {
-			if(codeElement.getLine()==131) {
+			if(codeElement.getLine()==135) {
 				aedValue = codeElement.getAed();
 			}
 		}

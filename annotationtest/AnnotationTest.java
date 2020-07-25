@@ -14,6 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.AssociationOverrides;
+import javax.persistence.AssociationOverride;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
@@ -95,7 +99,7 @@ public abstract class AnnotationTest {
 	protected int entityCount() {
 		return 100;
 	}
-	@Test(teste)
+
 	@Test
 	public void testUpdate() {
 		doInHibernate( this::sessionFactory, session -> {

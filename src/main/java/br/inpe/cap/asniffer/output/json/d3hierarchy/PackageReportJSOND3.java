@@ -5,24 +5,24 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PackageReportJSON {
+public class PackageReportJSOND3 {
 
 	@SerializedName(value = "name")
 	private String packageName;
 	
 	@SerializedName("children")
-	private List<ClassReportJSON> classReportJSON;
+	private List<ClassReportJSOND3> classReportJSON;
 
-	public PackageReportJSON(String packageName) {
+	public PackageReportJSOND3(String packageName) {
 		this.packageName = packageName;
-		this.classReportJSON = new ArrayList<ClassReportJSON>();
+		this.classReportJSON = new ArrayList<ClassReportJSOND3>();
 	}
 	
-	public void setClassReportJSON(List<ClassReportJSON> classReportJSON) {
+	public void setClassReportJSON(List<ClassReportJSOND3> classReportJSON) {
 		this.classReportJSON = classReportJSON;
 	}
 	
-	public List<ClassReportJSON> getClassReportJSON() {
+	public List<ClassReportJSOND3> getClassReportJSON() {
 		return classReportJSON;
 	}
 	

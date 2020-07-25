@@ -6,15 +6,19 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.output.IReport;
-import br.inpe.cap.asniffer.output.json.adapter.ExcludeFieldsJSON;
 
 public class JSONReport implements IReport {
 
+	private static final Logger logger = 
+		      LogManager.getLogger(JSONReport.class);
 	@Override
 	public void generateReport(AMReport report, String path) {
 		
@@ -30,6 +34,7 @@ public class JSONReport implements IReport {
 			FileWriter writer = new FileWriter(jsonFilePath.toString());
 			writer.write(json);
 			writer.close();
+			logger.info("JSON file for project " + report.getProjectName() + " created on " + jsonFilePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

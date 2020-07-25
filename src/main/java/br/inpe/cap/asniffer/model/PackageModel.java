@@ -8,27 +8,27 @@ public class PackageModel {
 	
 	private String packageName;
 	
-	private Map<String, MetricResult> results;
+	private Map<String, ClassModel> results;
 	
 	public PackageModel(String packageName) {
 		this.packageName = packageName;
-		this.results = new HashMap<String, MetricResult>();
+		this.results = new HashMap<String, ClassModel>();
 	}
 	
-	public void add(MetricResult metric) {
+	public void add(ClassModel metric) {
 		results.put(metric.getClassName(), metric);
 	}
 
-	public MetricResult get(String name) {
+	public ClassModel get(String name) {
 		return results.get(name);
 	}
 
-	public Collection<MetricResult> all() {
+	public Collection<ClassModel> all() {
 		return results.values();
 	}
 
-	public MetricResult getByClassName(String name) {
-		for (MetricResult metric : all()) {
+	public ClassModel getByClassName(String name) {
+		for (ClassModel metric : all()) {
 			if (metric.getClassName().equals(name))
 				return metric;
 		}

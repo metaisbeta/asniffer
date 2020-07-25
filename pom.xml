@@ -88,7 +88,7 @@
 			            <configuration>
 			                <archive>
 			                <manifest>
-			                    <mainClass>br.inpe.cap.asniffer.ASniffer</mainClass>
+			                    <mainClass>br.inpe.cap.asniffer.Main</mainClass>
 			                </manifest>
 			                </archive>
 			                <descriptorRefs>

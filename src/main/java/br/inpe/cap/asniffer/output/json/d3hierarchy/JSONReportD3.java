@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 import br.inpe.cap.asniffer.model.AMReport;
 import br.inpe.cap.asniffer.model.AnnotationMetricModel;
 import br.inpe.cap.asniffer.model.CodeElementModel;
-import br.inpe.cap.asniffer.model.MetricResult;
+import br.inpe.cap.asniffer.model.ClassModel;
 import br.inpe.cap.asniffer.model.PackageModel;
 import br.inpe.cap.asniffer.output.IReport;
 import br.inpe.cap.asniffer.output.json.adapter.ExcludeFieldsJSON;
@@ -23,7 +23,7 @@ import br.inpe.cap.asniffer.output.json.adapter.ExcludeFieldsJSON;
 
 public class JSONReportD3 implements IReport {
 	
-	ProjectReportJSON projectReportJson;
+	ProjectReportJSOND3 projectReportJson;
 
 	@Override
 	public void generateReport(AMReport report, String path) {
@@ -48,13 +48,13 @@ public class JSONReportD3 implements IReport {
 		
 	}
 
-	private ProjectReportJSON prepareJson(AMReport report) {
+	private ProjectReportJSOND3 prepareJson(AMReport report) {
 		
-		ProjectReportJSON projectReportJson =
-					new ProjectReportJSON(report.getProjectName());
+		ProjectReportJSOND3 projectReportJson =
+					new ProjectReportJSOND3(report.getProjectName());
 		
 		for (PackageModel package_ : report.getPackages()) {
-			PackageReportJSON packageJSON = new PackageReportJSON(package_.getPackageName());
+			PackageReportJSOND3 packageJSON = new PackageReportJSOND3(package_.getPackageName());
 			packageJSON.setClassReportJSON(fetchClassReport(package_));
 			if(!packageJSON.getClassReportJSON().isEmpty())
 				projectReportJson.addPackageJSON(packageJSON);
@@ -64,14 +64,14 @@ public class JSONReportD3 implements IReport {
 		
 	}
 
-	private List<ClassReportJSON> fetchClassReport(PackageModel package_) {
+	private List<ClassReportJSOND3> fetchClassReport(PackageModel package_) {
 
-		List<ClassReportJSON> classesReportJSON = new ArrayList<ClassReportJSON>();
+		List<ClassReportJSOND3> classesReportJSON = new ArrayList<ClassReportJSOND3>();
 		
-		for (MetricResult classReport : package_.all()) {
+		for (ClassModel classReport : package_.all()) {
 			if(classReport.getClassMetric("AC")==0)//Eliminate classes without annotation
 				continue;
-			ClassReportJSON classReportJSON = new ClassReportJSON(classReport.getClassName(),
+			ClassReportJSOND3 classReportJSON = new ClassReportJSOND3(classReport.getClassName(),
 																  classReport.getType(), classReport.getClassMetric("AC"));
 			classReportJSON.setCodeElementsJSON(fetchCodeElementReport(classReport));
 			classesReportJSON.add(classReportJSON);
@@ -79,14 +79,14 @@ public class JSONReportD3 implements IReport {
 		return classesReportJSON;
 	}
 
-	private List<CodeElementJSON> fetchCodeElementReport(MetricResult classReport) {
+	private List<CodeElementJSOND3> fetchCodeElementReport(ClassModel classReport) {
 	
-		List<CodeElementJSON> codeElementsJSON = new ArrayList<CodeElementJSON>();
+		List<CodeElementJSOND3> codeElementsJSON = new ArrayList<CodeElementJSOND3>();
 		
 		for (CodeElementModel codeElementModel : classReport.getElementsReport()) {
 			if(codeElementModel.getAed()==0)//eliminate elements without annotations
 				continue;
-			CodeElementJSON codeElementJSON = new CodeElementJSON(codeElementModel.getElementName(), 
+			CodeElementJSOND3 codeElementJSON = new CodeElementJSOND3(codeElementModel.getElementName(), 
 																  codeElementModel.getType(),codeElementModel.getAed());
 			codeElementJSON.setAnnotationJSON(fetchAnnotationReport(codeElementModel.getAnnotationMetrics()));
 			codeElementsJSON.add(codeElementJSON);
@@ -95,14 +95,14 @@ public class JSONReportD3 implements IReport {
 		
 	}
 
-	private List<AnnotationJSON> fetchAnnotationReport(List<AnnotationMetricModel> annotationMetrics) {
+	private List<AnnotationJSOND3> fetchAnnotationReport(List<AnnotationMetricModel> annotationMetrics) {
 		
-		List<AnnotationJSON> annotationsJSON = new ArrayList<AnnotationJSON>();
+		List<AnnotationJSOND3> annotationsJSON = new ArrayList<AnnotationJSOND3>();
 		
 		for (AnnotationMetricModel annotationMetricModel : annotationMetrics) {
-			AnnotationJSON annotJSON = new AnnotationJSON(annotationMetricModel.getName());
+			AnnotationJSOND3 annotJSON = new AnnotationJSOND3(annotationMetricModel.getName());
 			annotationMetricModel.getAnnotationMetrics().forEach((metric,value) ->{
-				AnnotationMetricJSON annotMetricJSON = new AnnotationMetricJSON(metric, value);
+				AnnotationMetricJSOND3 annotMetricJSON = new AnnotationMetricJSOND3(metric, value);
 				annotJSON.addAnnotMetricJSON(annotMetricJSON);
 			});
 			annotationsJSON.add(annotJSON);

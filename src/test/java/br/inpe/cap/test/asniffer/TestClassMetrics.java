@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import br.inpe.cap.asniffer.AM;
 import br.inpe.cap.asniffer.model.AMReport;
-import br.inpe.cap.asniffer.model.MetricResult;
+import br.inpe.cap.asniffer.model.ClassModel;
 
 public class TestClassMetrics {
 
@@ -22,19 +22,15 @@ public class TestClassMetrics {
 	@Test
 	public void testClassMetrics() {
 		
-		MetricResult a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
+		ClassModel a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
 		int ac = a.getClassMetric("AC");
 		int uac = a.getClassMetric("UAC");
 		int asc = a.getClassMetric("ASC");
 		int naec = a.getClassMetric("NAEC");
 		int nec = a.getClassMetric("NEC"); 
 		
-		for (String schema : a.getAnnotationSchemas()) {
-			System.out.println(schema);
-		}
-		
-		Assert.assertEquals(28, ac);
-		Assert.assertEquals(18, uac);
+		Assert.assertEquals(27, ac);
+		Assert.assertEquals(17, uac);
 		Assert.assertEquals(3, asc);
 		Assert.assertEquals(16, naec);
 		Assert.assertEquals(32, nec);

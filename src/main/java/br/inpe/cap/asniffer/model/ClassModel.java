@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class MetricResult {
+public class ClassModel {
 	
 	private String sourceFilePath;
 	private String className;
@@ -19,7 +19,7 @@ public class MetricResult {
 	
 	private List<CodeElementModel> elementsReport;
 	
-	public MetricResult(String sourceFilePath, String className, String type, int loc, int nec) {
+	public ClassModel(String sourceFilePath, String className, String type, int loc, int nec) {
 		super();
 		this.sourceFilePath = sourceFilePath;
 		this.className = className;

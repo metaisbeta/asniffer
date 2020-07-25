@@ -5,20 +5,20 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ProjectReportJSON {
+public class ProjectReportJSOND3 {
 	
 	@SerializedName(value = "name")
 	private String projectName;
 
 	@SerializedName(value = "children")
-	private List<PackageReportJSON> packagesJSON;
+	private List<PackageReportJSOND3> packagesJSON;
 	
-	public ProjectReportJSON(String projectName) {
+	public ProjectReportJSOND3(String projectName) {
 		this.projectName = projectName;
-		this.packagesJSON = new ArrayList<PackageReportJSON>();
+		this.packagesJSON = new ArrayList<PackageReportJSOND3>();
 	}
 
-	public void addPackageJSON(PackageReportJSON packageJSON) {
+	public void addPackageJSON(PackageReportJSOND3 packageJSON) {
 		this.packagesJSON.add(packageJSON);
 	}
 }
