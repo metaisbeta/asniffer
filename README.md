@@ -219,8 +219,8 @@ The following example collects the annotation metrics on multiple projects, prin
  List<AMReport> reports;
  String path = "projects";
 
- Runner runner = new Runner(path, path);
- reports = runner.collectMultiple();
+ ASniffer aSniffer = new ASniffer(path, path);
+ reports = aSniffer.collectMultiple();
 
  for (AMReport amReport : reports) {
   System.out.println(amReport.getProjectName());
