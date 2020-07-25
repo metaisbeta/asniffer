@@ -6,7 +6,7 @@ import br.inpe.cap.asniffer.annotations.TextValue;
 
 public class Parameters {
 	
-	private final String DEFAULT_PROJECT_REPORT = "xml";
+	private final String DEFAULT_PROJECT_REPORT = "json";
 	private final String DEFAULT_SINGLE_MULTI = "single";
 	
 	@IsParameterPresent(name = "p")
@@ -26,7 +26,7 @@ public class Parameters {
 	private boolean reportTypePresent;
 	
 	@TextValue(name = "t")
-	private String reportType;//default value is xml
+	private String reportType;//default value is json
 	
 	@IsParameterPresent(name = "m")
 	private boolean multiProjectPresent;

@@ -25,8 +25,8 @@ public class ASniffer {
 			System.out.println("-r <path to report> (Path where you would like to store your report. "
 					+ "If no path is provided, ASniffer will place the report in your project folder.");
 			System.out.println("-m <single/multi> (you have to specify single or multi. Single is the default value. Multi specifies that the directory contains multiple projects");
-					System.out.println("report type can be xml or json. Please type one of them");
-			System.out.println("-t <report type> (as of version 2.3.0, the report type can be xml or json. If no value is specified, an XML file will be generated");
+			System.out.println("-t <report type> (as of version 2.3.0, the report type can be xml or json. If no value is specified, a simple json file will be generated");
+			System.out.println("There is also a json suitable for D3 Hierarchy Visualizations. The option is \"jsond3\".");
 			System.exit(1);
 		}
 		

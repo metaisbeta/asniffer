@@ -24,7 +24,7 @@ public class ParametersTest {
 		assertFalse(param.isReportPathPresent());
 		assertEquals("/src/text", param.getReportPath());
 		assertFalse(param.isReportTypePresent());
-		assertEquals("xml", param.getReportType());
+		assertEquals("json", param.getReportType());
 		assertFalse(param.isMultiProjectPresent());
 		assertEquals("single", param.getMultiProject());
 	}
@@ -32,12 +32,12 @@ public class ParametersTest {
 	@Test
 	public void compositeTextParam() {
 		ParamMapper mapper = new ParamMapper();
-		String[] args ="-p composite text -r other text".split(" ");
+		String[] args ="-p composite text -r other text -t xml".split(" ");
 		Parameters param = mapper.map(args , Parameters.class);
 		
 		assertEquals("composite text", param.getProjectPath());
 		assertEquals("other text", param.getReportPath());
-		assertFalse(param.isReportTypePresent());
+		assertTrue(param.isReportTypePresent());
 		assertEquals("xml", param.getReportType());
 		assertFalse(param.isMultiProjectPresent());
 		assertEquals("single", param.getMultiProject());
@@ -54,7 +54,7 @@ public class ParametersTest {
 		assertTrue(param.isReportPathPresent());
 		assertEquals("project path", param.getReportPath());
 		assertFalse(param.isReportTypePresent());
-		assertEquals("xml", param.getReportType());
+		assertEquals("json", param.getReportType());
 		assertFalse(param.isMultiProjectPresent());
 		assertEquals("single", param.getMultiProject());
 		
@@ -106,7 +106,7 @@ public class ParametersTest {
 		assertTrue(param.isReportPathPresent());
 		assertEquals("other path", param.getReportPath());
 		assertTrue(param.isReportTypePresent());
-		assertEquals("xml", param.getReportType());
+		assertEquals("json", param.getReportType());
 		assertFalse(param.isMultiProjectPresent());
 		assertEquals("single", param.getMultiProject());
 	}
