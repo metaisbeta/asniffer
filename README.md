@@ -199,11 +199,11 @@ If you wish to use the ASniffer as an API on your own projects, we provide some 
  String pathToCode = "path to the source code to by analyzed";
  String pathToReport = "path to where you wish to store the generated output file report";
 
- Runner runner = new Runner(pathToCode, pathToReport);
+ ASniffer aSniffer = new ASniffer(pathToCode, pathToReport);
  
- runner.collectSingle(); //for a single project
+ aSniffer.collectSingle(); //for a single project
  
- runner.collectMultiple(); //for multiple projects. It will run considering the directory structure is prepared for
+ aSniffer.collectMultiple(); //for multiple projects. It will run considering the directory structure is prepared for
                            //multiple projects, as described in the "How to Use" section on this Readme.
  
 ```
