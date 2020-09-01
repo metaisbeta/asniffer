@@ -5,3 +5,6 @@ bin/
 *.project
 *.log
 *.DS_Store
+
+*.cpp
+
