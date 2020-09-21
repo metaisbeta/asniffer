@@ -4,9 +4,5 @@ sudo: false
 jdk:
   - openjdk8
 
-cache:
- directories:
-  - .autoconf
-  - $HOME/.m2
-  
- script: mvn clean verify --fae
+ 
+ script: mvn clean test
