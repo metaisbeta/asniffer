@@ -14,11 +14,13 @@ public class TestClassMetrics {
 	private static AMReport report;
 	private static ClassModel a;
 	
+	//Fixture
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
 		report = new AM().calculate(testFilePath, "project");
-		a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
+		a = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		
 	}
 	
 	@Test

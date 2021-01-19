@@ -99,7 +99,7 @@ public class MetricsExecutor extends FileASTRequestor{
 				result.addElementReport(codeElementModel);
 			});
 			
-			packageModel.add(result);
+			packageModel.addClassModel(result);
 			report.addPackageModel(packageModel);
 		} catch(Exception e) {
 			e.printStackTrace();

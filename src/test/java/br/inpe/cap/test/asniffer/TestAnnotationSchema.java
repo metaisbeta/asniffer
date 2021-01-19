@@ -31,7 +31,7 @@ public class TestAnnotationSchema {
 	public void testAnnotationSchema() {
 		
 		//Google Guava class
-		ClassModel a = report.getPackages().get(0).getByClassName("annotationtest.AbstractService");
+		ClassModel a = report.getPackages().get(0).getClassModel("annotationtest.AbstractService");
 		
 		Map<String, String> expectedSchemas = new HashMap<String, String>();
 		expectedSchemas.put("GwtIncompatible","com.google.common.annotations");
@@ -50,7 +50,9 @@ public class TestAnnotationSchema {
 		});
 		
 		//Hibernate class
-		a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
+		a = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		
+		
 		List<CodeElementModel> codeElements = a.getElementsReport();
 		
 		

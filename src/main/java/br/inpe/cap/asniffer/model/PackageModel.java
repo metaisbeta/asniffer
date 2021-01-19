@@ -1,38 +1,38 @@
 package br.inpe.cap.asniffer.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
 
 public class PackageModel {
 	
 	private String packageName;
 	
-	private Map<String, ClassModel> results;
+	private List<ClassModel> results;
 	
 	public PackageModel(String packageName) {
 		this.packageName = packageName;
-		this.results = new HashMap<String, ClassModel>();
+		this.results = new ArrayList<ClassModel>();
 	}
 	
-	public void add(ClassModel metric) {
-		results.put(metric.getClassName(), metric);
+	public void addClassModel(ClassModel metric) {
+		results.add(metric);
 	}
 
-	public ClassModel get(String name) {
-		return results.get(name);
-	}
-
-	public Collection<ClassModel> all() {
-		return results.values();
-	}
-
-	public ClassModel getByClassName(String name) {
-		for (ClassModel metric : all()) {
-			if (metric.getClassName().equals(name))
-				return metric;
+	public ClassModel getClassModel(String name) {
+		for (ClassModel classModel : results) {
+			if(classModel.getClassName().equals(name))
+				return classModel;
 		}
 		return null;
+	}
+
+	public List<ClassModel> getResults() {
+		return results;
 	}
 	
 	public String getPackageName() {

@@ -25,7 +25,7 @@ public class TestCodeElementMetric {
 	@Test
 	public void testAED() {
 		
-		ClassModel result = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
+		ClassModel result = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
 		List<CodeElementModel> codeElements = result.getElementsReport();
 		int aedValue = 0;
 		

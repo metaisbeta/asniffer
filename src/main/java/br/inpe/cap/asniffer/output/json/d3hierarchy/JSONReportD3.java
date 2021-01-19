@@ -68,7 +68,7 @@ public class JSONReportD3 implements IReport {
 
 		List<ClassReportJSOND3> classesReportJSON = new ArrayList<ClassReportJSOND3>();
 		
-		for (ClassModel classReport : package_.all()) {
+		for (ClassModel classReport : package_.getResults()) {
 			if(classReport.getClassMetric("AC")==0)//Eliminate classes without annotation
 				continue;
 			ClassReportJSOND3 classReportJSON = new ClassReportJSOND3(classReport.getClassName(),

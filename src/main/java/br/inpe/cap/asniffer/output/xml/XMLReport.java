@@ -66,7 +66,7 @@ public class XMLReport implements IReport {
 
 		List<ClassReportXML> classesReportXML = new ArrayList<ClassReportXML>();
 		
-		for (ClassModel classReport : package_.all()) {
+		for (ClassModel classReport : package_.getResults()) {
 			ClassReportXML classReportXML = new ClassReportXML(classReport.getClassName(), classReport.getType());
 			classReportXML.setClassMetricsXML(fetchClassMetrics(classReport, classReportXML));
 			classReportXML.setCodeElementXMLReport(fetchCodeElementReport(classReport, classReportXML));

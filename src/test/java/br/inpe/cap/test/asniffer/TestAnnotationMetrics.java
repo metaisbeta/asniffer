@@ -26,7 +26,8 @@ public class TestAnnotationMetrics {
 	@Test
 	public void testAnnotationSchema() {
 		
-		ClassModel a = report.getPackages().get(0).getByClassName("annotationtest.AnnotationTest");
+		ClassModel a = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		
 		List<CodeElementModel> codeElements = a.getElementsReport();
 		int aa = 0, anl = 0, locad = 0;
 		
