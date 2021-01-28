@@ -94,7 +94,7 @@ public class ClassModel {
 		Set<String> schemas = new HashSet<>();
 		this.annotSchemasMap.forEach((k,v) -> {
 			schemas.add(v);
-		});;
+		});
 		return schemas;
 	}
 	

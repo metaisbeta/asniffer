@@ -8,15 +8,22 @@ import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PackageModel {
+public class PackageModel implements Comparable<PackageModel> {
 	
 	private String packageName;
+	private String parentPackageName;
 	
 	private List<ClassModel> results;
 	
 	public PackageModel(String packageName) {
 		this.packageName = packageName;
 		this.results = new ArrayList<ClassModel>();
+		int previouPackagePos = packageName.lastIndexOf(".");
+		if(previouPackagePos!=-1) {
+			parentPackageName = packageName.substring(0, previouPackagePos);
+		}else {
+			parentPackageName = packageName;
+		}
 	}
 	
 	public void addClassModel(ClassModel metric) {
@@ -37,5 +44,14 @@ public class PackageModel {
 	
 	public String getPackageName() {
 		return this.packageName;
+	}
+	
+	public String getParentPackageName() {
+		return parentPackageName;
+	}
+
+	@Override
+	public int compareTo(PackageModel packageModel) {
+		return this.packageName.compareTo(packageModel.getPackageName());
 	}
 }

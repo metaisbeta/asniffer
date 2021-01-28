@@ -26,7 +26,5 @@ public class PackageReportJSOND3 {
 		return classReportJSON;
 	}
 	
-	
-	
 
 }
