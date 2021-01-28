@@ -16,6 +16,7 @@ public class Children {
 	
 	private Integer value = null;
 	
+	@SerializedName("data")
 	private Map<String, String> data;
 	
 	@SerializedName("children")
