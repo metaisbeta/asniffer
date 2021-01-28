@@ -21,7 +21,7 @@ import br.inpe.cap.asniffer.parameters.Parameters;
 import br.inpe.cap.asniffer.utils.FileUtils;
 import br.inpe.cap.asniffer.utils.PropertiesUtil;
 
-public class ReportTest {
+public class TestReport {
 
 	private static AMReport report;
 	private static IReport outputProcessor;

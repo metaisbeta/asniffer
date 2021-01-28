@@ -12,7 +12,7 @@ import br.inpe.cap.asniffer.parameters.Parameters;
 import br.inpe.cap.asniffer.utils.FileUtils;
 import br.inpe.cap.asniffer.utils.PropertiesUtil;
 
-public class ParametersTest {
+public class TestParameters {
 	
 	@Test
 	public void simpleTextParam() {
