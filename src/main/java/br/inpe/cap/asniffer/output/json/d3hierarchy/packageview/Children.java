@@ -16,8 +16,8 @@ public class Children {
 	
 	private Integer value = null;
 	
-	@SerializedName("data")
-	private Map<String, String> data;
+	@SerializedName("properties")
+	private Map<String, String> properties;
 	
 	@SerializedName("children")
 	private List<Children> childrens;
@@ -27,7 +27,7 @@ public class Children {
 		this.type = type;
 		this.value = value;
 		this.childrens = new ArrayList<Children>();
-		this.data = new HashMap<String, String>();
+		this.properties = new HashMap<String, String>();
 	}
 	
 	public void addAllChidren(List<Children> childrens) {
@@ -55,6 +55,6 @@ public class Children {
 	}
 	
 	public void addProperty(String property, String value) {
-		this.data.put(property, value);
+		this.properties.put(property, value);
 	}
 }

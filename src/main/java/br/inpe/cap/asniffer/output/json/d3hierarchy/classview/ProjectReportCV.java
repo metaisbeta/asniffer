@@ -1,12 +1,13 @@
-package br.inpe.cap.asniffer.output.json.d3hierarchy.packageview;
+package br.inpe.cap.asniffer.output.json.d3hierarchy.classview;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ProjectReportPV {
-	
+import br.inpe.cap.asniffer.output.json.d3hierarchy.packageview.Children;
+
+public class ProjectReportCV {
 	
 	@SerializedName(value = "name")
 	private String projectName;
@@ -14,7 +15,7 @@ public class ProjectReportPV {
 	@SerializedName(value = "children")
 	private List<Children> packagesJSON;
 	
-	public ProjectReportPV(String projectName) {
+	public ProjectReportCV(String projectName) {
 		this.projectName = projectName;
 		this.packagesJSON = new ArrayList<Children>();
 	}
@@ -25,7 +26,6 @@ public class ProjectReportPV {
 
 	public void addPackages(List<Children> packages) {
 		this.packagesJSON = packages;
-		
 	}
 
 }
