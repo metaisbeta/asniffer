@@ -229,3 +229,18 @@ The following example collects the annotation metrics on multiple projects, prin
  }
 
 ```
+### How to Cite ASniffer
+```
+@article{Lima2020,
+  doi = {10.21105/joss.01960},
+  url = {https://doi.org/10.21105/joss.01960},
+  year = {2020},
+  publisher = {The Open Journal},
+  volume = {5},
+  number = {47},
+  pages = {1960},
+  author = {Phyllipe Lima and Eduardo Guerra and Paulo Meirelles},
+  title = {Annotation Sniffer: A tool to Extract Code Annotations Metrics},
+  journal = {Journal of Open Source Software}
+}
+```
