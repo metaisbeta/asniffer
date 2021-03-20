@@ -59,12 +59,11 @@ public class TestJSONOutput {
 		assertEquals(9, packageChild1.size());
 		
 		//the package br.inpe.cap.output
-		List<Children> childrens = packageChild1.get(6).getChildrens();
-		assertEquals(2, childrens.size());
-		
+		Children childrens = packagesContentReport.get(1).getChildByName("br.inpe.cap.asniffer.output");
+		assertEquals(1, childrens.getChildrens().size());
 		
 		//the package br.inpe.cap.output.json.d3hierarchy
-		List<Children> childrens2 = childrens.
+		List<Children> childrens2 = childrens.getChildrens().
 						get(0).getChildrens().get(2).getChildrens();
 		//2 schemas and 3 inner packages
 		assertEquals(5, childrens2.size());
