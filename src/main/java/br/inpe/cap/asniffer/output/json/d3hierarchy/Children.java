@@ -1,4 +1,4 @@
-package br.inpe.cap.asniffer.output.json.d3hierarchy.packageview;
+package br.inpe.cap.asniffer.output.json.d3hierarchy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,5 +1,6 @@
 package br.inpe.cap.asniffer;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,8 +72,8 @@ public class AM {
 		for (String metricName : metricContainer.getClassMetrics()) {
 			try {
 				Class<?> clazz = Class.forName(metricName);
-				metrics.add((IClassMetricCollector) clazz.newInstance());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
+				metrics.add((IClassMetricCollector) clazz.getDeclaredConstructor().newInstance());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException  e) {
 				e.printStackTrace();
 			}
 		}
@@ -86,8 +87,8 @@ public class AM {
 		for (String metricName : metricContainer.getAnnotationMetric()) {
 			try {
 				Class<?> clazz = Class.forName(metricName);
-				metrics.add((IAnnotationMetricCollector) clazz.newInstance());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
+				metrics.add((IAnnotationMetricCollector) clazz.getDeclaredConstructor().newInstance());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException  e) {
 				e.printStackTrace();
 			}
 		}
@@ -101,8 +102,8 @@ public class AM {
 		for (String metricName : metricContainer.getCodeElementMetric()) {
 			try {
 				Class<?> clazz = Class.forName(metricName);
-				metrics.add((ICodeElementMetricCollector) clazz.newInstance());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  e) {
+				metrics.add((ICodeElementMetricCollector) clazz.getDeclaredConstructor().newInstance());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException  e) {
 				e.printStackTrace();
 			}
 		}

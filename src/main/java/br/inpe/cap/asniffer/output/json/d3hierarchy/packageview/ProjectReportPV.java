@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
+import br.inpe.cap.asniffer.output.json.d3hierarchy.Children;
+
 public class ProjectReportPV {
 	
 	

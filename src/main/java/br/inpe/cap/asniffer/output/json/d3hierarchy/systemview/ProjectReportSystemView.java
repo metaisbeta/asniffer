@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 import br.inpe.cap.asniffer.model.PackageModel;
+import br.inpe.cap.asniffer.output.json.d3hierarchy.Children;
 
 public class ProjectReportSystemView {
 
@@ -14,20 +15,19 @@ public class ProjectReportSystemView {
 	private String projectName;
 
 	@SerializedName(value = "children")
-	private List<PackageContentSV> packagesJSON;
+	private List<Children> packagesJSON;
 	
 	public ProjectReportSystemView(String projectName) {
 		this.projectName = projectName;
-		this.packagesJSON = new ArrayList<PackageContentSV>();
+		this.packagesJSON = new ArrayList<Children>();
 	}
 
-	public void addPackageJSON(PackageContentSV packageJSON) {
+	public void addPackageJSON(Children packageJSON) {
 		this.packagesJSON.add(packageJSON);
 	}
 
-	public void addPackages(List<PackageContentSV> packages) {
+	public void addPackages(List<Children> packages) {
 		this.packagesJSON = packages;
-		
 	}
 	
 }
