@@ -34,4 +34,12 @@ public class AMReport {
 	public List<PackageModel> getPackages() {
 		return packages;
 	}
+	
+	public PackageModel getPackageByName(String packageName) {
+		
+		return 	packages.stream().filter(
+						pkg -> pkg.getPackageName().equals(packageName))
+						.findFirst()
+						.get();
+	}
 }

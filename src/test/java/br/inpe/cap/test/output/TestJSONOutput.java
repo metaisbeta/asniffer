@@ -1,15 +1,15 @@
 package br.inpe.cap.test.output;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
+
 
 import br.inpe.cap.asniffer.AM;
 import br.inpe.cap.asniffer.ASniffer;
@@ -19,8 +19,6 @@ import br.inpe.cap.asniffer.output.json.d3hierarchy.FetchClassViewIMP;
 import br.inpe.cap.asniffer.output.json.d3hierarchy.FetchPackageViewIMP;
 import br.inpe.cap.asniffer.output.json.d3hierarchy.FetchSystemViewIMP;
 import br.inpe.cap.asniffer.output.json.d3hierarchy.JSONReportAvisuIMP;
-import br.inpe.cap.asniffer.output.json.d3hierarchy.packageview.JSONReportPV;
-import br.inpe.cap.asniffer.output.json.d3hierarchy.systemview.JSONReportSV;
 import br.inpe.cap.asniffer.utils.ReportTypeUtils;
 
 public class TestJSONOutput {
@@ -34,7 +32,7 @@ public class TestJSONOutput {
 	public static void setUp() {
 		//Collecting ASniffer
 		testFilePath = System.getProperty("user.dir");
-		report = new AM().calculate(testFilePath, "project");
+		report = new AM().calculate(testFilePath , "project");
 	}
 	
 	@Test
@@ -97,18 +95,37 @@ public class TestJSONOutput {
 				, new FetchClassViewIMP());
 		assertEquals(7, childrens.size());
 		
-		//first package
-		Children package1 = childrens.get(1).getChildByName("br.inpe.cap.asniffer.metric");
-		List<Children> pkg1Children = package1.getChildrens();
+		
+		
+		//first package annotationtest
+		Children package1 = childrens.get(0);
+		String classTestName = "annotationtest.AbstractService";
+		Children classZ = package1.getChildByName(classTestName);
+		
+		assertEquals(classTestName,classZ.getName());
+		assertEquals(37,classZ.getChildrens().size());
+		
+		//Get annotations on class
+		Children annotation = classZ.getChildByName("GwtIncompatible");
+		assertEquals("annotation", annotation.getType());
+		assertEquals("0", annotation.getProperty("aa"));
+		assertEquals("1", annotation.getProperty("locad"));
+		assertEquals("0", annotation.getProperty("anl"));
+		
+		//second package
+		Children package2 = childrens.get(1).getChildByName("br.inpe.cap.asniffer.metric");
+		List<Children> pkg1Children = package2.getChildrens();
 		
 		assertEquals(8, pkg1Children.size());
 		
 		//AC class
-		Children acClass = package1.getChildByName("br.inpe.cap.asniffer.metric.AC");
-		
+		Children acClass = package2.getChildByName("br.inpe.cap.asniffer.metric.AC");
 		assertEquals(6, acClass.getChildrens().size());
 		
+		
+		
 	}
+	
 	
 	@Test
 	public void testGenerateFullAVisuReportFile() {

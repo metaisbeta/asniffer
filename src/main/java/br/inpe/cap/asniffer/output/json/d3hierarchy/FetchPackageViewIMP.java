@@ -19,7 +19,7 @@ public class FetchPackageViewIMP implements IFetchChildren {
 				continue;
 			
 			Children classZ = new Children
-					(classReport.getClassName(), classReport.getType(), null);
+					(classReport.getFullyQualifiedName(), classReport.getType(), null);
 			classZ.addAllChidren(fetchAnnotations(classReport));
 			classes_.add(classZ);
 		}

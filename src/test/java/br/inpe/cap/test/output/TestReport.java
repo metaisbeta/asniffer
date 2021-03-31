@@ -34,8 +34,6 @@ public class TestReport {
 		
 		assertEquals(expected, actualClassName);
 		
-		assertEquals(expected, actualClassName);
-		
 	}
 	
 	@Test(expected = ReportTypeException.class)

@@ -52,6 +52,15 @@ public class ClassModel {
 		}
 		return null;
 	}
+	
+	public CodeElementModel getElementReport(String elementName, String elementType) {
+		for (CodeElementModel codeElement : elementsReport) {
+			if(codeElement.getElementName().equals(elementName) && 
+			   codeElement.getType().equals(elementType))
+				return codeElement;
+		}
+		return null;
+	}
 
 	public void addElementReport(CodeElementModel elementReport) {
 		this.elementsReport.add(elementReport);
@@ -65,7 +74,13 @@ public class ClassModel {
 	}
 	
 	//GETTERS and SETTERS
-	public String getClassName() {
+	public String getSimpleName() {
+		int lastIndex = className.lastIndexOf(".");
+		if(lastIndex!=-1)
+			return className.substring(lastIndex+1);
+		return className;
+	}
+	public String getFullyQualifiedName() {
 		return className;
 	}
 	public void setClassName(String className) {

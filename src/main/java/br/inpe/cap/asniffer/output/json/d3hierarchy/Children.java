@@ -57,4 +57,14 @@ public class Children {
 	public void addProperty(String property, String value) {
 		this.properties.put(property, value);
 	}
+	
+	public String getProperty(String property) {
+		if(this.properties.containsKey(property))
+			return this.properties.get(property);
+		return null;
+	}
+	
+	public String getType() {
+		return type;
+	}
 }

@@ -31,11 +31,15 @@ public class ClassInfo extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		getFullClassName(node.resolveBinding());
-		
-		if(node.isInterface()) type = "interface";
-		else type = "class";
-		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, cu.getLineNumber(node.getStartPosition()));
+		String innerType = null;
+		if(node.isInterface()) 
+			innerType = "interface";
+		else 
+			innerType = "class";
+		if(node.isPackageMemberTypeDeclaration()) {
+			getFullClassName(node.resolveBinding(),innerType);
+		}
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), innerType, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		
 		return super.visit(node);
@@ -43,9 +47,11 @@ public class ClassInfo extends ASTVisitor{
 	
 	@Override
 	public boolean visit(EnumDeclaration node) {
-		type = "enum";
-		getFullClassName(node.resolveBinding());
-		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, cu.getLineNumber(node.getStartPosition()));
+		if(node.isPackageMemberTypeDeclaration()) {
+			getFullClassName(node.resolveBinding(),"enum");
+			type = "enum";
+		}
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), "enum", cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
@@ -53,7 +59,7 @@ public class ClassInfo extends ASTVisitor{
 	@Override
 	public boolean visit(AnnotationTypeDeclaration node) {
 		type = "annotation-declaration";
-		getFullClassName(node.resolveBinding());
+		getFullClassName(node.resolveBinding(),type);
 		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
@@ -94,7 +100,8 @@ public class ClassInfo extends ASTVisitor{
 	}
 	
 	//Inner methods
-	private String getFullClassName(ITypeBinding binding) {
+	private String getFullClassName(ITypeBinding binding, String type) {
+		this.type = type;
 		if(binding!=null) {
 			if(className==null) {
 				this.className = binding.getBinaryName();

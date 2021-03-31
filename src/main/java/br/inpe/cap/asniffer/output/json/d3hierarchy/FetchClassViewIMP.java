@@ -20,10 +20,14 @@ public class FetchClassViewIMP implements IFetchChildren {
 				continue;
 			
 			Children classZ = new Children
-					(classReport.getClassName(), classReport.getType(), null);
+					(classReport.getFullyQualifiedName(), classReport.getType(), null);
 			classZ.addProperty("ac", String.valueOf(classReport.getClassMetric("AC")));
 			classZ.addProperty("asc", String.valueOf(classReport.getClassMetric("ASC")));
 			classZ.addProperty("uac", String.valueOf(classReport.getClassMetric("UAC")));
+			//add annotations configuring the class as children
+			System.out.println(classReport.getFullyQualifiedName() + " : " + classReport.getType());
+			classZ.addAllChidren(fetchAnnotations(classReport.getElementReport(classReport.getSimpleName(),
+																			   classReport.getType())));
 			classZ.addAllChidren(fetchCodeElements(classReport));
 			classes_.add(classZ);
 		}
@@ -38,6 +42,9 @@ public class FetchClassViewIMP implements IFetchChildren {
 		for (CodeElementModel codeElement : classReport.getElementsReport()) {
 			if(codeElement.getAed()==0)
 				continue;
+			if(codeElement.getElementName().equals(classReport.getSimpleName()) &&
+			   codeElement.getType().equals(classReport.getType()))
+				continue;
 			Children children = new Children
 						(codeElement.getElementName(), 
 						 codeElement.getType(), 
@@ -51,7 +58,7 @@ public class FetchClassViewIMP implements IFetchChildren {
 
 	private List<Children> fetchAnnotations(CodeElementModel codeElementReport) {
 		
-		List<Children> classes_ = new ArrayList<Children>();
+		List<Children> annotations = new ArrayList<Children>();
 		
 		for (AnnotationMetricModel annotation : codeElementReport.getAnnotationMetrics()) {
 			Children children = new Children
@@ -63,10 +70,10 @@ public class FetchClassViewIMP implements IFetchChildren {
 			children.addProperty("anl", annotation.getAnnotationMetrics().get("ANL").toString());
 			children.addProperty("locad", annotation.getAnnotationMetrics().get("LOCAD").toString());
 			
-			classes_.add(children);
+			annotations.add(children);
 		}
 		
-		return classes_;
+		return annotations;
 	}
 
 }

@@ -25,7 +25,7 @@ public class PackageModel implements Comparable<PackageModel> {
 
 	public ClassModel getClassModel(String name) {
 		for (ClassModel classModel : results) {
-			if(classModel.getClassName().equals(name))
+			if(classModel.getFullyQualifiedName().equals(name))
 				return classModel;
 		}
 		return null;

@@ -52,7 +52,9 @@ public class MetricsExecutor extends FileASTRequestor{
 		
 		try {
 			ClassInfo info = new ClassInfo(cu);
+			System.out.println(cu.getNodeType());
 			cu.accept(info);
+			
 			if(info.getClassName()==null) return;
 		
 			String packageName = info.getPackageName();
