@@ -2,9 +2,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-	<groupId>br.inpe.cap</groupId>
+	<groupId>io.github.phillima</groupId>
 	<artifactId>asniffer</artifactId>
-	<version>2.4.0</version>
+	<version>2.4.1</version>
 	<packaging>jar</packaging>
 	<name>asniffer</name>
 	<url>http://maven.apache.org</url>
@@ -83,7 +83,7 @@
 			            <configuration>
 			                <archive>
 			                <manifest>
-			                    <mainClass>br.inpe.cap.asniffer.Main</mainClass>
+			                    <mainClass>com.github.phillima.asniffer.Main</mainClass>
 			                </manifest>
 			                </archive>
 			                <descriptorRefs>
