@@ -45,7 +45,7 @@
 		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	
-	<degpendencies>
+	<dependencies>
 	    <dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
@@ -97,7 +97,7 @@
 		    <artifactId>commons-beanutils</artifactId>
 		    <version>1.9.4</version>
 		</dependency>
-	</degpendencies>
+	</dependencies>
 	
 	<build>
 		<plugins>
