@@ -7,15 +7,45 @@
 	<version>2.4.1</version>
 	<packaging>jar</packaging>
 	<name>asniffer</name>
-	<url>http://maven.apache.org</url>
-	
+	<url>https://github.com/phillima/asniffer</url>
+	<description>Tool to collect code annotation metrics</description>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License v3.0</name>
+			<url>https://www.gnu.org/licenses/lgpl-3.0.en.html</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Phyllipe Lima</name>
+			<email>phyllipe@inatel.br</email>
+			<organization>Inatel</organization>
+			<organizationUrl>https://inatel.br/cdghub/</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/phillima/asniffer</url>
+		<connection>scm:git:git://github.com/phillima/asniffer</connection>
+		<developerConnection>scm:git:git@ggithub.com/phillima/asniffer.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	
-	<dependencies>
+	<degpendencies>
 	    <dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
@@ -67,7 +97,7 @@
 		    <artifactId>commons-beanutils</artifactId>
 		    <version>1.9.4</version>
 		</dependency>
-	</dependencies>
+	</degpendencies>
 	
 	<build>
 		<plugins>
@@ -94,6 +124,60 @@
 			            </configuration>
 			        </execution>
 			    </executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>attach-source</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+					<source>1.8</source>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
