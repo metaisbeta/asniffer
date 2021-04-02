@@ -1,3 +1,4 @@
 language: java
 jdk: openjdk11
-script: "mvn clean test"
+install: true
+script: mvn clean test
