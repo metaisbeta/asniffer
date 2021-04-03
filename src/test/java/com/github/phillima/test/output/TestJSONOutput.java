@@ -150,7 +150,7 @@ public class TestJSONOutput {
 		assertTrue(new File(dirPathResult + File.separator + projectName + "-CV.json").delete());
 		assertTrue(new File(dirPathResult + File.separator + projectName + "-SV.json").delete());
 		assertTrue(new File(dirPathResult + File.separator + projectName + "-PV.json").delete());
-		assertTrue(new File(dirPathResult + File.separator).delete());
+		assertTrue(new File(dirPathResult + File.separator + projectName).delete());
 	}
 	
 	
