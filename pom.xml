@@ -28,8 +28,8 @@
 	<scm>
 		<url>https://github.com/phillima/asniffer</url>
 		<connection>scm:git:git://github.com/phillima/asniffer</connection>
-		<developerConnection>scm:git:git@github.com/phillima/asniffer.git</developerConnection>
-	  <tag>2.4.2</tag>
+		<developerConnection>scm:git:git@github.com:phillima/asniffer.git</developerConnection>
+	    <tag>HEAD</tag>
   </scm>
 
 	<distributionManagement>
