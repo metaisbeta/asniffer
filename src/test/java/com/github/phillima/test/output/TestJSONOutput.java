@@ -137,16 +137,16 @@ public class TestJSONOutput {
 		ASniffer aSniffer = new ASniffer(testFilePath, testFilePath, new JSONReportAvisuIMP());
 		aSniffer.collectSingle();
 		
-		String dirPathResult = testFilePath + File.separator + "asniffer_results";
+		String dirPathResult = testFilePath + "/asniffer_results";
 		
-		assertTrue(new File(dirPathResult + File.separator + "asniffer-CV.json").exists());
-		assertTrue(new File(dirPathResult + File.separator + "asniffer-SV.json").exists());
-		assertTrue(new File(dirPathResult + File.separator + "asniffer-PV.json").exists());
+		assertTrue(new File(dirPathResult + "/asniffer-CV.json").exists());
+		assertTrue(new File(dirPathResult + "/asniffer-SV.json").exists());
+		assertTrue(new File(dirPathResult + "/asniffer-PV.json").exists());
 		
 		//delete the reports
-		assertTrue(new File(dirPathResult + File.separator + "asniffer-CV.json").delete());
-		assertTrue(new File(dirPathResult + File.separator + "asniffer-SV.json").delete());
-		assertTrue(new File(dirPathResult + File.separator + "asniffer-PV.json").delete());
+		assertTrue(new File(dirPathResult + "/asniffer-CV.json").delete());
+		assertTrue(new File(dirPathResult + "/asniffer-SV.json").delete());
+		assertTrue(new File(dirPathResult + "/asniffer-PV.json").delete());
 		assertTrue(new File(dirPathResult + File.separator).delete());
 	}
 	
