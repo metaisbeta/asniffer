@@ -138,6 +138,8 @@ public class TestJSONOutput {
 		aSniffer.collectSingle();
 		
 		String dirPathResult = testFilePath + "/asniffer_results";
+
+		System.out.println("PATH" +  dirPathResult);
 		
 		assertTrue(new File(dirPathResult + "/asniffer-CV.json").exists());
 		assertTrue(new File(dirPathResult + "/asniffer-SV.json").exists());
