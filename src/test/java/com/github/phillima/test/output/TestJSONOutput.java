@@ -5,8 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
+import com.github.phillima.asniffer.utils.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -138,17 +140,16 @@ public class TestJSONOutput {
 		aSniffer.collectSingle();
 		
 		String dirPathResult = testFilePath + "/asniffer_results";
+		String projectName = FileUtils.getProjectName(Path.of(testFilePath));
 
-		System.out.println("PATH" +  dirPathResult);
-		
-		assertTrue(new File(dirPathResult + "/asniffer-CV.json").exists());
-		assertTrue(new File(dirPathResult + "/asniffer-SV.json").exists());
-		assertTrue(new File(dirPathResult + "/asniffer-PV.json").exists());
+		assertTrue(new File(dirPathResult + File.separator + projectName + "-CV.json").exists());
+		assertTrue(new File(dirPathResult + File.separator + projectName + "-SV.json").exists());
+		assertTrue(new File(dirPathResult + File.separator + projectName + "-PV.json").exists());
 		
 		//delete the reports
-		assertTrue(new File(dirPathResult + "/asniffer-CV.json").delete());
-		assertTrue(new File(dirPathResult + "/asniffer-SV.json").delete());
-		assertTrue(new File(dirPathResult + "/asniffer-PV.json").delete());
+		assertTrue(new File(dirPathResult + File.separator + projectName + "-CV.json").delete());
+		assertTrue(new File(dirPathResult + File.separator + projectName + "-SV.json").delete());
+		assertTrue(new File(dirPathResult + File.separator + projectName + "-PV.json").delete());
 		assertTrue(new File(dirPathResult + File.separator).delete());
 	}
 	
