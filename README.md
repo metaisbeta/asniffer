@@ -167,7 +167,17 @@ The Annotation Sniffer uses Reflection to know which metrics it should collect. 
 ASniffer API
 ============
 
-If you wish to use the ASniffer as an API on your own projects, we provide some methods for this. The first thing you need is an instance of the ```Runner``` class, passing to its constructor two parameters: A path to the source code to be analyzed and the path to where you wish to store the output file. Afterwards you may call ```collectSingle()``` or ```collectMultiple()```.
+
+### ASniffer Maven Central
+```
+<dependency>
+  <groupId>io.github.phillima</groupId>
+  <artifactId>asniffer</artifactId>
+  <version>2.4.2</version>
+</dependency>
+```
+
+If you wish to use the ASniffer as an API on your own projects, we provide some methods for this. The first thing you need is an instance of the ```ASniffer``` class, passing to its constructor two parameters: A path to the source code to be analyzed and the path to where you wish to store the output file. Afterwards you may call ```collectSingle()``` or ```collectMultiple()```.
 
 ```java
  
@@ -185,7 +195,7 @@ If you wish to use the ASniffer as an API on your own projects, we provide some 
 
 With these calls, the ASniffer will run, collect the annotation metrics, and place the output report file on the provided path. However, if you would like to perform some analysis on the metrics values, both ```collectSingle()``` and ```collectMultiple()``` return, respectively, an instance of ```AMReport``` and a ```List<AMReport>```. The ```AMReport``` class contains the complete report of the collected metrics for each Java project. For this reason the ```collectMultiple()``` returns a list of ```AMReports``` (one for each Java project). 
 
-The ```AMReport``` (located [here](https://github.com/phillima/asniffer/blob/master/src/main/java/br/inpe/cap/asniffer/model/AMReport.java)) contains the project's name, and the list of packages. The packages are stored in the ```PackageModel``` class, which in turn contains the ```MetricResult``` class that stores the annotation metrics values.
+The ```AMReport``` (located [here](https://github.com/phillima/asniffer/blob/master/src/main/java/com/github/phillima/asniffer/model/AMReport.java)) contains the project's name, and the list of packages. The packages are stored in the ```PackageModel``` class, which in turn contains the ```ClassModel``` class that stores the annotation metrics values.
 
 The following example collects the annotation metrics on multiple projects, prints their name and the name of every package.
 
