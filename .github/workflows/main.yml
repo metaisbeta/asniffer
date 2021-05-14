@@ -1,4 +1,4 @@
-name: ASniffer Test
+name: ASniffer
 
 on:
   push:
