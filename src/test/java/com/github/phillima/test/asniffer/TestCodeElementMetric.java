@@ -30,7 +30,7 @@ public class TestCodeElementMetric {
 		int aedValue = 0;
 		
 		for (CodeElementModel codeElement : codeElements) {
-			if(codeElement.getLine()==135) {
+			if(codeElement.getLine()==161) {
 				aedValue = codeElement.getAed();
 			}
 		}
@@ -38,5 +38,20 @@ public class TestCodeElementMetric {
 		assertEquals(11, aedValue);
 		
 	}
-	
+
+	@Test
+	public void testeAEDMethodWithAnnotatedParam() {
+		ClassModel result = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		List<CodeElementModel> codeElements = result.getElementsReport();
+		int aedValue = 0;
+
+		for (CodeElementModel codeElement : codeElements) {
+			if(codeElement.getLine()==56) {
+				aedValue = codeElement.getAed();
+			}
+		}
+
+		assertEquals(8, aedValue);
+	}
+
 }

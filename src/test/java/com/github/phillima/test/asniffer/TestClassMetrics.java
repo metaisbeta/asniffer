@@ -28,31 +28,31 @@ public class TestClassMetrics {
 	@Test
 	public void testAC() {
 		int ac = a.getClassMetric("AC");
-		Assert.assertEquals(27, ac);
+		Assert.assertEquals(35, ac);
 	}
 	
 	@Test
 	public void testUac() {
 		int uac = a.getClassMetric("UAC");
-		Assert.assertEquals(17, uac);
+		Assert.assertEquals(25, uac);
 	}
 	
 	@Test
 	public void testASC() {
 		int asc = a.getClassMetric("ASC");
-		Assert.assertEquals(3, asc);
+		Assert.assertEquals(6, asc);
 	}
 	
 	@Test
 	public void testNAEC() {
 		int naec = a.getClassMetric("NAEC");
-		Assert.assertEquals(16, naec);
+		Assert.assertEquals(17, naec);
 	}
 	
 	@Test
 	public void testNEC() {
 		int nec = a.getClassMetric("NEC"); 
-		Assert.assertEquals(32, nec);
+		Assert.assertEquals(33, nec);
 	}
 
 }

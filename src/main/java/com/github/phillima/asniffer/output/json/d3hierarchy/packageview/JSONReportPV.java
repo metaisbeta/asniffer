@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
+import com.github.phillima.asniffer.output.json.d3hierarchy.ProjectReport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,11 +19,10 @@ import com.github.phillima.asniffer.utils.ReportTypeUtils;
 public class JSONReportPV implements IReport {
 
 	
-	ProjectReportPV projectReportJson;
+	private ProjectReport projectReportJson;
 	
 	@Override
 	public void generateReport(AMReport report, String path) {
-		
 		
 		projectReportJson = prepareJson(report);
 		
@@ -41,9 +41,9 @@ public class JSONReportPV implements IReport {
 		}
 		
 	}
-	private ProjectReportPV prepareJson(AMReport report) {
+	public ProjectReport prepareJson(AMReport report) {
 	
-		ProjectReportPV projectReport = new ProjectReportPV(report.getProjectName());
+		ProjectReport projectReport = new ProjectReport(report.getProjectName());
 		
 		projectReport.addPackages(ReportTypeUtils.fetchPackages(report.getPackages(), new FetchPackageViewIMP()));
 		

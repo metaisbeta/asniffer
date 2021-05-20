@@ -34,11 +34,11 @@ public class FetchPackageViewIMP implements IFetchChildren {
 		
 		for (CodeElementModel codeElements : classReport.getElementsReport()) {
 			for (AnnotationMetricModel annotation : codeElements.getAnnotationMetrics()) {
-				//Considering AA
+				//Considering LOCAD
 				Children children = new Children
 						(annotation.getName(), 
 						 "annotation", 
-						 annotation.getAnnotationMetrics().get("AA"));
+						 annotation.getAnnotationMetrics().get("LOCAD"));
 				children.addProperty("schema", annotation.getSchema());
 				classes_.add(children);
 			}

@@ -24,15 +24,15 @@ public class TestAnnotationMetrics {
 	}
 	
 	@Test
-	public void testAnnotationSchema() {
-		
+	public void testAnnotationMetric() {
+
 		ClassModel a = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
-		
+
 		List<CodeElementModel> codeElements = a.getElementsReport();
 		int aa = 0, anl = 0, locad = 0;
-		
+
 		for (CodeElementModel codeElement : codeElements) {
-			if(codeElement.getLine()==135) {
+			if(codeElement.getLine()==161) {
 				for (AnnotationMetricModel annotationMetric : codeElement.getAnnotationMetrics()) {
 					if(annotationMetric.getName().equals("Test"))
 						aa = annotationMetric.getAnnotationMetrics().get("AA");
@@ -40,12 +40,11 @@ public class TestAnnotationMetrics {
 						anl = annotationMetric.getAnnotationMetrics().get("ANL");
 					if(annotationMetric.getName().equals("AssociationOverrides"))
 						locad = annotationMetric.getAnnotationMetrics().get("LOCAD");
-				} 
+				}
 			}
 		}
 		assertEquals(3, aa);
 		assertEquals(2, anl);
 		assertEquals(5, locad);
 	}
-	
 }

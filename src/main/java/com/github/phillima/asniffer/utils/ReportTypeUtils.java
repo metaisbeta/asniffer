@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Stack;
 
 import com.github.phillima.asniffer.exceptions.ReportTypeException;
+import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.PackageModel;
 import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
 import com.github.phillima.asniffer.output.json.d3hierarchy.IFetchChildren;
+import com.github.phillima.asniffer.output.json.d3hierarchy.ProjectReport;
+import com.github.phillima.asniffer.output.json.d3hierarchy.systemview.JSONReportSV;
 
 public class ReportTypeUtils {
 	
@@ -56,7 +59,7 @@ public class ReportTypeUtils {
 		Stack<Children> packageContentStack = new Stack<Children>();
 		
 		//Ordering package models
-		List<PackageModel> orderedPackModel = new ArrayList<PackageModel>(packages);
+		List<PackageModel> orderedPackModel = new ArrayList<>(packages);
 		Collections.sort(orderedPackModel);
 		
 		String rootPackageName = null;
@@ -106,5 +109,6 @@ public class ReportTypeUtils {
 		}
 		return packageContents;
 	}
+
 
 }

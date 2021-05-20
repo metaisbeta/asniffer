@@ -111,7 +111,10 @@ public class TestJSONOutput {
 		Children classZ = package1.getChildByName(classTestName);
 		
 		assertEquals(classTestName,classZ.getName());
-		assertEquals(37,classZ.getChildrens().size());
+
+		//classZ.getChildrens().forEach((e) -> System.out.println(e.getName()));
+
+		assertEquals(38,classZ.getChildrens().size());
 		
 		//Get annotations on class
 		Children annotation = classZ.getChildByName("GwtIncompatible");

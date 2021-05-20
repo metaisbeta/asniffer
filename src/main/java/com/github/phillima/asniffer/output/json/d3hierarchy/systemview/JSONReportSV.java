@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.github.phillima.asniffer.output.json.d3hierarchy.ProjectReport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -16,7 +17,7 @@ import com.github.phillima.asniffer.utils.ReportTypeUtils;
 
 public class JSONReportSV implements IReport{
 
-	ProjectReportSystemView projectReportJson;
+	private ProjectReport projectReportJson;
 	
 	@Override
 	public void generateReport(AMReport report, String path) {
@@ -39,15 +40,15 @@ public class JSONReportSV implements IReport{
 		
 	}
 	
-	private ProjectReportSystemView prepareJson(AMReport report) {
-		
-		ProjectReportSystemView projectReportJson =
-					new ProjectReportSystemView(report.getProjectName());
+	public ProjectReport prepareJson(AMReport report) {
+
+		ProjectReport projectReportJson =
+					new ProjectReport(report.getProjectName());
 		
 		projectReportJson.addPackages(ReportTypeUtils.fetchPackages(report.getPackages(), new FetchSystemViewIMP()));
 		
 		return projectReportJson;
 		
 	}
-	
+
 }

@@ -9,13 +9,14 @@ import java.nio.file.Paths;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.FetchClassViewIMP;
+import com.github.phillima.asniffer.output.json.d3hierarchy.ProjectReport;
 import com.github.phillima.asniffer.utils.ReportTypeUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class JSONReportCV implements IReport {
 	
-	private ProjectReportCV projectReport;
+	private ProjectReport projectReport;
 
 	@Override
 	public void generateReport(AMReport report, String path) {
@@ -37,9 +38,9 @@ public class JSONReportCV implements IReport {
 		}
 	}
 
-	private ProjectReportCV prepareJson(AMReport report) {
+	public ProjectReport prepareJson(AMReport report) {
 		
-		ProjectReportCV projectReport = new ProjectReportCV(report.getProjectName());
+		ProjectReport projectReport = new ProjectReport(report.getProjectName());
 		
 		projectReport.addPackages(ReportTypeUtils.
 				fetchPackages(report.getPackages(), new FetchClassViewIMP()));

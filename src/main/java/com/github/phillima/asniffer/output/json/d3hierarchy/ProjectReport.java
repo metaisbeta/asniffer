@@ -1,14 +1,12 @@
-package com.github.phillima.asniffer.output.json.d3hierarchy.packageview;
+package com.github.phillima.asniffer.output.json.d3hierarchy;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
 import com.google.gson.annotations.SerializedName;
 
-import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
-
-public class ProjectReportPV {
-	
+public class ProjectReport {
 	
 	@SerializedName(value = "name")
 	private String projectName;
@@ -16,7 +14,7 @@ public class ProjectReportPV {
 	@SerializedName(value = "children")
 	private List<Children> packagesJSON;
 	
-	public ProjectReportPV(String projectName) {
+	public ProjectReport(String projectName) {
 		this.projectName = projectName;
 		this.packagesJSON = new ArrayList<Children>();
 	}
@@ -27,7 +25,6 @@ public class ProjectReportPV {
 
 	public void addPackages(List<Children> packages) {
 		this.packagesJSON = packages;
-		
 	}
 
 }

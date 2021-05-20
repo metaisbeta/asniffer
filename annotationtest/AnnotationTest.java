@@ -29,6 +29,22 @@ import org.hibernate.testing.junit4.BaseCoreFunctionalTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
+
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
+import org.springframework.security.access.annotation.Secured;
+
 import static org.hibernate.testing.transaction.TransactionUtil.doInHibernate;
 import static org.junit.Assert.assertEquals;
 
@@ -36,6 +52,16 @@ import static org.junit.Assert.assertEquals;
  * @author Vlad Mihalcea
  */
 public abstract class AnnotationTest {
+
+	@GET
+	@Path("/search/{nameLike}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Secured({ "ROLE_ADMIN", "ROLE_USER", "ROLE_ANONYMOUS" })
+	protected abstract String getAllResources(@Context SecurityContext sc,
+											  @PathParam("nameLike") String nameLike,
+											  @QueryParam("start") Integer start,
+											  @QueryParam("limit") Integer limit)
+			throws BadRequestWebEx;
 
 	@Override
 	protected Class<?>[] getAnnotatedClasses() {

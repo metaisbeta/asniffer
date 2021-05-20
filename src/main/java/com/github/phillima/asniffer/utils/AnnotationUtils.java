@@ -3,12 +3,7 @@ package com.github.phillima.asniffer.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.Annotation;
-import org.eclipse.jdt.core.dom.ArrayInitializer;
-import org.eclipse.jdt.core.dom.BodyDeclaration;
-import org.eclipse.jdt.core.dom.Expression;
-import org.eclipse.jdt.core.dom.MemberValuePair;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
+import org.eclipse.jdt.core.dom.*;
 
 public class AnnotationUtils {
 	
@@ -20,6 +15,20 @@ public class AnnotationUtils {
 			if(modifier instanceof Annotation) 
 				checkForNestedAnnotations(annotations,(Annotation)modifier);
 		}
+
+		if(node instanceof MethodDeclaration) {
+			//Check for parameters
+			List<SingleVariableDeclaration> parameters = ((MethodDeclaration)node).parameters();
+			parameters.forEach((param) -> {
+				List<Object> modifiers = param.modifiers();
+				//search for annotations on these parameters
+				for (Object annotation : modifiers) {
+					if(annotation instanceof Annotation)
+						checkForNestedAnnotations(annotations, (Annotation) annotation);
+				}
+			});
+		}
+
 		return annotations;
 	}
 	
