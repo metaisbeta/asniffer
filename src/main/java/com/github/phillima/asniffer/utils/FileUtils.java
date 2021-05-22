@@ -46,8 +46,8 @@ public class FileUtils {
 	private static void getAllJavaFiles(String path, ArrayList<String> files) {
 		
 		File f = new File(path);
-		if(f.getName().equals(".git")) return;
-		
+		if(f.getName().equals(".git") || f.isHidden()) return;
+
 		for(File inside : f.listFiles()) {
 			if(inside.isDirectory()) {
 				String newDir = inside.getAbsolutePath();
