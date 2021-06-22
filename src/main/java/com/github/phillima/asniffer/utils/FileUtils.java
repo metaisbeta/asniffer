@@ -75,7 +75,7 @@ public class FileUtils {
 	}
 
 	public static String getProjectName(Path projectPath) {
-		return projectPath.getFileName().toString();
+		return String.valueOf(projectPath.getName(projectPath.getNameCount()-1));
 	}
 	
 	public static String[] getJarDependencies() {
