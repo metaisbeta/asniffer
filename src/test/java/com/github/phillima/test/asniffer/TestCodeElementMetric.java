@@ -2,7 +2,9 @@ package com.github.phillima.test.asniffer;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,14 +20,20 @@ public class TestCodeElementMetric {
 	
 	@BeforeClass
 	public static void setUp() {
-		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
+		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 		report = new AM().calculate(testFilePath, "project");
 	}
 	
 	@Test
 	public void testAED() {
 		
-		ClassModel result = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		ClassModel result = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.AnnotationTest");
+
 		List<CodeElementModel> codeElements = result.getElementsReport();
 		int aedValue = 0;
 		
@@ -41,7 +49,13 @@ public class TestCodeElementMetric {
 
 	@Test
 	public void testeAEDMethodWithAnnotatedParam() {
-		ClassModel result = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		ClassModel result = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.AnnotationTest");
+
 		List<CodeElementModel> codeElements = result.getElementsReport();
 		int aedValue = 0;
 

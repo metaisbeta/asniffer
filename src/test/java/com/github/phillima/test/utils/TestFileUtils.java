@@ -14,7 +14,7 @@ public class TestFileUtils {
     private FileUtils fileUtils;
 
     @Test
-    public void TestPath(){
+    public void TestGetProjectName(){
         if(SystemUtils.IS_OS_WINDOWS) {
             Path path = Paths.get("C:\\Users\\Usuario\\Documents\\Projetos\\spring-retry");
             String target = "spring-retry";

@@ -9,6 +9,8 @@ import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 
+import java.nio.file.Paths;
+
 public class TestClassMetrics {
 
 	private static AMReport report;
@@ -17,10 +19,16 @@ public class TestClassMetrics {
 	//Fixture
 	@BeforeClass
 	public static void setUp() {
-		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
+		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
 		report = new AM().calculate(testFilePath, "project");
-		a = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		a = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.AnnotationTest");
+
 		System.out.println(a.getFullyQualifiedName());
 		
 	}
