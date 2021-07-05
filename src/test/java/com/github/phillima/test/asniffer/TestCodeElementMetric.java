@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,23 +18,29 @@ import com.github.phillima.asniffer.model.ClassModel;
 public class TestCodeElementMetric {
 
 	private static AMReport report;
+
+	private ClassModel result;
+
 	
 	@BeforeClass
-	public static void setUp() {
+	public static void setUpAll() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 		report = new AM().calculate(testFilePath, "project");
 	}
-	
-	@Test
-	public void testAED() {
-		
-		ClassModel result = report.getPackages()
+
+	@Before
+	public void setUp(){
+		result = report.getPackages()
 				.stream()
 				.filter(pk -> pk.getPackageName().equals("annotationtest"))
 				.findFirst()
 				.get()
 				.getClassModel("annotationtest.AnnotationTest");
+	}
 
+	@Test
+	public void testAED() {
+		
 		List<CodeElementModel> codeElements = result.getElementsReport();
 		int aedValue = 0;
 		
@@ -49,12 +56,6 @@ public class TestCodeElementMetric {
 
 	@Test
 	public void testeAEDMethodWithAnnotatedParam() {
-		ClassModel result = report.getPackages()
-				.stream()
-				.filter(pk -> pk.getPackageName().equals("annotationtest"))
-				.findFirst()
-				.get()
-				.getClassModel("annotationtest.AnnotationTest");
 
 		List<CodeElementModel> codeElements = result.getElementsReport();
 		int aedValue = 0;
