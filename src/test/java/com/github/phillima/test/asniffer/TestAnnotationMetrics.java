@@ -2,6 +2,7 @@ package com.github.phillima.test.asniffer;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -19,14 +20,19 @@ public class TestAnnotationMetrics {
 	
 	@BeforeClass
 	public static void setUp() {
-		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
+		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 		report = new AM().calculate(testFilePath, "project");
 	}
 	
 	@Test
 	public void testAnnotationMetric() {
 
-		ClassModel a = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		ClassModel a = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.AnnotationTest");
 
 		List<CodeElementModel> codeElements = a.getElementsReport();
 		int aa = 0, anl = 0, locad = 0;

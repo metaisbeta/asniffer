@@ -2,6 +2,7 @@ package com.github.phillima.test.asniffer;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class TestAnnotationSchema {
 	
 	@BeforeClass
 	public static void setUp() {
-		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
+		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 		report = new AM().calculate(testFilePath, "project");
 	}
 	
@@ -29,7 +30,12 @@ public class TestAnnotationSchema {
 	public void testAnnotationSchema() {
 
 		//Google Guava class
-		ClassModel a = report.getPackages().get(0).getClassModel("annotationtest.AbstractService");
+		ClassModel a = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.AbstractService");
 
 		Map<String, String> expectedSchemas = new HashMap<String, String>();
 		expectedSchemas.put("GwtIncompatible","com.google.common.annotations");
@@ -48,7 +54,12 @@ public class TestAnnotationSchema {
 		});
 
 		//Hibernate class
-		a = report.getPackages().get(0).getClassModel("annotationtest.AnnotationTest");
+		a = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.AnnotationTest");
 
 
 		List<CodeElementModel> codeElements = a.getElementsReport();

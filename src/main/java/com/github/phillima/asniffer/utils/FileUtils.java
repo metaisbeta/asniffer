@@ -75,15 +75,7 @@ public class FileUtils {
 	}
 
 	public static String getProjectName(Path projectPath) {
-		
-		
-		String path = projectPath.toAbsolutePath().normalize().toString();
-		
-		int index = path.lastIndexOf("/");
-		if(index != -1)
-			return path.substring(index+1);
-		else
-		 return path;
+		return String.valueOf(projectPath.getFileName());
 	}
 	
 	public static String[] getJarDependencies() {

@@ -44,7 +44,7 @@ public class TestJSONOutput {
 		List<Children> packagesContentReport = ReportTypeUtils.fetchPackages(report.getPackages(), 
 				new FetchSystemViewIMP());
 		
-		assertEquals(7, packagesContentReport.size());
+		assertEquals(8, packagesContentReport.size());
 		
 		assertEquals("annotationtest", packagesContentReport.get(0).getName());
 		assertEquals("br.inpe.climaespacial.tsi.business", packagesContentReport.get(1).getName());
@@ -76,7 +76,7 @@ public class TestJSONOutput {
 		
 		List<Children> childrens = ReportTypeUtils.fetchPackages(report.getPackages(), new FetchPackageViewIMP());
 		
-		assertEquals(7, childrens.size());
+		assertEquals(8, childrens.size());
 
 
 		//br.inpe.cap.asniffer packages
@@ -101,7 +101,7 @@ public class TestJSONOutput {
 		
 		List<Children> childrens = ReportTypeUtils.fetchPackages(report.getPackages()
 				, new FetchClassViewIMP());
-		assertEquals(7, childrens.size());
+		assertEquals(8, childrens.size());
 		
 		
 		
