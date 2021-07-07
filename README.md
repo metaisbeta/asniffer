@@ -9,7 +9,7 @@ Annotation Sniffer
 
 Annotation Sniffer is a tool that extracts code annotation metrics from java source code. 
 
-### How to download
+### How to install
 
 Download the source code and generate an executable jar file. Or download the jar file provided with the latest release.
 
@@ -175,7 +175,7 @@ ASniffer API
 <dependency>
   <groupId>io.github.phillima</groupId>
   <artifactId>asniffer</artifactId>
-  <version>2.4.2</version>
+  <version>2.4.4</version>
 </dependency>
 ```
 
