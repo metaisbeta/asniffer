@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public class TestClassMetrics {
 
 	private static AMReport report;
-	private static ClassModel a;
+	private static ClassModel classModel;
 	
 	//Fixture
 	@BeforeClass
@@ -22,45 +22,45 @@ public class TestClassMetrics {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
 		report = new AM().calculate(testFilePath, "project");
-		a = report.getPackages()
+		classModel = report.getPackages()
 				.stream()
 				.filter(pk -> pk.getPackageName().equals("annotationtest"))
 				.findFirst()
 				.get()
 				.getClassModel("annotationtest.AnnotationTest");
 
-		System.out.println(a.getFullyQualifiedName());
+		System.out.println(classModel.getFullyQualifiedName());
 		
 	}
 	
 	@Test
 	public void testAC() {
-		int ac = a.getClassMetric("AC");
-		Assert.assertEquals(35, ac);
+		int ac = classModel.getClassMetric("AC");
+		Assert.assertEquals(39, ac);
 	}
 	
 	@Test
 	public void testUac() {
-		int uac = a.getClassMetric("UAC");
+		int uac = classModel.getClassMetric("UAC");
 		Assert.assertEquals(25, uac);
 	}
 	
 	@Test
 	public void testASC() {
-		int asc = a.getClassMetric("ASC");
+		int asc = classModel.getClassMetric("ASC");
 		Assert.assertEquals(6, asc);
 	}
 	
 	@Test
 	public void testNAEC() {
-		int naec = a.getClassMetric("NAEC");
-		Assert.assertEquals(17, naec);
+		int naec = classModel.getClassMetric("NAEC");
+		Assert.assertEquals(21, naec);
 	}
 	
 	@Test
 	public void testNEC() {
-		int nec = a.getClassMetric("NEC"); 
-		Assert.assertEquals(33, nec);
+		int nec = classModel.getClassMetric("NEC");
+		Assert.assertEquals(44, nec);
 	}
 
 }
