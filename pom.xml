@@ -101,12 +101,6 @@
 		    <artifactId>commons-beanutils</artifactId>
 		    <version>1.9.4</version>
 		</dependency>
-		<dependency>
-			<groupId>io.github.phillima</groupId>
-			<artifactId>asniffer</artifactId>
-			<version>2.4.4</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 
