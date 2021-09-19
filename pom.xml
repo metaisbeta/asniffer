@@ -72,14 +72,14 @@
 		    <version>3.0</version>
 		</dependency>
 		<dependency>
-		    <groupId>io.github.lukehutch</groupId>
-		    <artifactId>fast-classpath-scanner</artifactId>
-		    <version>2.18.0</version>
-		</dependency>
-		<dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-core</artifactId>
 		    <version>2.13.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.classgraph</groupId>
+			<artifactId>classgraph</artifactId>
+			<version>4.8.116</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
@@ -100,6 +100,12 @@
 		    <groupId>commons-beanutils</groupId>
 		    <artifactId>commons-beanutils</artifactId>
 		    <version>1.9.4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.phillima</groupId>
+			<artifactId>asniffer</artifactId>
+			<version>2.4.4</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

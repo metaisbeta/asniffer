@@ -1,11 +1,11 @@
 package com.github.phillima.asniffer;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.github.phillima.asniffer.metric.*;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -21,12 +21,7 @@ import com.github.phillima.asniffer.utils.FileUtils;
 public class AM {
 
 	private static final int MAX_AT_ONCE;
-	private MetricContainer metricContainer;
 
-	public AM() {
-		metricContainer = MetricContainer.getInstance();
-	}
-	
 	static {
 		String jdtMax = System.getProperty("jdt.max");
 		if(jdtMax!=null) {
@@ -69,44 +64,28 @@ public class AM {
 	private List<IClassMetricCollector> includeClassMetrics(){
 		
 		List<IClassMetricCollector> metrics = new ArrayList<>();
-		for (String metricName : metricContainer.getClassMetrics()) {
-			try {
-				Class<?> clazz = Class.forName(metricName);
-				metrics.add((IClassMetricCollector) clazz.getDeclaredConstructor().newInstance());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException  e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return metrics;
+		metrics.add(new AC());
+		metrics.add(new UAC());
+		metrics.add(new ASC());
+		metrics.add(new NAEC());
+
+    	return metrics;
 	}
 	
 	private List<IAnnotationMetricCollector> includeAnnotationMetrics(){
 		
 		List<IAnnotationMetricCollector> metrics = new ArrayList<>();
-		for (String metricName : metricContainer.getAnnotationMetric()) {
-			try {
-				Class<?> clazz = Class.forName(metricName);
-				metrics.add((IAnnotationMetricCollector) clazz.getDeclaredConstructor().newInstance());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException  e) {
-				e.printStackTrace();
-			}
-		}
-		
+		metrics.add(new AA());
+		metrics.add(new ANL());
+		metrics.add(new LOCAD());
+
 		return metrics;
 	}
 	
 	private List<ICodeElementMetricCollector> includeCodeElementMetrics(){
 			
 		List<ICodeElementMetricCollector> metrics = new ArrayList<>();
-		for (String metricName : metricContainer.getCodeElementMetric()) {
-			try {
-				Class<?> clazz = Class.forName(metricName);
-				metrics.add((ICodeElementMetricCollector) clazz.getDeclaredConstructor().newInstance());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException  e) {
-				e.printStackTrace();
-			}
-		}
+		metrics.add(new AED());
 		
 		return metrics;
 	}

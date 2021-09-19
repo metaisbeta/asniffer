@@ -46,7 +46,7 @@ public class FileUtils {
 	private static void getAllJavaFiles(String path, ArrayList<String> files) {
 		
 		File f = new File(path);
-		if(f.getName().equals(".git") || f.isHidden()) return;
+		if(f.isHidden()) return;
 
 		for(File inside : f.listFiles()) {
 			if(inside.isDirectory()) {
@@ -76,32 +76,6 @@ public class FileUtils {
 
 	public static String getProjectName(Path projectPath) {
 		return String.valueOf(projectPath.getFileName());
-	}
-	
-	public static String[] getJarDependencies() {
-		
-		
-		String[] jarFileNamesArray = {"-jar:org.eclipse.core.expressions-3.6.0.jar",
-				"-jar:org.eclipse.equinox.app-1.3.400.jar",
-				"-jar:fast-classpath-scanner-2.18.0.jar",
-				"-jar:org.eclipse.core.filesystem-1.7.0.jar",
-				"-jar:junit-4.12.jar",
-				"-jar:guava-18.0.jar",
-				"-jar:org.eclipse.core.contenttype-3.6.0.jar",
-				"-jar:org.eclipse.equinox.common-3.9.0.jar",
-				"-jar:org.eclipse.equinox.preferences-3.7.0.jar",
-				"-jar:org.eclipse.jdt.core-3.12.2.jar",
-				"-jar:org.eclipse.core.resources-3.12.0.jar",
-				"-jar:org.eclipse.text-3.6.100.jar",
-				"-jar:hamcrest-core-1.3.jar",
-				"-jar:org.eclipse.equinox.registry-3.7.0.jar",
-				"-jar:org.eclipse.core.runtime-3.13.0.jar",
-				"-jar:commons-lang3-3.0.jar",
-				"-jar:org.eclipse.osgi-3.12.50.jar",
-				"-jar:org.eclipse.core.commands-3.9.0.jar",
-				"-jar:org.eclipse.core.jobs-3.9.2.jar"};
-		
-		return jarFileNamesArray;
 	}
 	
 	public static String getFileAsString(String path) {
