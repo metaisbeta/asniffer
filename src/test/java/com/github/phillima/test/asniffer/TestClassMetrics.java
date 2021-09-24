@@ -28,9 +28,6 @@ public class TestClassMetrics {
 				.findFirst()
 				.get()
 				.getClassModel("annotationtest.AnnotationTest");
-
-		System.out.println(classModel.getFullyQualifiedName());
-		
 	}
 	
 	@Test
@@ -48,7 +45,7 @@ public class TestClassMetrics {
 	@Test
 	public void testASC() {
 		int asc = classModel.getClassMetric("ASC");
-		Assert.assertEquals(6, asc);
+		Assert.assertEquals(7, asc);
 	}
 	
 	@Test

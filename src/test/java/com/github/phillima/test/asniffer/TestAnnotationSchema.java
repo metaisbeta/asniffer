@@ -74,12 +74,12 @@ public class TestAnnotationSchema {
 		expectedSchemas2.put("InheritanceType","javax.persistence");
 		expectedSchemas2.put("Before","org.junit");
 		expectedSchemas2.put("Test","org.junit");
-		expectedSchemas2.put("Annotation0","java.lang");
+		expectedSchemas2.put("Annotation0","annotationtest");
 		expectedSchemas2.put("AssociationOverrides","javax.persistence");
 		expectedSchemas2.put("AssociationOverride","javax.persistence");
 		expectedSchemas2.put("NamedQuery","javax.persistence");
 		expectedSchemas2.put("JoinColumn","javax.persistence");
-		expectedSchemas2.put("Annotation2","java.lang");
+		expectedSchemas2.put("Annotation2","annotationtest");
 		expectedSchemas2.put("GET", "javax.ws.rs");
 		expectedSchemas2.put("Path", "javax.ws.rs");
 		expectedSchemas2.put("Produces", "javax.ws.rs");

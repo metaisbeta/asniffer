@@ -32,7 +32,7 @@ public class ClassInfo extends ASTVisitor{
 	@Override
 	public boolean visit(TypeDeclaration node) {
 		String innerType = null;
-		if(node.isInterface()) 
+		if(node.isInterface())
 			innerType = "interface";
 		else 
 			innerType = "class";
@@ -58,9 +58,12 @@ public class ClassInfo extends ASTVisitor{
 	
 	@Override
 	public boolean visit(AnnotationTypeDeclaration node) {
-		type = "annotation-declaration";
-		getFullClassName(node.resolveBinding(),type);
-		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, cu.getLineNumber(node.getStartPosition()));
+		if(node.isPackageMemberTypeDeclaration()){
+			type = "annotation-declaration";
+			getFullClassName(node.resolveBinding(),type);
+
+		}
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), "annotation-declaration", cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}

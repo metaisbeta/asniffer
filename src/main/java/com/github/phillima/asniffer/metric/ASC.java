@@ -1,13 +1,12 @@
 package com.github.phillima.asniffer.metric;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import com.github.phillima.asniffer.annotations.ClassMetric;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
+import com.google.common.collect.ImmutableSet;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -22,7 +21,10 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 	List<String> imports = new ArrayList<>();
 	HashMap<String, String> schemasMapper = new HashMap<>();
 	CompilationUnit cu;
-	
+
+	//predefined java annotations
+	private static Set<String> javaLangPredefined = ImmutableSet.of("Override","Deprecated","SuppressWarnings","SafeVarargs","FunctionalInterface");
+
 	@Override
 	public boolean visit(MarkerAnnotation node) {
 		findSchema(node);
@@ -45,6 +47,7 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 	public void execute(CompilationUnit cu, ClassModel result, AMReport report) {
 		findImports(cu);
 		this.cu = cu;
+
 		cu.accept(this);
 	}
 
@@ -58,6 +61,7 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 	
 	private void findSchema(Annotation annotation) {
 		
+		//check if annotations was imported
 		for (String import_ : imports) {
 			if(import_.contains(annotation.getTypeName().getFullyQualifiedName())) {
 				int lastIndex = import_.lastIndexOf(".");
@@ -70,9 +74,16 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 				}	
 			}
 		}
+		String schema = "";
+		//check if it is a java lang annotation
+		if(javaLangPredefined.contains(annotation.getTypeName().getFullyQualifiedName()))
+			schema = "java.lang";
+		else
+			schema = cu.getPackage().getName().getFullyQualifiedName().toString();
+		//if not, the annotation was declared on the package being used
 		schemasMapper.put(annotation.getTypeName().getFullyQualifiedName() + "-" +
-				cu.getLineNumber(annotation.getStartPosition())
-	    		,"java.lang");
+						cu.getLineNumber(annotation.getStartPosition())
+				,schema);
 	}
 	
 	private void findImports(CompilationUnit cu) {
