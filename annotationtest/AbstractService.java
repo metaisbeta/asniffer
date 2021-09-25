@@ -611,6 +611,8 @@ public abstract class AbstractService implements Service {
       this.failure = failure;
     }
 
+    final @br.inatel.cdg.annotation.Nullable Throwable failure;
+
     /** @see Service#state() */
     State externalState() {
       if (shutdownWhenStartupFinishes && state == STARTING) {

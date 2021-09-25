@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @AnnotationTest
+@br.inatel.cdg.annotation.AnnotationFullyName
 public class InnerAnnotationTypeTest {
 
 	private int member1;
@@ -17,6 +18,7 @@ public class InnerAnnotationTypeTest {
 	}
 
 	private static class SampleInnerClass{
+		@AnnotationTest
 		@Foo
 		private final int innerField;
 

@@ -115,7 +115,7 @@ public class TestJSONOutput {
 		
 		assertEquals(classTestName,classZ.getName());
 
-		assertEquals(38,classZ.getChildrens().size());
+		assertEquals(39,classZ.getChildrens().size());
 		
 		//Get annotations on class
 		Children annotation = classZ.getChildByName("GwtIncompatible");

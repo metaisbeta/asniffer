@@ -63,27 +63,33 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 		
 		//check if annotations was imported
 		for (String import_ : imports) {
-			if(import_.contains(annotation.getTypeName().getFullyQualifiedName())) {
+			String annotationName = annotation.getTypeName().getFullyQualifiedName();
+			String schema = "";
+			if(annotationName.contains(".")){//was not imported during usage. has fully qualified name
+				schema = annotationName.substring(0,annotationName.lastIndexOf("."));
+				schemasMapper.put(annotationName.substring(annotationName.lastIndexOf(".")+1) + "-" +
+						cu.getLineNumber(annotation.getStartPosition()),schema);
+				return;
+			}
+			if(import_.contains(annotation.getTypeName().toString())) {
 				int lastIndex = import_.lastIndexOf(".");
-				String annotationName = annotation.getTypeName().getFullyQualifiedName();
-				if(annotationName.equals(import_.substring(lastIndex+1))) {
+				if(annotationName.equals(import_.substring(lastIndex+1))){//was imported
+					schema = import_.substring(0,lastIndex);
 					schemasMapper.put(annotationName + "-" +
-							cu.getLineNumber(annotation.getStartPosition())
-							,import_.substring(0,lastIndex));
+									cu.getLineNumber(annotation.getStartPosition()),schema);
 					return;
-				}	
+				}
 			}
 		}
 		String schema = "";
 		//check if it is a java lang annotation
 		if(javaLangPredefined.contains(annotation.getTypeName().getFullyQualifiedName()))
 			schema = "java.lang";
-		else
-			schema = cu.getPackage().getName().getFullyQualifiedName().toString();
-		//if not, the annotation was declared on the package being used
-		schemasMapper.put(annotation.getTypeName().getFullyQualifiedName() + "-" +
-						cu.getLineNumber(annotation.getStartPosition())
-				,schema);
+		else //if not, the annotation was declared on the package being used
+			schema = cu.getPackage().getName().toString();
+
+		schemasMapper.put(annotation.getTypeName() + "-" +
+						cu.getLineNumber(annotation.getStartPosition()),schema);
 	}
 	
 	private void findImports(CompilationUnit cu) {
