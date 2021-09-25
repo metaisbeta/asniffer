@@ -175,7 +175,7 @@ ASniffer API
 <dependency>
   <groupId>io.github.phillima</groupId>
   <artifactId>asniffer</artifactId>
-  <version>2.4.6</version>
+  <version>2.4.7</version>
 </dependency>
 ```
 
