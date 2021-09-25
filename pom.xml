@@ -6,7 +6,7 @@
 	<version>2.4.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>asniffer</name>
-	<url>https://github.com/phillima/asniffer</url>
+	<url>https://github.com/metaisbeta/asniffer</url>
 	<description>Tool to collect code annotation metrics</description>
 
 	<licenses>
@@ -26,7 +26,7 @@
 	</developers>
 
 	<scm>
-		<url>https://github.com/phillima/asniffer</url>
+		<url>https://github.com/metaisbeta/asniffer</url>
 		<connection>scm:git:git://github.com/phillima/asniffer</connection>
 		<developerConnection>scm:git:git@github.com:phillima/asniffer.git</developerConnection>
 	    <tag>asniffer-2.4.6</tag>
