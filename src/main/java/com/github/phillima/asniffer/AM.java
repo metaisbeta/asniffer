@@ -47,10 +47,10 @@ public class AM {
 		List<List<String>> partitions = Lists.partition(Arrays.asList(javaFiles), MAX_AT_ONCE);
 
 		for(List<String> partition : partitions) {
-			ASTParser parser = ASTParser.newParser(AST.JLS8);
+			ASTParser parser = ASTParser.newParser(AST.JLS14);
 			
 			Map<String, String> options = JavaCore.getOptions();
-			JavaCore.setComplianceOptions(JavaCore.VERSION_1_8, options);
+			JavaCore.setComplianceOptions(JavaCore.VERSION_14, options);
 			parser.setCompilerOptions(options);
 			parser.setEnvironment(null, srcDirs, null, true);
 			parser.setResolveBindings(true);
