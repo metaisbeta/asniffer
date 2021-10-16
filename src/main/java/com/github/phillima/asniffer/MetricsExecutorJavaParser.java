@@ -6,7 +6,7 @@ import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector_;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector_;
 import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector_;
-import com.github.phillima.asniffer.metric.LOCCalculator;
+import com.github.phillima.asniffer.metric.LOCCalculatorJavaParser;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.AnnotationMetricModel;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -58,7 +58,7 @@ public class MetricsExecutorJavaParser {
                 PackageModel packageModel = getPackageModel(packageName);
 
                 String sourceFilePath = cu.getStorage().get().getPath().toString();
-                int loc = new LOCCalculator().calculate(new FileInputStream(sourceFilePath));
+                int loc = new LOCCalculatorJavaParser().calculate(new FileInputStream(sourceFilePath));
                 int nec = info.getCodeElementsInfo().size();
 
                 result = new ClassModel(sourceFilePath, info.getClassName(), info.getType(), loc, nec);

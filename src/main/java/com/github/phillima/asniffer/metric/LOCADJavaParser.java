@@ -4,7 +4,6 @@ import com.github.javaparser.Range;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.phillima.asniffer.annotations.AnnotationMetric;
-import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector_;
 import com.github.phillima.asniffer.model.AnnotationMetricModel;
 

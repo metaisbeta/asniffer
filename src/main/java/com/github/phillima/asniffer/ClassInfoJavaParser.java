@@ -51,8 +51,8 @@ public class ClassInfoJavaParser extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(EnumDeclaration node, Object obj) {
-        type = "enum";
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), type, node.getTokenRange().get().toRange().get().begin.line);
+        String innerType = "enum";
+        CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), innerType, node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }

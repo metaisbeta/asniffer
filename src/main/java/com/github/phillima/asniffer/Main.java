@@ -1,6 +1,7 @@
 package com.github.phillima.asniffer;
 
 import java.io.FileNotFoundException;
+import java.time.LocalTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +42,8 @@ public class Main {
 	
 	public static void run(String projectPath, String reportPath, boolean multiProject,
 			IReport reportType) throws FileNotFoundException {
-		ASniffer runner = new ASniffer(projectPath, reportPath, reportType);
+				LocalTime start = LocalTime.now();
+		ASnifferJavaParser runner = new ASnifferJavaParser(projectPath, reportPath, reportType);
 		if(!multiProject) {
 			logger.info("Initializing extraction for single project.");
 			runner.collectSingle();
@@ -50,6 +52,9 @@ public class Main {
 			logger.info("Initializing extraction for multiple projects.");
 			runner.collectMultiple();
 		}
+		LocalTime finish = LocalTime.now();
+		LocalTime diff = finish.minusNanos(start.toNanoOfDay());
+		System.out.println("Execution time: " + diff);
 	}
 	
 	public static void run(String projectPath, String reportPath) throws FileNotFoundException {

@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AMJavaParser;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 
@@ -21,7 +21,7 @@ public class TestClassMetrics {
 	public static void setUp() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
-		report = new AM().calculate(testFilePath, "project");
+		report = new AMJavaParser().calculate(testFilePath, "project");
 		classModel = report.getPackages()
 				.stream()
 				.filter(pk -> pk.getPackageName().equals("annotationtest"))
