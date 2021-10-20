@@ -75,7 +75,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(ConstructorDeclaration node, Object obj) {
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), "method", node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), "constructor", node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }
