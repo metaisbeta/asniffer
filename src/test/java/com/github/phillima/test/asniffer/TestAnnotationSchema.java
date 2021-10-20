@@ -1,20 +1,19 @@
 package com.github.phillima.test.asniffer;
 
+import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.model.AMReport;
+import com.github.phillima.asniffer.model.ClassModel;
+import com.github.phillima.asniffer.model.CodeElementModel;
+import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.github.phillima.asniffer.AMJavaParser;
-import com.github.phillima.asniffer.model.AMReport;
-import com.github.phillima.asniffer.model.CodeElementModel;
-import com.github.phillima.asniffer.model.ClassModel;
 
 public class TestAnnotationSchema {
 
@@ -23,7 +22,7 @@ public class TestAnnotationSchema {
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
-		report = new AMJavaParser().calculate(testFilePath, "project");
+		report = new AM().calculate(testFilePath, "project");
 	}
 	
 	@Test
@@ -129,8 +128,8 @@ public class TestAnnotationSchema {
 		String schema2 = codeElement2.getAnnotationMetrics().stream().
 				filter(annotMetric -> annotMetric.getName().equals("Entity")).findFirst().get().getSchema();
 
-		assertEquals(schema1, expectedSchema1);
-		assertEquals(schema2, expectedSchema2);
+		assertEquals(expectedSchema1, schema1);
+		assertEquals(expectedSchema2, schema2);
 	}
 
 	@Test

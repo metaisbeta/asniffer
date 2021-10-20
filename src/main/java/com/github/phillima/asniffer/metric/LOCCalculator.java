@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class LOCCalculatorJavaParser {
+public class LOCCalculator {
 
 	
 	public int calculate(InputStream sourceCode) {

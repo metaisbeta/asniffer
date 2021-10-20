@@ -6,12 +6,12 @@ import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.annotations.ClassMetric;
-import com.github.phillima.asniffer.interfaces.IClassMetricCollector_;
+import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 
 @ClassMetric
-public class ACJavaParser extends VoidVisitorAdapter<Object> implements IClassMetricCollector_ {
+public class AC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
 	private int annotations = 0;
 	

@@ -13,22 +13,22 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASnifferJavaParser {
+public class ASniffer {
 
 	private String projectsPath = "";
 	private String reportPath = "";
 	private IReport reportType;
 
 	private static final Logger logger =
-			LogManager.getLogger(ASnifferJavaParser.class);
+			LogManager.getLogger(ASniffer.class);
 
-	public ASnifferJavaParser(String projectPath, String reportPath, IReport reportType) {
+	public ASniffer(String projectPath, String reportPath, IReport reportType) {
 		this.projectsPath = projectPath;
 		this.reportPath = reportPath;
 		this.reportType = reportType;
 	}
 
-	public ASnifferJavaParser(String projectPath, String reportPath) {
+	public ASniffer(String projectPath, String reportPath) {
 		this.projectsPath = projectPath;
 		this.reportPath = reportPath;
 		this.reportType = ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT);
@@ -50,7 +50,7 @@ public class ASnifferJavaParser {
 	private AMReport collect(Path projectPath) {
 		String projectName = FileUtils.getProjectName(projectPath);
 		logger.info("Initializing extraction for project " + projectName);
-		AMReport report = new AMJavaParser().calculate(projectPath.toString(), projectName);
+		AMReport report = new AM().calculate(projectPath.toString(), projectName);
 		logger.info("Extraction concluded for project " + projectName);
 
 		generateOutput(report);

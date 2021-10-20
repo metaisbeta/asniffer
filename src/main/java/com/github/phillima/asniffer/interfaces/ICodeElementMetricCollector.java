@@ -5,7 +5,7 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.phillima.asniffer.model.CodeElementModel;
 
-public interface ICodeElementMetricCollector_ {
+public interface ICodeElementMetricCollector {
 
     public void execute(CompilationUnit cu, CodeElementModel codeElementMetricModel, Node codeElementNode);
 

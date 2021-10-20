@@ -18,8 +18,8 @@ import org.junit.Test;
 
 
 
-import com.github.phillima.asniffer.AMJavaParser;
-import com.github.phillima.asniffer.ASnifferJavaParser;
+import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.ASniffer;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
 import com.github.phillima.asniffer.output.json.d3hierarchy.FetchClassViewIMP;
@@ -39,7 +39,7 @@ public class TestJSONOutput {
 	public static void setUp() {
 		//Collecting ASniffer
 		testFilePath = System.getProperty("user.dir");
-		report = new AMJavaParser().calculate(testFilePath , "asniffer");
+		report = new AM().calculate(testFilePath , "asniffer");
 	}
 	
 	@Test
@@ -132,7 +132,7 @@ public class TestJSONOutput {
 		assertEquals(8, pkg1Children.size());
 		
 		//AC class
-		Children acClass = package2.getChildByName("com.github.phillima.asniffer.metric.ACJavaParser");
+		Children acClass = package2.getChildByName("com.github.phillima.asniffer.metric.AC");
 		assertEquals(6, acClass.getChildrens().size());
 		
 		
@@ -142,7 +142,7 @@ public class TestJSONOutput {
 	
 	@Test
 	public void testGenerateFullAVisuReportFile() {
-		ASnifferJavaParser aSniffer = new ASnifferJavaParser(testFilePath, testFilePath, new JSONReportAvisuIMP());
+		ASniffer aSniffer = new ASniffer(testFilePath, testFilePath, new JSONReportAvisuIMP());
 		aSniffer.collectSingle();
 		String pathSeparator = FileSystems.getDefault().getSeparator();
 

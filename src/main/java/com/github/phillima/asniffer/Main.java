@@ -43,7 +43,7 @@ public class Main {
 	public static void run(String projectPath, String reportPath, boolean multiProject,
 			IReport reportType) throws FileNotFoundException {
 				LocalTime start = LocalTime.now();
-		ASnifferJavaParser runner = new ASnifferJavaParser(projectPath, reportPath, reportType);
+		ASniffer runner = new ASniffer(projectPath, reportPath, reportType);
 		if(!multiProject) {
 			logger.info("Initializing extraction for single project.");
 			runner.collectSingle();
