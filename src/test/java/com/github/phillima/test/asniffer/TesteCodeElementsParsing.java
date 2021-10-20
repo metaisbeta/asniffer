@@ -6,6 +6,8 @@ import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.PackageModel;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -32,11 +34,13 @@ private static AMReport report;
 		
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.InnerClassTest");
 		
-		assertEquals(5, clazz.getElementsReport().size());
-		assertEquals("class", clazz.getElementReport("InnerClass1").getType());
-		assertEquals("class", clazz.getElementReport("InnerClass2").getType());
-		assertEquals("enum", clazz.getElementReport("Enum1").getType());
-		assertEquals("enum", clazz.getElementReport("Enum2").getType());
+		assertEquals(6, clazz.getElementsReport().size());
+		assertNotNull(clazz.getElementReport("InnerClass1", "class"));
+		assertNotNull(clazz.getElementReport("InnerClass2", "class"));
+		assertNotNull(clazz.getElementReport("InnerClassTest", "class"));
+		assertNotNull(clazz.getElementReport("Enum1", "enum"));
+		assertNotNull(clazz.getElementReport("Enum2", "enum"));
+		assertNotNull(clazz.getElementReport("InnerClassTest", "constructor"));
 		
 	}
 	
