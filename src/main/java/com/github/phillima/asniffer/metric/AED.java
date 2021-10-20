@@ -3,17 +3,17 @@ package com.github.phillima.asniffer.metric;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.phillima.asniffer.annotations.CodeElementMetric;
-import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector_;
+import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector;
 import com.github.phillima.asniffer.model.CodeElementModel;
-import com.github.phillima.asniffer.utils.AnnotationUtilsJavaParser;
+import com.github.phillima.asniffer.utils.AnnotationUtils;
 
 @CodeElementMetric
-public class AEDJavaParser implements ICodeElementMetricCollector_ {
+public class AED implements ICodeElementMetricCollector {
 
     @Override
     public void execute(CompilationUnit cu, CodeElementModel codeElementMetricModel, Node codeElementNode) {
 
-        int aed = AnnotationUtilsJavaParser.checkForAnnotations(codeElementNode).size();
+        int aed = AnnotationUtils.checkForAnnotations(codeElementNode).size();
 
         codeElementMetricModel.setAed(aed);
 

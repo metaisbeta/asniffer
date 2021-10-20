@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 
-public class AnnotationUtilsJavaParser {
+public class AnnotationUtils {
 
     //INNER HELPER METHODS
     public static List<AnnotationExpr> checkForAnnotations(Node node) {

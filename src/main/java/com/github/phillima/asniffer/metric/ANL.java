@@ -5,14 +5,14 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.phillima.asniffer.annotations.AnnotationMetric;
-import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector_;
+import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.model.AnnotationMetricModel;
 
 import java.util.Optional;
 
 
 @AnnotationMetric
-public class ANLJavaParser implements IAnnotationMetricCollector_ {
+public class ANL implements IAnnotationMetricCollector {
 	
 	@Override
 	public void execute(CompilationUnit cu, AnnotationMetricModel annotationMetricModel, AnnotationExpr annotation) {

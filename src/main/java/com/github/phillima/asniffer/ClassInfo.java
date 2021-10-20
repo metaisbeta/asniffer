@@ -16,7 +16,7 @@ import com.github.phillima.asniffer.model.CodeElementModel;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ClassInfoJavaParser extends VoidVisitorAdapter<Object> {
+public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     private CompilationUnit cu;
     private String className = null;
@@ -24,7 +24,7 @@ public class ClassInfoJavaParser extends VoidVisitorAdapter<Object> {
     private Map<Node, CodeElementModel> codeElementsInfo;
     private String packageName;
 
-    public ClassInfoJavaParser(CompilationUnit cu) {
+    public ClassInfo(CompilationUnit cu) {
         this.cu = cu;
             this.codeElementsInfo = new ConcurrentHashMap<>();
     }

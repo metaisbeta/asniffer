@@ -14,12 +14,12 @@ import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.annotations.ClassMetric;
-import com.github.phillima.asniffer.interfaces.IClassMetricCollector_;
+import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 
 @ClassMetric
-public class NAECJavaParser extends VoidVisitorAdapter<Object> implements IClassMetricCollector_ {
+public class NAEC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
     private int annotatedElements = 0;
 

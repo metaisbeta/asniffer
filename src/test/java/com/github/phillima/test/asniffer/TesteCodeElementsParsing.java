@@ -1,14 +1,13 @@
 package com.github.phillima.test.asniffer;
 
-import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.github.phillima.asniffer.AMJavaParser;
+import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.PackageModel;
+import static org.junit.Assert.assertEquals;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class TesteCodeElementsParsing {
 
@@ -17,7 +16,7 @@ private static AMReport report;
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report = new AMJavaParser().calculate(testFilePath, "project");
+		report = new AM().calculate(testFilePath, "project");
 	}
 	
 	

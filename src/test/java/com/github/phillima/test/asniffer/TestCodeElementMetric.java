@@ -1,19 +1,17 @@
 package com.github.phillima.test.asniffer;
 
+import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.model.AMReport;
+import com.github.phillima.asniffer.model.ClassModel;
+import com.github.phillima.asniffer.model.CodeElementModel;
 import static org.junit.Assert.assertEquals;
-
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.github.phillima.asniffer.AMJavaParser;
-import com.github.phillima.asniffer.model.AMReport;
-import com.github.phillima.asniffer.model.CodeElementModel;
-import com.github.phillima.asniffer.model.ClassModel;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class TestCodeElementMetric {
 
@@ -25,7 +23,7 @@ public class TestCodeElementMetric {
 	@BeforeClass
 	public static void setUpAll() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
-		report = new AMJavaParser().calculate(testFilePath, "project");
+		report = new AM().calculate(testFilePath, "project");
 	}
 
 	@Before
