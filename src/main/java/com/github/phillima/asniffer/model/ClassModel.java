@@ -46,20 +46,20 @@ public class ClassModel {
 	}
 	
 	public CodeElementModel getElementReport(String elementName) {
-		for (CodeElementModel codeElement : elementsReport) {
-			if(codeElement.getElementName().equals(elementName))
-				return codeElement;
-		}
-		return null;
+
+		return elementsReport.stream()
+				.filter(e -> e.getElementName().equals(elementName))
+				.findFirst()
+				.get();
 	}
 	
 	public CodeElementModel getElementReport(String elementName, String elementType) {
-		for (CodeElementModel codeElement : elementsReport) {
-			if(codeElement.getElementName().equals(elementName) && 
-			   codeElement.getType().equals(elementType))
-				return codeElement;
-		}
-		return null;
+
+		return elementsReport.stream()
+				.filter(e -> e.getElementName().equals(elementName))
+				.filter(e -> e.getType().equals(elementType))
+				.findFirst()
+				.get();
 	}
 
 	public void addElementReport(CodeElementModel elementReport) {
