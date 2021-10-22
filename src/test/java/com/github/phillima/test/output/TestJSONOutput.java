@@ -106,8 +106,6 @@ public class TestJSONOutput {
 				, new FetchClassViewIMP());
 		assertEquals(8, childrens.size());
 		
-		
-		
 		//first package annotationtest
 		Children package1 = childrens.get(0);
 		String classTestName = "annotationtest.AbstractService";
@@ -133,12 +131,9 @@ public class TestJSONOutput {
 		//AC class
 		Children acClass = package2.getChildByName("com.github.phillima.asniffer.metric.AC");
 		assertEquals(6, acClass.getChildrens().size());
-		
-		
-		
+
 	}
-	
-	
+
 	@Test
 	public void testGenerateFullAVisuReportFile() {
 		ASniffer aSniffer = new ASniffer(testFilePath, testFilePath, new JSONReportAvisuIMP());
@@ -158,6 +153,5 @@ public class TestJSONOutput {
 		assertTrue(new File(dirPathResult + pathSeparator ).delete());
 
 	}
-	
-	
+
 }
