@@ -1,6 +1,5 @@
 package com.github.phillima.asniffer.metric;
 
-import com.github.phillima.asniffer.annotations.ClassMetric;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -15,7 +14,7 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-@ClassMetric
+
 public class NAEC extends ASTVisitor implements IClassMetricCollector {
 
 	private int annotatedElements = 0;

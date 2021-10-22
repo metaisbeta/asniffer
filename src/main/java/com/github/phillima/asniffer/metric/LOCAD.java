@@ -1,12 +1,10 @@
 package com.github.phillima.asniffer.metric;
 
-import com.github.phillima.asniffer.annotations.AnnotationMetric;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.model.AnnotationMetricModel;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-@AnnotationMetric
 public class LOCAD implements IAnnotationMetricCollector {
 
 	private CompilationUnit cu;

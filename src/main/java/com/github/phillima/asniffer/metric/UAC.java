@@ -3,7 +3,6 @@ package com.github.phillima.asniffer.metric;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.github.phillima.asniffer.annotations.ClassMetric;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -13,7 +12,6 @@ import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-@ClassMetric
 public class UAC extends ASTVisitor implements IClassMetricCollector {
 
 	Set<String> uniqueAnnotations = new HashSet<>();

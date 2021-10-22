@@ -1,14 +1,12 @@
 package com.github.phillima.asniffer.metric;
 
 
-import com.github.phillima.asniffer.annotations.AnnotationMetric;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.model.AnnotationMetricModel;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-@AnnotationMetric
 public class ANL implements IAnnotationMetricCollector {
 	
 	@Override

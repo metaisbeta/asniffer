@@ -1,6 +1,5 @@
 package com.github.phillima.asniffer.metric;
 
-import com.github.phillima.asniffer.annotations.ClassMetric;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -10,7 +9,6 @@ import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-@ClassMetric
 public class AC extends ASTVisitor implements IClassMetricCollector {
 
 	private int annotations = 0;
