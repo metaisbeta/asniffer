@@ -3,10 +3,7 @@ package com.github.phillima.asniffer.output.json.d3hierarchy;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.phillima.asniffer.model.AnnotationMetricModel;
-import com.github.phillima.asniffer.model.ClassModel;
-import com.github.phillima.asniffer.model.CodeElementModel;
-import com.github.phillima.asniffer.model.PackageModel;
+import com.github.phillima.asniffer.model.*;
 
 public class FetchPackageViewIMP implements IFetchChildren {
 
@@ -37,7 +34,7 @@ public class FetchPackageViewIMP implements IFetchChildren {
 				//Considering LOCAD
 				Children children = new Children
 						(annotation.getName(), 
-						 "annotation", 
+						 CodeElementType.ANNOTATION,
 						 annotation.getAnnotationMetrics().get("LOCAD"));
 				children.addProperty("schema", annotation.getSchema());
 				classes_.add(children);

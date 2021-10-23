@@ -3,6 +3,7 @@ package com.github.phillima.asniffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.github.phillima.asniffer.model.CodeElementType;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
@@ -20,7 +21,7 @@ public class ClassInfo extends ASTVisitor{
 
 	private CompilationUnit cu;
 	private String className = null;
-	private String type;
+	private CodeElementType type;
 	private Map<BodyDeclaration,CodeElementModel> codeElementsInfo;
 	private String packageName;
 
@@ -31,14 +32,12 @@ public class ClassInfo extends ASTVisitor{
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		String innerType = null;
+		CodeElementType innerType = CodeElementType.CLASS;
 		if(node.isInterface())
-			innerType = "interface";
-		else 
-			innerType = "class";
-		if(node.isPackageMemberTypeDeclaration()) {
+			innerType = CodeElementType.INTERFACE;
+		if(node.isPackageMemberTypeDeclaration())
 			getFullClassName(node.resolveBinding(),innerType);
-		}
+
 		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), innerType, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		
@@ -48,29 +47,25 @@ public class ClassInfo extends ASTVisitor{
 	@Override
 	public boolean visit(EnumDeclaration node) {
 		if(node.isPackageMemberTypeDeclaration()) {
-			getFullClassName(node.resolveBinding(),"enum");
-			type = "enum";
+			getFullClassName(node.resolveBinding(),CodeElementType.ENUM);
 		}
-		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), "enum", cu.getLineNumber(node.getStartPosition()));
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), CodeElementType.ENUM, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(AnnotationTypeDeclaration node) {
-		if(node.isPackageMemberTypeDeclaration()){
-			type = "annotation-declaration";
-			getFullClassName(node.resolveBinding(),type);
-
-		}
-		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), "annotation-declaration", cu.getLineNumber(node.getStartPosition()));
+		if(node.isPackageMemberTypeDeclaration())
+			getFullClassName(node.resolveBinding(),CodeElementType.ANNOTATION_DECLARATION);
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), CodeElementType.ANNOTATION_DECLARATION, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
 	
 	@Override
 	public boolean visit(MethodDeclaration node) {
-		CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), "method", cu.getLineNumber(node.getStartPosition()));
+		CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), CodeElementType.METHOD, cu.getLineNumber(node.getStartPosition()));
 		codeElementsInfo.put(node,codeElementModel);
 		return super.visit(node);
 	}
@@ -80,7 +75,7 @@ public class ClassInfo extends ASTVisitor{
 		Object o = node.fragments().get(0);
 		if(o instanceof VariableDeclarationFragment){
 			String fieldName = ((VariableDeclarationFragment) o).getName().toString();
-			CodeElementModel codeElementModel = new CodeElementModel(fieldName, "field", cu.getLineNumber(node.getStartPosition()));
+			CodeElementModel codeElementModel = new CodeElementModel(fieldName, CodeElementType.FIELD, cu.getLineNumber(node.getStartPosition()));
 			codeElementsInfo.put(node,codeElementModel);
 		}
 		return super.visit(node);
@@ -94,7 +89,7 @@ public class ClassInfo extends ASTVisitor{
 		return className;
 	}
 	
-	public String getType() {
+	public CodeElementType getType() {
 		return type;
 	}
 
@@ -103,7 +98,7 @@ public class ClassInfo extends ASTVisitor{
 	}
 	
 	//Inner methods
-	private String getFullClassName(ITypeBinding binding, String type) {
+	private String getFullClassName(ITypeBinding binding, CodeElementType type) {
 		this.type = type;
 		if(binding!=null) {
 			if(className==null) {

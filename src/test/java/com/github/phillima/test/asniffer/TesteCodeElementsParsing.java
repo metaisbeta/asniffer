@@ -2,6 +2,7 @@ package com.github.phillima.test.asniffer;
 
 import static org.junit.Assert.*;
 
+import com.github.phillima.asniffer.model.CodeElementType;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -34,10 +35,10 @@ private static AMReport report;
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.InnerClassTest");
 		
 		assertEquals(5, clazz.getElementsReport().size());
-		assertEquals("class", clazz.getElementReport("InnerClass1").getType());
-		assertEquals("class", clazz.getElementReport("InnerClass2").getType());
-		assertEquals("enum", clazz.getElementReport("Enum1").getType());
-		assertEquals("enum", clazz.getElementReport("Enum2").getType());
+		assertEquals(CodeElementType.CLASS, clazz.getElementReport("InnerClass1").getType());
+		assertEquals(CodeElementType.CLASS, clazz.getElementReport("InnerClass2").getType());
+		assertEquals(CodeElementType.ENUM, clazz.getElementReport("Enum1").getType());
+		assertEquals(CodeElementType.ENUM, clazz.getElementReport("Enum2").getType());
 		
 	}
 	
@@ -53,12 +54,9 @@ private static AMReport report;
 		//get the EnumTest
 		
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.EnumTest");
-		assertEquals("enum", clazz.getType());
+		assertEquals(CodeElementType.ENUM, clazz.getType());
 		assertEquals(1, clazz.getElementsReport().size());
-		
-		
+
 	}
-	
-	
 
 }
