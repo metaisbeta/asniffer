@@ -85,9 +85,9 @@ public class MetricsExecutor {
 
                     annotations.forEach(annotation -> {
                         AnnotationMetricModel annotationMetricModel = new AnnotationMetricModel(
-                                annotation.getNameAsString(),
+                                annotation.getName().getIdentifier(),
                                 annotation.getTokenRange().get().toRange().get().begin.line,
-                                result.getAnnotationSchema(annotation.getNameAsString()
+                                result.getAnnotationSchema(annotation.getName().getIdentifier()
                                         + "-" +   annotation.getTokenRange().get().toRange().get().begin.line));
                         for (IAnnotationMetricCollector annotationCollector : annotationMetrics) {
                             annotationCollector.execute(cu, annotationMetricModel, annotation);

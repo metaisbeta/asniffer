@@ -4,6 +4,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
+import com.github.javaparser.ast.expr.Name;
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
@@ -60,29 +61,36 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		result.addClassMetric("ASC", result.getAnnotationSchemas().size());
 		
 	}
+
+
 	
 	private void findSchema(AnnotationExpr annotation) {
+		boolean isInlineQualified = annotation.getName().getQualifier().isPresent();
+		int annotationLineNumber = annotation.getTokenRange().get().toRange().get().begin.line;
+		String annotationName = annotation.getName().getIdentifier();
+		String annotationNameAndLine = annotationName + "-" + annotationLineNumber;
+
+		if (isInlineQualified) {			
+			String schema = annotation.getName().getQualifier().get().asString();
+			schemasMapper.put(annotationNameAndLine, schema);
+			return;
+		}
 		
 		//check if annotations was imported
-		for (String import_ : imports) {
-			String annotationName = annotation.getNameAsString();
+		for (String import_ : imports) {			
 			String schema = "";
-			if(annotationName.contains(".")){//was not imported during usage. has fully qualified name
-				schema = annotationName.substring(0,annotationName.lastIndexOf("."));
-				schemasMapper.put(annotationName.substring(annotationName.lastIndexOf(".")+1) + "-" +
-						annotation.getTokenRange().get().toRange().get().begin.line, schema);
-				return;
-			}
-			if(import_.contains(annotation.getNameAsString())) {
+
+			if(import_.contains(annotation.getNameAsString())) {				
 				int lastIndex = import_.lastIndexOf(".");
+
 				if(annotationName.equals(import_.substring(lastIndex+1))){//was imported
 					schema = import_.substring(0,lastIndex);
-					schemasMapper.put(annotationName + "-" +
-							annotation.getTokenRange().get().toRange().get().begin.line,schema);
+					schemasMapper.put(annotationNameAndLine, schema);
 					return;
 				}
 			}
 		}
+
 		String schema = "";
 		//check if it is a java lang annotation
 		if(javaLangPredefined.contains(annotation.getNameAsString()))
@@ -90,8 +98,7 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		else //if not, the annotation was declared on the package being used
 			schema = cu.getPackageDeclaration().get().getNameAsString();
 
-		schemasMapper.put(annotation.getNameAsString() + "-" +
-				annotation.getTokenRange().get().toRange().get().begin.line,schema);
+		schemasMapper.put(annotationNameAndLine, schema);
 	}
 	
 	private void findImports(CompilationUnit cu) {
