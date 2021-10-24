@@ -1,6 +1,7 @@
 package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.CodeElementType;

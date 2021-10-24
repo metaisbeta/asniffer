@@ -3,6 +3,9 @@ package annotationtest;
 @AnnotationTest
 public class InnerClassTest{
 	
+	public InnerClassTest() {
+	}
+	
 	class InnerClass1{
 		
 	}

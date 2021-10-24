@@ -1,18 +1,17 @@
 package com.github.phillima.asniffer;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.parameters.Parameters;
 import com.github.phillima.asniffer.utils.FileUtils;
 import com.github.phillima.asniffer.utils.ReportTypeUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ASniffer {
 

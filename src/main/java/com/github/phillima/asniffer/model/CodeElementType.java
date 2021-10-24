@@ -11,5 +11,6 @@ public enum CodeElementType {
     @SerializedName("field") FIELD,
     @SerializedName("package") PACKAGE,
     @SerializedName("annotation") ANNOTATION,
-    @SerializedName("schema") SCHEMA;
+    @SerializedName("schema") SCHEMA,
+    @SerializedName("constructor") CONSTRUCTOR;
 }
