@@ -1,13 +1,14 @@
 package com.github.phillima.asniffer.output.json.d3hierarchy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.CodeElementType;
 import com.github.phillima.asniffer.model.PackageModel;
-import org.apache.commons.collections4.map.HashedMap;
+
 
 public class FetchSystemViewIMP implements IFetchChildren {
 
@@ -16,7 +17,7 @@ public class FetchSystemViewIMP implements IFetchChildren {
 		
 		List<Children> annotationSV = new ArrayList<Children>();
 		
-		Map<String, Integer> schemaMap = new HashedMap<String, Integer>();
+		Map<String, Integer> schemaMap = new HashMap<String, Integer>();
 		
 		for (ClassModel classReport : package_.getResults()) {
 			if(classReport.getClassMetric("AC")==0)//Eliminate classes without annotation
