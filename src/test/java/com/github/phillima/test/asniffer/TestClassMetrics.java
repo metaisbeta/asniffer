@@ -1,13 +1,13 @@
 package com.github.phillima.test.asniffer;
 
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
+import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.nio.file.Paths;
 
