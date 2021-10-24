@@ -4,14 +4,12 @@ package com.github.phillima.asniffer.metric;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.AnnotationExpr;
-import com.github.phillima.asniffer.annotations.AnnotationMetric;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.model.AnnotationMetricModel;
 
 import java.util.Optional;
 
 
-@AnnotationMetric
 public class ANL implements IAnnotationMetricCollector {
 	
 	@Override

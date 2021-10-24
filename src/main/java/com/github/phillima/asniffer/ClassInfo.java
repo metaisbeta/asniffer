@@ -12,30 +12,32 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.model.CodeElementModel;
+import com.github.phillima.asniffer.model.CodeElementType;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 
 public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     private CompilationUnit cu;
     private String className = null;
-    private String type;
+    private CodeElementType type;
     private Map<Node, CodeElementModel> codeElementsInfo;
     private String packageName;
 
     public ClassInfo(CompilationUnit cu) {
         this.cu = cu;
-            this.codeElementsInfo = new ConcurrentHashMap<>();
+        this.codeElementsInfo = new ConcurrentHashMap<>();
     }
 
     @Override
     public void visit(ClassOrInterfaceDeclaration node, Object obj) {
-        String innerType = null;
+        CodeElementType innerType = null;
         if (node.isInterface())
-            innerType = "interface";
+            innerType = CodeElementType.INTERFACE;
         else
-            innerType = "class";
+            innerType = CodeElementType.CLASS;
 
         CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), innerType, node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
@@ -51,7 +53,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(EnumDeclaration node, Object obj) {
-        String innerType = "enum";
+        CodeElementType innerType = CodeElementType.ENUM;
         CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), innerType, node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
@@ -59,7 +61,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(AnnotationDeclaration node, Object obj) {
-        String innerType = "annotation-declaration";
+        CodeElementType innerType = CodeElementType.ANNOTATION_DECLARATION;
         CodeElementModel codeElementModel = new CodeElementModel(node.getNameAsString(), innerType, node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
@@ -68,14 +70,14 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(MethodDeclaration node, Object obj) {
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), "method", node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), CodeElementType.METHOD, node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }
 
     @Override
     public void visit(ConstructorDeclaration node, Object obj) {
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), "constructor", node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), CodeElementType.CONSTRUCTOR, node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }
@@ -83,7 +85,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     @Override
     public void visit(FieldDeclaration node, Object obj) {
         String fieldName = node.getVariables().getFirst().get().getName().toString();
-        CodeElementModel codeElementModel = new CodeElementModel(fieldName, "field", node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementModel codeElementModel = new CodeElementModel(fieldName, CodeElementType.FIELD, node.getTokenRange().get().toRange().get().begin.line);
         codeElementsInfo.put(node, codeElementModel);
 
         super.visit(node, obj);
@@ -97,7 +99,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
         return className;
     }
 
-    public String getType() {
+    public CodeElementType getType() {
         return type;
     }
 
@@ -109,18 +111,18 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     private String getFullClassName(Node node) {
 
         if (node != null) {
-            if(node instanceof CompilationUnit) {
+            if (node instanceof CompilationUnit) {
                 CompilationUnit cu = (CompilationUnit) node;
                 TypeDeclaration<?> typeDeclaration = cu.getPrimaryType().get();
-                if(typeDeclaration.isAnnotationDeclaration()) {
-                    type = "annotation-declaration";
+                if (typeDeclaration.isAnnotationDeclaration()) {
+                    type = CodeElementType.ANNOTATION_DECLARATION;
                 } else if (typeDeclaration.isEnumDeclaration() || typeDeclaration.isEnumConstantDeclaration()) {
-                    type = "enum";
+                    type = CodeElementType.ENUM;
                 } else if (typeDeclaration.isClassOrInterfaceDeclaration()) {
-                    if(typeDeclaration.asClassOrInterfaceDeclaration().isInterface()) {
-                        type = "interface";
+                    if (typeDeclaration.asClassOrInterfaceDeclaration().isInterface()) {
+                        type = CodeElementType.INTERFACE;
                     } else {
-                        type = "class";
+                        type = CodeElementType.CLASS;
                     }
                 }
                 packageName = cu.getPackageDeclaration().get().getNameAsString();

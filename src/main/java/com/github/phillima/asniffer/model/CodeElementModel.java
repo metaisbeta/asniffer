@@ -5,20 +5,20 @@ import java.util.List;
 
 public class CodeElementModel {
 	
-	private String type;
+	private CodeElementType type;
 	private int sourceCodeLine;
 	private String elementName;
 	private int aedValue;
 	
 	private List<AnnotationMetricModel> annotationMetrics = new ArrayList<AnnotationMetricModel>();
 	
-	public CodeElementModel(String elementName, String type, int sourceCodeLine) {
+	public CodeElementModel(String elementName, CodeElementType type, int sourceCodeLine) {
 		this.type = type;
 		this.sourceCodeLine = sourceCodeLine;
 		this.elementName = elementName;
 	}
 	
-	public String getType() {
+	public CodeElementType getType() {
 		return type;
 	}
 	public int getLine() {

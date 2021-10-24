@@ -4,11 +4,9 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
-import com.github.javaparser.ast.expr.Name;
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.phillima.asniffer.annotations.ClassMetric;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -19,8 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-@ClassMetric
 public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
+
 
 	List<String> imports = new ArrayList<>();
 	HashMap<String, String> schemasMapper = new HashMap<>();

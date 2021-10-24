@@ -3,10 +3,7 @@ package com.github.phillima.asniffer.output.json.d3hierarchy;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.phillima.asniffer.model.AnnotationMetricModel;
-import com.github.phillima.asniffer.model.ClassModel;
-import com.github.phillima.asniffer.model.CodeElementModel;
-import com.github.phillima.asniffer.model.PackageModel;
+import com.github.phillima.asniffer.model.*;
 
 public class FetchClassViewIMP implements IFetchChildren {
 
@@ -61,8 +58,8 @@ public class FetchClassViewIMP implements IFetchChildren {
 		
 		for (AnnotationMetricModel annotation : codeElementReport.getAnnotationMetrics()) {
 			Children children = new Children
-					(annotation.getName(), 
-					 "annotation", 
+					(annotation.getName(),
+							CodeElementType.ANNOTATION,
 					 null);
 			children.addProperty("schema", annotation.getSchema());
 			children.addProperty("aa", annotation.getAnnotationMetrics().get("AA").toString());

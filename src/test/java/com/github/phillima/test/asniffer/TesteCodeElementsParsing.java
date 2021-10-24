@@ -1,10 +1,10 @@
 package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AM;
-import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.PackageModel;
+import com.github.phillima.asniffer.model.CodeElementType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -35,13 +35,13 @@ private static AMReport report;
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.InnerClassTest");
 		
 		assertEquals(6, clazz.getElementsReport().size());
-		assertNotNull(clazz.getElementReport("InnerClass1", "class"));
-		assertNotNull(clazz.getElementReport("InnerClass2", "class"));
-		assertNotNull(clazz.getElementReport("InnerClassTest", "class"));
-		assertNotNull(clazz.getElementReport("Enum1", "enum"));
-		assertNotNull(clazz.getElementReport("Enum2", "enum"));
-		assertNotNull(clazz.getElementReport("InnerClassTest", "constructor"));
-		
+		assertNotNull(clazz.getElementReport("InnerClass1", CodeElementType.CLASS));
+		assertNotNull(clazz.getElementReport("InnerClass2", CodeElementType.CLASS));
+		assertNotNull(clazz.getElementReport("InnerClassTest", CodeElementType.CLASS));
+		assertNotNull(clazz.getElementReport("Enum1", CodeElementType.ENUM));
+		assertNotNull(clazz.getElementReport("Enum2", CodeElementType.ENUM));
+		assertNotNull(clazz.getElementReport("InnerClassTest", CodeElementType.CONSTRUCTOR));
+
 	}
 	
 	
@@ -56,12 +56,9 @@ private static AMReport report;
 		//get the EnumTest
 		
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.EnumTest");
-		assertEquals("enum", clazz.getType());
+		assertEquals(CodeElementType.ENUM, clazz.getType());
 		assertEquals(1, clazz.getElementsReport().size());
-		
-		
+
 	}
-	
-	
 
 }

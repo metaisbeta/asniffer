@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.phillima.asniffer.model.ClassModel;
+import com.github.phillima.asniffer.model.CodeElementType;
 import com.github.phillima.asniffer.model.PackageModel;
 import org.apache.commons.collections4.map.HashedMap;
 
@@ -27,7 +28,7 @@ public class FetchSystemViewIMP implements IFetchChildren {
 		}
 		schemaMap.forEach((k,v) -> {
 			Children annotaSV = 
-					new Children(k,"schema",v);
+					new Children(k, CodeElementType.SCHEMA,v);
 			annotationSV.add(annotaSV);
 		});
 		return annotationSV;

@@ -11,7 +11,7 @@ public class ClassModel {
 	
 	private String sourceFilePath;
 	private String className;
-	private String type;
+	private CodeElementType type;
 	
 	private HashMap<String,String> annotSchemasMap;//simple name + code line, fully qualified name 
 	
@@ -19,7 +19,7 @@ public class ClassModel {
 	
 	private List<CodeElementModel> elementsReport;
 	
-	public ClassModel(String sourceFilePath, String className, String type, int loc, int nec) {
+	public ClassModel(String sourceFilePath, String className, CodeElementType type, int loc, int nec) {
 		super();
 		this.sourceFilePath = sourceFilePath;
 		this.className = className;
@@ -46,20 +46,20 @@ public class ClassModel {
 	}
 	
 	public CodeElementModel getElementReport(String elementName) {
-		for (CodeElementModel codeElement : elementsReport) {
-			if(codeElement.getElementName().equals(elementName))
-				return codeElement;
-		}
-		return null;
+
+		return elementsReport.stream()
+				.filter(e -> e.getElementName().equals(elementName))
+				.findFirst()
+				.get();
 	}
 	
-	public CodeElementModel getElementReport(String elementName, String elementType) {
-		for (CodeElementModel codeElement : elementsReport) {
-			if(codeElement.getElementName().equals(elementName) && 
-			   codeElement.getType().equals(elementType))
-				return codeElement;
-		}
-		return null;
+	public CodeElementModel getElementReport(String elementName, CodeElementType elementType) {
+
+		return elementsReport.stream()
+				.filter(e -> e.getElementName().equals(elementName))
+				.filter(e -> e.getType().equals(elementType))
+				.findFirst()
+				.get();
 	}
 
 	public void addElementReport(CodeElementModel elementReport) {
@@ -92,10 +92,10 @@ public class ClassModel {
 	public void setSourceFilePath(String sourceFilePath) {
 		this.sourceFilePath = sourceFilePath;
 	}
-	public String getType() {
+	public CodeElementType getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(CodeElementType type) {
 		this.type = type;
 	}
 	public List<CodeElementModel> getElementsReport(){

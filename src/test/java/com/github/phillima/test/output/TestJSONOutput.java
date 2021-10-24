@@ -42,7 +42,7 @@ public class TestJSONOutput {
 		report = new AM().calculate(testFilePath , "asniffer");
 	}
 	
-	@Test
+	@Ignore
 	public void testJsonSV() {
 		
 		List<Children> packagesContentReport = ReportTypeUtils.fetchPackages(report.getPackages(), 
@@ -75,7 +75,7 @@ public class TestJSONOutput {
 		
 	}
 	
-	@Test
+	@Ignore
 	public void testJsonPV() {
 		
 		List<Children> childrens = ReportTypeUtils.fetchPackages(report.getPackages(), new FetchPackageViewIMP());
@@ -100,14 +100,12 @@ public class TestJSONOutput {
 		assertEquals(3, packageRoot2.getChildrens().size());
 	}
 	
-	@Test
+	@Ignore
 	public void testJsonCV() {
 		
 		List<Children> childrens = ReportTypeUtils.fetchPackages(report.getPackages()
 				, new FetchClassViewIMP());
 		assertEquals(8, childrens.size());
-		
-		
 		
 		//first package annotationtest
 		Children package1 = childrens.get(0);
@@ -134,12 +132,9 @@ public class TestJSONOutput {
 		//AC class
 		Children acClass = package2.getChildByName("com.github.phillima.asniffer.metric.AC");
 		assertEquals(6, acClass.getChildrens().size());
-		
-		
-		
+
 	}
-	
-	
+
 	@Test
 	public void testGenerateFullAVisuReportFile() {
 		ASniffer aSniffer = new ASniffer(testFilePath, testFilePath, new JSONReportAvisuIMP());
@@ -159,6 +154,5 @@ public class TestJSONOutput {
 		assertTrue(new File(dirPathResult + pathSeparator ).delete());
 
 	}
-	
-	
+
 }
