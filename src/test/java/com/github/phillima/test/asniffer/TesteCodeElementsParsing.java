@@ -1,13 +1,12 @@
 package com.github.phillima.test.asniffer;
 
-import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AmFactory;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
-import com.github.phillima.asniffer.model.PackageModel;
 import com.github.phillima.asniffer.model.CodeElementType;
+import com.github.phillima.asniffer.model.PackageModel;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,7 +17,7 @@ private static AMReport report;
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report = new AM().calculate(testFilePath, "project");
+		report = new AmFactory(testFilePath, "project").createAm().calculate();
 	}
 	
 	

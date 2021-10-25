@@ -20,29 +20,25 @@ public class Main {
 	//Called as an executable jar                                                 	                                          
 	public static void main(String[] args) throws FileNotFoundException {
 		LocalTime start = LocalTime.now();
-		if(args==null || args.length < 2) {
-			System.out.println("To use ASniffer please run the "
-					+ "command as following, providing four parameters:");
-			System.out.println("java -jar asniffer.jar ");
-			System.out.println("-p <path to project> (A complete path to where your project(s) is located)");
-			System.out.println("-r <path to report> (Path where you would like to store your report. "
-					+ "If no path is provided, ASniffer will place the report in your project folder.");
-			System.out.println("-m <single/multi> (you have to specify single or multi. Single is the default value. Multi specifies that the directory contains multiple projects");
-			System.out.println("-t <report type> (the report type can be xml or json. If no value is specified, a json file will be generated");
-			System.exit(1);
-		}
-		
+
+		ifInvalidArgsPrintHowToUseAndExit(args);
+
 		//Read the parameters
 		Parameters param = new ParamMapper().map(args, Parameters.class);
 		
-		run(param.getProjectPath(), param.getReportPath(), 
-				param.isAMultiProject(), ReportTypeUtils.getReportInstance(param.getReportType()));
+		run(
+				param.getProjectPath(),
+				param.getReportPath(),
+				param.isAMultiProject(),
+				ReportTypeUtils.getReportInstance(param.getReportType())
+		);
 		
 		LocalTime finish = LocalTime.now();
 		LocalTime diff = finish.minusNanos(start.toNanoOfDay());
+
 		System.out.println("Execution time: " + diff);			
 	}
-	
+
 	public static void run(String projectPath, String reportPath, boolean multiProject,
 			IReport reportType) throws FileNotFoundException {
 				
@@ -64,6 +60,21 @@ public class Main {
 
 	public static void run(String projectPath) throws FileNotFoundException {
 		run(projectPath,projectPath);
+	}
+
+
+	private static void ifInvalidArgsPrintHowToUseAndExit(String[] args) {
+		if(args ==null || args.length < 2) {
+			System.out.println("To use ASniffer please run the "
+					+ "command as following, providing four parameters:");
+			System.out.println("java -jar asniffer.jar ");
+			System.out.println("-p <path to project> (A complete path to where your project(s) is located)");
+			System.out.println("-r <path to report> (Path where you would like to store your report. "
+					+ "If no path is provided, ASniffer will place the report in your project folder.");
+			System.out.println("-m <single/multi> (you have to specify single or multi. Single is the default value. Multi specifies that the directory contains multiple projects");
+			System.out.println("-t <report type> (the report type can be xml or json. If no value is specified, a json file will be generated");
+			System.exit(1);
+		}
 	}
 	
 	

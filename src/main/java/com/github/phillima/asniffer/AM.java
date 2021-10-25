@@ -1,6 +1,7 @@
 package com.github.phillima.asniffer;
 
-import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.*;
+import com.github.javaparser.ast.*;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector;
@@ -17,64 +18,44 @@ import com.github.phillima.asniffer.utils.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.charset.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class AM {
 
-    public AMReport calculate(String path, String projectName) {
-        String[] srcDirs = FileUtils.getAllDirs(path);
-        String[] javaFiles = FileUtils.getAllJavaFiles(path);
+    private MetricsExecutor storage;
+    private Stream<Stream<String>> partitions;
 
-        MetricsExecutor storage = new MetricsExecutor(() -> includeClassMetrics(),
-                includeAnnotationMetrics(),
-                includeCodeElementMetrics(), projectName);
+    public AM(MetricsExecutor storage, Stream<Stream<String>> partitions) {
+        this.storage = storage;
+        this.partitions = partitions;
+        StaticJavaParser.setConfiguration(StaticJavaParser.getConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17_PREVIEW));
+    }
 
-        storage.accept(Arrays.stream(javaFiles)
-                .map(pathName -> new File(pathName))
-                .filter(File::isFile)
-                .map(file -> {
-                    try {
-                        return StaticJavaParser.parse(file);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }).filter(Objects::nonNull)
-                .collect(Collectors.toList()));
+    public AMReport calculate() {
+        partitions.forEach(stream ->
+                storage.accept(stream
+                        .map(File::new)
+                        .filter(File::isFile)
+                        .map(file -> parseFile(file))
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList())
+                )
+        );
         return storage.getReport();
     }
 
-    private List<IClassMetricCollector> includeClassMetrics() {
-
-        List<IClassMetricCollector> metrics = new ArrayList<>();
-        metrics.add(new AC());
-        metrics.add(new UAC());
-        metrics.add(new ASC());
-        metrics.add(new NAEC());
-
-        return metrics;
+    private CompilationUnit parseFile(File file) {
+        try {
+            return StaticJavaParser.parse(file);
+        } catch (FileNotFoundException e) {
+            return null;
+        }
     }
 
-    private List<IAnnotationMetricCollector> includeAnnotationMetrics() {
-
-        List<IAnnotationMetricCollector> metrics = new ArrayList<>();
-        metrics.add(new AA());
-        metrics.add(new ANL());
-        metrics.add(new LOCAD());
-
-        return metrics;
-    }
-
-    private List<ICodeElementMetricCollector> includeCodeElementMetrics() {
-
-        List<ICodeElementMetricCollector> metrics = new ArrayList<>();
-        metrics.add(new AED());
-
-        return metrics;
-    }
 
 }

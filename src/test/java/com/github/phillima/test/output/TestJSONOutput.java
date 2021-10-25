@@ -1,5 +1,6 @@
 package com.github.phillima.test.output;
 
+import com.github.phillima.asniffer.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -17,9 +18,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 
-
-import com.github.phillima.asniffer.AM;
-import com.github.phillima.asniffer.ASniffer;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
 import com.github.phillima.asniffer.output.json.d3hierarchy.FetchClassViewIMP;
@@ -39,7 +37,7 @@ public class TestJSONOutput {
 	public static void setUp() {
 		//Collecting ASniffer
 		testFilePath = System.getProperty("user.dir");
-		report = new AM().calculate(testFilePath , "asniffer");
+		report = new AmFactory(testFilePath , "asniffer").createAm().calculate();
 	}
 	
 	@Ignore
