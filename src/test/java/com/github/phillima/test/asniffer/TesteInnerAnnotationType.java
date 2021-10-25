@@ -1,6 +1,6 @@
 package com.github.phillima.test.asniffer;
 
-import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.*;
 import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -20,7 +20,7 @@ public class TesteInnerAnnotationType {
     public static void setUp() {
         String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
-        report = new AM().calculate(testFilePath, "project");
+        report = new AmFactory(testFilePath, "project").createAm().calculate();
         classModel = report.getPackages()
                 .stream()
                 .filter(pk -> pk.getPackageName().equals("annotationtest"))
@@ -28,7 +28,7 @@ public class TesteInnerAnnotationType {
                 .get()
                 .getClassModel("annotationtest.InnerAnnotationTypeTest");
 
-   }
+    }
 
     @Test
     public void testAC() {
@@ -55,31 +55,28 @@ public class TesteInnerAnnotationType {
     }
 
     @Test
-    public void testASC(){
+    public void testASC() {
         int asc = classModel.getClassMetric("ASC");
-        Assert.assertEquals(3,asc);
+        Assert.assertEquals(3, asc);
     }
 
     @Test
-    public void testGetSchemaInnerAnnotation(){
+    public void testGetSchemaInnerAnnotation() {
         String schema = classModel.getAnnotationSchema("Foo-22");
-        Assert.assertEquals("annotationtest",schema);
+        Assert.assertEquals("annotationtest", schema);
     }
 
     @Test
-    public void testType(){
+    public void testType() {
         String compilationUnitType = classModel.getType();
-        Assert.assertEquals("class",compilationUnitType);
+        Assert.assertEquals("class", compilationUnitType);
     }
 
     @Test
-    public void testInnerAnnotationType(){
+    public void testInnerAnnotationType() {
         String innerAnnotation = classModel.getElementReport("Foo").getType();
-        Assert.assertEquals("annotation-declaration",innerAnnotation);
+        Assert.assertEquals("annotation-declaration", innerAnnotation);
     }
-
-
-
 
 
 }

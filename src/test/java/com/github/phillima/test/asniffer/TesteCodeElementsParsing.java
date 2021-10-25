@@ -1,6 +1,6 @@
 package com.github.phillima.test.asniffer;
 
-import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.*;
 import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -18,7 +18,7 @@ private static AMReport report;
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report = new AM().calculate(testFilePath, "project");
+		report = new AmFactory(testFilePath, "project").createAm().calculate();
 	}
 	
 	
