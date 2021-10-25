@@ -24,11 +24,6 @@ public class AmFactory {
 
     private String projectName;
 
-    private static final org.apache.logging.log4j.Logger logger =
-            LogManager.getLogger(AmFactory.class);
-
-
-
     public AmFactory(String path, String projectName) {
         this.path = path;
         this.projectName = projectName;
@@ -56,12 +51,9 @@ public class AmFactory {
     }
 
     private Stream<Stream<String>> generateStream(List<List<String>> javaFiles, int files, int partitions) {
-
         if (files >= MIN_NUMBER_FILES_TO_PARALLEL * partitions && numberOfProcessors > 1) {
-            logger.info("The number of file is {}, the number of partitions is {} and the running process is parallel", files, partitions);
             return javaFiles.stream().map(it -> it.stream().parallel());
         }
-        logger.info("The number of file is {}, the number of partitions is {}", files, partitions);
         return javaFiles.stream().map(Collection::stream);
     }
 

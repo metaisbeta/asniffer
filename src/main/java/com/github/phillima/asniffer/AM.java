@@ -33,7 +33,6 @@ public class AM {
     public AM(MetricsExecutor storage, Stream<Stream<String>> partitions) {
         this.storage = storage;
         this.partitions = partitions;
-        StaticJavaParser.setConfiguration(StaticJavaParser.getConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17_PREVIEW));
     }
 
     public AMReport calculate() {

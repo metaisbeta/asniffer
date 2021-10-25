@@ -161,7 +161,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
                     .map(range -> range.begin.line)
                     .orElse(-1);
         }
-        throw new RuntimeException("Exist a node with range");
+        throw new RuntimeException("Exists a node without a range");
 
     }
 }
