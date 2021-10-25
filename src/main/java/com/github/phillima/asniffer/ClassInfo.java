@@ -12,11 +12,9 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.model.CodeElementModel;
-import org.apache.logging.log4j.LogManager;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.*;
 
 public class ClassInfo extends VoidVisitorAdapter<Object> {
 
