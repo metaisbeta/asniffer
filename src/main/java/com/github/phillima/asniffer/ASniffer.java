@@ -1,5 +1,6 @@
 package com.github.phillima.asniffer;
 
+import com.github.javaparser.*;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.parameters.Parameters;
@@ -48,6 +49,11 @@ public class ASniffer {
     }
 
     private AMReport collect(Path projectPath) {
+
+        StaticJavaParser.setConfiguration(
+                StaticJavaParser.getConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17_PREVIEW)
+        );
+
         String projectName = FileUtils.getProjectName(projectPath);
         logger.info("Initializing extraction for project " + projectName);
         AMReport report = new AmFactory(projectPath.toString(), projectName).createAm().calculate();

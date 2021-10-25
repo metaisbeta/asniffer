@@ -20,9 +20,6 @@ import java.util.logging.*;
 
 public class ClassInfo extends VoidVisitorAdapter<Object> {
 
-    private static final org.apache.logging.log4j.Logger logger =
-            LogManager.getLogger(ClassInfo.class);
-
     private CompilationUnit cu;
     private String className = null;
     private String type;

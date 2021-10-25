@@ -10,8 +10,6 @@ public class AMReport {
 
     private List<PackageModel> packages;
 
-    private boolean sorted = false;
-
     public AMReport(String projectName) {
         this.projectName = projectName;
         this.packages = new ArrayList<>();
@@ -26,7 +24,6 @@ public class AMReport {
     }
 
     public void addPackageModel(PackageModel packageModel) {
-        sorted = false;
         int index = this.packages.indexOf(packageModel);
         if (index >= 0)
             this.packages.set(index, packageModel);
@@ -35,9 +32,6 @@ public class AMReport {
     }
 
     public List<PackageModel> getPackages() {
-        if (!sorted) {
-            packages = packages.stream().sorted(Comparator.comparing(PackageModel::getPackageName)).collect(Collectors.toList());
-        }
         return packages;
     }
 
