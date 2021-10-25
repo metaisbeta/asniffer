@@ -127,7 +127,8 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
                     .ifPresent(
                             typeDeclaration -> {
                                 defineTypeInClassInfo(typeDeclaration);
-                                packageName = cu.getPackageDeclaration().get().getNameAsString();
+                                cu.getPackageDeclaration().ifPresent(packageDeclaration ->
+                                        packageName = packageDeclaration.getNameAsString());
                                 className = generateClassName();
                             }
                     );
