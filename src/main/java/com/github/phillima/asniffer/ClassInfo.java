@@ -19,7 +19,6 @@ import com.github.phillima.asniffer.model.CodeElementType;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.*;
 
 
 public class ClassInfo extends VoidVisitorAdapter<Object> {
@@ -123,15 +122,14 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     private String getFullClassName(Node node) {
 
         if (node instanceof CompilationUnit) {
-            ((CompilationUnit) node).getPrimaryType()
-                    .ifPresent(
-                            typeDeclaration -> {
-                                defineTypeInClassInfo(typeDeclaration);
-                                cu.getPackageDeclaration().ifPresent(packageDeclaration ->
-                                        packageName = packageDeclaration.getNameAsString());
-                                className = generateClassName();
-                            }
-                    );
+            ((CompilationUnit) node).getPrimaryType().ifPresent(
+                    typeDeclaration -> {
+                        defineTypeInClassInfo(typeDeclaration);
+                        cu.getPackageDeclaration().ifPresent(packageDeclaration ->
+                                packageName = packageDeclaration.getNameAsString());
+                        className = generateClassName();
+                    }
+            );
         }
         return null;
     }
