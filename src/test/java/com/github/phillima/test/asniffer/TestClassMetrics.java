@@ -1,7 +1,7 @@
 package com.github.phillima.test.asniffer;
 
 
-import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.*;
 import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -21,7 +21,7 @@ public class TestClassMetrics {
 	public static void setUp() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
-		report = new AM().calculate(testFilePath, "project");
+		report = new AmFactory(testFilePath, "project").createAm().calculate();
 		classModel = report.getPackages()
 				.stream()
 				.filter(pk -> pk.getPackageName().equals("annotationtest"))

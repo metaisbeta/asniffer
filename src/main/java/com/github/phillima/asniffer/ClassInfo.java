@@ -12,11 +12,16 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.model.CodeElementModel;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.*;
 
 public class ClassInfo extends VoidVisitorAdapter<Object> {
+
+    private static final org.apache.logging.log4j.Logger logger =
+            LogManager.getLogger(ClassInfo.class);
 
     private CompilationUnit cu;
     private String className = null;
@@ -26,7 +31,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     public ClassInfo(CompilationUnit cu) {
         this.cu = cu;
-            this.codeElementsInfo = new ConcurrentHashMap<>();
+        this.codeElementsInfo = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -108,25 +113,34 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     //Inner methods
     private String getFullClassName(Node node) {
 
-        if (node != null) {
-            if(node instanceof CompilationUnit) {
-                CompilationUnit cu = (CompilationUnit) node;
-                TypeDeclaration<?> typeDeclaration = cu.getPrimaryType().get();
-                if(typeDeclaration.isAnnotationDeclaration()) {
-                    type = "annotation-declaration";
-                } else if (typeDeclaration.isEnumDeclaration() || typeDeclaration.isEnumConstantDeclaration()) {
-                    type = "enum";
-                } else if (typeDeclaration.isClassOrInterfaceDeclaration()) {
-                    if(typeDeclaration.asClassOrInterfaceDeclaration().isInterface()) {
-                        type = "interface";
-                    } else {
-                        type = "class";
-                    }
-                }
-                packageName = cu.getPackageDeclaration().get().getNameAsString();
-                className = cu.getPackageDeclaration().get().getName() + "." + cu.getPrimaryTypeName().get();
-            }
+        if (node instanceof CompilationUnit) {
+            ((CompilationUnit) node).getPrimaryType()
+                    .ifPresent(
+                            typeDeclaration -> {
+                                defineTypeInClassInfo(typeDeclaration);
+                                packageName = cu.getPackageDeclaration().get().getNameAsString();
+                                className = generateClassName();
+                            }
+                    );
         }
         return null;
+    }
+
+    private String generateClassName() {
+        return cu.getPackageDeclaration().get().getName() + "." + cu.getPrimaryTypeName().get();
+    }
+
+    private void defineTypeInClassInfo(TypeDeclaration<?> typeDeclaration) {
+        if (typeDeclaration.isAnnotationDeclaration()) {
+            type = "annotation-declaration";
+        } else if (typeDeclaration.isEnumDeclaration() || typeDeclaration.isEnumConstantDeclaration()) {
+            type = "enum";
+        } else if (typeDeclaration.isClassOrInterfaceDeclaration()) {
+            if (typeDeclaration.asClassOrInterfaceDeclaration().isInterface()) {
+                type = "interface";
+            } else {
+                type = "class";
+            }
+        }
     }
 }
