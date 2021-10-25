@@ -1,15 +1,24 @@
 package com.github.phillima.asniffer;
 
-import com.github.javaparser.*;
-import com.github.phillima.asniffer.interfaces.*;
-import com.github.phillima.asniffer.metric.*;
-import com.github.phillima.asniffer.utils.*;
-import com.google.common.collect.*;
-import org.apache.logging.log4j.*;
 
-import java.nio.charset.*;
-import java.util.*;
-import java.util.stream.*;
+import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
+import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
+import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector;
+import com.github.phillima.asniffer.metric.AA;
+import com.github.phillima.asniffer.metric.AC;
+import com.github.phillima.asniffer.metric.AED;
+import com.github.phillima.asniffer.metric.ANL;
+import com.github.phillima.asniffer.metric.ASC;
+import com.github.phillima.asniffer.metric.LOCAD;
+import com.github.phillima.asniffer.metric.NAEC;
+import com.github.phillima.asniffer.metric.UAC;
+import com.github.phillima.asniffer.utils.FileUtils;
+import com.google.common.collect.Lists;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class AmFactory {
 

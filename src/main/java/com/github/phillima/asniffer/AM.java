@@ -1,29 +1,16 @@
 package com.github.phillima.asniffer;
 
-import com.github.javaparser.*;
-import com.github.javaparser.ast.*;
-import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
-import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
-import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector;
-import com.github.phillima.asniffer.metric.AA;
-import com.github.phillima.asniffer.metric.AC;
-import com.github.phillima.asniffer.metric.AED;
-import com.github.phillima.asniffer.metric.ANL;
-import com.github.phillima.asniffer.metric.ASC;
-import com.github.phillima.asniffer.metric.LOCAD;
-import com.github.phillima.asniffer.metric.NAEC;
-import com.github.phillima.asniffer.metric.UAC;
+
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.CompilationUnit;
 import com.github.phillima.asniffer.model.AMReport;
-import com.github.phillima.asniffer.utils.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.charset.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 public class AM {
 
