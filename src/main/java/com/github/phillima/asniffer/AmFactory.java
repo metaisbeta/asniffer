@@ -23,22 +23,14 @@ import java.util.stream.Stream;
 public class AmFactory {
 
     // it's necessary investigate the optimal number of files to change the strategy to parallel
-    private int MIN_NUMBER_FILES_TO_PARALLEL = 5_000;
+    private final static int MIN_NUMBER_FILES_TO_PARALLEL = 5_000;
 
-    private int MIN_NUMBER_TO_PARTITIONS = 10_000;
+    private final static int MIN_NUMBER_TO_PARTITIONS = 10_000;
 
-    private int numberOfProcessors = Runtime.getRuntime().availableProcessors();
-
-    private String path;
-
-    private String projectName;
-
-    public AmFactory(String path, String projectName) {
-        this.path = path;
-        this.projectName = projectName;
+    private AmFactory() {
     }
 
-    public AM createAm() {
+    public final static AM createAm(String path, String projectName) {
         String[] javaFiles = FileUtils.getAllJavaFiles(path);
 
         MetricsExecutor storage = new MetricsExecutor(() ->
@@ -53,20 +45,21 @@ public class AmFactory {
 
     }
 
-    private Stream<Stream<String>> generatePartitionsStream(String[] javaFiles) {
+    private static Stream<Stream<String>> generatePartitionsStream(String[] javaFiles) {
         int numberPartitions = (javaFiles.length / MIN_NUMBER_TO_PARTITIONS) + 1;
         var partitions = Lists.partition(List.of(javaFiles), numberPartitions);
         return generateStream(partitions, javaFiles.length, numberPartitions);
     }
 
-    private Stream<Stream<String>> generateStream(List<List<String>> javaFiles, int files, int partitions) {
-        if (files >= MIN_NUMBER_FILES_TO_PARALLEL * partitions && numberOfProcessors > 1) {
+    private static Stream<Stream<String>> generateStream(List<List<String>> javaFiles, int files, int partitions) {
+        var availableProcessors = Runtime.getRuntime().availableProcessors();
+        if (files >= MIN_NUMBER_FILES_TO_PARALLEL * partitions && availableProcessors > 1) {
             return javaFiles.stream().map(it -> it.stream().parallel());
         }
         return javaFiles.stream().map(Collection::stream);
     }
 
-    private List<IClassMetricCollector> includeClassMetrics() {
+    private static List<IClassMetricCollector> includeClassMetrics() {
 
         List<IClassMetricCollector> metrics = new ArrayList<>();
         metrics.add(new AC());
@@ -77,7 +70,7 @@ public class AmFactory {
         return metrics;
     }
 
-    private List<IAnnotationMetricCollector> includeAnnotationMetrics() {
+    private static List<IAnnotationMetricCollector> includeAnnotationMetrics() {
 
         List<IAnnotationMetricCollector> metrics = new ArrayList<>();
         metrics.add(new AA());
@@ -87,7 +80,7 @@ public class AmFactory {
         return metrics;
     }
 
-    private List<ICodeElementMetricCollector> includeCodeElementMetrics() {
+    private static List<ICodeElementMetricCollector> includeCodeElementMetrics() {
 
         List<ICodeElementMetricCollector> metrics = new ArrayList<>();
         metrics.add(new AED());

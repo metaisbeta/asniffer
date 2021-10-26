@@ -56,7 +56,7 @@ public class ASniffer {
 
         String projectName = FileUtils.getProjectName(projectPath);
         logger.info("Initializing extraction for project " + projectName);
-        AMReport report = new AmFactory(projectPath.toString(), projectName).createAm().calculate();
+        AMReport report = AmFactory.createAm(projectPath.toString(), projectName).calculate();
         logger.info("Extraction concluded for project " + projectName);
 
         generateOutput(report);

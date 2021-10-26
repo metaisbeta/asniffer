@@ -23,7 +23,7 @@ public class TestCodeElementMetric {
 	@BeforeClass
 	public static void setUpAll() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
-		report = new AmFactory(testFilePath, "project").createAm().calculate();
+		report = AmFactory.createAm(testFilePath, "project").calculate();
 	}
 
 	@Before

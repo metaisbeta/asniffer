@@ -20,7 +20,7 @@ public class TesteInnerAnnotationType {
     public static void setUp() {
         String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
-        AMReport report = new AmFactory(testFilePath, "project").createAm().calculate();
+        AMReport report = AmFactory.createAm(testFilePath, "project").calculate();
         classModel = report.getPackages()
                 .stream()
                 .filter(pk -> pk.getPackageName().equals("annotationtest"))

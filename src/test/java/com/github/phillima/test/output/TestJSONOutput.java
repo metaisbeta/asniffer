@@ -37,7 +37,7 @@ public class TestJSONOutput {
 	public static void setUp() {
 		//Collecting ASniffer
 		testFilePath = System.getProperty("user.dir");
-		report = new AmFactory(testFilePath , "asniffer").createAm().calculate();
+		report = AmFactory.createAm(testFilePath, "project").calculate();
 	}
 	
 	@Ignore

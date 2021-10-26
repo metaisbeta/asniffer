@@ -21,7 +21,7 @@ public class TestClassMetrics {
 	public static void setUp() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
-		report = new AmFactory(testFilePath, "project").createAm().calculate();
+		report = AmFactory.createAm(testFilePath, "project").calculate();
 		classModel = report.getPackages()
 				.stream()
 				.filter(pk -> pk.getPackageName().equals("annotationtest"))
