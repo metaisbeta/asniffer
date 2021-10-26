@@ -28,6 +28,7 @@ public class AM {
 			MAX_AT_ONCE = Integer.parseInt(jdtMax);
 		} else {
 			long maxMemory= Runtime.getRuntime().maxMemory() / (1 << 20); // in MiB
+            
 			
 			if      (maxMemory >= 2000) MAX_AT_ONCE= 400;
 			else if (maxMemory >= 1500) MAX_AT_ONCE= 300;
