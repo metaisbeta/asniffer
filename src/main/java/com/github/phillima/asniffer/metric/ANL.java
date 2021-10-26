@@ -1,35 +1,38 @@
 package com.github.phillima.asniffer.metric;
 
 
-import com.github.phillima.asniffer.annotations.AnnotationMetric;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.model.AnnotationMetricModel;
-import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.Annotation;
-import org.eclipse.jdt.core.dom.CompilationUnit;
 
-@AnnotationMetric
+import java.util.Optional;
+
+
 public class ANL implements IAnnotationMetricCollector {
 	
 	@Override
-	public void execute(CompilationUnit cu, AnnotationMetricModel annotationMetricModel, Annotation annotation) {
+	public void execute(CompilationUnit cu, AnnotationMetricModel annotationMetricModel, AnnotationExpr annotation) {
 
 		int anl = getNestingLevel(annotation);
 		annotationMetricModel.addAnnotationMetric("ANL", anl);
 		
 	}
 	
-	private int getNestingLevel(Annotation annotation) {
-		ASTNode parentNode;
+	private int getNestingLevel(AnnotationExpr annotation) {
+		Optional<Node> parentNodeOp;
 		int anlCount = 0;
-		parentNode = annotation.getParent();
-		while(parentNode.getNodeType() != ASTNode.COMPILATION_UNIT) {
-			if(parentNode.getNodeType() == ASTNode.MARKER_ANNOTATION ||
-					parentNode.getNodeType() == ASTNode.NORMAL_ANNOTATION ||
-					parentNode.getNodeType() == ASTNode.SINGLE_MEMBER_ANNOTATION)
+		parentNodeOp = annotation.getParentNode();
+
+		while(parentNodeOp.isPresent() && !(parentNodeOp.get() instanceof CompilationUnit)) {
+			Node parentNode = parentNodeOp.get();
+			if(parentNode instanceof AnnotationExpr)
 				anlCount++;
-			parentNode = parentNode.getParent();		
+			parentNodeOp = parentNode.getParentNode();
 		}
+
+
 		return anlCount;
 	}
 

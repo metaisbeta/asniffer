@@ -1,14 +1,15 @@
 package com.github.phillima.test.asniffer;
 
-import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.PackageModel;
+import com.github.phillima.asniffer.model.CodeElementType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class TesteCodeElementsParsing {
 
@@ -33,12 +34,14 @@ private static AMReport report;
 		
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.InnerClassTest");
 		
-		assertEquals(5, clazz.getElementsReport().size());
-		assertEquals("class", clazz.getElementReport("InnerClass1").getType());
-		assertEquals("class", clazz.getElementReport("InnerClass2").getType());
-		assertEquals("enum", clazz.getElementReport("Enum1").getType());
-		assertEquals("enum", clazz.getElementReport("Enum2").getType());
-		
+		assertEquals(6, clazz.getElementsReport().size());
+		assertNotNull(clazz.getElementReport("InnerClass1", CodeElementType.CLASS));
+		assertNotNull(clazz.getElementReport("InnerClass2", CodeElementType.CLASS));
+		assertNotNull(clazz.getElementReport("InnerClassTest", CodeElementType.CLASS));
+		assertNotNull(clazz.getElementReport("Enum1", CodeElementType.ENUM));
+		assertNotNull(clazz.getElementReport("Enum2", CodeElementType.ENUM));
+		assertNotNull(clazz.getElementReport("InnerClassTest", CodeElementType.CONSTRUCTOR));
+
 	}
 	
 	
@@ -53,12 +56,9 @@ private static AMReport report;
 		//get the EnumTest
 		
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.EnumTest");
-		assertEquals("enum", clazz.getType());
+		assertEquals(CodeElementType.ENUM, clazz.getType());
 		assertEquals(1, clazz.getElementsReport().size());
-		
-		
+
 	}
-	
-	
 
 }

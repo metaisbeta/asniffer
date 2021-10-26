@@ -1,42 +1,41 @@
 package com.github.phillima.asniffer.metric;
 
-import com.github.phillima.asniffer.annotations.ClassMetric;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
+import com.github.javaparser.ast.expr.NormalAnnotationExpr;
+import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.MarkerAnnotation;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
-import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-@ClassMetric
-public class AC extends ASTVisitor implements IClassMetricCollector {
+
+public class AC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
+
 
 	private int annotations = 0;
 	
 	@Override
-	public boolean visit(MarkerAnnotation node) {
+	public void visit(MarkerAnnotationExpr node, Object obj) {
 		annotations++;
-		return super.visit(node);
+		super.visit(node, obj);
 	}
 	
 	@Override
-	public boolean visit(NormalAnnotation node) {
+	public void visit(NormalAnnotationExpr node, Object obj) {
 		annotations++;
-		return super.visit(node);
+		super.visit(node, obj);
 	}
 	
 	@Override
-	public boolean visit(SingleMemberAnnotation node) {
+	public void visit(SingleMemberAnnotationExpr node, Object obj) {
 		annotations++;
-		return super.visit(node);
+		super.visit(node, obj);
 	}
 	
 	@Override
 	public void execute(CompilationUnit cu, ClassModel result, AMReport report) {
-		cu.accept(this);
-		
+		this.visit(cu, null);
 	}
 
 	@Override

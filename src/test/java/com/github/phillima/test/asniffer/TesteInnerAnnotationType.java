@@ -1,8 +1,10 @@
 package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
+import com.github.phillima.asniffer.model.CodeElementType;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,7 +13,6 @@ import java.nio.file.Paths;
 
 public class TesteInnerAnnotationType {
 
-    private static AMReport report;
     private static ClassModel classModel;
 
     //Fixture
@@ -19,7 +20,7 @@ public class TesteInnerAnnotationType {
     public static void setUp() {
         String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
-        report = new AM().calculate(testFilePath, "project");
+        AMReport report = new AM().calculate(testFilePath, "project");
         classModel = report.getPackages()
                 .stream()
                 .filter(pk -> pk.getPackageName().equals("annotationtest"))
@@ -67,14 +68,14 @@ public class TesteInnerAnnotationType {
 
     @Test
     public void testType(){
-        String compilationUnitType = classModel.getType();
-        Assert.assertEquals("class",compilationUnitType);
+        CodeElementType compilationUnitType = classModel.getType();
+        Assert.assertEquals(CodeElementType.CLASS,compilationUnitType);
     }
 
     @Test
     public void testInnerAnnotationType(){
-        String innerAnnotation = classModel.getElementReport("Foo").getType();
-        Assert.assertEquals("annotation-declaration",innerAnnotation);
+        CodeElementType innerAnnotation = classModel.getElementReport("Foo").getType();
+        Assert.assertEquals(CodeElementType.ANNOTATION_DECLARATION,innerAnnotation);
     }
 
 

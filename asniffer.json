@@ -1299,8 +1299,8 @@
           ]
         },
         {
-          "sourceFilePath": "/home/phillima/Documentos/code-annotations-proj/asniffer/src/main/java/com/github/phillima/asniffer/AM.java",
-          "className": "com.github.phillima.asniffer.AM",
+          "sourceFilePath": "/home/phillima/Documentos/code-annotations-proj/asniffer/src/main/java/com/github/phillima/asniffer/AMJavaParser.java",
+          "className": "com.github.phillima.asniffer.AMJavaParser",
           "type": "class",
           "annotSchemasMap": {},
           "classMetric": {
@@ -1315,7 +1315,7 @@
             {
               "type": "class",
               "sourceCodeLine": 21,
-              "elementName": "AM",
+              "elementName": "AMJavaParser",
               "aedValue": 0,
               "annotationMetrics": []
             },

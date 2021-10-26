@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import com.github.phillima.asniffer.exceptions.ReportTypeException;
 import com.github.phillima.asniffer.model.AMReport;
+import com.github.phillima.asniffer.model.CodeElementType;
 import com.github.phillima.asniffer.model.PackageModel;
 import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
@@ -65,7 +66,7 @@ public class ReportTypeUtils {
 		String rootPackageName = null;
 		for(PackageModel packageModel : orderedPackModel) {
 			Children packageContent = 
-					new Children(packageModel.getPackageName(), "package", null);
+					new Children(packageModel.getPackageName(), CodeElementType.PACKAGE, null);
 			//Fetch schemas
 			packageContent.addAllChidren(fetchChildren.fetchChildren(packageModel));
 			

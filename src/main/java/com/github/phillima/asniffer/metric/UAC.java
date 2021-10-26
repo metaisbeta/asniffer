@@ -1,52 +1,49 @@
 package com.github.phillima.asniffer.metric;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.github.phillima.asniffer.annotations.ClassMetric;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
+import com.github.javaparser.ast.expr.NormalAnnotationExpr;
+import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.MarkerAnnotation;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
-import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-@ClassMetric
-public class UAC extends ASTVisitor implements IClassMetricCollector {
+import java.util.HashSet;
+import java.util.Set;
 
-	Set<String> uniqueAnnotations = new HashSet<>();
-	
-	@Override
-	public boolean visit(MarkerAnnotation node) {
-		uniqueAnnotations.add(node.getTypeName().getFullyQualifiedName());
-		return super.visit(node);
-	}
-	
-	@Override
-	public boolean visit(NormalAnnotation node) {
-		uniqueAnnotations.add(node.toString());
-		return super.visit(node);
-	}
-	
-	@Override
-	public boolean visit(SingleMemberAnnotation node) {
-		uniqueAnnotations.add(node.toString());
-		return super.visit(node);
-	}
-	
-	
-	@Override
-	public void execute(CompilationUnit cu, ClassModel result, AMReport report) {
-		cu.accept(this);
-		
-	}
 
-	@Override
-	public void setResult(ClassModel result) {
-		result.addClassMetric("UAC", uniqueAnnotations.size());
-		
-	}
+public class UAC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
+    Set<String> uniqueAnnotations = new HashSet<>();
+
+    @Override
+    public void visit(MarkerAnnotationExpr node, Object obj) {
+        uniqueAnnotations.add(node.getNameAsString());
+        super.visit(node, obj);
+    }
+
+    @Override
+    public void visit(NormalAnnotationExpr node, Object obj) {
+        uniqueAnnotations.add(node.getTokenRange().get().toString().replaceAll("(\t|\n)", ""));
+        super.visit(node, obj);
+    }
+
+    @Override
+    public void visit(SingleMemberAnnotationExpr node, Object obj) {
+        uniqueAnnotations.add(node.getTokenRange().get().toString().replaceAll("(\t|\n)", ""));
+        super.visit(node, obj);
+    }
+
+
+    @Override
+    public void execute(CompilationUnit cu, ClassModel result, AMReport report) {
+        this.visit(cu, null);
+    }
+
+    @Override
+    public void setResult(ClassModel result) {
+        result.addClassMetric("UAC", uniqueAnnotations.size());
+
+    }
 }

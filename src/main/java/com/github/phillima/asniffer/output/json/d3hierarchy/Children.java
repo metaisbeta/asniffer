@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.phillima.asniffer.model.CodeElementType;
 import com.google.gson.annotations.SerializedName;
 
 public class Children {
@@ -12,7 +13,7 @@ public class Children {
 	@SerializedName("name")
 	private String name;
 	
-	private String type;
+	private CodeElementType type;
 	
 	private Integer value = null;
 	
@@ -22,7 +23,7 @@ public class Children {
 	@SerializedName("children")
 	private List<Children> childrens;
 	
-	public Children(String name, String type, Integer value) {
+	public Children(String name, CodeElementType type, Integer value) {
 		this.name = name;
 		this.type = type;
 		this.value = value;
@@ -64,7 +65,7 @@ public class Children {
 		return null;
 	}
 	
-	public String getType() {
+	public CodeElementType getType() {
 		return type;
 	}
 }

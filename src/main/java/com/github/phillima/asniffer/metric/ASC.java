@@ -1,22 +1,24 @@
 package com.github.phillima.asniffer.metric;
 
-import java.util.*;
-
-import com.github.phillima.asniffer.annotations.ClassMetric;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.ImportDeclaration;
+import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
+import com.github.javaparser.ast.expr.NormalAnnotationExpr;
+import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.google.common.collect.ImmutableSet;
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.Annotation;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.MarkerAnnotation;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
-import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-@ClassMetric
-public class ASC extends ASTVisitor implements IClassMetricCollector {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
+
 
 	List<String> imports = new ArrayList<>();
 	HashMap<String, String> schemasMapper = new HashMap<>();
@@ -26,29 +28,28 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 	private static Set<String> javaLangPredefined = ImmutableSet.of("Override","Deprecated","SuppressWarnings","SafeVarargs","FunctionalInterface");
 
 	@Override
-	public boolean visit(MarkerAnnotation node) {
+	public void visit(MarkerAnnotationExpr node, Object obj) {
 		findSchema(node);
-		return super.visit(node);
+		super.visit(node, obj);
 	}
 	
 	@Override
-	public boolean visit(NormalAnnotation node) {
+	public void visit(NormalAnnotationExpr node, Object obj) {
 		findSchema(node);
-		return super.visit(node);
+		super.visit(node, obj);
 	}
 	
 	@Override
-	public boolean visit(SingleMemberAnnotation node) {
+	public void visit(SingleMemberAnnotationExpr node, Object obj) {
 		findSchema(node);
-		return super.visit(node);
+		super.visit(node, obj);
 	}
 	
 	@Override
 	public void execute(CompilationUnit cu, ClassModel result, AMReport report) {
 		findImports(cu);
 		this.cu = cu;
-
-		cu.accept(this);
+		this.visit(cu, null);
 	}
 
 	@Override
@@ -58,44 +59,50 @@ public class ASC extends ASTVisitor implements IClassMetricCollector {
 		result.addClassMetric("ASC", result.getAnnotationSchemas().size());
 		
 	}
+
+
 	
-	private void findSchema(Annotation annotation) {
+	private void findSchema(AnnotationExpr annotation) {
+		boolean isInlineQualified = annotation.getName().getQualifier().isPresent();
+		int annotationLineNumber = annotation.getTokenRange().get().toRange().get().begin.line;
+		String annotationName = annotation.getName().getIdentifier();
+		String annotationNameAndLine = annotationName + "-" + annotationLineNumber;
+
+		if (isInlineQualified) {			
+			String schema = annotation.getName().getQualifier().get().asString();
+			schemasMapper.put(annotationNameAndLine, schema);
+			return;
+		}
 		
 		//check if annotations was imported
-		for (String import_ : imports) {
-			String annotationName = annotation.getTypeName().getFullyQualifiedName();
+		for (String import_ : imports) {			
 			String schema = "";
-			if(annotationName.contains(".")){//was not imported during usage. has fully qualified name
-				schema = annotationName.substring(0,annotationName.lastIndexOf("."));
-				schemasMapper.put(annotationName.substring(annotationName.lastIndexOf(".")+1) + "-" +
-						cu.getLineNumber(annotation.getStartPosition()),schema);
-				return;
-			}
-			if(import_.contains(annotation.getTypeName().toString())) {
+
+			if(import_.contains(annotation.getNameAsString())) {				
 				int lastIndex = import_.lastIndexOf(".");
+
 				if(annotationName.equals(import_.substring(lastIndex+1))){//was imported
 					schema = import_.substring(0,lastIndex);
-					schemasMapper.put(annotationName + "-" +
-									cu.getLineNumber(annotation.getStartPosition()),schema);
+					schemasMapper.put(annotationNameAndLine, schema);
 					return;
 				}
 			}
 		}
+
 		String schema = "";
 		//check if it is a java lang annotation
-		if(javaLangPredefined.contains(annotation.getTypeName().getFullyQualifiedName()))
+		if(javaLangPredefined.contains(annotation.getNameAsString()))
 			schema = "java.lang";
 		else //if not, the annotation was declared on the package being used
-			schema = cu.getPackage().getName().toString();
+			schema = cu.getPackageDeclaration().get().getNameAsString();
 
-		schemasMapper.put(annotation.getTypeName() + "-" +
-						cu.getLineNumber(annotation.getStartPosition()),schema);
+		schemasMapper.put(annotationNameAndLine, schema);
 	}
 	
 	private void findImports(CompilationUnit cu) {
-		for (Object import_ : cu.imports()) {
+		for (Object import_ : cu.getImports()) {
 			if(import_ instanceof ImportDeclaration && !((ImportDeclaration) import_).isStatic()) {
-				imports.add(((ImportDeclaration) import_).getName().getFullyQualifiedName());
+				imports.add(((ImportDeclaration) import_).getNameAsString());
 			}
 		}
 	}
