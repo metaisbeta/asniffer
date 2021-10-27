@@ -72,7 +72,7 @@ public class Main {
 			System.out.println("-r <path to report> (Path where you would like to store your report. "
 					+ "If no path is provided, ASniffer will place the report in your project folder.");
 			System.out.println("-m <single/multi> (you have to specify single or multi. Single is the default value. Multi specifies that the directory contains multiple projects");
-			System.out.println("-t <report type> (the report type can be xml or json. If no value is specified, a json file will be generated");
+			System.out.println("-t <report type> (the report type can be variations of json. If no value is specified, a default json file will be generated. README file contains more details about the different json reports.");
 			System.exit(1);
 		}
 	}
