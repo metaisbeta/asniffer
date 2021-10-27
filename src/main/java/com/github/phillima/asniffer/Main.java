@@ -13,14 +13,58 @@ import com.github.phillima.asniffer.utils.ReportTypeUtils;
 
 
 public class Main {
-            
-	private static final Logger logger = 
+
+	private static final Logger logger =
 			LogManager.getLogger(Main.class);
-	
+
 	//Called as an executable jar                                                 	                                          
 	public static void main(String[] args) throws FileNotFoundException {
 		LocalTime start = LocalTime.now();
-		if(args==null || args.length < 2) {
+
+		ifInvalidArgsPrintHowToUseAndExit(args);
+
+		//Read the parameters
+		Parameters param = new ParamMapper().map(args, Parameters.class);
+
+		run(
+				param.getProjectPath(),
+				param.getReportPath(),
+				param.isAMultiProject(),
+				ReportTypeUtils.getReportInstance(param.getReportType())
+		);
+
+		LocalTime finish = LocalTime.now();
+		LocalTime diff = finish.minusNanos(start.toNanoOfDay());
+
+		System.out.println("Execution time: " + diff);
+	}
+
+	public static void run(String projectPath, String reportPath, boolean multiProject,
+						   IReport reportType) throws FileNotFoundException {
+
+		ASniffer runner = new ASniffer(projectPath, reportPath, reportType);
+		if(!multiProject) {
+			logger.info("Initializing extraction for single project.");
+			runner.collectSingle();
+		}
+		else {
+			logger.info("Initializing extraction for multiple projects.");
+			runner.collectMultiple();
+		}
+
+	}
+
+	public static void run(String projectPath, String reportPath) throws FileNotFoundException {
+		run(projectPath,reportPath,false,ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT));
+	}
+
+	public static void run(String projectPath) throws FileNotFoundException {
+		run(projectPath,projectPath);
+	}
+
+
+	private static void ifInvalidArgsPrintHowToUseAndExit(String[] args) {
+		if(args ==null || args.length < 2) {
 			System.out.println("To use ASniffer please run the "
 					+ "command as following, providing four parameters:");
 			System.out.println("java -jar asniffer.jar ");
@@ -31,40 +75,7 @@ public class Main {
 			System.out.println("-t <report type> (the report type can be xml or json. If no value is specified, a json file will be generated");
 			System.exit(1);
 		}
-		
-		//Read the parameters
-		Parameters param = new ParamMapper().map(args, Parameters.class);
-		
-		run(param.getProjectPath(), param.getReportPath(), 
-				param.isAMultiProject(), ReportTypeUtils.getReportInstance(param.getReportType()));
-		
-		LocalTime finish = LocalTime.now();
-		LocalTime diff = finish.minusNanos(start.toNanoOfDay());
-		System.out.println("Execution time: " + diff);			
-	}
-	
-	public static void run(String projectPath, String reportPath, boolean multiProject,
-			IReport reportType) throws FileNotFoundException {
-				
-		ASniffer runner = new ASniffer(projectPath, reportPath, reportType);
-		if(!multiProject) {
-			logger.info("Initializing extraction for single project.");
-			runner.collectSingle();
-		}
-		else {
-			logger.info("Initializing extraction for multiple projects.");
-			runner.collectMultiple();
-		}
-		
-	}
-	
-	public static void run(String projectPath, String reportPath) throws FileNotFoundException {
-		run(projectPath,reportPath,false,ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT));
 	}
 
-	public static void run(String projectPath) throws FileNotFoundException {
-		run(projectPath,projectPath);
-	}
-	
-	
+
 }

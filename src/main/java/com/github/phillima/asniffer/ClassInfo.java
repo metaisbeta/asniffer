@@ -1,6 +1,7 @@
 package com.github.phillima.asniffer;
 
 
+import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.AnnotationDeclaration;
@@ -10,11 +11,13 @@ import com.github.javaparser.ast.body.EnumDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.model.CodeElementModel;
 import com.github.phillima.asniffer.model.CodeElementType;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -32,29 +35,31 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     }
 
     @Override
-    public void visit(ClassOrInterfaceDeclaration node, Object obj) {
-        CodeElementType innerType = null;
-        if (node.isInterface())
-            innerType = CodeElementType.INTERFACE;
-        else
-            innerType = CodeElementType.CLASS;
-
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), innerType, node.getTokenRange().get().toRange().get().begin.line);
-        codeElementsInfo.put(node, codeElementModel);
-        super.visit(node, obj);
-    }
-
-
-    @Override
     public void visit(CompilationUnit node, Object obj) {
         getFullClassName(node);
         super.visit(node, obj);
     }
 
     @Override
+    public void visit(ClassOrInterfaceDeclaration node, Object obj) {
+        CodeElementType innerType;
+        if (node.isInterface())
+            innerType = CodeElementType.INTERFACE;
+        else
+            innerType = CodeElementType.CLASS;
+
+        CodeElementModel codeElementModel
+                = new CodeElementModel(node.getName().getIdentifier(), innerType, getLineStart(node));
+        codeElementsInfo.put(node, codeElementModel);
+        super.visit(node, obj);
+    }
+
+
+    @Override
     public void visit(EnumDeclaration node, Object obj) {
         CodeElementType innerType = CodeElementType.ENUM;
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().getIdentifier(), innerType, node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementModel codeElementModel =
+                new CodeElementModel(node.getName().getIdentifier(), innerType, getLineStart(node));
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }
@@ -62,7 +67,8 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     @Override
     public void visit(AnnotationDeclaration node, Object obj) {
         CodeElementType innerType = CodeElementType.ANNOTATION_DECLARATION;
-        CodeElementModel codeElementModel = new CodeElementModel(node.getNameAsString(), innerType, node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementModel codeElementModel =
+                new CodeElementModel(node.getName().getIdentifier(), innerType, getLineStart(node));
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
 
@@ -70,24 +76,29 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(MethodDeclaration node, Object obj) {
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), CodeElementType.METHOD, node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementType innerType = CodeElementType.METHOD;
+        CodeElementModel codeElementModel =
+                new CodeElementModel(node.getName().getIdentifier(), innerType, getLineStart(node));
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }
 
     @Override
     public void visit(ConstructorDeclaration node, Object obj) {
-        CodeElementModel codeElementModel = new CodeElementModel(node.getName().toString(), CodeElementType.CONSTRUCTOR, node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementType innerType = CodeElementType.CONSTRUCTOR;
+        CodeElementModel codeElementModel =
+                new CodeElementModel(node.getName().getIdentifier(), innerType, getLineStart(node));
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }
 
     @Override
     public void visit(FieldDeclaration node, Object obj) {
-        String fieldName = node.getVariables().getFirst().get().getName().toString();
-        CodeElementModel codeElementModel = new CodeElementModel(fieldName, CodeElementType.FIELD, node.getTokenRange().get().toRange().get().begin.line);
+        CodeElementType innerType = CodeElementType.FIELD;
+        String fieldName = node.getVariables().getFirst().map(VariableDeclarator::getName).toString();
+        CodeElementModel codeElementModel
+                = new CodeElementModel(fieldName, innerType, getLineStart(node));
         codeElementsInfo.put(node, codeElementModel);
-
         super.visit(node, obj);
     }
 
@@ -110,25 +121,46 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     //Inner methods
     private String getFullClassName(Node node) {
 
-        if (node != null) {
-            if (node instanceof CompilationUnit) {
-                CompilationUnit cu = (CompilationUnit) node;
-                TypeDeclaration<?> typeDeclaration = cu.getPrimaryType().get();
-                if (typeDeclaration.isAnnotationDeclaration()) {
-                    type = CodeElementType.ANNOTATION_DECLARATION;
-                } else if (typeDeclaration.isEnumDeclaration() || typeDeclaration.isEnumConstantDeclaration()) {
-                    type = CodeElementType.ENUM;
-                } else if (typeDeclaration.isClassOrInterfaceDeclaration()) {
-                    if (typeDeclaration.asClassOrInterfaceDeclaration().isInterface()) {
-                        type = CodeElementType.INTERFACE;
-                    } else {
-                        type = CodeElementType.CLASS;
+        if (node instanceof CompilationUnit) {
+            ((CompilationUnit) node).getPrimaryType().ifPresent(
+                    typeDeclaration -> {
+                        defineTypeInClassInfo(typeDeclaration);
+                        cu.getPackageDeclaration().ifPresent(packageDeclaration ->
+                                packageName = packageDeclaration.getNameAsString());
+                        className = generateClassName();
                     }
-                }
-                packageName = cu.getPackageDeclaration().get().getNameAsString();
-                className = cu.getPackageDeclaration().get().getName() + "." + cu.getPrimaryTypeName().get();
-            }
+            );
         }
         return null;
+    }
+
+    private String generateClassName() {
+        return cu.getPackageDeclaration().get().getName() + "." + cu.getPrimaryTypeName().get();
+    }
+
+    private void defineTypeInClassInfo(TypeDeclaration<?> typeDeclaration) {
+        if (typeDeclaration.isAnnotationDeclaration()) {
+            type = CodeElementType.ANNOTATION_DECLARATION;
+        } else if (typeDeclaration.isEnumDeclaration() || typeDeclaration.isEnumConstantDeclaration()) {
+            type = CodeElementType.ENUM;
+        } else if (typeDeclaration.isClassOrInterfaceDeclaration()) {
+            if (typeDeclaration.asClassOrInterfaceDeclaration().isInterface()) {
+                type = CodeElementType.INTERFACE;
+            } else {
+                type = CodeElementType.CLASS;
+            }
+        }
+    }
+
+    // if doest not exist a range for the node, return value -1;
+    private Integer getLineStart(Node node) {
+        Optional<TokenRange> tokenRange = node.getTokenRange();
+        if (tokenRange.isPresent()) {
+            return tokenRange.get().toRange()
+                    .map(range -> range.begin.line)
+                    .orElse(-1);
+        }
+        throw new RuntimeException("Exists a node without a range");
+
     }
 }

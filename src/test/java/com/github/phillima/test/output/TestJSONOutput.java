@@ -1,5 +1,6 @@
 package com.github.phillima.test.output;
 
+import com.github.phillima.asniffer.AmFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -39,7 +40,7 @@ public class TestJSONOutput {
 	public static void setUp() {
 		//Collecting ASniffer
 		testFilePath = System.getProperty("user.dir");
-		report = new AM().calculate(testFilePath , "asniffer");
+		report = AmFactory.createAm(testFilePath, "asniffer").calculate();
 	}
 	
 	@Ignore

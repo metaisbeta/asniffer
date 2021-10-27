@@ -2,6 +2,7 @@ package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AmFactory;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.CodeElementModel;
@@ -22,7 +23,7 @@ public class TestAnnotationSchema {
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
-		report = new AM().calculate(testFilePath, "project");
+		report = AmFactory.createAm(testFilePath, "project").calculate();
 	}
 	
 	@Test
