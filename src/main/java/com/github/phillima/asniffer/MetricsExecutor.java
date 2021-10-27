@@ -34,8 +34,12 @@ public class MetricsExecutor {
     private static final Logger logger =
             LogManager.getLogger(MetricsExecutor.class);
 
-    public MetricsExecutor(Callable<List<IClassMetricCollector>> classMetrics, List<IAnnotationMetricCollector> annotationMetrics,
-                                     List<ICodeElementMetricCollector> codeElementMetrics, String projectName) {
+    public MetricsExecutor(
+            Callable<List<IClassMetricCollector>> classMetrics,
+            List<IAnnotationMetricCollector> annotationMetrics,
+            List<ICodeElementMetricCollector> codeElementMetrics,
+            String projectName
+    ) {
         this.classMetrics = classMetrics;
         this.annotationMetrics = annotationMetrics;
         this.codeElementMetrics = codeElementMetrics;
@@ -88,7 +92,7 @@ public class MetricsExecutor {
                                 annotation.getName().getIdentifier(),
                                 annotation.getTokenRange().get().toRange().get().begin.line,
                                 result.getAnnotationSchema(annotation.getName().getIdentifier()
-                                        + "-" +   annotation.getTokenRange().get().toRange().get().begin.line));
+                                        + "-" + annotation.getTokenRange().get().toRange().get().begin.line));
                         for (IAnnotationMetricCollector annotationCollector : annotationMetrics) {
                             annotationCollector.execute(cu, annotationMetricModel, annotation);
                         }

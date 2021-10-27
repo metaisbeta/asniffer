@@ -2,6 +2,7 @@ package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.AM;
+import com.github.phillima.asniffer.AmFactory;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.CodeElementType;
@@ -20,7 +21,7 @@ public class TesteInnerAnnotationType {
     public static void setUp() {
         String testFilePath = Paths.get(System.getProperty("user.dir") + "/annotationtest").toString();
 
-        AMReport report = new AM().calculate(testFilePath, "project");
+        AMReport report = AmFactory.createAm(testFilePath, "project").calculate();
         classModel = report.getPackages()
                 .stream()
                 .filter(pk -> pk.getPackageName().equals("annotationtest"))
