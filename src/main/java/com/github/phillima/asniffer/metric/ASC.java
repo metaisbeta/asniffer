@@ -12,15 +12,12 @@ import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.google.common.collect.ImmutableSet;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
 
-	List<String> imports = new ArrayList<>();
+	List<ImportDeclaration> imports = new ArrayList<>();
 	HashMap<String, String> schemasMapper = new HashMap<>();
 	CompilationUnit cu;
 
@@ -44,7 +41,7 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		findSchema(node);
 		super.visit(node, obj);
 	}
-	
+
 	@Override
 	public void execute(CompilationUnit cu, ClassModel result, AMReport report) {
 		findImports(cu);
@@ -75,17 +72,13 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		}
 		
 		//check if annotations was imported
-		for (String import_ : imports) {			
+		for (ImportDeclaration import_ : imports) {
 			String schema = "";
-
-			if(import_.contains(annotation.getNameAsString())) {				
-				int lastIndex = import_.lastIndexOf(".");
-
-				if(annotationName.equals(import_.substring(lastIndex+1))){//was imported
-					schema = import_.substring(0,lastIndex);
-					schemasMapper.put(annotationNameAndLine, schema);
-					return;
-				}
+			if (import_.getName().getIdentifier().equals(annotationName)){
+				import_.getName().getQualifier().ifPresent(s -> {
+					schemasMapper.put(annotationNameAndLine,s.toString());
+				});
+				return;
 			}
 		}
 
@@ -100,10 +93,9 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 	}
 	
 	private void findImports(CompilationUnit cu) {
-		for (Object import_ : cu.getImports()) {
-			if(import_ instanceof ImportDeclaration && !((ImportDeclaration) import_).isStatic()) {
-				imports.add(((ImportDeclaration) import_).getNameAsString());
-			}
+		for (ImportDeclaration import_ : cu.getImports()) {
+			if(!import_.isStatic())
+				imports.add(import_);
 		}
 	}
 }	
