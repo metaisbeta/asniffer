@@ -2,10 +2,7 @@ package com.github.phillima.asniffer.metric;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
-import com.github.javaparser.ast.expr.AnnotationExpr;
-import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
-import com.github.javaparser.ast.expr.NormalAnnotationExpr;
-import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
+import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
@@ -13,6 +10,7 @@ import com.github.phillima.asniffer.model.ClassModel;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
@@ -60,14 +58,15 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 
 	
 	private void findSchema(AnnotationExpr annotation) {
-		boolean isInlineQualified = annotation.getName().getQualifier().isPresent();
+
+		String qualifier = getQualifier(annotation);
 		int annotationLineNumber = annotation.getTokenRange().get().toRange().get().begin.line;
 		String annotationName = annotation.getName().getIdentifier();
 		String annotationNameAndLine = annotationName + "-" + annotationLineNumber;
 
-		if (isInlineQualified) {			
-			String schema = annotation.getName().getQualifier().get().asString();
-			schemasMapper.put(annotationNameAndLine, schema);
+		if (!qualifier.isEmpty()) {
+			//String schema = annotation.getName().getQualifier().get().asString().substring(0,isInlineQualified);
+			schemasMapper.put(annotationNameAndLine, qualifier);
 			return;
 		}
 		
@@ -91,11 +90,27 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 
 		schemasMapper.put(annotationNameAndLine, schema);
 	}
-	
+
+	private String getQualifier(AnnotationExpr annotation) {
+
+		String qualifier = "";
+
+		if(annotation.getName().getQualifier().isPresent()){
+			Name tempLastWordOfQualifier = annotation.getName().getQualifier().get();
+			while(Character.isUpperCase(tempLastWordOfQualifier.getIdentifier().charAt(0))){
+				tempLastWordOfQualifier = tempLastWordOfQualifier.getQualifier().orElseThrow();
+			}
+			qualifier = tempLastWordOfQualifier.toString();
+		}
+		return qualifier;
+
+	}
+
+
 	private void findImports(CompilationUnit cu) {
 		for (ImportDeclaration import_ : cu.getImports()) {
 			if(!import_.isStatic())
 				imports.add(import_);
 		}
 	}
-}	
+}
