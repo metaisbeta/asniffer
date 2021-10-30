@@ -7,11 +7,7 @@ import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector;
 import com.github.phillima.asniffer.metric.LOCCalculator;
-import com.github.phillima.asniffer.model.AMReport;
-import com.github.phillima.asniffer.model.AnnotationMetricModel;
-import com.github.phillima.asniffer.model.ClassModel;
-import com.github.phillima.asniffer.model.CodeElementModel;
-import com.github.phillima.asniffer.model.PackageModel;
+import com.github.phillima.asniffer.model.*;
 import com.github.phillima.asniffer.utils.AnnotationUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +22,7 @@ public class MetricsExecutor {
 
     private AMReport report;
     private Map<String, PackageModel> packagesModel;
-    ClassModel result = null;
+    private ClassModel result = null;
     private Callable<List<IClassMetricCollector>> classMetrics;
     private List<IAnnotationMetricCollector> annotationMetrics;
     private List<ICodeElementMetricCollector> codeElementMetrics;
@@ -51,7 +47,6 @@ public class MetricsExecutor {
     public void accept(List<CompilationUnit> compilationUnitList) {
         compilationUnitList.forEach(cu -> {
             try {
-
                 ClassInfo info = new ClassInfo(cu);
                 cu.accept(info, null);
 

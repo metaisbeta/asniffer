@@ -59,21 +59,22 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 	
 	private void findSchema(AnnotationExpr annotation) {
 
-		String qualifier = getQualifier(annotation);
+		String qualifier = annotation.getName().getQualifier().isPresent() ? getQualifier(annotation) : "";
 		int annotationLineNumber = annotation.getTokenRange().get().toRange().get().begin.line;
-		String annotationName = annotation.getName().getIdentifier();
+		String annotationName = qualifier.isEmpty() ? annotation.getNameAsString() : annotation.getName().asString().replaceFirst(qualifier.concat("\\."),"");
 		String annotationNameAndLine = annotationName + "-" + annotationLineNumber;
 
 		if (!qualifier.isEmpty()) {
-			//String schema = annotation.getName().getQualifier().get().asString().substring(0,isInlineQualified);
 			schemasMapper.put(annotationNameAndLine, qualifier);
 			return;
 		}
 		
 		//check if annotations was imported
 		for (ImportDeclaration import_ : imports) {
-			String schema = "";
-			if (import_.getName().getIdentifier().equals(annotationName)){
+			String annotationNameTemp = annotationName;
+			if(annotationName.contains("."))//it is inner annotations declaration. THe first name should be mapped to the import
+				annotationNameTemp = annotationName.substring(0,annotationName.indexOf("."));
+			if (import_.getName().getIdentifier().equals(annotationNameTemp)){
 				import_.getName().getQualifier().ifPresent(s -> {
 					schemasMapper.put(annotationNameAndLine,s.toString());
 				});
@@ -93,17 +94,15 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 
 	private String getQualifier(AnnotationExpr annotation) {
 
-		String qualifier = "";
+		Name qualifier = annotation.getName().getQualifier().get();
 
-		if(annotation.getName().getQualifier().isPresent()){
-			Name tempLastWordOfQualifier = annotation.getName().getQualifier().get();
-			while(Character.isUpperCase(tempLastWordOfQualifier.getIdentifier().charAt(0))){
-				tempLastWordOfQualifier = tempLastWordOfQualifier.getQualifier().orElseThrow();
-			}
-			qualifier = tempLastWordOfQualifier.toString();
+		while(Character.isUpperCase(qualifier.getId().charAt(0))){
+			if(qualifier.getQualifier().isPresent())
+				qualifier = qualifier.getQualifier().get();
+			else
+				return "";
 		}
-		return qualifier;
-
+		return qualifier.asString();
 	}
 
 

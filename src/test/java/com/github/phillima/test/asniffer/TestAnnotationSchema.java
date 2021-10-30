@@ -146,4 +146,29 @@ public class TestAnnotationSchema {
 		Assert.assertEquals("br.inatel.cdg.annotation",schema);
 
 	}
+
+	@Test
+	public void testAnnotationDelcaredInsideAnnotationSchema(){
+
+
+		ClassModel classModel = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.SchemaTest");
+
+		int ac = classModel.getClassMetric("AC");
+		int asc = classModel.getClassMetric("ASC");
+		String schema1 = classModel.getAnnotationSchema("FieldMatch-11");
+		String schema2 = classModel.getAnnotationSchema("FieldMatch.List-10");
+
+		Assert.assertEquals(5,asc);
+		Assert.assertEquals(9,ac);
+		Assert.assertEquals("com.salesmanager.shop.validation",schema1);
+		Assert.assertEquals("com.salesmanager.shop.validation",schema2);
+		Assert.assertNull(classModel.getAnnotationSchema("List-10"));//Must not find an annotation named List
+		Assert.assertNull(classModel.getAnnotationSchema("List-24"));//Must not find an annotation named List
+
+	}
 }

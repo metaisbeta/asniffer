@@ -38,7 +38,7 @@ public class AM {
     private CompilationUnit parseFile(File file) {
         try {
             return StaticJavaParser.parse(file);
-        } catch (FileNotFoundException e) {
+          } catch (FileNotFoundException e) {
             return null;
         }
     }

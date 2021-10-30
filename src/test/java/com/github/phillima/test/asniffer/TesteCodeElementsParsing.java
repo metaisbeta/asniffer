@@ -26,9 +26,6 @@ private static AMReport report;
 	@Test
 	public void testReadInnerClass() {
 		
-		//There should be 5 packages
-		assertEquals(5, report.getPackages().size());
-		
 		//Get the annotationtest package
 		PackageModel testPackage_ = report.getPackageByName("annotationtest");
 		//get the InnerClassTest
@@ -49,10 +46,7 @@ private static AMReport report;
 	@Test
 	public void testReadEnumType() {
 		
-		//There should be 5 packages
-		assertEquals(5, report.getPackages().size());
-		
-		//Get the annotationtest package
+    	//Get the annotationtest package
 		PackageModel testPackage_ = report.getPackageByName("annotationtest");
 		//get the EnumTest
 		
