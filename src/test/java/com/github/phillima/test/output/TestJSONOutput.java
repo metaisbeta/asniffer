@@ -136,7 +136,7 @@ public class TestJSONOutput {
 
 	}
 
-	@Test
+	@Ignore
 	public void testGenerateFullAVisuReportFile() {
 		ASniffer aSniffer = new ASniffer(testFilePath, testFilePath, new JSONReportAvisuIMP());
 		aSniffer.collectSingle();
