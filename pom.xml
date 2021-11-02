@@ -3,7 +3,7 @@
 
 	<groupId>io.github.phillima</groupId>
 	<artifactId>asniffer</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0</version>
 	<packaging>jar</packaging>
 	<name>asniffer</name>
 	<url>https://github.com/metaisbeta/asniffer</url>
@@ -29,7 +29,7 @@
 		<url>https://github.com/metaisbeta/asniffer</url>
 		<connection>scm:git:git://github.com/phillima/asniffer</connection>
 		<developerConnection>scm:git:git@github.com:phillima/asniffer.git</developerConnection>
-	    <tag>HEAD</tag>
+	    <tag>asniffer-3.0.0</tag>
     </scm>
 
 	<distributionManagement>
