@@ -83,7 +83,7 @@ public class ReportTypeUtils {
 				if(rootPackageName.equals(packageParentName)) {//direct package child
 					packageContentStack.peek().addChildren(packageContent);
 				}else if(ReportTypeUtils.isParentPackage(rootPackageName, packageContent.getName())) {
-					Children newRootPackage = packageContentStack.peek().getChildByName(packageParentName);
+					Children newRootPackage = packageContentStack.peek().getChildByName(packageParentName, CodeElementType.PACKAGE);					
 					if(newRootPackage != null) {
 						rootPackageName = packageParentName;
 						newRootPackage.addChildren(packageContent);

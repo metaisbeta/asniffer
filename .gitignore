@@ -6,6 +6,6 @@ bin/
 *.project
 *.log
 *.DS_Store
-
+.vscode
 *.cpp
 

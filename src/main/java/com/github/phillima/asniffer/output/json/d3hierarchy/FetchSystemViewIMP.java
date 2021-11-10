@@ -14,7 +14,6 @@ public class FetchSystemViewIMP implements IFetchChildren {
 
 	@Override
 	public List<Children> fetchChildren(PackageModel package_) {
-		
 		List<Children> annotationSV = new ArrayList<Children>();
 		
 		Map<String, Integer> schemaMap = new HashMap<String, Integer>();
