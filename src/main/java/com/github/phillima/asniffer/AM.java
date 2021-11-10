@@ -1,9 +1,13 @@
 package com.github.phillima.asniffer;
 
 
+import com.github.javaparser.ParseProblemException;
+import com.github.javaparser.Problem;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.phillima.asniffer.model.AMReport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +17,9 @@ import java.util.stream.Stream;
 
 
 public class AM {
+
+    private static final Logger logger =
+            LogManager.getLogger(AM.class);
 
     private MetricsExecutor storage;
     private Stream<Stream<String>> partitions;
@@ -38,9 +45,14 @@ public class AM {
     private CompilationUnit parseFile(File file) {
         try {
             return StaticJavaParser.parse(file);
-          } catch (FileNotFoundException e) {
-            return null;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseProblemException e) {
+            e.getProblems().forEach(problem ->
+                    logger.error(file.getAbsolutePath() + ".\n" + problem.getMessage())
+            );
         }
+        return null;
     }
 
 
