@@ -15,6 +15,7 @@ import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.model.CodeElementModel;
 import com.github.phillima.asniffer.model.CodeElementType;
+import com.github.phillima.asniffer.model.PackageType;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(CompilationUnit node, Object obj) {
-        getFullClassName(node);
+        setFullClassName(node);
         super.visit(node, obj);
     }
 
@@ -112,30 +113,37 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     public CodeElementType getType() {
         return type;
-    }
+    }   
 
     public Map<Node, CodeElementModel> getCodeElementsInfo() {
         return codeElementsInfo;
     }
 
     //Inner methods
-    private String getFullClassName(Node node) {
-
+    private void setFullClassName(Node node) {
         if (node instanceof CompilationUnit) {
             ((CompilationUnit) node).getPrimaryType().ifPresent(
                     typeDeclaration -> {
                         defineTypeInClassInfo(typeDeclaration);
-                        cu.getPackageDeclaration().ifPresent(packageDeclaration ->
-                                packageName = packageDeclaration.getNameAsString());
+
+                        cu.getPackageDeclaration()
+                            .ifPresentOrElse(packageDeclaration -> packageName = packageDeclaration.getNameAsString(),
+                            () -> packageName = PackageType.UNNAMED.toString());
+
                         className = generateClassName();
                     }
             );
         }
-        return null;
     }
 
     private String generateClassName() {
-        return cu.getPackageDeclaration().get().getName() + "." + cu.getPrimaryTypeName().get();
+        var classNameQualifier = "";
+
+        if (cu.getPackageDeclaration().isPresent()) {
+            classNameQualifier = cu.getPackageDeclaration().get().getName() + ".";
+        }        
+
+        return classNameQualifier + cu.getPrimaryTypeName().get();
     }
 
     private void defineTypeInClassInfo(TypeDeclaration<?> typeDeclaration) {
