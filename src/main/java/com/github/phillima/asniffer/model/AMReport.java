@@ -1,7 +1,7 @@
 package com.github.phillima.asniffer.model;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AMReport {
