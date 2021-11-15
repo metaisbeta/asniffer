@@ -24,7 +24,7 @@ public class SchemaTest{
     @com.salesmanager.shop.validation.FieldMatch.List({
             @FieldMatch(first="password",second="checkPassword",message="password.notequal")
     })
-    public void methodC() {}
+    public void methodD() {}
 
 		
 }

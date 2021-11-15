@@ -1,7 +1,5 @@
 package com.github.phillima.test.asniffer;
 
-import com.github.phillima.asniffer.AM;
-import com.github.phillima.asniffer.AM;
 import com.github.phillima.asniffer.AmFactory;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -148,6 +146,32 @@ public class TestAnnotationSchema {
 	}
 
 	@Test
+	public void testDifferentAnnotationTypes() {
+		ClassModel classModel = report.getPackages()
+			.stream()
+			.filter(pk -> pk.getPackageName().equals("annotationtest"))
+			.findFirst()
+			.get()
+		.getClassModel("annotationtest.SchemaTest");
+		
+		var annnotationNameBySchema = Map.of(
+			"Import-15", "org.springframework.context.annotation",
+			"MyImport-18", "org.springframework.context.myimport",
+			"Override-21", "java.lang",
+			"Controller-8", "org.springframework.web.bind.annotation",
+			"RequestMapping-9", "org.springframework.web.bind.annotation",
+			"FieldMatch.List-10", "com.salesmanager.shop.validation",
+			"FieldMatch-11", "com.salesmanager.shop.validation",
+			"FieldMatch.List-24","com.salesmanager.shop.validation",
+			"FieldMatch-25","com.salesmanager.shop.validation"
+		);
+
+		classModel.getAnnotationSchemasMap().forEach((annotationName, schema) -> {
+			assertEquals(schema, annnotationNameBySchema.get(annotationName));
+		});
+
+	}
+
 	public void testAnnotationDelcaredInsideAnnotationSchema(){
 
 

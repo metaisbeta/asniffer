@@ -51,6 +51,14 @@ public class Children {
 		return null;
 	}
 
+	public Children getChildByName(String childName, CodeElementType type) {
+		for (Children children : childrens) {
+			if(children.getName().equals(childName) && type.equals(children.getType()) ) 
+				return children;
+		}
+		return null;
+	}
+
 	public String getName() {
 		return this.name;
 	}
