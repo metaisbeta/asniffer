@@ -34,10 +34,10 @@ private static AMReport report;
 		assertEquals(8,clazz.getElementsReport().size());
 		assertEquals(clazz.getElementReport("InnerClass1").getType(), CodeElementType.CLASS);
 		assertEquals(clazz.getElementReport("InnerClass2").getType(), CodeElementType.CLASS);
-		assertEquals(clazz.getElementReport("InnerClassTest").getType(), CodeElementType.CLASS);
+		assertEquals(clazz.getElementReport("InnerClassTest", CodeElementType.CLASS).getType(), CodeElementType.CLASS);
+		assertEquals(clazz.getElementReport("InnerClassTest", CodeElementType.CONSTRUCTOR).getType(), CodeElementType.CONSTRUCTOR);
 		assertEquals(clazz.getElementReport("Enum1").getType(), CodeElementType.ENUM);
 		assertEquals(clazz.getElementReport("Enum2").getType(), CodeElementType.ENUM);
-		assertEquals(clazz.getElementReport("InnerClassTest", CodeElementType.CONSTRUCTOR).getType(), CodeElementType.CONSTRUCTOR);
 		assertEquals(clazz.getElementReport("member1").getType(), CodeElementType.FIELD);
 		assertEquals(clazz.getElementReport("method1").getType(), CodeElementType.METHOD);
 	}
