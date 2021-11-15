@@ -24,22 +24,23 @@ private static AMReport report;
 	
 	
 	@Test
-	public void testReadInnerClass() {
+	public void testCodeElementsTypes() {
 		
 		//Get the annotationtest package
 		PackageModel testPackage_ = report.getPackageByName("annotationtest");
 		//get the InnerClassTest
 		
 		ClassModel clazz = testPackage_.getClassModel("annotationtest.InnerClassTest");
-		
-		assertEquals(6, clazz.getElementsReport().size());
-		assertNotNull(clazz.getElementReport("InnerClass1", CodeElementType.CLASS));
-		assertNotNull(clazz.getElementReport("InnerClass2", CodeElementType.CLASS));
-		assertNotNull(clazz.getElementReport("InnerClassTest", CodeElementType.CLASS));
-		assertNotNull(clazz.getElementReport("Enum1", CodeElementType.ENUM));
-		assertNotNull(clazz.getElementReport("Enum2", CodeElementType.ENUM));
-		assertNotNull(clazz.getElementReport("InnerClassTest", CodeElementType.CONSTRUCTOR));
 
+		assertEquals(8,clazz.getElementsReport().size());
+		assertEquals(clazz.getElementReport("InnerClass1").getType(), CodeElementType.CLASS);
+		assertEquals(clazz.getElementReport("InnerClass2").getType(), CodeElementType.CLASS);
+		assertEquals(clazz.getElementReport("InnerClassTest").getType(), CodeElementType.CLASS);
+		assertEquals(clazz.getElementReport("Enum1").getType(), CodeElementType.ENUM);
+		assertEquals(clazz.getElementReport("Enum2").getType(), CodeElementType.ENUM);
+		assertEquals(clazz.getElementReport("InnerClassTest", CodeElementType.CONSTRUCTOR).getType(), CodeElementType.CONSTRUCTOR);
+		assertEquals(clazz.getElementReport("member1").getType(), CodeElementType.FIELD);
+		assertEquals(clazz.getElementReport("method1").getType(), CodeElementType.METHOD);
 	}
 	
 	
