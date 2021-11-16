@@ -15,6 +15,7 @@ import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.model.CodeElementModel;
 import com.github.phillima.asniffer.model.CodeElementType;
+import com.github.phillima.asniffer.model.PackageType;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
 
     @Override
     public void visit(CompilationUnit node, Object obj) {
-        getFullClassName(node);
+        setFullClassName(node);
         super.visit(node, obj);
     }
 
@@ -119,23 +120,26 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     }
 
     //Inner methods
-    private String getFullClassName(Node node) {
-
+    private void setFullClassName(Node node) {
         if (node instanceof CompilationUnit) {
             ((CompilationUnit) node).getPrimaryType().ifPresent(
                     typeDeclaration -> {
                         defineTypeInClassInfo(typeDeclaration);
-                        cu.getPackageDeclaration().ifPresent(packageDeclaration ->
-                                packageName = packageDeclaration.getNameAsString());
-                        className = generateClassName();
+
+                        cu.getPackageDeclaration().ifPresentOrElse(
+                                (packageDeclaration) -> {
+                                    packageName = packageDeclaration.getNameAsString();
+                                    className = packageName + "." + cu.getPrimaryTypeName().get();
+                                },
+                                () -> {
+                                    packageName = PackageType.UNNAMED;
+                                    className = cu.getPrimaryTypeName().get();
+                                }
+
+                        );
                     }
             );
         }
-        return null;
-    }
-
-    private String generateClassName() {
-        return cu.getPackageDeclaration().get().getName() + "." + cu.getPrimaryTypeName().get();
     }
 
     private void defineTypeInClassInfo(TypeDeclaration<?> typeDeclaration) {
@@ -152,15 +156,13 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
         }
     }
 
-    // if doest not exist a range for the node, return value -1;
     private Integer getLineStart(Node node) {
         Optional<TokenRange> tokenRange = node.getTokenRange();
         if (tokenRange.isPresent()) {
             return tokenRange.get().toRange()
                     .map(range -> range.begin.line)
-                    .orElse(-1);
+                    .orElseThrow(() -> new RuntimeException("Node without a range found"));
         }
-        throw new RuntimeException("Exists a node without a range");
-
+        throw new RuntimeException("Node without a range found");
     }
 }
