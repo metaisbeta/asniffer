@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.nio.file.Paths;
 
-public class TesteInnerAnnotationType {
+public class TestInnerAnnotationType {
 
     private static ClassModel classModel;
 

@@ -4,6 +4,10 @@ import com.github.phillima.asniffer.AmFactory;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.CodeElementModel;
+import com.github.phillima.asniffer.model.CodeElementType;
+import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
+import com.github.phillima.asniffer.output.json.d3hierarchy.FetchSystemViewIMP;
+import com.github.phillima.asniffer.utils.ReportTypeUtils;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
@@ -13,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TestAnnotationSchema {
 
@@ -195,4 +200,21 @@ public class TestAnnotationSchema {
 		Assert.assertNull(classModel.getAnnotationSchema("List-24"));//Must not find an annotation named List
 
 	}
+
+	@Test
+	public void testSchemaChildShouldNotHaveChildren() {
+		var schemaChildTestPath = Paths.get(System.getProperty("user.dir") + "/annotationtest/schemaChildTest").toString();
+		var schemaChildReport = AmFactory.createAm(schemaChildTestPath, "asniffer").calculate();
+
+		List<Children> packagesContentReport = ReportTypeUtils.fetchPackages(schemaChildReport.getPackages(), new FetchSystemViewIMP());
+
+		var childrenOfSchema = packagesContentReport.get(0).getChildrens().stream()
+				.filter(children -> CodeElementType.SCHEMA.equals(children.getType()))
+				.filter(children -> !children.getChildrens().isEmpty())
+				.collect(Collectors.toList());
+
+		assertEquals(0, childrenOfSchema.size());
+	}
+
+
 }
