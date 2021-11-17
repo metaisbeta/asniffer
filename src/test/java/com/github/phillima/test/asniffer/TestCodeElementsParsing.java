@@ -1,17 +1,15 @@
 package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AmFactory;
-import com.github.phillima.asniffer.model.AMReport;
-import com.github.phillima.asniffer.model.ClassModel;
-import com.github.phillima.asniffer.model.PackageModel;
-import com.github.phillima.asniffer.model.CodeElementType;
+import com.github.phillima.asniffer.model.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TesteCodeElementsParsing {
+public class TestCodeElementsParsing {
 
 private static AMReport report;
 	
@@ -54,6 +52,19 @@ private static AMReport report;
 		assertEquals(CodeElementType.ENUM, clazz.getType());
 		assertEquals(1, clazz.getElementsReport().size());
 
+	}
+
+	@Test
+	public void testUnnamedPackage() {
+		var unnamedPackageModel = report.getPackages().stream()
+				.filter(packageModel -> PackageType.UNNAMED.equals(packageModel.getPackageName()))
+				.findFirst()
+				.get();
+
+		var className = unnamedPackageModel.getResults().get(0).getFullyQualifiedName();
+
+		assertEquals("unnamed", unnamedPackageModel.getPackageName());
+		assertEquals("NoPackageTest", className);
 	}
 
 }
