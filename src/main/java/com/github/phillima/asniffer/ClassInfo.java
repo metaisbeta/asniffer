@@ -96,7 +96,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
     @Override
     public void visit(FieldDeclaration node, Object obj) {
         CodeElementType innerType = CodeElementType.FIELD;
-        String fieldName = node.getVariables().getFirst().map(VariableDeclarator::getName).toString();
+        String fieldName = node.getVariables().getFirst().map(VariableDeclarator::getName).get().asString();
         CodeElementModel codeElementModel
                 = new CodeElementModel(fieldName, innerType, getLineStart(node));
         codeElementsInfo.put(node, codeElementModel);

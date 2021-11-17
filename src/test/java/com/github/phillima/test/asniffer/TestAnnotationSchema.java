@@ -11,6 +11,7 @@ import com.github.phillima.asniffer.utils.ReportTypeUtils;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Paths;
@@ -177,7 +178,8 @@ public class TestAnnotationSchema {
 
 	}
 
-	public void testAnnotationDelcaredInsideAnnotationSchema(){
+	@Test
+	public void testAnnotationDeclaredInsideAnnotationSchema(){
 
 
 		ClassModel classModel = report.getPackages()
@@ -214,6 +216,33 @@ public class TestAnnotationSchema {
 				.collect(Collectors.toList());
 
 		assertEquals(0, childrenOfSchema.size());
+	}
+
+	@Ignore
+	public void testSchemaWithWildCardImport(){
+
+		ClassModel classModel = report.getPackages()
+				.stream()
+				.filter(pk -> pk.getPackageName().equals("annotationtest"))
+				.findFirst()
+				.get()
+				.getClassModel("annotationtest.TestSchemaWildCard");
+
+		int ac = classModel.getClassMetric("AC");
+		int asc = classModel.getClassMetric("ASC");
+
+		Assert.assertEquals(7,ac);
+		Assert.assertEquals(6,asc);
+
+		Assert.assertEquals("br.com.metaisbeta.schema.annotations", classModel.getAnnotationSchema("Override-23"));
+		Assert.assertEquals("annotationtest", classModel.getAnnotationSchema("AnnotationSamePackage-9"));
+		Assert.assertEquals("br.com.metaisbeta.annotations", classModel.getAnnotationSchema("RestController-17"));
+		Assert.assertEquals("br.com.metaisbeta.schema.annotations", classModel.getAnnotationSchema("RestController-14"));
+		Assert.assertEquals("org.springframework.web.bind.annotation", classModel.getAnnotationSchema("RestController-10"));
+		Assert.assertEquals("org.springframework.boot.autoconfigure", classModel.getAnnotationSchema("AutoConfigurationPackage-11"));
+		Assert.assertEquals("org.springframework.beans.factory.annotation", classModel.getAnnotationSchema("Autowired-20"));
+
+
 	}
 
 

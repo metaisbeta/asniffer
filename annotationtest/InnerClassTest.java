@@ -21,5 +21,10 @@ public class InnerClassTest{
 	enum Enum2{
 		
 	}
-	
+
+	private int member1;
+
+	private void method1(){
+		//do nothing
+	}
 }
