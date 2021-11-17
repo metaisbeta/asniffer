@@ -7,10 +7,11 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
+import com.github.phillima.asniffer.utils.Glossary;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
@@ -82,9 +83,16 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 			}
 		}
 
+		String glossarySchema = Glossary.ANNOTATION_NAME_TO_SCHEMA.get(annotationName);
 		String schema = "";
-		//check if it is a java lang annotation
-		if(javaLangPredefined.contains(annotation.getNameAsString()))
+
+		if (glossarySchema != null) {			
+			for (ImportDeclaration importDeclaration : imports) {
+				if(importDeclaration.getName().toString().equals(glossarySchema) && importDeclaration.isAsterisk()) {
+					schema = glossarySchema;					
+				}
+			}
+		} else if(javaLangPredefined.contains(annotation.getNameAsString()))
 			schema = "java.lang";
 		else //if not, the annotation was declared on the package being used
 			schema = cu.getPackageDeclaration().get().getNameAsString();
