@@ -83,7 +83,10 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 			}
 		}
 
-		String glossarySchema = Glossary.ANNOTATION_NAME_TO_SCHEMA.get(annotationName);
+		// Old hard coded glossary
+		//String glossarySchema = Glossary.ANNOTATION_NAME_TO_SCHEMA.get(annotationName);
+		// Json glossary
+		String glossarySchema = Glossary.get(annotationName);
 		String schema = "";
 
 		if (glossarySchema != null) {			
