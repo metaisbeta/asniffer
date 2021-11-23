@@ -7,7 +7,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
-import com.github.phillima.asniffer.utils.Glossary;
+import com.github.phillima.asniffer.utils.AnnotationsGlossary;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.*;
@@ -86,7 +86,9 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		// Old hard coded glossary
 		//String glossarySchema = Glossary.ANNOTATION_NAME_TO_SCHEMA.get(annotationName);
 		// Json glossary
-		String glossarySchema = Glossary.get(annotationName);
+		//String glossarySchema = Glossary.get(annotationName);
+		// Json on memory
+		String glossarySchema = AnnotationsGlossary.get(annotationName);
 		String schema = "";
 
 		if (glossarySchema != null) {			

@@ -5,11 +5,32 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.io.BufferedReader;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.Gson;
 
-public class Glossary {
-    public static String file = "Glossary.json";
+public class AnnotationsGlossary {
+    public static String file = "./src/main/java/com/github/phillima/asniffer/utils/Glossary.json";
+
+    private static Map<String, String> ANNOTATION_NAME_TO_SCHEMA;
+
+    private static void loadMap(){
+        try {
+            BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));
+
+            Gson gson = new Gson();
+            ANNOTATION_NAME_TO_SCHEMA = gson.fromJson(fileReader, Map.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static String get(String key){
+        if(ANNOTATION_NAME_TO_SCHEMA == null){
+            loadMap();
+        }
+        return ANNOTATION_NAME_TO_SCHEMA.get(key);
+    }
+
+    public static String get_(String key){
         try {
             BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));
             
@@ -31,13 +52,4 @@ public class Glossary {
         return null;
     }
 
-    public static final Map<String, String> ANNOTATION_NAME_TO_SCHEMA = Map.of(
-        //SPRING
-        "Autowired", "org.springframework.web.bind.annotation",
-        "AutoConfigurationPackage", "org.springframework.boot.autoconfigure",
-        "RestController", "org.springframework.beans.factory.annotation",
-        //JPA
-        "",""
-        //Junit
-        );
 }
