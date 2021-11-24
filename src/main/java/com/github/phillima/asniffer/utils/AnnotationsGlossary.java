@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.io.BufferedReader;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class AnnotationsGlossary {
     public static String file = "./src/main/java/com/github/phillima/asniffer/utils/Glossary.json";
@@ -14,10 +15,9 @@ public class AnnotationsGlossary {
 
     private static void loadMap(){
         try {
-            BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));
-
+            BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));            
             Gson gson = new Gson();
-            ANNOTATION_NAME_TO_SCHEMA = gson.fromJson(fileReader, Map.class);
+            ANNOTATION_NAME_TO_SCHEMA = gson.fromJson(fileReader, new TypeToken<Map<String, String>>(){}.getType());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,12 +31,9 @@ public class AnnotationsGlossary {
     }
 
     public static String get_(String key){
-        try {
-            BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));
-            
-            // Streaming json reader for low memory usage
-            JsonReader reader = new JsonReader(fileReader);
-            
+        try (BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));
+            JsonReader reader = new JsonReader(fileReader)) {
+                        
             reader.beginObject();
             while (reader.hasNext()) {
                 if(reader.nextName() == key){
