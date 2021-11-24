@@ -83,20 +83,19 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 			}
 		}
 
-		// Old hard coded glossary
-		//String glossarySchema = Glossary.ANNOTATION_NAME_TO_SCHEMA.get(annotationName);
-		// Json glossary
-		//String glossarySchema = Glossary.get(annotationName);
-		// Json on memory
-		String glossarySchema = AnnotationsGlossary.get(annotationName);
 		String schema = "";
+		
+		Optional<String> wildCardSchemaOptional = imports.stream()
+			.filter(importDeclaration -> importDeclaration.isAsterisk())
+			.filter(importDeclaration -> {
+				var optionalAnnotationSet = AnnotationsGlossary.get(importDeclaration.getName().toString());
+				return optionalAnnotationSet.isPresent() && optionalAnnotationSet.get().contains(annotationName);			
+			})
+			.map(impd -> impd.getName().toString())
+			.findFirst();
 
-		if (glossarySchema != null) {			
-			for (ImportDeclaration importDeclaration : imports) {
-				if(importDeclaration.getName().toString().equals(glossarySchema) && importDeclaration.isAsterisk()) {
-					schema = glossarySchema;					
-				}
-			}
+		if (wildCardSchemaOptional.isPresent()) {
+			schema = wildCardSchemaOptional.get();
 		} else if(javaLangPredefined.contains(annotation.getNameAsString()))
 			schema = "java.lang";
 		else //if not, the annotation was declared on the package being used
