@@ -1,10 +1,1485 @@
 {
-  "org.springframework.web.bind.annotation": [
-    "RestController",
-    "RestControllerAdvice",
-    "ControllerAdvice",
-    "Autowired"
-  ],
-  "org.springframework.boot.autoconfigure": ["AutoConfigurationPackage"],
-  "org.springframework.beans.factory.annotation": ["RestController"]
+    "org.springframework.context.annotation.jsr": [
+        "RequestScoped",
+        "SessionScoped"
+    ],
+    "org.springframework.aop.aspectj": [
+        "TestAnnotation",
+        "Log",
+        "MyAnnotation"
+    ],
+    "org.springframework.aop.aspectj.annotation": [
+        "Transactional",
+        "Measured"
+    ],
+    "test.annotation": [
+        "EmptySpringAnnotation"
+    ],
+    "test.annotation.transaction": [
+        "Tx"
+    ],
+    "org.springframework.context.annotation.aspectj": [
+        "EnableSpringConfigured"
+    ],
+    "org.springframework.beans.factory.annotation": [
+        "Lookup",
+        "Autowired",
+        "Configurable",
+        "Qualifier",
+        "MyAutowired",
+        "Value",
+        "Nullable"
+    ],
+    "org.springframework.beans.factory": [
+        "RestControllerAdvice",
+        "ControllerAdvice"
+    ],
+    "org.springframework.beans.factory.support": [
+        "TestQualifierWithMultipleAttributes",
+        "MyAutowired",
+        "TestQualifier",
+        "TestQualifierWithDefaultValue"
+    ],
+    "org.springframework.beans.testfixture.beans": [
+        "TestAnnotation"
+    ],
+    "org.springframework.cache.annotation": [
+        "CacheEvict",
+        "CachePut",
+        "ComposedCacheable",
+        "Cacheable",
+        "CacheableFooCustomCacheResolver",
+        "EvictFoo",
+        "ComposedCacheEvict",
+        "Caching",
+        "CacheConfigFoo",
+        "EvictBar",
+        "CacheableFoo",
+        "EnableCaching",
+        "CacheableFooCustomKeyGenerator",
+        "CacheableFooCustomCacheManager",
+        "CacheConfig"
+    ],
+    "org.springframework.context.annotation": [
+        "MetaConditional",
+        "DevProfile",
+        "PrototypeScoped",
+        "ComposedConfiguration",
+        "ComponentScan",
+        "EnableImportRegistrar",
+        "CustomRequestScope",
+        "Scope",
+        "ComponentScans",
+        "Role",
+        "MetaNever",
+        "LazyInject",
+        "BeanAge",
+        "DefaultProfile",
+        "EnableLiteConfiguration",
+        "DependsOn",
+        "EnableImportedConfig",
+        "Configuration",
+        "Profile",
+        "ComposedComposedConfigurationWithAttributeOverrides",
+        "Primary",
+        "Description",
+        "EnableSomeConfiguration",
+        "PropertySources",
+        "Bean",
+        "CustomRequestScopeWithAttributeOverride",
+        "Sample",
+        "Loggable",
+        "EnableFeature",
+        "PropertySource",
+        "CustomAnnotation",
+        "EnableAspectJAutoProxy",
+        "ImportResource",
+        "NonStringMetaComponent",
+        "FeaturePolicy",
+        "MyAnnotation",
+        "GroupedSample",
+        "Import",
+        "TestRestController",
+        "MetaComponentScan",
+        "EnableLoadTimeWeaving",
+        "Conditional",
+        "Lazy",
+        "Filter",
+        "MetaComponentScanConfigurationWithAttributeOverrides",
+        "Never",
+        "EnableMBeanExport",
+        "MyRepository",
+        "Bar",
+        "ComposedConfigurationWithAttributeOverrides",
+        "MyPropertySource"
+    ],
+    "org.springframework.context.event": [
+        "FooListener",
+        "ConditionalEvent",
+        "EventListener"
+    ],
+    "org.springframework.format.annotation": [
+        "DateTimeFormat",
+        "NumberFormat"
+    ],
+    "org.springframework.jmx.export.annotation": [
+        "ManagedNotification",
+        "ManagedMetric",
+        "ManagedAttribute",
+        "ManagedResource",
+        "ManagedOperation",
+        "ManagedOperationParameters",
+        "ManagedOperationParameter",
+        "ManagedNotifications"
+    ],
+    "org.springframework.scheduling.annotation": [
+        "EveryFiveSeconds",
+        "MyAsync",
+        "WaitASec",
+        "Scheduled",
+        "NameToClass",
+        "Async",
+        "Hourly",
+        "Schedules",
+        "EnableAsync",
+        "BusinessHours",
+        "CustomAsync",
+        "EnableScheduling"
+    ],
+    "org.springframework.stereotype": [
+        "Component",
+        "Service",
+        "Controller",
+        "Repository",
+        "Indexed",
+        "PrivilegedService"
+    ],
+    "org.springframework.validation.annotation": [
+        "Validated"
+    ],
+    "example.gh": [
+        "EnclosingAnnotation",
+        "NestedAnnotation"
+    ],
+    "example.profilescan": [
+        "DevComponent"
+    ],
+    "example.scannable": [
+        "CustomComponent",
+        "CustomStereotype",
+        "MyScope",
+        "SpecialAnnotation",
+        "PrivateAnnotation",
+        "CustomAspectStereotype"
+    ],
+    "org.springframework.aop.aspectj.autoproxy": [
+        "TestAnnotation",
+        "Marker"
+    ],
+    "org.springframework.aop.aspectj.autoproxy.spr": [
+        "Transaction"
+    ],
+    "org.springframework.beans.factory.xml": [
+        "MultipleAttributeQualifier",
+        "SimpleValueQualifier"
+    ],
+    "org.springframework.context.annotation.configuration": [
+        "InterestingBeanWithName",
+        "InterestingPojo",
+        "MyScope",
+        "AliasedProp",
+        "InterestingNeed",
+        "MyProxiedScope",
+        "Boring",
+        "InterestingNeedWithRequiredOverride",
+        "MyProp",
+        "MetaImport2",
+        "MetaImport1",
+        "TestConfiguration",
+        "InterestingBean"
+    ],
+    "org.springframework.context.annotation.configuration.spr": [
+        "MarkerAnnotation"
+    ],
+    "org.springframework.context.annotation.spr": [
+        "AnotherImport",
+        "MyComponent"
+    ],
+    "org.springframework.format.support": [
+        "SpecialInt"
+    ],
+    "org.springframework.scheduling.support": [
+        "ParameterizedCronTriggerTest"
+    ],
+    "org.springframework.scripting.groovy": [
+        "Log"
+    ],
+    "org.springframework.validation.beanvalidation": [
+        "Same",
+        "InnerValid",
+        "SameGroup",
+        "MyStereotype",
+        "List",
+        "NotXList",
+        "NameAddressValid",
+        "MyValid",
+        "AnythingValid"
+    ],
+    "org.springframework.context.index.sample": [
+        "MetaControllerIndexed",
+        "Scope",
+        "MetaController"
+    ],
+    "org.springframework.core.annotation": [
+        "Repeatings",
+        "ConventionBasedComposedContextConfiguration",
+        "ConventionAliasMetaAnnotationTarget",
+        "AliasWithExplicitMirrorAndDifferentDefaults",
+        "ImplicitAliasesWithDifferentDefaultValuesContextConfig",
+        "TransitiveImplicitAliasesContextConfig",
+        "ExplicitAliasToMetaAnnotation",
+        "ImplicitAliasesForAliasPairTestConfiguration",
+        "NoAttributes",
+        "Mapped",
+        "ComponentScanSingleFilter",
+        "GetMapping",
+        "StandardContainer",
+        "PeteRepeat",
+        "NonRepeatable",
+        "ConventionToExplicitAliases",
+        "ThreeDeepC",
+        "Order",
+        "LoopA",
+        "TestMetaAnnotation",
+        "DefaultOverrideImplicitAlias",
+        "ContainerMissingValueAttribute",
+        "ComposedImplicitAliasesContextConfiguration",
+        "TransitiveImplicitAliasesWithSkippedLevelContextConfig",
+        "DefaultOverrideMetaMetaMeta",
+        "ContainerWithArrayValueAttributeButWrongComponentType",
+        "AliasForWithoutMirroredAliasFor",
+        "NestedContainer",
+        "TestInheritedAnnotation3",
+        "ImplicitAliasesWithDuplicateValuesTestConfiguration",
+        "TestConfiguration",
+        "ClassValueWithDefault",
+        "AliasedTransactionalComponent",
+        "TestAndMetaTestAnnotation",
+        "AliasForWithBothValueAndAttribute",
+        "EnclosedTwo",
+        "AliasedTransactional",
+        "Composed",
+        "AliasForToOtherNonExistingAttributeTarget",
+        "MetaAnnotated",
+        "ImplicitAliasesWithDuplicateValuesContextConfig",
+        "DefaultValueAttribute",
+        "Direct",
+        "TestAnnotation1",
+        "ClassArrayValue",
+        "DefinedAttributesTarget",
+        "AliasForWithArrayCompatibleReturnTypesTarget",
+        "Noninherited",
+        "Post",
+        "TestPropSource",
+        "TransitiveImplicitAliasesWithImpliedAliasNamesOmittedTestConfiguration",
+        "TxComposedWithOverride",
+        "InheritedComposed",
+        "MultiRoute11",
+        "ContextConfig",
+        "MyRepeatableContainer",
+        "TestPropertySource",
+        "ConventionBasedSinglePackageComponentScan",
+        "NoninheritedCache1",
+        "Noninheriteds",
+        "MyRepeatableMeta1And2",
+        "MetaCycle3",
+        "AliasForWithDuplicateAttributeDeclaration",
+        "MultipleRoutesToAliasC",
+        "ExplicitMirror",
+        "ShadowedAliasComposedContextConfiguration",
+        "AliasedComposedContextConfig",
+        "AA",
+        "TestRepeatableContainer",
+        "DefaultOverrideExplicitAliasRootMeta",
+        "Get",
+        "ThreeDeepA",
+        "AliasForWithMissingDefaultValues",
+        "InvalidNotArray",
+        "WithRepeatedMetaAnnotations",
+        "ThreeDeepB",
+        "ConventionAliasToMetaAnnotation",
+        "TestInheritedAnnotation1",
+        "Nested",
+        "ComposedTransactionalComponent",
+        "InvalidNoValue",
+        "ComposedMyAliasedTransactional",
+        "AliasPair",
+        "ImplicitMirrors",
+        "SingleLocationTransitiveImplicitAliasesContextConfiguration",
+        "ImplicitAliasesContextConfig",
+        "Cacheable",
+        "MetaAndLocalTxConfig",
+        "AliasedComposedTestConfigurationNotMetaPresent",
+        "OnInterface",
+        "AliasForSelfWithDifferentDefaults",
+        "ValueOnly",
+        "ImplicitAliasesWithMissingDefaultValuesTestConfiguration",
+        "DefaultOverrideImplicitAliasMeta2",
+        "ContainerWithNonArrayValueAttribute",
+        "TransitiveImplicitAliasesWithImpliedAliasNamesOmittedContextConfig",
+        "TestAnnotation2",
+        "ImplicitAliasesContextConfiguration",
+        "TransitiveImplicitAliasesContextConfiguration",
+        "MetaCycle2",
+        "SingleLocationTransitiveImplicitAliasesContextConfig",
+        "SpringAppConfig",
+        "AliasForNonexistentAttribute",
+        "EnclosedThree",
+        "EnclosedOne",
+        "ValueAttributeMetaMeta",
+        "AliasesWithDefaults",
+        "Id",
+        "FooCache",
+        "AliasForToSelfAnnotatedToOtherAttribute",
+        "AliasForToOtherNonExistingAttribute",
+        "OnSuperClass",
+        "MultiRoute111",
+        "ShadowedAliasComposedContextConfig",
+        "TxInheritedComposed",
+        "AliasedComposedContextConfigurationAndTestPropertySource",
+        "TestInheritedAnnotation5",
+        "SimpleAnnotation",
+        "SpringApplicationConfiguration",
+        "NestedValue",
+        "WebMapping",
+        "TestAnnotations",
+        "PostMapping",
+        "AliasWithExplicitMirrorAndDifferentDefaultsTarget",
+        "BarCache",
+        "HalfConventionBasedAndHalfAliasedComposedContextConfig",
+        "ValueAttribute",
+        "TestInheritedAnnotation2",
+        "ClassValue",
+        "ExplicitRepeatable",
+        "AliasFor",
+        "MetaMetaMeta",
+        "ImplicitAliasesWithDifferentDefaultValuesTestConfiguration",
+        "DefaultValueAnnotation",
+        "ForPetesSake",
+        "MetaMetaAliasedTransactional",
+        "Meta1",
+        "DefaultOverrideMeta",
+        "TxComposed",
+        "TestComponentScan",
+        "AliasedComposedContextConfigNotMetaPresent",
+        "TransitiveImplicitAliasesTestConfiguration",
+        "AliasedComposedTestConfiguration",
+        "AliasForAttributeWithDifferentDefaultValue",
+        "ExplicitAliasMetaAnnotationTarget",
+        "GeneratedValue",
+        "MyRepeatableMeta1",
+        "InvalidConventionBasedComposedContextConfig",
+        "CharsContainer",
+        "AliasForWithMixedImplicitAndExplicitAliasesV2",
+        "MultipleAttributes",
+        "ImplicitAliasesWithImpliedAliasNamesOmittedContextConfig",
+        "AliasForWithMissingAttributeDeclaration",
+        "MissingAnnotation",
+        "InvalidWrongArrayType",
+        "ImplicitAliasesWithMissingDefaultValuesContextConfig",
+        "Missing",
+        "AliasedComposedContextConfiguration",
+        "ImplicitAliasesTestConfiguration",
+        "MetaMetaTestAnnotation",
+        "MetaCycle1",
+        "AliasForWithMirroredAliasForWrongAttribute",
+        "Repeating",
+        "MultiRouteTarget",
+        "LoopB",
+        "AliasForWithMixedImplicitAndExplicitAliasesV1",
+        "TestAnnotation3",
+        "SingleLocationTransitiveImplicitAliasesWithSkippedLevelContextConfig",
+        "AB",
+        "AliasForWithArrayCompatibleReturnTypes",
+        "AliasedValueComposedContextConfig",
+        "AliasForWithIncompatibleReturnTypesTarget",
+        "TestRepeatable",
+        "DefaultOverrideExplicitAliasRoot",
+        "TestAnnotation6",
+        "ExplicitContainer",
+        "MetaAliasedTransactional",
+        "NonValueOnly",
+        "AliasForToSelfNonExistingAttribute",
+        "B",
+        "Simple",
+        "AliasedValueComposedContextConfiguration",
+        "TestAnnotation5",
+        "TransitiveImplicitAliasesWithSkippedLevelContextConfiguration",
+        "HalfConventionBasedAndHalfAliasedComposedContextConfiguration",
+        "InvalidConventionBasedComposedContextConfiguration",
+        "Hierarchy",
+        "ConventionBasedComposedContextConfig",
+        "ExampleMetaAnnotation",
+        "MyAliasedTransactional",
+        "Filter",
+        "ClassAttributes",
+        "SelfAnnotated",
+        "ComposedContainer",
+        "MultiRoute12",
+        "AliasForToSelf",
+        "ClassArrayValueWithDefault",
+        "DefaultOverrideExplicitAliasRootMetaMeta",
+        "TransitiveImplicitAliasesForAliasPairContextConfig",
+        "MetaTestAnnotation",
+        "NoninheritedCache2",
+        "AliasForAttributeOfDifferentType",
+        "ImplicitAliasesWithImpliedAliasNamesOmittedTestConfiguration",
+        "ComposedImplicitAliasesContextConfig",
+        "ImplicitAliasesForAliasPairContextConfig",
+        "DefinedAttributes",
+        "ComponentScan",
+        "AliasForBasedSinglePackageComponentScan",
+        "DefaultOverrideAliasImplicitMeta1",
+        "Aliased",
+        "PeteRepeats",
+        "SingleLocationTransitiveImplicitAliasesWithSkippedLevelContextConfiguration",
+        "ValueAttributeMeta",
+        "AliasTarget",
+        "RequestMapping",
+        "AliasForWithIncompatibleReturnTypes",
+        "ImplicitMirrorsTarget",
+        "ImplicitAliasesWithDefaults",
+        "DefaultOverrideRoot",
+        "OtherAnnotation",
+        "Meta11",
+        "DefaultOverrideMetaMeta",
+        "AliasForNonMetaAnnotated",
+        "MetaMeta",
+        "ComposedNoninherited",
+        "TransactionalComponent",
+        "AnnotationWithDefaults",
+        "MultipleRoutesToAliasA",
+        "ConventionToExplicitAliasesTarget",
+        "InvalidRepeatable",
+        "A",
+        "ExampleAnnotation",
+        "MultipleRoutesToAliasB",
+        "MyRepeatable",
+        "StandardRepeatable",
+        "TestAnnotation",
+        "TransitiveImplicitAliasesForAliasPairTestConfiguration",
+        "ContextConfiguration",
+        "TestAnnotation4",
+        "AliasForSelfWithMissingDefault",
+        "TestInheritedAnnotation4",
+        "ArrayTypes",
+        "MyRepeatableMeta2",
+        "ABC",
+        "Transactional",
+        "AliasForNonMetaAnnotatedTarget",
+        "AnnotationWithoutDefaults",
+        "MappedTarget",
+        "ForTheLoveOfFoo",
+        "Meta2",
+        "AliasedComposedContextConfigAndTestPropSource",
+        "MultiRoute1"
+    ],
+    "org.springframework.lang": [
+        "NonNull",
+        "NonNullApi",
+        "NonNullFields",
+        "Nullable"
+    ],
+    "example.type": [
+        "InheritedAnnotation",
+        "EnclosingAnnotation",
+        "NestedAnnotation",
+        "NonInheritedAnnotation"
+    ],
+    "org.springframework.core": [
+        "Param"
+    ],
+    "org.springframework.core.annotation.subpackage": [
+        "NonPublicAliasedAnnotation",
+        "NonPublicAnnotation"
+    ],
+    "org.springframework.core.convert": [
+        "FieldAnnotation",
+        "MethodAnnotation2",
+        "ParameterAnnotation",
+        "ComposedMethodAnnotation1",
+        "MethodAnnotation3",
+        "MethodAnnotation1",
+        "ComposedComposedMethodAnnotation1"
+    ],
+    "org.springframework.core.convert.support": [
+        "ExampleAnnotation"
+    ],
+    "org.springframework.core.type": [
+        "EnumSubclasses",
+        "MetaAnnotationRoot",
+        "AnnotationAttributes",
+        "MetaAnnotationAttributes2",
+        "NamedAnnotation3",
+        "TestAutowired",
+        "TestAnnotation",
+        "DirectAnnotation1",
+        "IsAnnotatedAnnotation",
+        "InheritedComposedAnnotation",
+        "NestedAnno",
+        "Scope",
+        "SpecialAttr",
+        "MetaAnnotation",
+        "MetaMetaAnnotation",
+        "MetaAnnotationAttributes1",
+        "DirectAnnotation",
+        "TestQualifier",
+        "NamedComposedAnnotation",
+        "MetaAnnotation1",
+        "DirectAnnotation2",
+        "MetaAnnotation2",
+        "NamedAnnotation1",
+        "NamedAnnotation2",
+        "ComposedConfigurationWithAttributeOverrides",
+        "TestConfiguration",
+        "TestComponentScan",
+        "Tag"
+    ],
+    "org.springframework.core.type.classreading": [
+        "ClassAnnotation",
+        "AnnotationAnnotation",
+        "NestedAnnotation",
+        "SimpleArrayTypesAnnotation",
+        "EnumAnnotation",
+        "SimpleTypesAnnotation"
+    ],
+    "org.springframework.util": [
+        "PrimitiveTypes",
+        "WrapperTypes"
+    ],
+    "org.springframework.core.testfixture": [
+        "EnabledForTestGroups"
+    ],
+    "org.springframework.core.testfixture.io.buffer": [
+        "ParameterizedDataBufferAllocatingTest"
+    ],
+    "org.springframework.core.testfixture.stereotype": [
+        "Component",
+        "Indexed"
+    ],
+    "org.springframework.expression.spel": [
+        "FieldAnnotation",
+        "Anno"
+    ],
+    "org.springframework.jms.annotation": [
+        "OrderQueueListener",
+        "BillingQueueListener",
+        "EnableJms",
+        "FooListener",
+        "JmsListener",
+        "JmsListeners"
+    ],
+    "org.springframework.messaging.handler.annotation": [
+        "DestinationVariable",
+        "Headers",
+        "MessageExceptionHandler",
+        "Header",
+        "Payload",
+        "MessageMapping",
+        "SendTo"
+    ],
+    "org.springframework.messaging.rsocket.annotation": [
+        "ConnectMapping"
+    ],
+    "org.springframework.messaging.simp.annotation": [
+        "SubscribeMapping",
+        "SendToUser"
+    ],
+    "org.springframework.messaging.handler.annotation.support": [
+        "MyValid"
+    ],
+    "org.springframework.messaging.simp.annotation.support": [
+        "MySendToUser",
+        "MySendTo"
+    ],
+    "org.springframework.test.annotation": [
+        "MetaEnabledWithCustomProfileValueSource",
+        "MetaDisabled",
+        "Rollback",
+        "IfProfileValue",
+        "MetaDisabledWithCustomProfileValueSource",
+        "Repeat",
+        "Timed",
+        "ProfileValueSourceConfiguration",
+        "DirtiesContext",
+        "MetaEnabled",
+        "Commit"
+    ],
+    "org.springframework.test.context": [
+        "TestExecutionListeners",
+        "MetaInheritedListenersWithOverrides",
+        "MetaListeners",
+        "MetaListenersWithOverrides",
+        "TestPropertySources",
+        "MetaCycle3",
+        "DynamicPropertySource",
+        "BootWithFooAgain",
+        "ActiveProfiles",
+        "MetaCycle1",
+        "ContextConfiguration",
+        "NestedTestConfiguration",
+        "MetaNonInheritedListenersWithOverrides",
+        "TestConstructor",
+        "MetaValueConfig",
+        "ContextHierarchy",
+        "MetaInheritedListeners",
+        "BootWithFoo",
+        "MetaLocationsConfig",
+        "MetaMetaMeta",
+        "BootWithBar",
+        "TestPropertySource",
+        "Meta2",
+        "MetaMeta",
+        "Meta1",
+        "BootstrapWith",
+        "MetaCycle2",
+        "MetaConfig",
+        "MetaNonInheritedListeners"
+    ],
+    "org.springframework.test.context.event": [
+        "RecordApplicationEvents",
+        "Traceable"
+    ],
+    "org.springframework.test.context.event.annotation": [
+        "BeforeTestMethod",
+        "BeforeTestExecution",
+        "AfterTestExecution",
+        "PrepareTestInstance",
+        "AfterTestClass",
+        "BeforeTestClass",
+        "AfterTestMethod"
+    ],
+    "org.springframework.test.context.jdbc": [
+        "Sql",
+        "MetaSqlGroup",
+        "ComposedSql",
+        "SqlConfig",
+        "MetaSql",
+        "SqlMergeMode",
+        "SqlGroup"
+    ],
+    "org.springframework.test.context.junit.jupiter": [
+        "EnabledOnMac",
+        "DisabledIf",
+        "FailingTestCase",
+        "EnabledIf",
+        "SpringJUnitConfig",
+        "DisabledOnMac"
+    ],
+    "org.springframework.test.context.junit.jupiter.web": [
+        "SpringJUnitWebConfig"
+    ],
+    "org.springframework.test.context.transaction": [
+        "BeforeTransaction",
+        "AfterTransaction",
+        "MetaAfterTransaction",
+        "MetaBeforeTransaction",
+        "MetaTransactional",
+        "MetaTxWithOverride"
+    ],
+    "org.springframework.test.context.web": [
+        "WebTestConfiguration",
+        "WebAppConfiguration"
+    ],
+    "org.springframework.test.context.env.repeatable": [
+        "Key1InlinedTestProperty",
+        "MetaInlinedTestProperty",
+        "MetaComposedTestProperty",
+        "MetaMetaInlinedTestProperty",
+        "MetaFileTestProperty"
+    ],
+    "org.springframework.test.context.hierarchies.meta": [
+        "MetaMetaContextHierarchyConfig",
+        "MetaContextHierarchyConfig",
+        "DevProfile",
+        "ProdProfile"
+    ],
+    "org.springframework.test.context.junit": [
+        "RepeatedFiveTimes",
+        "ConfigClassesAndProfilesWithCustomDefaultsMetaConfig",
+        "MetaMetaConfig",
+        "ComposedContextConfiguration",
+        "MetaTimed",
+        "ConfigClassesAndProfileResolverWithCustomDefaultsMetaConfig",
+        "MetaTimedWithOverride",
+        "ConfigClassesAndProfilesMetaConfig"
+    ],
+    "org.springframework.test.context.support": [
+        "MetaResolverConfig",
+        "MetaLocationsBarConfig",
+        "MetaLocationsFooConfig",
+        "InheritLocationsFalseTestProperty",
+        "MetaLocationsFooConfigWithOverrides",
+        "MetaDirtyAfterClass",
+        "ContextHierarchyC",
+        "ContextConfigWithOverrides",
+        "ContextHierarchyB",
+        "MetaDirtyAfterMethod",
+        "MetaAnimalsConfig",
+        "ContextHierarchyA",
+        "MetaDirtyWithOverrides",
+        "AutowireConstructor",
+        "MetaDirtyAfterEachTestMethod",
+        "ContextConfigurationAndContextHierarchyOnSingleMeta",
+        "InheritPropertiesFalseTestProperty",
+        "MetaConfig",
+        "SpringAppConfig"
+    ],
+    "org.springframework.test.web.servlet.samples.client.standalone.resultmatches": [
+        "Get"
+    ],
+    "org.springframework.test.web.servlet.samples.standalone.resultmatchers": [
+        "Get"
+    ],
+    "org.springframework.transaction.annotation": [
+        "TxWithAttribute",
+        "EnableTransactionManagement",
+        "Transactional",
+        "Tx"
+    ],
+    "org.springframework.transaction.event": [
+        "TransactionalEventListener",
+        "AfterCommitEventListener"
+    ],
+    "org.springframework.dao.annotation": [
+        "MyRepository"
+    ],
+    "org.springframework.transaction.config": [
+        "NoSynch"
+    ],
+    "org.springframework.web.bind.annotation": [
+        "RestControllerAdvice",
+        "RequestParam",
+        "ControllerAdvice",
+        "RequestPart",
+        "Mapping",
+        "ModelAttribute",
+        "MatrixVariable",
+        "PutMapping",
+        "RestController",
+        "InitBinder",
+        "PathVariable",
+        "ResponseBody",
+        "RequestAttribute",
+        "GetMapping",
+        "PostMapping",
+        "CrossOrigin",
+        "RequestHeader",
+        "CookieValue",
+        "SessionAttribute",
+        "SessionAttributes",
+        "RequestMapping",
+        "ExceptionHandler",
+        "RequestBody",
+        "PatchMapping",
+        "DeleteMapping",
+        "ResponseStatus"
+    ],
+    "org.springframework.web.context.annotation": [
+        "SessionScope",
+        "ApplicationScope",
+        "RequestScope"
+    ],
+    "org.springframework.http.client.reactive": [
+        "ParameterizedConnectorTest"
+    ],
+    "org.springframework.http.codec.multipart": [
+        "ParameterizedDefaultPartHttpMessageReaderTest"
+    ],
+    "org.springframework.http.server.reactive": [
+        "ParameterizedHeadersTest"
+    ],
+    "org.springframework.web.client": [
+        "ParameterizedRestTemplateTest"
+    ],
+    "org.springframework.web.context.request": [
+        "ParameterizedHttpMethodTest"
+    ],
+    "org.springframework.web.cors": [
+        "PathPatternsParameterizedTest"
+    ],
+    "org.springframework.web.method": [
+        "ControllerAnnotation"
+    ],
+    "org.springframework.web.method.annotation": [
+        "Valid"
+    ],
+    "org.springframework.web.testfixture.http.server.reactive.bootstrap": [
+        "ParameterizedHttpServerTest"
+    ],
+    "org.springframework.web.reactive.config": [
+        "EnableWebFlux"
+    ],
+    "org.springframework.web.reactive.function.client": [
+        "ParameterizedWebClientTest"
+    ],
+    "org.springframework.web.reactive.function.server": [
+        "ParameterizedHttpMethodTest"
+    ],
+    "org.springframework.web.reactive.result.method.annotation": [
+        "ParameterizedSseTest",
+        "PostJson"
+    ],
+    "org.springframework.web.reactive.socket": [
+        "ParameterizedWebSocketTest"
+    ],
+    "org.springframework.web.servlet.config.annotation": [
+        "EnableWebMvc"
+    ],
+    "org.springframework.web.servlet.config": [
+        "PercentNumber",
+        "IsoDate",
+        "MyValid",
+        "MyGroup"
+    ],
+    "org.springframework.web.servlet.function": [
+        "ParameterizedHttpMethodTest"
+    ],
+    "org.springframework.web.servlet.handler": [
+        "PathPatternsParameterizedTest"
+    ],
+    "org.springframework.web.servlet.mvc.annotation": [
+        "ComposedResponseStatus"
+    ],
+    "org.springframework.web.servlet.mvc.method.annotation": [
+        "PostJson",
+        "MyControllerAnnotation",
+        "ComposedResponseStatus",
+        "ComposedCrossOrigin",
+        "AuthenticationPrincipal"
+    ],
+    "org.springframework.web.socket.config.annotation": [
+        "EnableWebSocketMessageBroker",
+        "EnableWebSocket"
+    ],
+    "org.springframework.web.socket": [
+        "ParameterizedWebSocketTest"
+    ],
+    "org.springframework.web.socket.messaging": [
+        "IntegrationTestController"
+    ],
+    "org.springframework.boot": [
+        "SpringBootConfiguration"
+    ],
+    "org.springframework.boot.context.properties": [
+        "ConstructorBinding",
+        "ConfigurationPropertiesBinding",
+        "EnableConfigurationProperties",
+        "ConfigurationProperties",
+        "ConfigurationPropertiesScan",
+        "NestedConfigurationProperty",
+        "DeprecatedConfigurationProperty"
+    ],
+    "org.springframework.boot.context.properties.bind": [
+        "DefaultValue",
+        "Name",
+        "TestAnnotation"
+    ],
+    "org.springframework.boot.convert": [
+        "PeriodUnit",
+        "Delimiter",
+        "DataSizeUnit",
+        "DurationFormat",
+        "ConversionServiceTest",
+        "PeriodFormat",
+        "DurationUnit"
+    ],
+    "org.springframework.boot.jackson": [
+        "JsonComponent"
+    ],
+    "org.springframework.boot.rsocket.context": [
+        "LocalRSocketServerPort"
+    ],
+    "org.springframework.boot.sql.init.dependency": [
+        "DependsOnDatabaseInitialization"
+    ],
+    "org.springframework.boot.web.server": [
+        "LocalServerPort"
+    ],
+    "org.springframework.boot.web.servlet": [
+        "ServletComponentScan"
+    ],
+    "org.springframework.boot.context.configwarnings.annotation": [
+        "MetaComponentScan"
+    ],
+    "org.springframework.boot.validation.beanvalidation": [
+        "Indicator"
+    ],
+    "org.springframework.boot.web.embedded.jetty": [
+        "TestWithJetty10"
+    ],
+    "org.springframework.boot.web.embedded.undertow": [
+        "ResourceManagersTest"
+    ],
+    "org.springframework.boot.actuate.endpoint.annotation": [
+        "Endpoint",
+        "Selector",
+        "EndpointExtension",
+        "FilteredEndpoint",
+        "WriteOperation",
+        "SpecializedEndpoint",
+        "ReadOperation",
+        "DeleteOperation",
+        "EndpointConverter"
+    ],
+    "org.springframework.boot.actuate.endpoint.jmx.annotation": [
+        "JmxEndpoint",
+        "EndpointJmxExtension"
+    ],
+    "org.springframework.boot.actuate.endpoint.web.annotation": [
+        "RestControllerEndpoint",
+        "ControllerEndpoint",
+        "ServletEndpoint",
+        "EndpointWebExtension",
+        "WebEndpoint"
+    ],
+    "org.springframework.boot.actuate.endpoint.invoke.reflect": [
+        "MetaNullable"
+    ],
+    "org.springframework.boot.actuate.endpoint.web.test": [
+        "WebEndpointTest"
+    ],
+    "org.springframework.boot.actuate.metrics.web.servlet": [
+        "Timed95"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.cloudfoundry": [
+        "EndpointCloudFoundryExtension"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.endpoint.condition": [
+        "ConditionalOnAvailableEndpoint"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.health": [
+        "ConditionalOnEnabledHealthIndicator"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.info": [
+        "ConditionalOnEnabledInfoContributor"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.metrics.export": [
+        "ConditionalOnEnabledMetricsExport"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.web": [
+        "ManagementContextConfiguration"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.web.server": [
+        "ConditionalOnManagementPort",
+        "EnableManagementContext",
+        "LocalManagementPort"
+    ],
+    "org.springframework.boot.actuate.autoconfigure.integrationtest": [
+        "MinimalWebConfiguration"
+    ],
+    "org.springframework.boot.autoconfigure": [
+        "SpringBootApplication",
+        "AutoConfigurationPackage",
+        "ImportOne",
+        "AutoConfigureOrder",
+        "AutoConfigureBefore",
+        "UnrelatedOne",
+        "ImportAutoConfiguration",
+        "AutoConfigureAfter",
+        "MetaImportAutoConfiguration",
+        "EnableAutoConfiguration",
+        "UnrelatedTwo",
+        "ImportTwo",
+        "SelfAnnotating",
+        "TestAutoConfigurationPackage"
+    ],
+    "org.springframework.boot.autoconfigure.batch": [
+        "BatchDataSource"
+    ],
+    "org.springframework.boot.autoconfigure.condition": [
+        "ConditionalOnMyFeature",
+        "ConditionalOnExpression",
+        "ConditionalOnMissingClass",
+        "TestAnnotation",
+        "ConditionalOnWarDeployment",
+        "ConditionalOnResource",
+        "ConditionalOnNotWebApplication",
+        "ConditionalOnWebApplication",
+        "ConditionalOnClass",
+        "ConditionalOnMissingBean",
+        "ConditionalOnJndi",
+        "ConditionalOnBean",
+        "ConditionalOnJava",
+        "ConditionalOnSingleCandidate",
+        "ConditionalOnCloudPlatform",
+        "ConditionalOnProperty"
+    ],
+    "org.springframework.boot.autoconfigure.data": [
+        "ConditionalOnRepositoryType"
+    ],
+    "org.springframework.boot.autoconfigure.domain": [
+        "EntityScan"
+    ],
+    "org.springframework.boot.autoconfigure.flyway": [
+        "FlywayDataSource"
+    ],
+    "org.springframework.boot.autoconfigure.liquibase": [
+        "LiquibaseDataSource"
+    ],
+    "org.springframework.boot.autoconfigure.quartz": [
+        "QuartzDataSource",
+        "QuartzTransactionManager"
+    ],
+    "org.springframework.boot.autoconfigure.security": [
+        "ConditionalOnDefaultWebSecurity"
+    ],
+    "org.springframework.boot.autoconfigure.web": [
+        "ConditionalOnEnabledResourceChain"
+    ],
+    "org.springframework.boot.autoconfigure.web.servlet": [
+        "ConditionalOnMissingFilterBean"
+    ],
+    "org.springframework.boot.autoconfigure.data.elasticsearch": [
+        "ParameterizedPropertyPrefixTest"
+    ],
+    "org.springframework.boot.autoconfigure.elasticsearch": [
+        "ParameterizedSnifferPropertyPrefixTest",
+        "ParameterizedPropertyPrefixTest"
+    ],
+    "org.springframework.boot.autoconfigure.jersey": [
+        "MinimalWebConfiguration"
+    ],
+    "org.springframework.boot.autoconfigure.mustache": [
+        "MinimalWebConfiguration"
+    ],
+    "org.springframework.boot.autoconfigure.web.servlet.error": [
+        "MinimalWebConfiguration"
+    ],
+    "org.springframework.boot.groovy": [
+        "DependencyManagementBom",
+        "EnableGroovyTemplates"
+    ],
+    "org.springframework.boot.devtools.restart": [
+        "RestartScope",
+        "ConditionalOnInitializedRestarter"
+    ],
+    "org.springframework.boot.test.context": [
+        "SpringBootTest",
+        "MetaImport",
+        "SelfAnnotating",
+        "Indicator2",
+        "TestConfiguration",
+        "Indicator1",
+        "TestComponent"
+    ],
+    "org.springframework.boot.test.mock.mockito": [
+        "MockBeans",
+        "SpyBean",
+        "MockBean",
+        "CustomQualifier",
+        "SpyBeans"
+    ],
+    "org.springframework.boot.test.mock.mockito.example": [
+        "CustomQualifier"
+    ],
+    "org.springframework.boot.test.autoconfigure": [
+        "OverrideAutoConfiguration"
+    ],
+    "org.springframework.boot.test.autoconfigure.actuate.metrics": [
+        "AutoConfigureMetrics"
+    ],
+    "org.springframework.boot.test.autoconfigure.core": [
+        "AutoConfigureCache"
+    ],
+    "org.springframework.boot.test.autoconfigure.data.cassandra": [
+        "DataCassandraTest",
+        "AutoConfigureDataCassandra"
+    ],
+    "org.springframework.boot.test.autoconfigure.data.jdbc": [
+        "AutoConfigureDataJdbc",
+        "DataJdbcTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.data.ldap": [
+        "AutoConfigureDataLdap",
+        "DataLdapTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.data.mongo": [
+        "AutoConfigureDataMongo",
+        "DataMongoTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.data.neo": [
+        "AutoConfigureDataNeo4j",
+        "DataNeo4jTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.data.r": [
+        "AutoConfigureDataR2dbc",
+        "DataR2dbcTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.data.redis": [
+        "AutoConfigureDataRedis",
+        "DataRedisTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.filter": [
+        "TypeExcludeFilters",
+        "Filters"
+    ],
+    "org.springframework.boot.test.autoconfigure.jdbc": [
+        "AutoConfigureJdbc",
+        "JdbcTest",
+        "AutoConfigureTestDatabase"
+    ],
+    "org.springframework.boot.test.autoconfigure.jooq": [
+        "JooqTest",
+        "AutoConfigureJooq"
+    ],
+    "org.springframework.boot.test.autoconfigure.json": [
+        "AutoConfigureJson",
+        "JsonTest",
+        "AutoConfigureJsonTesters"
+    ],
+    "org.springframework.boot.test.autoconfigure.orm.jpa": [
+        "AutoConfigureTestEntityManager",
+        "AutoConfigureDataJpa",
+        "DataJpaTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.properties": [
+        "NotMappedAtTypeLevelAnnotation",
+        "TypeMappingAnnotation",
+        "NestedAnnotations",
+        "ArraysAnnotation",
+        "EnumAnnotation",
+        "AttributeLevelWithPrefixAnnotation",
+        "DeeplyNestedAnnotations",
+        "SelfAnnotating",
+        "NoMappingAnnotation",
+        "AttributeWithAliasAnnotation",
+        "NotMappedAtAttributeLevelAnnotation",
+        "AliasedAttributeAnnotation",
+        "AttributeMappingAnnotation",
+        "Level1",
+        "Level2",
+        "TypeLevelWithPrefixAnnotation",
+        "Entry",
+        "CamelCaseToKebabCaseAnnotation",
+        "TypeAndAttributeLevelWithPrefixAnnotation",
+        "TypeLevelAnnotation",
+        "PropertiesFromSingleMetaAnnotationAnnotation",
+        "ExampleMapping",
+        "PropertyMapping",
+        "PropertiesFromMultipleMetaAnnotationsAnnotation"
+    ],
+    "org.springframework.boot.test.autoconfigure.restdocs": [
+        "AutoConfigureRestDocs"
+    ],
+    "org.springframework.boot.test.autoconfigure.web.client": [
+        "AutoConfigureWebClient",
+        "RestClientTest",
+        "AutoConfigureMockRestServiceServer"
+    ],
+    "org.springframework.boot.test.autoconfigure.web.reactive": [
+        "AutoConfigureWebTestClient",
+        "AutoConfigureWebFlux",
+        "WebFluxTest"
+    ],
+    "org.springframework.boot.test.autoconfigure.web.servlet": [
+        "AutoConfigureMockMvc",
+        "WebMvcTest",
+        "AutoConfigureWebMvc"
+    ],
+    "org.springframework.boot.test.autoconfigure.webservices.client": [
+        "WebServiceClientTest",
+        "AutoConfigureMockWebServiceServer",
+        "AutoConfigureWebServiceClient"
+    ],
+    "org.springframework.boot.test.autoconfigure.webservices.server": [
+        "AutoConfigureWebServiceServer",
+        "WebServiceServerTest",
+        "AutoConfigureMockWebServiceClient"
+    ],
+    "org.springframework.boot.test.autoconfigure.cache": [
+        "Unrelated1",
+        "Unrelated2"
+    ],
+    "org.springframework.boot.autoconfigureprocessor": [
+        "TestAutoConfigureOrder",
+        "TestConditionalOnWebApplication",
+        "TestAutoConfigureBefore",
+        "TestAutoConfigureAfter",
+        "TestConditionalOnSingleCandidate",
+        "TestConditionalOnBean",
+        "TestConditionalOnClass"
+    ],
+    "org.springframework.boot.configurationsample": [
+        "Endpoint",
+        "ControllerEndpoint",
+        "NestedConfigurationProperty",
+        "DefaultValue",
+        "ConstructorBinding",
+        "MetaConstructorBinding",
+        "ReadOperation",
+        "RestControllerEndpoint",
+        "Name",
+        "ServletEndpoint",
+        "ConfigurationProperties",
+        "WebEndpoint",
+        "JmxEndpoint",
+        "DeprecatedConfigurationProperty"
+    ],
+    "org.springframework.boot.gradle.junit": [
+        "GradleCompatibility"
+    ],
+    "org.springframework.boot.loader.tools.sample": [
+        "SomeApplication"
+    ],
+    "org.springframework.boot.testsupport.classpath": [
+        "ClassPathExclusions",
+        "ForkedClassPath",
+        "ClassPathOverrides"
+    ],
+    "org.springframework.boot.testsupport.testcontainers": [
+        "DisabledIfDockerUnavailable"
+    ],
+    "org.springframework.boot.context.embedded": [
+        "EmbeddedServletContainerTest"
+    ],
+    "example": [
+        "FastTest",
+        "CsvToPerson",
+        "TestOnMac",
+        "Fast"
+    ],
+    "example.extensions": [
+        "Random"
+    ],
+    "extensions": [
+        "ExpectToFail"
+    ],
+    "org.junit.jupiter.api": [
+        "BeforeAll",
+        "Timeout",
+        "DisplayNameGeneration",
+        "Disabled",
+        "BeforeEach",
+        "TestFactory",
+        "DisplayName",
+        "Nested",
+        "Tags",
+        "RepeatedTest",
+        "AfterEach",
+        "IndicativeSentencesGeneration",
+        "TestClassOrder",
+        "Order",
+        "Test",
+        "TestMethodOrder",
+        "AfterAll",
+        "TestTemplate",
+        "TestInstance",
+        "Tag"
+    ],
+    "org.junit.jupiter.api.condition": [
+        "DisabledOnOs",
+        "EnabledOnJre",
+        "EnabledIfEnvironmentVariable",
+        "EnabledIfSystemProperty",
+        "DisabledIfEnvironmentVariable",
+        "DisabledForJreRange",
+        "DisabledIfSystemProperties",
+        "DisabledIf",
+        "EnabledIfEnvironmentVariables",
+        "EnabledOnMac",
+        "CustomDisabled",
+        "EnabledOnOs",
+        "DisabledIfSystemProperty",
+        "EnabledForJreRange",
+        "DisabledOnJre",
+        "EnabledIfSystemProperties",
+        "DisabledIfEnvironmentVariables",
+        "CustomEnabled",
+        "EnabledIf",
+        "DisabledOnMac"
+    ],
+    "org.junit.jupiter.api.extension": [
+        "RegisterExtension",
+        "ExtendWith",
+        "Extensions"
+    ],
+    "org.junit.jupiter.api.io": [
+        "TempDir"
+    ],
+    "org.junit.jupiter.api.parallel": [
+        "Isolated",
+        "Execution",
+        "ResourceLocks",
+        "ResourceLock"
+    ],
+    "org.junit.jupiter.api.fixtures": [
+        "TrackLogRecords"
+    ],
+    "org.junit.jupiter.api.extension.support": [
+        "TestAnnotation"
+    ],
+    "org.junit.jupiter.engine": [
+        "CustomAfterAll",
+        "CustomBeforeAll",
+        "SingletonTest",
+        "CustomAfterEach",
+        "CustomBeforeEach"
+    ],
+    "org.junit.jupiter.engine.descriptor": [
+        "PerClassLifeCycle",
+        "CustomTestAnnotation"
+    ],
+    "org.junit.jupiter.engine.discovery": [
+        "CustomTestAnnotation"
+    ],
+    "org.junit.jupiter.engine.execution.injection.sample": [
+        "CustomAnnotation"
+    ],
+    "org.junit.jupiter.engine.extension": [
+        "InstanceField1",
+        "AfterEachParameter",
+        "MagicParameter",
+        "MagicField",
+        "InstanceField2",
+        "AfterAllParameter",
+        "TestParameter",
+        "DeactivatedConditions",
+        "StaticField1",
+        "BeforeEachParameter",
+        "ConstructorParameter",
+        "BeforeAllParameter",
+        "StaticField2"
+    ],
+    "org.junit.jupiter.engine.extension.sub": [
+        "SystemProperty"
+    ],
+    "org.junit.jupiter.migrationsupport": [
+        "EnableJUnit4MigrationSupport"
+    ],
+    "org.junit.jupiter.migrationsupport.rules": [
+        "EnableRuleMigrationSupport"
+    ],
+    "org.junit.jupiter.params": [
+        "ParameterizedTest",
+        "MethodSourceTest"
+    ],
+    "org.junit.jupiter.params.aggregator": [
+        "CsvToPerson",
+        "AggregateWith",
+        "StartIndex",
+        "CsvToAddress"
+    ],
+    "org.junit.jupiter.params.converter": [
+        "StringLength",
+        "JavaTimeConversionPattern",
+        "ConvertWith"
+    ],
+    "org.junit.jupiter.params.provider": [
+        "EnumSource",
+        "ArgumentsSource",
+        "EmptySource",
+        "MethodSource",
+        "CsvFileSource",
+        "NullSource",
+        "CsvSource",
+        "ValueSource",
+        "NullAndEmptySource",
+        "ArgumentsSources"
+    ],
+    "org.junit.platform.commons.annotation": [
+        "Testable"
+    ],
+    "org.junit.platform.jfr": [
+        "UniqueId"
+    ],
+    "org.junit.platform.suite.api": [
+        "SelectUris",
+        "IncludeEngines",
+        "SuiteDisplayName",
+        "SelectModules",
+        "SelectPackages",
+        "IncludePackages",
+        "DisableParentConfigurationParameters",
+        "IncludeClassNamePatterns",
+        "IncludeTags",
+        "ConfigurationParameter",
+        "SelectDirectories",
+        "ExcludeClassNamePatterns",
+        "ExcludePackages",
+        "ConfigurationParameters",
+        "UseTechnicalNames",
+        "ExcludeEngines",
+        "SelectFiles",
+        "Suite",
+        "SelectClasspathResources",
+        "SelectFile",
+        "ExcludeTags",
+        "SelectClasspathResource",
+        "SelectClasses"
+    ],
+    "org.junit.vintage.engine.samples.junit": [
+        "ChildCount",
+        "Label"
+    ],
+    "org.junit.platform.commons.support": [
+        "Methods",
+        "FieldMarker",
+        "Classes"
+    ],
+    "org.junit.platform.commons.util": [
+        "ExtendWithFoo",
+        "Annotation2",
+        "Smoke",
+        "ExtendWithBar",
+        "Tags",
+        "FooExtensions",
+        "InheritedComposedAnnotation",
+        "Annotation1",
+        "InheritedAnnotation",
+        "NonInheritedCompositionOfInheritedAnnotation",
+        "FastAndSmoky",
+        "ExtendWith",
+        "AnnotationWithDefaultValue",
+        "Tag",
+        "Fast",
+        "Extensions",
+        "ComposedAnnotation",
+        "Annotation3"
+    ],
+    "org.junit.platform.launcher": [
+        "Tag2",
+        "Tag1"
+    ],
+    "org.junit.platform.suite.commons": [
+        "Meta"
+    ],
+    "org.springframework.data.jpa.repository": [
+        "EntityGraph",
+        "Lock",
+        "Query",
+        "Temporal",
+        "Modifying",
+        "QueryHints"
+    ],
+    "org.springframework.data.jpa.repository.config": [
+        "EnableJpaAuditing",
+        "EnableJpaRepositories"
+    ],
+    "org.springframework.data.jpa.repository.query": [
+        "ComposedProcedureUsingAliasFor",
+        "CustomAnnotation",
+        "Procedure",
+        "CustomComposedAnnotationWithAliasFor",
+        "CustomComposedEntityGraphAnnotationWithAliasFor"
+    ],
+    "org.springframework.data.jpa.repository.cdi": [
+        "UserDB",
+        "Transactional",
+        "PersonDB"
+    ],
+    "org.springframework.data.jpa.repository.support": [
+        "CustomEntityAnnotationUsingAliasFor",
+        "TestComponent"
+    ]
 }
