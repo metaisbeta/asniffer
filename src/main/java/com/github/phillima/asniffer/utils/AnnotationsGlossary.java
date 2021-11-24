@@ -2,6 +2,7 @@ package com.github.phillima.asniffer.utils;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.nio.file.Paths;
@@ -14,11 +15,10 @@ import com.google.gson.reflect.TypeToken;
 public class AnnotationsGlossary {
     public static String file = "./src/main/java/com/github/phillima/asniffer/utils/Glossary.json";
 
-    private static HashMap<String, Set<String>> ANNOTATION_NAME_TO_SCHEMA;
+    private static Map<String, Set<String>> ANNOTATION_NAME_TO_SCHEMA;
 
     private static void loadMap(){
-        try {
-            BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));            
+        try (BufferedReader fileReader = Files.newBufferedReader(Paths.get(file));){            
             Gson gson = new Gson();
             ANNOTATION_NAME_TO_SCHEMA = gson.fromJson(fileReader, new TypeToken<HashMap<String, HashSet<String>>>(){}.getType());
         } catch (Exception e) {
