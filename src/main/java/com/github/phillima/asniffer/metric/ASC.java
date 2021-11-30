@@ -7,10 +7,11 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
+import com.github.phillima.asniffer.utils.AnnotationsGlossary;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
@@ -83,8 +84,19 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		}
 
 		String schema = "";
-		//check if it is a java lang annotation
-		if(javaLangPredefined.contains(annotation.getNameAsString()))
+		
+		Optional<String> wildCardSchemaOptional = imports.stream()
+			.filter(importDeclaration -> importDeclaration.isAsterisk())
+			.filter(importDeclaration -> {
+				var optionalAnnotationSet = AnnotationsGlossary.get(importDeclaration.getName().toString());
+				return optionalAnnotationSet.isPresent() && optionalAnnotationSet.get().contains(annotationName);			
+			})
+			.map(impd -> impd.getName().toString())
+			.findFirst();
+
+		if (wildCardSchemaOptional.isPresent()) {
+			schema = wildCardSchemaOptional.get();
+		} else if(javaLangPredefined.contains(annotation.getNameAsString()))
 			schema = "java.lang";
 		else //if not, the annotation was declared on the package being used
 			schema = cu.getPackageDeclaration().get().getNameAsString();
