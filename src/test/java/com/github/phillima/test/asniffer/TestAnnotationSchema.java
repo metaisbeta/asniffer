@@ -218,7 +218,7 @@ public class TestAnnotationSchema {
 		assertEquals(0, childrenOfSchema.size());
 	}
 
-	@Ignore
+	@Test
 	public void testSchemaWithWildCardImport(){
 
 		ClassModel classModel = report.getPackages()
