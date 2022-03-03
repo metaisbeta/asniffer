@@ -2,7 +2,7 @@
 [![ASniffer-Actions-Build](https://github.com/phillima/asniffer/workflows/ASniffer/badge.svg)](https://github.com/phillima/asniffer/actions)
 [![DOI](https://zenodo.org/badge/76030375.svg)](https://zenodo.org/badge/latestdoi/76030375)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.01960/status.svg)](https://doi.org/10.21105/joss.01960)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.phillima/asniffer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.phillima/asniffer)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.phillima/asniffer.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.phillima%22%20AND%20a:%22asniffer%22)
 
 Annotation Sniffer
 ==================
