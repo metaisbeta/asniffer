@@ -8,10 +8,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProjectReport {
 	
-	@SerializedName(value = "name")
+	@SerializedName("name")
+	//@SerializedName(value = "name")
 	private String projectName;
 
-	@SerializedName(value = "children")
+	@SerializedName("children")
+	//@SerializedName(value = "children")
 	private List<Children> packagesJSON;
 	
 	public ProjectReport(String projectName) {
