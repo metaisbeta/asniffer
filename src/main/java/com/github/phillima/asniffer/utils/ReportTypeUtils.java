@@ -57,6 +57,7 @@ public class ReportTypeUtils {
 	public static List<Children> fetchPackages(List<PackageModel> packages, IFetchChildren fetchChildren) {
 
 		List<Children> packageContents = new ArrayList<Children>();
+		//List<Children> packageContentStack = new Stack<Children>();
 		Stack<Children> packageContentStack = new Stack<Children>();
 		
 		//Ordering package models

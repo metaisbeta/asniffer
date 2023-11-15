@@ -17,7 +17,8 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 
 
 	List<ImportDeclaration> imports = new ArrayList<>();
-	HashMap<String, String> schemasMapper = new HashMap<>();
+	Map<String, String> schemasMapper = new HashMap<String, String>();
+	//	HashMap<String, String> schemasMapper = new HashMap<>();
 	CompilationUnit cu;
 
 	//predefined java annotations
@@ -51,7 +52,7 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 	@Override
 	public void setResult(ClassModel result) {
 
-		result.setSchemas(schemasMapper);
+		result.setSchemas((HashMap<String, String>) schemasMapper);
 		result.addClassMetric("ASC", result.getAnnotationSchemas().size());
 		
 	}

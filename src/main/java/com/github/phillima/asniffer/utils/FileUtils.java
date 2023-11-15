@@ -13,15 +13,16 @@ import java.util.stream.Stream;
 public class FileUtils {
 	
 	public static String[] getAllDirs(String path) {
-		ArrayList<String> dirs = new ArrayList<String>();
+		List<String> dirs = new ArrayList<String>();
+		//ArrayList<String> dirs = new ArrayList<String>();
 		getAllDirs(path, dirs);
 		String[] ar = new String[dirs.size()];
 		ar = dirs.toArray(ar);
 		return ar;
 	}
 	
-	private static void getAllDirs(String path, ArrayList<String> dirs) {
-		
+	private static void getAllDirs(String path, List<String> dirs) {
+	//private static void getAllDirs(String path, ArrayList<String> dirs) {		
 		File f = new File(path);
 		if(f.getName().equals(".git")) return;
 		
@@ -35,7 +36,8 @@ public class FileUtils {
 	}
 
 	public static String[] getAllJavaFiles(String path) {
-		ArrayList<String> files = new ArrayList<String>();
+		List<String> files = new ArrayList<String>();
+		//ArrayList<String> files = new ArrayList<String>();
 		getAllJavaFiles(path, files);
 		
 		String[] ar = new String[files.size()];
@@ -43,8 +45,8 @@ public class FileUtils {
 		return ar;
 	}
 	
-	private static void getAllJavaFiles(String path, ArrayList<String> files) {
-		
+	private static void getAllJavaFiles(String path, List<String> files) {
+		//private static void getAllJavaFiles(String path, ArrayList<String> files) {
 		File f = new File(path);
 		if(f.isHidden()) return;
 
