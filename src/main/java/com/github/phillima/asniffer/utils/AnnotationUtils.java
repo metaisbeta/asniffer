@@ -1,6 +1,10 @@
 package com.github.phillima.asniffer.utils;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.expr.AnnotationExpr;
@@ -11,25 +15,22 @@ import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.nodeTypes.NodeWithParameters;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
-
 public class AnnotationUtils {
 
     //INNER HELPER METHODS
-    public static List<AnnotationExpr> checkForAnnotations(Node node) {
+	@SuppressWarnings("unused")
+	private static List<AnnotationExpr> checkForAnnotations(Node node) {
+	//public static List<AnnotationExpr> checkForAnnotations(Node node) {
 
         List<AnnotationExpr> annotations = new ArrayList<>();
         if (node instanceof NodeWithAnnotations) {
-            NodeWithAnnotations nodeWithAnnotations = ((NodeWithAnnotations) node);
+            NodeWithAnnotations<?> nodeWithAnnotations = ( (NodeWithAnnotations<?>) node);
             for (ListIterator<AnnotationExpr> it = nodeWithAnnotations.getAnnotations().listIterator(); it.hasNext(); ) {
                 AnnotationExpr annotationExpr = it.next();
                 checkForNestedAnnotations(annotations, annotationExpr);
             }
             if (nodeWithAnnotations instanceof NodeWithParameters) {
-                checkForParametersWithAnnotations(annotations, (NodeWithParameters) nodeWithAnnotations);
+                checkForParametersWithAnnotations(annotations, (NodeWithParameters<Node>) nodeWithAnnotations);
             }
         }
         return annotations;
@@ -40,13 +41,13 @@ public class AnnotationUtils {
         node.getParameters()
                 .forEach(it -> {
                     if (it instanceof NodeWithAnnotations) {
-                        ((NodeWithAnnotations) it).getAnnotations()
-                                .forEach(annotation -> annotations.add((AnnotationExpr) annotation));
+                        ((NodeWithAnnotations) it).getAnnotations().forEach(annotation -> annotations.add((AnnotationExpr) annotation));
                     }
                 });
     }
 
-    public static void checkForNestedAnnotations(List<AnnotationExpr> annotations, AnnotationExpr annotation) {
+    private static void checkForNestedAnnotations(List<AnnotationExpr> annotations, AnnotationExpr annotation) {
+    //public static void checkForNestedAnnotations(List<AnnotationExpr> annotations, AnnotationExpr annotation) {
 
         annotations.add(annotation);
         if (annotation instanceof NormalAnnotationExpr) {

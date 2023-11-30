@@ -26,7 +26,8 @@ public class AnnotationsGlossary {
         }
     }
 
-    public static Optional<Set<String>> get(String key){
+    @SuppressWarnings("unused")
+    private static Optional<Set<String>> get(String key){
         if(ANNOTATION_NAME_TO_SCHEMA == null){
             loadMap();
         }

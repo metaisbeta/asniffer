@@ -11,7 +11,7 @@ import com.github.phillima.asniffer.parameters.ParamMapper;
 import com.github.phillima.asniffer.parameters.Parameters;
 import com.github.phillima.asniffer.utils.ReportTypeUtils;
 
-
+@SuppressWarnings("PMD")
 public class Main {
 
 	private static final Logger logger =

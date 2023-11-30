@@ -12,7 +12,9 @@ import java.util.stream.Stream;
 
 public class FileUtils {
 	
-	public static String[] getAllDirs(String path) {
+	@SuppressWarnings("unused")
+	private static String[] getAllDirs(String path) {
+	//public static String[] getAllDirs(String path) {
 		List<String> dirs = new ArrayList<String>();
 		//ArrayList<String> dirs = new ArrayList<String>();
 		getAllDirs(path, dirs);
@@ -36,6 +38,9 @@ public class FileUtils {
 	}
 
 	public static String[] getAllJavaFiles(String path) {
+	@SuppressWarnings("unused")
+	private static String[] getAllJavaFiles(String path) {
+	//public static String[] getAllJavaFiles(String path) {
 		List<String> files = new ArrayList<String>();
 		//ArrayList<String> files = new ArrayList<String>();
 		getAllJavaFiles(path, files);
@@ -60,7 +65,9 @@ public class FileUtils {
 		}
 	}
 	
-	public static List<Path> getProjectsPath(String projectPath){
+	@SuppressWarnings("unused")
+	private static List<Path> getProjectsPath(String projectPath){
+	//public static List<Path> getProjectsPath(String projectPath){
 		
 		List<Path> projectsPaths = new ArrayList<>();
 		
@@ -75,12 +82,16 @@ public class FileUtils {
 		return projectsPaths;
 		
 	}
-
-	public static String getProjectName(Path projectPath) {
+	
+	@SuppressWarnings("unused")
+	private static String getProjectName(Path projectPath) {
+	//public static String getProjectName(Path projectPath) {
 		return String.valueOf(projectPath.getFileName());
 	}
 	
-	public static String getFileAsString(String path) {
+	@SuppressWarnings("unused")
+	private static String getFileAsString(String path) {
+	//public static String getFileAsString(String path) {
 		
 	   	StringBuilder contentBuilder = new StringBuilder();
 	    try (Stream<String> stream = Files.lines(Paths.get(path), StandardCharsets.UTF_8)) 
