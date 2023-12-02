@@ -9,12 +9,14 @@ import java.util.Set;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class AnnotationsGlossary {
+public final class AnnotationsGlossary {
     public static String file = "/Glossary.json";
 
     private static Map<String, Set<String>> ANNOTATION_NAME_TO_SCHEMA;
 
-    private static void loadMap(){
+    private AnnotationsGlossary() {}
+    
+    public static void loadMap(){
         var stream = new InputStreamReader(AnnotationsGlossary.class.getResourceAsStream(file));
         try (BufferedReader fileReader = new BufferedReader(stream)){            
             Gson gson = new Gson();
@@ -26,8 +28,7 @@ public class AnnotationsGlossary {
         }
     }
 
-    @SuppressWarnings("unused")
-    private static Optional<Set<String>> get(String key){
+    public static Optional<Set<String>> getOptionalStr(String key){
         if(ANNOTATION_NAME_TO_SCHEMA == null){
             loadMap();
         }

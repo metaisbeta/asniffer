@@ -10,7 +10,7 @@ public class PropertiesUtil {
 		
 	//private String repType;
 	
-	String getReportType(String reportType) {
+	public String getReportType(String reportType) {
 	//public static String getReportType(String reportType) {
 		
 		Properties prop = new Properties();
@@ -37,35 +37,5 @@ public class PropertiesUtil {
 		else
 			throw new ReportTypeException("Wrong Report Type. Available options are json or xml");
 	}	
-
-//	private String getReportType( String reportType ) {
-//		
-//		Properties prop = new Properties();
-//		//String reportClassName = "";
-//		this.repType = "";
-//		InputStream inputStream = null;
-//		
-//		try {
-//			inputStream = PropertiesUtil.class.getResourceAsStream("/report.properties");
-//			prop.load(inputStream);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if(inputStream != null)
-//					inputStream.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		repType = prop.getProperty( reportType );
-//		if(repType != null)
-//			return repType;
-//			//return reportClassName;
-//		else
-//			throw new ReportTypeException("Wrong Report Type. Available options are json or xml");
-//		
-//	}
 	
 }

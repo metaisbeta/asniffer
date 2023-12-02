@@ -57,7 +57,6 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		
 	}
 
-
 	
 	private void findSchema(AnnotationExpr annotation) {
 
@@ -89,7 +88,7 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		Optional<String> wildCardSchemaOptional = imports.stream()
 			.filter(importDeclaration -> importDeclaration.isAsterisk())
 			.filter(importDeclaration -> {
-				var optionalAnnotationSet = AnnotationsGlossary.get(importDeclaration.getName().toString());
+				var optionalAnnotationSet = AnnotationsGlossary.getOptionalStr(importDeclaration.getName().toString());
 				return optionalAnnotationSet.isPresent() && optionalAnnotationSet.get().contains(annotationName);			
 			})
 			.map(impd -> impd.getName().toString())

@@ -15,12 +15,12 @@ import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.nodeTypes.NodeWithParameters;
 
-public class AnnotationUtils {
+public final class AnnotationUtils {
 
+	private AnnotationUtils() { }
+	
     //INNER HELPER METHODS
-	@SuppressWarnings("unused")
-	private static List<AnnotationExpr> checkForAnnotations(Node node) {
-	//public static List<AnnotationExpr> checkForAnnotations(Node node) {
+	public static List<AnnotationExpr> checkForAnnotations(Node node) {
 
         List<AnnotationExpr> annotations = new ArrayList<>();
         if (node instanceof NodeWithAnnotations) {
@@ -46,8 +46,7 @@ public class AnnotationUtils {
                 });
     }
 
-    private static void checkForNestedAnnotations(List<AnnotationExpr> annotations, AnnotationExpr annotation) {
-    //public static void checkForNestedAnnotations(List<AnnotationExpr> annotations, AnnotationExpr annotation) {
+    public static void checkForNestedAnnotations(List<AnnotationExpr> annotations, AnnotationExpr annotation) {
 
         annotations.add(annotation);
         if (annotation instanceof NormalAnnotationExpr) {

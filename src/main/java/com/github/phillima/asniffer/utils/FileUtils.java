@@ -10,21 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class FileUtils {
+public final class FileUtils {
 	
-	@SuppressWarnings("unused")
-	private static String[] getAllDirs(String path) {
-	//public static String[] getAllDirs(String path) {
+	private FileUtils() { }
+	
+	
+	public static String[] getAllDirs(String path) {
 		List<String> dirs = new ArrayList<String>();
-		//ArrayList<String> dirs = new ArrayList<String>();
 		getAllDirs(path, dirs);
 		String[] ar = new String[dirs.size()];
 		ar = dirs.toArray(ar);
 		return ar;
 	}
 	
-	private static void getAllDirs(String path, List<String> dirs) {
-	//private static void getAllDirs(String path, ArrayList<String> dirs) {		
+	public static void getAllDirs(String path, List<String> dirs) {
 		File f = new File(path);
 		if(f.getName().equals(".git")) return;
 		
@@ -38,11 +37,7 @@ public class FileUtils {
 	}
 
 	public static String[] getAllJavaFiles(String path) {
-	@SuppressWarnings("unused")
-	private static String[] getAllJavaFiles(String path) {
-	//public static String[] getAllJavaFiles(String path) {
 		List<String> files = new ArrayList<String>();
-		//ArrayList<String> files = new ArrayList<String>();
 		getAllJavaFiles(path, files);
 		
 		String[] ar = new String[files.size()];
@@ -50,8 +45,7 @@ public class FileUtils {
 		return ar;
 	}
 	
-	private static void getAllJavaFiles(String path, List<String> files) {
-		//private static void getAllJavaFiles(String path, ArrayList<String> files) {
+	public static void getAllJavaFiles(String path, List<String> files) {
 		File f = new File(path);
 		if(f.isHidden()) return;
 
@@ -65,10 +59,7 @@ public class FileUtils {
 		}
 	}
 	
-	@SuppressWarnings("unused")
-	private static List<Path> getProjectsPath(String projectPath){
-	//public static List<Path> getProjectsPath(String projectPath){
-		
+	public static List<Path> getProjectsPath(String projectPath){
 		List<Path> projectsPaths = new ArrayList<>();
 		
 		try {
@@ -83,15 +74,11 @@ public class FileUtils {
 		
 	}
 	
-	@SuppressWarnings("unused")
-	private static String getProjectName(Path projectPath) {
-	//public static String getProjectName(Path projectPath) {
+	public static String getProjectName(Path projectPath) {
 		return String.valueOf(projectPath.getFileName());
 	}
 	
-	@SuppressWarnings("unused")
-	private static String getFileAsString(String path) {
-	//public static String getFileAsString(String path) {
+	public static String getFileAsString(String path) {
 		
 	   	StringBuilder contentBuilder = new StringBuilder();
 	    try (Stream<String> stream = Files.lines(Paths.get(path), StandardCharsets.UTF_8)) 

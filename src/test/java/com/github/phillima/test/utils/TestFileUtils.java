@@ -11,9 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestFileUtils {
 
-    private FileUtils fileUtils;
-
-    @Test
+	@Test
     public void TestGetProjectName(){
         if(SystemUtils.IS_OS_WINDOWS) {
             Path path = Paths.get("C:\\Users\\Usuario\\Documents\\Projetos\\spring-retry");

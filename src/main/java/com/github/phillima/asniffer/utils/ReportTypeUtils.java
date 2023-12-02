@@ -13,31 +13,28 @@ import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
 import com.github.phillima.asniffer.output.json.d3hierarchy.IFetchChildren;
 
-public class ReportTypeUtils {
+public final class ReportTypeUtils {
 	
+	private ReportTypeUtils() {	}
 	
-	@SuppressWarnings("unused")
-	private static IReport getReportInstance(String reportType) {
+	public static IReport getReportInstance(String reportType) {
 		PropertiesUtil propUtils = new PropertiesUtil();
 		Object reportInstance = null;
 		String classReport = "";
 		try {
-			
 			classReport = propUtils.getReportType( reportType );
 			Class<?> reportClazz = Class.forName( classReport );
 			reportInstance = reportClazz.getDeclaredConstructor().newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
-		
 		if(reportInstance instanceof IReport)
 			return (IReport) reportInstance;
 		else
 			throw new ReportTypeException("Report Type class" + classReport + " does not implement IReport interface");
 	}
 	
-	@SuppressWarnings("unused")
-	private static boolean isParentPackage(String rootPackageName, String currentPackageName) {
+	public static boolean isParentPackage(String rootPackageName, String currentPackageName) {
 		
 		String[] splitRootPackage = rootPackageName.split("\\.");
 		String[] splitCurrentPackageName = currentPackageName.split("\\.");
@@ -55,11 +52,9 @@ public class ReportTypeUtils {
 		return true;
 	}
 	
-	@SuppressWarnings("unused")
-	private static List<Children> fetchPackages(List<PackageModel> packages, IFetchChildren fetchChildren) {
+	public static List<Children> fetchPackages(List<PackageModel> packages, IFetchChildren fetchChildren) {
 
 		List<Children> packageContents = new ArrayList<Children>();
-		//List<Children> packageContentStack = new Stack<Children>();
 		Stack<Children> packageContentStack = new Stack<Children>();
 		
 		//Ordering package models
