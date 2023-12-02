@@ -17,7 +17,8 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 
 
 	List<ImportDeclaration> imports = new ArrayList<>();
-	HashMap<String, String> schemasMapper = new HashMap<>();
+	Map<String, String> schemasMapper = new HashMap<String, String>();
+	//	HashMap<String, String> schemasMapper = new HashMap<>();
 	CompilationUnit cu;
 
 	//predefined java annotations
@@ -51,11 +52,10 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 	@Override
 	public void setResult(ClassModel result) {
 
-		result.setSchemas(schemasMapper);
+		result.setSchemas((HashMap<String, String>) schemasMapper);
 		result.addClassMetric("ASC", result.getAnnotationSchemas().size());
 		
 	}
-
 
 	
 	private void findSchema(AnnotationExpr annotation) {
@@ -88,7 +88,7 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 		Optional<String> wildCardSchemaOptional = imports.stream()
 			.filter(importDeclaration -> importDeclaration.isAsterisk())
 			.filter(importDeclaration -> {
-				var optionalAnnotationSet = AnnotationsGlossary.get(importDeclaration.getName().toString());
+				var optionalAnnotationSet = AnnotationsGlossary.getOptionalStr(importDeclaration.getName().toString());
 				return optionalAnnotationSet.isPresent() && optionalAnnotationSet.get().contains(annotationName);			
 			})
 			.map(impd -> impd.getName().toString())

@@ -9,3 +9,4 @@ bin/
 .vscode
 *.cpp
 .factorypath
+reports/pmd-report.txt

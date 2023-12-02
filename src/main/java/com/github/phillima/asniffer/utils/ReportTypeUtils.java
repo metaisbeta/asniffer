@@ -7,29 +7,27 @@ import java.util.List;
 import java.util.Stack;
 
 import com.github.phillima.asniffer.exceptions.ReportTypeException;
-import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.CodeElementType;
 import com.github.phillima.asniffer.model.PackageModel;
 import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
 import com.github.phillima.asniffer.output.json.d3hierarchy.IFetchChildren;
-import com.github.phillima.asniffer.output.json.d3hierarchy.ProjectReport;
-import com.github.phillima.asniffer.output.json.d3hierarchy.systemview.JSONReportSV;
 
-public class ReportTypeUtils {
+public final class ReportTypeUtils {
 	
+	private ReportTypeUtils() {	}
 	
 	public static IReport getReportInstance(String reportType) {
+		PropertiesUtil propUtils = new PropertiesUtil();
 		Object reportInstance = null;
 		String classReport = "";
 		try {
-			classReport = PropertiesUtil.getReportType(reportType);
-			Class<?> reportClazz = Class.forName(classReport);
+			classReport = propUtils.getReportType( reportType );
+			Class<?> reportClazz = Class.forName( classReport );
 			reportInstance = reportClazz.getDeclaredConstructor().newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
-		
 		if(reportInstance instanceof IReport)
 			return (IReport) reportInstance;
 		else

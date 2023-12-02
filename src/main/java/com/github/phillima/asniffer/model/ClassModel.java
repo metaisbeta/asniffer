@@ -13,7 +13,8 @@ public class ClassModel {
 	private String className;
 	private CodeElementType type;
 	
-	private HashMap<String,String> annotSchemasMap;//simple name + code line, fully qualified name 
+	private Map<String,String> annotSchemasMap;
+	//private HashMap<String,String> annotSchemasMap;//simple name + code line, fully qualified name 
 	
 	private Map<String,Integer> classMetric;
 	
@@ -113,10 +114,12 @@ public class ClassModel {
 		return schemas;
 	}
 	
-	public HashMap<String, String> getAnnotationSchemasMap() {
+	public Map<String, String> getAnnotationSchemasMap() {
 		return annotSchemasMap;
 	}
-	public void setSchemas(HashMap<String, String> annotationSchemas) {
+	
+	public void setSchemas(Map<String, String> annotationSchemas) {
+	//public void setSchemas(HashMap<String, String> annotationSchemas) {
 		this.annotSchemasMap = annotationSchemas;
 	}
 	

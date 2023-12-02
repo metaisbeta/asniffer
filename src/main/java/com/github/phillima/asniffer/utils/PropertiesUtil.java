@@ -7,8 +7,11 @@ import java.util.Properties;
 import com.github.phillima.asniffer.exceptions.ReportTypeException;
 
 public class PropertiesUtil {
-
-	public static String getReportType(String reportType) {
+		
+	//private String repType;
+	
+	public String getReportType(String reportType) {
+	//public static String getReportType(String reportType) {
 		
 		Properties prop = new Properties();
 		String reportClassName = "";
@@ -34,4 +37,5 @@ public class PropertiesUtil {
 		else
 			throw new ReportTypeException("Wrong Report Type. Available options are json or xml");
 	}	
+	
 }

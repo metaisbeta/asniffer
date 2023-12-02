@@ -13,14 +13,13 @@ import com.github.phillima.asniffer.utils.PropertiesUtil;
 
 public class TestReport {
 
-	private static AMReport report;
-	private static IReport outputProcessor;
 	static String testFilePath;
+	
+	PropertiesUtil props = new PropertiesUtil();
 	
 	@Test
 	public void readReportType() {
-		
-		String actualClassName =  PropertiesUtil.getReportType("json");
+		String actualClassName =  this.props.getReportType("json");
 		String expected = "com.github.phillima.asniffer.output.json.JSONReport";
 		
 		assertEquals(expected, actualClassName);
@@ -33,7 +32,11 @@ public class TestReport {
 		String[] args ="-p any path -r other path -t wrong type for report".split(" ");
 		mapper.map(args , Parameters.class);
 		
-		PropertiesUtil.getReportType("wrong type");
+		this.props.getReportType("wrong type");
 	}
 	
+	public PropertiesUtil getProps() {
+		return props;
+	}
+
 }

@@ -63,6 +63,10 @@ public class Children {
 		return this.name;
 	}
 	
+	public Integer getValue() {
+		return this.value;
+	}
+	
 	public void addProperty(String property, String value) {
 		this.properties.put(property, value);
 	}

@@ -10,18 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class FileUtils {
+public final class FileUtils {
+	
+	private FileUtils() { }
+	
 	
 	public static String[] getAllDirs(String path) {
-		ArrayList<String> dirs = new ArrayList<String>();
+		List<String> dirs = new ArrayList<String>();
 		getAllDirs(path, dirs);
 		String[] ar = new String[dirs.size()];
 		ar = dirs.toArray(ar);
 		return ar;
 	}
 	
-	private static void getAllDirs(String path, ArrayList<String> dirs) {
-		
+	public static void getAllDirs(String path, List<String> dirs) {
 		File f = new File(path);
 		if(f.getName().equals(".git")) return;
 		
@@ -35,7 +37,7 @@ public class FileUtils {
 	}
 
 	public static String[] getAllJavaFiles(String path) {
-		ArrayList<String> files = new ArrayList<String>();
+		List<String> files = new ArrayList<String>();
 		getAllJavaFiles(path, files);
 		
 		String[] ar = new String[files.size()];
@@ -43,8 +45,7 @@ public class FileUtils {
 		return ar;
 	}
 	
-	private static void getAllJavaFiles(String path, ArrayList<String> files) {
-		
+	public static void getAllJavaFiles(String path, List<String> files) {
 		File f = new File(path);
 		if(f.isHidden()) return;
 
@@ -59,7 +60,6 @@ public class FileUtils {
 	}
 	
 	public static List<Path> getProjectsPath(String projectPath){
-		
 		List<Path> projectsPaths = new ArrayList<>();
 		
 		try {
@@ -73,7 +73,7 @@ public class FileUtils {
 		return projectsPaths;
 		
 	}
-
+	
 	public static String getProjectName(Path projectPath) {
 		return String.valueOf(projectPath.getFileName());
 	}
