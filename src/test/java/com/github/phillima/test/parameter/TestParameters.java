@@ -3,6 +3,7 @@ package com.github.phillima.test.parameter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -26,6 +27,8 @@ public class TestParameters {
 		assertEquals("json", param.getReportType());
 		assertFalse(param.isMultiProjectPresent());
 		assertEquals("single", param.getMultiProject());
+		assertFalse(param.isFilterPresent());
+		assertNull(param.getFilterPath());
 	}
 	
 	@Test
@@ -99,6 +102,37 @@ public class TestParameters {
 		assertEquals("json", param.getReportType());
 		assertFalse(param.isMultiProjectPresent());
 		assertEquals("single", param.getMultiProject());
+	}
+
+	@Test
+	public void filterParameterPresent(){
+		ParamMapper mapper = new ParamMapper();
+
+		String[] args = {
+				"-p", "/src/project",
+				"-f", "/filters/annotations.txt"
+		};
+
+		Parameters param = mapper.map(args, Parameters.class);
+
+		assertTrue(param.isProjPathPresent());
+		assertEquals("/src/project", param.getProjectPath());
+		assertTrue(param.isFilterPresent());
+		assertEquals("/filters/annotations.txt", param.getFilterPath());
+	}
+
+	@Test
+	public void emptyFilterPath() {
+		ParamMapper mapper = new ParamMapper();
+
+		String[] args = "-p any path -f -t json".split(" ");
+
+		Parameters param = mapper.map(args, Parameters.class);
+
+		assertTrue(param.isFilterPresent());
+		assertNull(param.getFilterPath());
+		assertTrue(param.isReportTypePresent());
+		assertEquals("json", param.getReportType());
 	}
 	
 }

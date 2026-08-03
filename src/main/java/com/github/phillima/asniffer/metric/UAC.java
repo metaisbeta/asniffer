@@ -5,6 +5,7 @@ import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -17,21 +18,27 @@ public class UAC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 
     Set<String> uniqueAnnotations = new HashSet<>();
 
+    private final AnnotationFilter filter;
+
+    public UAC(final AnnotationFilter filter) {
+        this.filter = filter;
+    }
+
     @Override
     public void visit(MarkerAnnotationExpr node, Object obj) {
-        uniqueAnnotations.add(node.getNameAsString());
+        if(filter.matches(node.getNameAsString())) uniqueAnnotations.add(node.getNameAsString());
         super.visit(node, obj);
     }
 
     @Override
     public void visit(NormalAnnotationExpr node, Object obj) {
-        uniqueAnnotations.add(node.getTokenRange().get().toString().replaceAll("(\t|\n)", ""));
+        if (filter.matches(node.getNameAsString())) uniqueAnnotations.add(node.getTokenRange().get().toString().replaceAll("(\t|\n)", ""));
         super.visit(node, obj);
     }
 
     @Override
     public void visit(SingleMemberAnnotationExpr node, Object obj) {
-        uniqueAnnotations.add(node.getTokenRange().get().toString().replaceAll("(\t|\n)", ""));
+        if (filter.matches(node.getNameAsString())) uniqueAnnotations.add(node.getTokenRange().get().toString().replaceAll("(\t|\n)", ""));
         super.visit(node, obj);
     }
 

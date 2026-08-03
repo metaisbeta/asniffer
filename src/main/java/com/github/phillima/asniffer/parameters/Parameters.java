@@ -33,6 +33,12 @@ public class Parameters {
 	
 	@TextValue(name = "m")
 	private String multiProject;//default value is single
+
+	@IsParameterPresent(name = "f")
+	private boolean filterPresent;
+
+	@TextValue(name = "f")
+	private String filterPath;
 	
 	//Getters and Setters
 	public String getMultiProject() {
@@ -103,6 +109,22 @@ public class Parameters {
 	}
 	public void setReportPathPresent(boolean reportPathPresent) {
 		this.reportPathPresent = reportPathPresent;
+	}
+
+	public boolean isFilterPresent() {
+		return filterPresent;
+	}
+	public void setFilterPresent(final boolean filterPresent) {
+		this.filterPresent = filterPresent;
+	}
+	public String getFilterPath() {
+		if (isFilterPresent() && filterPath != null && !filterPath.isBlank()) {
+			return filterPath;
+		}
+		return null;
+	}
+	public void setFilterPath(String filterPath) {
+		this.filterPath = filterPath;
 	}
 
 	//Behavior

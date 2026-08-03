@@ -4,6 +4,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -14,41 +15,53 @@ public class NAEC extends VoidVisitorAdapter<Object> implements IClassMetricColl
 
     private int annotatedElements = 0;
 
+    private final AnnotationFilter filter;
+
+    public NAEC(final AnnotationFilter filter) {
+        this.filter = filter;
+    }
+
 
     @Override
     public void visit(ClassOrInterfaceDeclaration node, Object obj) {
-        checkForAnnotations(node);
+        if(filter.matches(node.getNameAsString())) checkForAnnotations(node);
         super.visit(node, obj);
     }
 
 
     @Override
     public void visit(EnumDeclaration node, Object obj) {
-        checkForAnnotations(node);
+        if(filter.matches(node.getNameAsString())) checkForAnnotations(node);
         super.visit(node, obj);
     }
 
     @Override
     public void visit(AnnotationDeclaration node, Object obj) {
-        checkForAnnotations(node);
+        if(filter.matches(node.getNameAsString())) checkForAnnotations(node);
         super.visit(node, obj);
     }
 
     @Override
     public void visit(MethodDeclaration node, Object obj) {
-        checkForAnnotations(node);
+        if(filter.matches(node.getNameAsString())) checkForAnnotations(node);
         super.visit(node, obj);
     }
 
     @Override
     public void visit(FieldDeclaration node, Object obj) {
-        checkForAnnotations(node);
+        boolean hasFilteredAnnotation = node.getAnnotations()
+                .stream()
+                .anyMatch(annotation ->
+                        filter.matches(annotation.getNameAsString())
+                );
+
+        if(hasFilteredAnnotation) checkForAnnotations(node);
         super.visit(node, obj);
     }
 
     @Override
     public void visit(EnumConstantDeclaration node, Object obj) {
-        checkForAnnotations(node);
+        if(filter.matches(node.getNameAsString())) checkForAnnotations(node);
         super.visit(node, obj);
     }
 

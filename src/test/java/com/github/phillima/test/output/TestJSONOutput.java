@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.github.phillima.asniffer.ASniffer;
 import com.github.phillima.asniffer.AmFactory;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.json.d3hierarchy.Children;
 import com.github.phillima.asniffer.output.json.d3hierarchy.FetchClassViewIMP;
@@ -33,7 +34,8 @@ public class TestJSONOutput {
     public static void setUp() {
         //Collecting ASniffer
         testFilePath = System.getProperty("user.dir");
-        report = AmFactory.createAm(testFilePath, "asniffer").calculate();
+        AnnotationFilter filter = AnnotationFilter.disabled();
+        report = AmFactory.createAm(testFilePath, "asniffer", filter).calculate();
     }
 
     @Ignore

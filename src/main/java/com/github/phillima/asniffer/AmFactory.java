@@ -1,6 +1,7 @@
 package com.github.phillima.asniffer;
 
 
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector;
@@ -18,6 +19,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class AmFactory {
@@ -30,14 +32,15 @@ public class AmFactory {
     private AmFactory() {
     }
 
-    public final static AM createAm(String path, String projectName) {
+    public final static AM createAm(String path, String projectName, AnnotationFilter filter) {
         String[] javaFiles = FileUtils.getAllJavaFiles(path);
 
         MetricsExecutor storage = new MetricsExecutor(() ->
-                includeClassMetrics(),
+                includeClassMetrics(filter),
                 includeAnnotationMetrics(),
-                includeCodeElementMetrics(),
-                projectName
+                includeCodeElementMetrics(filter),
+                projectName,
+                Objects.nonNull(filter) ? filter : AnnotationFilter.disabled()
         );
 
         var stream = generatePartitionsStream(javaFiles);
@@ -59,13 +62,13 @@ public class AmFactory {
         return javaFiles.stream().map(Collection::stream);
     }
 
-    private static List<IClassMetricCollector> includeClassMetrics() {
+    private static List<IClassMetricCollector> includeClassMetrics(AnnotationFilter filter) {
 
         List<IClassMetricCollector> metrics = new ArrayList<>();
-        metrics.add(new AC());
-        metrics.add(new UAC());
-        metrics.add(new ASC());
-        metrics.add(new NAEC());
+        metrics.add(new AC(filter));
+        metrics.add(new UAC(filter));
+        metrics.add(new ASC(filter));
+        metrics.add(new NAEC(filter));
 
         return metrics;
     }
@@ -80,10 +83,10 @@ public class AmFactory {
         return metrics;
     }
 
-    private static List<ICodeElementMetricCollector> includeCodeElementMetrics() {
+    private static List<ICodeElementMetricCollector> includeCodeElementMetrics(AnnotationFilter filter) {
 
         List<ICodeElementMetricCollector> metrics = new ArrayList<>();
-        metrics.add(new AED());
+        metrics.add(new AED(filter));
 
         return metrics;
     }

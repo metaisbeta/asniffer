@@ -1,6 +1,7 @@
 package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AmFactory;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
 import com.github.phillima.asniffer.model.CodeElementModel;
@@ -17,7 +18,8 @@ public class TestAnnotationDeclaration {
     @BeforeClass
     public static void setUp() {
         String testFilePath = System.getProperty("user.dir") + "/annotationtest/annotation-declaration-test";
-        report = AmFactory.createAm(testFilePath, "project").calculate();
+        AnnotationFilter filter = AnnotationFilter.disabled();
+        report = AmFactory.createAm(testFilePath, "project", filter).calculate();
     }
 
     @Test

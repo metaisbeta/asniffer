@@ -5,6 +5,7 @@ import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -12,24 +13,29 @@ import com.github.phillima.asniffer.model.ClassModel;
 
 public class AC extends VoidVisitorAdapter<Object> implements IClassMetricCollector {
 
-
 	private int annotations = 0;
-	
-	@Override
+
+	private final AnnotationFilter filter;
+
+    public AC(final AnnotationFilter filter) {
+        this.filter = filter;
+    }
+
+    @Override
 	public void visit(MarkerAnnotationExpr node, Object obj) {
-		annotations++;
+		if (filter.matches(node.getNameAsString())) annotations++;
 		super.visit(node, obj);
 	}
 	
 	@Override
 	public void visit(NormalAnnotationExpr node, Object obj) {
-		annotations++;
+		if (filter.matches(node.getNameAsString())) annotations++;
 		super.visit(node, obj);
 	}
 	
 	@Override
 	public void visit(SingleMemberAnnotationExpr node, Object obj) {
-		annotations++;
+		if (filter.matches(node.getNameAsString())) annotations++;
 		super.visit(node, obj);
 	}
 	

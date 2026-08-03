@@ -30,7 +30,8 @@ public class Main {
 				param.getProjectPath(),
 				param.getReportPath(),
 				param.isAMultiProject(),
-				ReportTypeUtils.getReportInstance(param.getReportType())
+				ReportTypeUtils.getReportInstance(param.getReportType()),
+				param.getFilterPath()
 		);
 
 		LocalTime finish = LocalTime.now();
@@ -40,9 +41,9 @@ public class Main {
 	}
 
 	public static void run(String projectPath, String reportPath, boolean multiProject,
-						   IReport reportType) throws FileNotFoundException {
+						   IReport reportType, String filterPath) throws FileNotFoundException {
 
-		ASniffer runner = new ASniffer(projectPath, reportPath, reportType);
+		ASniffer runner = new ASniffer(projectPath, reportPath, reportType, filterPath);
 		if(!multiProject) {
 			logger.info("Initializing extraction for single project.");
 			runner.collectSingle();
@@ -55,7 +56,7 @@ public class Main {
 	}
 
 	public static void run(String projectPath, String reportPath) throws FileNotFoundException {
-		run(projectPath,reportPath,false,ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT));
+		run(projectPath,reportPath,false,ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT),null);
 	}
 
 	public static void run(String projectPath) throws FileNotFoundException {
@@ -66,13 +67,14 @@ public class Main {
 	private static void ifInvalidArgsPrintHowToUseAndExit(String[] args) {
 		if(args ==null || args.length < 2) {
 			System.out.println("To use ASniffer please run the "
-					+ "command as following, providing four parameters:");
+					+ "command as following, providing five parameters:");
 			System.out.println("java -jar asniffer.jar ");
 			System.out.println("-p <path to project> (A complete path to where your project(s) is located)");
 			System.out.println("-r <path to report> (Path where you would like to store your report. "
 					+ "If no path is provided, ASniffer will place the report in your project folder.");
 			System.out.println("-m <single/multi> (you have to specify single or multi. Single is the default value. Multi specifies that the directory contains multiple projects");
 			System.out.println("-t <report type> (the report type can be variations of json. If no value is specified, a default json file will be generated. README file contains more details about the different json reports.");
+			System.out.println("-f <path to annotation filter> (Optional file containing the annotations to be analyzed)");
 			System.exit(1);
 		}
 	}

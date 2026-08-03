@@ -1,6 +1,7 @@
 package com.github.phillima.test.asniffer;
 
 import com.github.phillima.asniffer.AmFactory;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.model.*;
 
 import static org.junit.Assert.assertEquals;
@@ -16,7 +17,8 @@ private static AMReport report;
 	@BeforeClass
 	public static void setUp() {
 		String testFilePath = System.getProperty("user.dir") + "/annotationtest";
-		report = AmFactory.createAm(testFilePath, "project").calculate();
+		AnnotationFilter filter = AnnotationFilter.disabled();
+		report = AmFactory.createAm(testFilePath, "project", filter).calculate();
 	}
 	
 	

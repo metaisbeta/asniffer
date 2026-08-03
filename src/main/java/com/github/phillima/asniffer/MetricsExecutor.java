@@ -3,6 +3,7 @@ package com.github.phillima.asniffer;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.interfaces.IAnnotationMetricCollector;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.interfaces.ICodeElementMetricCollector;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 public class MetricsExecutor {
 
@@ -26,6 +28,7 @@ public class MetricsExecutor {
     private Callable<List<IClassMetricCollector>> classMetrics;
     private List<IAnnotationMetricCollector> annotationMetrics;
     private List<ICodeElementMetricCollector> codeElementMetrics;
+    private final AnnotationFilter filter;
 
     private static final Logger logger =
             LogManager.getLogger(MetricsExecutor.class);
@@ -34,13 +37,15 @@ public class MetricsExecutor {
             Callable<List<IClassMetricCollector>> classMetrics,
             List<IAnnotationMetricCollector> annotationMetrics,
             List<ICodeElementMetricCollector> codeElementMetrics,
-            String projectName
+            String projectName,
+            AnnotationFilter filter
     ) {
         this.classMetrics = classMetrics;
         this.annotationMetrics = annotationMetrics;
         this.codeElementMetrics = codeElementMetrics;
         this.report = new AMReport(projectName);
         this.packagesModel = new HashMap<String, PackageModel>();
+        this.filter = filter;
     }
 
 
@@ -78,7 +83,10 @@ public class MetricsExecutor {
                     }
                     logger.info("Finished extraction of code element metrics for element: " + codeElementModel.getElementName());
                     //Annotation Metrics
-                    List<AnnotationExpr> annotations = AnnotationUtils.checkForAnnotations(codeElementBody);
+                    List<AnnotationExpr> annotations = AnnotationUtils.checkForAnnotations(codeElementBody)
+                            .stream()
+                            .filter(annotationExpr -> filter.matches(annotationExpr.getNameAsString()))
+                            .collect(Collectors.toList());
 
                     logger.info("Initializing extraction of annotation metrics for code element: " + codeElementModel.getElementName());
 

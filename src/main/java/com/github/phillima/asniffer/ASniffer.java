@@ -1,6 +1,7 @@
 package com.github.phillima.asniffer;
 
 import com.github.javaparser.*;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.IReport;
 import com.github.phillima.asniffer.parameters.Parameters;
@@ -19,6 +20,7 @@ public class ASniffer {
 	private String projectsPath = "";
 	private String reportPath = "";
 	private IReport reportType;
+	private String filterPath = "";
 
 	private static final Logger logger =
 			LogManager.getLogger(ASniffer.class);
@@ -33,6 +35,11 @@ public class ASniffer {
 		this.projectsPath = projectPath;
 		this.reportPath = reportPath;
 		this.reportType = ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT);
+	}
+
+	public ASniffer(String projectsPath, String reportPath, IReport reportType, String filterPath) {
+		this(projectsPath, reportPath, reportType);
+		this.filterPath = filterPath;
 	}
 
 	//project path is a root directory to multiple project directories
@@ -54,9 +61,11 @@ public class ASniffer {
 				StaticJavaParser.getConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17_PREVIEW)
 		);
 
+		AnnotationFilter filter = AnnotationFilter.fromFile(Path.of(filterPath));
+
 		String projectName = FileUtils.getProjectName(projectPath);
 		logger.info("Initializing extraction for project " + projectName);
-		AMReport report = AmFactory.createAm(projectPath.toString(), projectName).calculate();
+		AMReport report = AmFactory.createAm(projectPath.toString(), projectName, filter).calculate();
 		logger.info("Extraction concluded for project " + projectName);
 
 		generateOutput(report);

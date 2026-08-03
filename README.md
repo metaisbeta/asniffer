@@ -19,7 +19,7 @@ mvn clean package -P executable
 ### How to use
 
 ```
-java -jar asniffer.jar -p <path to project> -r <path to output report> -t <report type> -m <single/multi>
+java -jar asniffer.jar -p <path to project> -r <path to output report> -t <report type> -m <single/multi> -f <path to filter>
 ```
 
 The "path to project" is mandatory, and should be the path to the java project to be analyzed (i.e, contains the source code files). Considering that only one java project is being analyzed, the directory should have the arrangement below.

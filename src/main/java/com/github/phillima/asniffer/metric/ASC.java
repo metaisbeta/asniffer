@@ -4,6 +4,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.phillima.asniffer.filter.AnnotationFilter;
 import com.github.phillima.asniffer.interfaces.IClassMetricCollector;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.model.ClassModel;
@@ -19,6 +20,12 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 	List<ImportDeclaration> imports = new ArrayList<>();
 	HashMap<String, String> schemasMapper = new HashMap<>();
 	CompilationUnit cu;
+
+	private final AnnotationFilter filter;
+
+	public ASC(final AnnotationFilter filter) {
+		this.filter = filter;
+	}
 
 	//predefined java annotations
 	private static Set<String> javaLangPredefined = ImmutableSet.of("Override","Deprecated","SuppressWarnings","SafeVarargs","FunctionalInterface");
@@ -59,6 +66,8 @@ public class ASC extends VoidVisitorAdapter<Object> implements IClassMetricColle
 
 	
 	private void findSchema(AnnotationExpr annotation) {
+
+		if (!filter.matches(annotation.getNameAsString())) return;
 
 		String qualifier = annotation.getName().getQualifier().isPresent() ? getQualifier(annotation) : "";
 		int annotationLineNumber = annotation.getTokenRange().get().toRange().get().begin.line;
