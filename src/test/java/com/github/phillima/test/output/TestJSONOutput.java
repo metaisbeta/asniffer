@@ -134,7 +134,7 @@ public class TestJSONOutput {
     @Ignore
     public void testGenerateFullAVisuReportFile() {
         ASniffer aSniffer = new ASniffer(testFilePath, testFilePath, new JSONReportAvisuIMP());
-        aSniffer.collectSingle();
+        aSniffer.collectSingle(true);
         String pathSeparator = FileSystems.getDefault().getSeparator();
 
         String projectName = FileUtils.getProjectName(Path.of(testFilePath));

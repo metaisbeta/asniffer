@@ -8,5 +8,6 @@
 - [Rafael Akio Shishito Matos](https://github.com/RafawsMasm) (<rafael.matos@aluno.ufabc.edu.br>)
 - [Paulo Meirelles](https://github.com/paulormm) (<paulormm@ime.usp.br>)
 - [Arfon Smith](https://github.com/arfon) (<arfon.smith@gmail.com>)
+- [Pedro Junho Silveira](https://github.com/arfon) (<pedrojunhocontato@gmail.com>)
 
 If you are not listed here, but should be, please write to phyllipe_slf@yahoo.com.br.

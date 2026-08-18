@@ -39,6 +39,12 @@ public class Parameters {
 
 	@TextValue(name = "f")
 	private String filterPath;
+
+	@IsParameterPresent(name = "h")
+	private boolean historyPresent;
+
+	@TextValue(name = "h")
+	private String history;
 	
 	//Getters and Setters
 	public String getMultiProject() {
@@ -127,6 +133,26 @@ public class Parameters {
 		this.filterPath = filterPath;
 	}
 
+	public boolean isHistoryPresent() {
+		return historyPresent;
+	}
+
+	public void setHistoryPresent(final boolean historyPresent) {
+		this.historyPresent = historyPresent;
+	}
+
+	public String getHistory() {
+		if(isHistoryPresent() && history != null && !history.isBlank()){
+			return history;
+		}
+
+		return null;
+	}
+
+	public void setHistory(final String history) {
+		this.history = history;
+	}
+
 	//Behavior
 	public boolean isAMultiProject() {
 		if(getMultiProject().equalsIgnoreCase("multi"))
@@ -134,4 +160,7 @@ public class Parameters {
 		return false;
 	}
 
+    public boolean isHistoryMode() {
+		return "history".equalsIgnoreCase(history);
+    }
 }

@@ -29,6 +29,8 @@ public class TestParameters {
 		assertEquals("single", param.getMultiProject());
 		assertFalse(param.isFilterPresent());
 		assertNull(param.getFilterPath());
+		assertFalse(param.isHistoryPresent());
+		assertNull(param.getHistory());
 	}
 	
 	@Test
@@ -133,6 +135,49 @@ public class TestParameters {
 		assertNull(param.getFilterPath());
 		assertTrue(param.isReportTypePresent());
 		assertEquals("json", param.getReportType());
+	}
+
+	@Test
+	public void historyParameterPresent() {
+		ParamMapper mapper = new ParamMapper();
+
+		String[] args = {
+				"-p", "/src/project",
+				"-h", "history"
+		};
+
+		Parameters param = mapper.map(args, Parameters.class);
+
+		assertTrue(param.isHistoryPresent());
+		assertEquals("history", param.getHistory());
+	}
+
+	@Test
+	public void currentHistoryParameterPresent() {
+		ParamMapper mapper = new ParamMapper();
+
+		String[] args = {
+				"-p", "/src/project",
+				"-h", "current"
+		};
+
+		Parameters param = mapper.map(args, Parameters.class);
+
+		assertTrue(param.isHistoryPresent());
+		assertEquals("current", param.getHistory());
+	}
+
+	@Test
+	public void emptyHistoryParameter() {
+		ParamMapper mapper = new ParamMapper();
+
+		String[] args =
+				"-p /src/project -h -t json".split(" ");
+
+		Parameters param = mapper.map(args, Parameters.class);
+
+		assertTrue(param.isHistoryPresent());
+		assertNull(param.getHistory());
 	}
 	
 }

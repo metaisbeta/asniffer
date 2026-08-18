@@ -19,7 +19,7 @@ mvn clean package -P executable
 ### How to use
 
 ```
-java -jar asniffer.jar -p <path to project> -r <path to output report> -t <report type> -m <single/multi> -f <path to filter>
+java -jar asniffer.jar -p <path to project> -r <path to output report> -t <report type> -m <single/multi> -f <path to filter> -h <current/history>
 ```
 
 The "path to project" is mandatory, and should be the path to the java project to be analyzed (i.e, contains the source code files). Considering that only one java project is being analyzed, the directory should have the arrangement below.
@@ -54,6 +54,20 @@ For more information about the Annotation Visualizer and the mentioneds views, p
 
 The fourth parameter (single/multi) informs the ASniffer if the "path to project" contains only one project (i.e, every ```.java``` file belongs to only one project) or several projects (i.e, the root directory contains several sub-directories, with each being a separate project). If not options is provided, ASniffer assumes it is a single project.
 
+The fifth parameter, "path to filter", is optional. It restricts the annotation metrics collection to a specific set of annotations, instead of considering every annotation found in the source code. The value provided should be a path to a plain text file containing one annotation name per line. Both fully-qualified names (e.g. `org.springframework.beans.factory.annotation.Autowired`) and simple names (e.g. `Autowired`) are accepted; lines starting with `#` are treated as comments and blank lines are ignored. If no filter file is provided (or an empty one is provided), ASniffer collects metrics for every annotation found in the source code, i.e., the filter is disabled by default.
+
+Example of a filter file:
+
+    .
+    ├── # annotations to be analyzed
+    ├── Autowired
+    ├── org.springframework.beans.factory.annotation.Qualifier
+
+The sixth parameter (current/history) is optional and determines the execution mode. With `-h current` (or if the parameter is omitted), ASniffer analyzes only the current state of the project, i.e., whatever is checked out at the time of execution — this is the default behavior described in the rest of this README. With `-h history`, ASniffer walks through every commit in the repository's history (from the most recent commit back to the first one) and, for each commit, checks it out and collects the annotation metrics for that specific point in time. This allows tracking how annotation usage evolved throughout the project's history.
+
+**Warning:** since history mode performs a `git checkout` for every commit being analyzed, it changes the working directory state of the repository during execution. Only run this mode against a disposable clone of the project (never one containing uncommitted work you care about), as local changes may be lost or cause the checkout to fail. ASniffer attempts to restore the repository to the commit it was on before the analysis started once it finishes, but this restoration is not guaranteed if the process is interrupted.
+
+The output of history mode is a single JSON file, named `<project>-history.json`, placed in the "path to output report". It contains a JSON array with one entry per analyzed commit; each entry has the commit hash, commit date, commit message, and the full annotation metrics report for that commit (same format described in the "JSON Output Format" section below).
 
 ### Example Usage
 
@@ -185,15 +199,19 @@ If you wish to use the ASniffer as an API on your own projects, we provide some 
  
  String pathToCode = "path to the source code to by analyzed";
  String pathToReport = "path to where you wish to store the generated output file report";
+ boolean writeOutput = true; // true writes the output report file to disk right away; false only collects                                                                                                                        
+                            // the metrics in memory (returned as AMReport/List<AMReport>), without writing anything
 
  ASniffer aSniffer = new ASniffer(pathToCode, pathToReport);
  
- aSniffer.collectSingle(); //for a single project
+ aSniffer.collectSingle(writeOutput); //for a single project
  
- aSniffer.collectMultiple(); //for multiple projects. It will run considering the directory structure is prepared for
-                           //multiple projects, as described in the "How to Use" section on this Readme.
+ aSniffer.collectMultiple(writeOutput); //for multiple projects. It will run considering the directory structure is prepared for
+                                 //multiple projects, as described in the "How to Use" section on this Readme.
  
 ```
+
+The boolean argument controls whether ASniffer writes the output report file to disk right after collecting the metrics. Pass true to also generate the report file (the same behavior described throughout this README), or false to only collect the metrics in memory — returned as the AMReport (for collectSingle) or List<AMReport> (for collectMultiple) — without writing anything to disk. This is what ASniffer's history mode (-h history) uses internally: since it generates a single combined <project>-history.json file itself (through a separate history report writer), it calls collectSingle(false)/collectMultiple(false) for every commit so that no individual per-commit report file is written.
 
 With these calls, the ASniffer will run, collect the annotation metrics, and place the output report file on the provided path. However, if you would like to perform some analysis on the metrics values, both ```collectSingle()``` and ```collectMultiple()``` return, respectively, an instance of ```AMReport``` and a ```List<AMReport>```. The ```AMReport``` class contains the complete report of the collected metrics for each Java project. For this reason the ```collectMultiple()``` returns a list of ```AMReports``` (one for each Java project). 
 
@@ -205,9 +223,10 @@ The following example collects the annotation metrics on multiple projects, prin
 
  List<AMReport> reports;
  String path = "projects";
+ boolean writeOutput = true;
 
  ASniffer aSniffer = new ASniffer(path, path);
- reports = aSniffer.collectMultiple();
+ reports = aSniffer.collectMultiple(writeOutput);
 
  for (AMReport amReport : reports) {
   System.out.println(amReport.getProjectName());
