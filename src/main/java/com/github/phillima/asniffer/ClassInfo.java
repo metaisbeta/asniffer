@@ -89,6 +89,7 @@ public class ClassInfo extends VoidVisitorAdapter<Object> {
         CodeElementType innerType = CodeElementType.CONSTRUCTOR;
         CodeElementModel codeElementModel =
                 new CodeElementModel(node.getName().getIdentifier(), innerType, getLineStart(node));
+        codeElementModel.setParameterCount(node.getParameters().size());
         codeElementsInfo.put(node, codeElementModel);
         super.visit(node, obj);
     }

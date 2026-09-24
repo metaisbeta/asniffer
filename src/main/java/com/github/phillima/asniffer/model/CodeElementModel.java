@@ -9,6 +9,7 @@ public class CodeElementModel {
 	private int sourceCodeLine;
 	private String elementName;
 	private int aedValue;
+	private Integer parameterCount;
 	
 	private List<AnnotationMetricModel> annotationMetrics = new ArrayList<AnnotationMetricModel>();
 	
@@ -43,5 +44,12 @@ public class CodeElementModel {
 	public List<AnnotationMetricModel> getAnnotationMetrics() {
 		return annotationMetrics;
 	}
-	
+
+	public int getParameterCount() {
+		return parameterCount;
+	}
+
+	public void setParameterCount(final int aParameterCount) {
+		parameterCount = aParameterCount;
+	}
 }
