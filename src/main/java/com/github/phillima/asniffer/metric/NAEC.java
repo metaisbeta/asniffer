@@ -75,10 +75,9 @@ public class NAEC extends VoidVisitorAdapter<Object> implements IClassMetricColl
         result.addClassMetric("NAEC", annotatedElements);
     }
 
-    private void checkForAnnotations(NodeWithAnnotations node) {
-
-        if (node.getAnnotations().isNonEmpty()) {
-            annotatedElements++;
-        }
+    private void checkForAnnotations(NodeWithAnnotations<?> node) {
+        boolean hasFiltered = node.getAnnotations().stream()
+                .anyMatch(a -> filter.matches(a.getNameAsString()));
+        if (hasFiltered) annotatedElements++;
     }
 }
