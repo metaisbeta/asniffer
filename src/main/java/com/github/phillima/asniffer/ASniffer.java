@@ -60,7 +60,7 @@ public class ASniffer {
 	private AMReport collect(Path projectPath, boolean writeOutput) {
 
 		StaticJavaParser.setConfiguration(
-				StaticJavaParser.getConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17_PREVIEW)
+				StaticJavaParser.getConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21)
 		);
 
 		AnnotationFilter filter = AnnotationFilter.fromFile(Path.of(filterPath));
