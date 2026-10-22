@@ -33,6 +33,10 @@ public class AnnotationFilter {
     }
 
     public static AnnotationFilter fromFile(Path filterPath) {
+        if (filterPath == null || filterPath.toString().isBlank()) {
+            return disabled();
+        }
+
         Set<String> annotations = new HashSet<>();
 
         try {
@@ -46,7 +50,7 @@ public class AnnotationFilter {
                 annotations.add(annotationName);
             }
         } catch (IOException ex){
-            logger.error("");
+            logger.error("Could not read annotation filter file: " + filterPath, ex);
         }
 
         return new AnnotationFilter(annotations);

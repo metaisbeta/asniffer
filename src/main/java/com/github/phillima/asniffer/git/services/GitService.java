@@ -14,9 +14,8 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.ZoneOffset;
+import java.util.*;
 
 /**
  * The Class GitService
@@ -45,7 +44,7 @@ public class GitService {
             List<GitCommitModel> commits = new ArrayList<>();
 
             for (RevCommit commit : revWalk) {
-                commits.add(toModel(commit));
+                commits.add(toModel(commit, null));
             }
 
             return commits;
@@ -73,7 +72,7 @@ public class GitService {
         return repository;
     }
 
-    private GitCommitModel toModel(RevCommit commit) {
+    private GitCommitModel toModel(RevCommit commit, Integer year) {
         List<String> parentHashes = Arrays.stream(commit.getParents())
                 .map(RevCommit::getName)
                 .toList();
@@ -85,7 +84,8 @@ public class GitService {
                 commit.getAuthorIdent().getEmailAddress(),
                 Instant.ofEpochSecond(commit.getCommitTime()),
                 commit.getShortMessage(),
-                parentHashes
+                parentHashes,
+                year
         );
     }
 
@@ -103,4 +103,43 @@ public class GitService {
             throw new RuntimeException("Error checking out commit: " + hash, ex);
         }
     }
+
+    public List<GitCommitModel> getYearlyCommits(String projectPath) {
+        try (Repository repository = openRepository(projectPath);
+             RevWalk revWalk = new RevWalk(repository))
+        {
+            ObjectId headId = repository.resolve(Constants.HEAD);
+
+            if (headId == null) {
+                throw new IllegalStateException("Não foi possível localizar a HEAD do repositório: " + projectPath);
+            }
+
+            TreeMap<Integer, RevCommit> lastCommitOfYear = new TreeMap<>();
+
+            RevCommit commit = revWalk.parseCommit(headId);
+            while (commit != null) {
+                int year = Instant.ofEpochSecond(commit.getCommitTime()).atZone(ZoneOffset.UTC).getYear();
+                lastCommitOfYear.merge(year, commit,
+                        (current, candidate) -> candidate.getCommitTime() > current.getCommitTime() ? candidate : current);
+
+                commit = commit.getParentCount() > 0 ? revWalk.parseCommit(commit.getParent(0)) : null;
+            }
+
+            int firstYear = lastCommitOfYear.firstKey();
+            int lastYear = lastCommitOfYear.lastKey();
+
+            List<GitCommitModel> commits = new ArrayList<>();
+
+            for (int year = lastYear; year >= firstYear; year--) {
+                RevCommit lastCommit = lastCommitOfYear.floorEntry(year).getValue();
+                commits.add(toModel(lastCommit, year));
+            }
+
+            return commits;
+
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
 }

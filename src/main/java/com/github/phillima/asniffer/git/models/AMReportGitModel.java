@@ -23,6 +23,8 @@ public record AMReportGitModel(
 
         String commitMessage,
 
+        Integer snapshotYear,
+
         AMReport report
 
 ) {

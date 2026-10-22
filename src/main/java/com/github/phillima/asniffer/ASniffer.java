@@ -63,7 +63,8 @@ public class ASniffer {
 				StaticJavaParser.getConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21)
 		);
 
-		AnnotationFilter filter = AnnotationFilter.fromFile(Path.of(filterPath));
+		AnnotationFilter filter = AnnotationFilter.fromFile(
+				filterPath == null || filterPath.isBlank() ? null : Path.of(filterPath));
 
 		String projectName = FileUtils.getProjectName(projectPath);
 		logger.info("Initializing extraction for project " + projectName);

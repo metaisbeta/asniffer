@@ -12,6 +12,7 @@ import com.github.phillima.asniffer.git.services.GitService;
 import com.github.phillima.asniffer.model.AMReport;
 import com.github.phillima.asniffer.output.IHistoryReport;
 import com.github.phillima.asniffer.output.json.HistoryJsonReport;
+import com.github.phillima.asniffer.parameters.HistoryMode;
 import com.github.phillima.asniffer.utils.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +43,7 @@ public class Main {
 				param.isAMultiProject(),
 				ReportTypeUtils.getReportInstance(param.getReportType()),
 				param.getFilterPath(),
-				param.isHistoryMode()
+				param.getHistoryMode()
 		);
 
 		LocalTime finish = LocalTime.now();
@@ -53,11 +54,14 @@ public class Main {
 
 	public static void run(String projectPath, String reportPath, boolean multiProject,
 						   IReport reportType, String filterPath,
-						   boolean history
+						   HistoryMode history
 	) {
 
-		if (history) runHistory(projectPath, reportPath, multiProject, reportType, filterPath);
-		else runCurrent(projectPath, reportPath, multiProject, reportType, filterPath);
+		switch (history) {
+			case ALL -> runHistory(projectPath, reportPath, multiProject, reportType, filterPath, false);
+			case YEARLY -> runHistory(projectPath, reportPath, multiProject, reportType, filterPath, true);
+			default -> runCurrent(projectPath, reportPath, multiProject, reportType, filterPath);
+		}
 
 	}
 
@@ -87,12 +91,13 @@ public class Main {
             final String reportPath,
             final boolean multiProject,
             final IReport reportType,
-            final String filterPath
+            final String filterPath,
+			final boolean yearlyMode
     ) {
 		if (!multiProject) {
-			runHistorySingle(projectPath, reportPath, reportType, filterPath);
+			runHistorySingle(projectPath, reportPath, reportType, filterPath, yearlyMode);
 		} else {
-			runHistoryMultiple(projectPath, reportPath, reportType, filterPath);
+			runHistoryMultiple(projectPath, reportPath, reportType, filterPath, yearlyMode);
 		}
     }
 
@@ -101,13 +106,17 @@ public class Main {
             final String projectPath,
             final String reportPath,
             final IReport reportType,
-            final String filterPath
+            final String filterPath,
+			final boolean yearlyMode
     ) {
 		boolean writeOutput = false;
 
 		GitService historyService = new GitService();
 
-		List<GitCommitModel> commits = historyService.getCommits(projectPath);
+		List<GitCommitModel> commits = yearlyMode
+				? historyService.getYearlyCommits(projectPath)
+				: historyService.getCommits(projectPath);
+
 		GitCommitModel currentCommit = commits.getFirst();
 
 		ASniffer runner = new ASniffer(projectPath, reportPath, reportType, filterPath);
@@ -116,14 +125,26 @@ public class Main {
 		String projectName = FileUtils.getProjectName(Paths.get(projectPath));
 		historyReport.start(reportPath, projectName);
 
+		//in yearly mode, years without commits repeat the previous commit (consecutive in the list), so its report is reused
+		AMReport lastReport = null;
+		String lastAnalyzedHash = null;
+
 		try {
 			for (GitCommitModel commit : commits) {
-				logger.info("Initializing extraction for commit: {}", commit.hash());
-
 				try {
-					historyService.checkout(projectPath, commit.hash());
-					AMReport report = runner.collectSingle(writeOutput);
-					historyReport.append(toReportGitModel(report, commit));
+					if (!commit.hash().equals(lastAnalyzedHash)) {
+						logger.info("Initializing extraction for commit: {}", commit.hash());
+						lastAnalyzedHash = commit.hash();
+						lastReport = null;
+						historyService.checkout(projectPath, commit.hash());
+						lastReport = runner.collectSingle(writeOutput);
+					} else {
+						logger.info("Year {} has no commits; reusing commit {}", commit.snapshotYear(), commit.shortHash());
+					}
+
+					if (lastReport != null) {
+						historyReport.append(toReportGitModel(lastReport, commit));
+					}
 				} catch (Exception ex) {
 					logger.error("Failed to analyze commit {} ({}): {}", commit.shortHash(), commit.message(), ex.getMessage(), ex);
 				}
@@ -140,12 +161,13 @@ public class Main {
             final String rootPath,
             final String reportPath,
             final IReport reportType,
-            final String filterPath
+            final String filterPath,
+            final boolean yearlyMode
     ) {
 		for (Path subprojectPath : FileUtils.getProjectsPath(rootPath)) {
 			logger.info("Initializing history extraction for project: {}", subprojectPath);
 			try {
-				runHistorySingle(subprojectPath.toString(), reportPath, reportType, filterPath);
+				runHistorySingle(subprojectPath.toString(), reportPath, reportType, filterPath, yearlyMode);
 			} catch (Exception ex) {
 				logger.error("Failed to analyze history for project {}: {}", subprojectPath, ex.getMessage(), ex);
 			}
@@ -159,12 +181,13 @@ public class Main {
 				commit.authorName(),
 				commit.date(),
 				commit.message(),
+				commit.snapshotYear(),
 				report
 		);
 	}
 
 	public static void run(String projectPath, String reportPath) throws FileNotFoundException {
-		run(projectPath,reportPath,false,ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT), null, false);
+		run(projectPath,reportPath,false,ReportTypeUtils.getReportInstance(Parameters.DEFAULT_PROJECT_REPORT), null, HistoryMode.CURRENT);
 	}
 
 	public static void run(String projectPath) throws FileNotFoundException {
@@ -183,8 +206,10 @@ public class Main {
 			System.out.println("-m <single/multi> (you have to specify single or multi. Single is the default value. Multi specifies that the directory contains multiple projects");
 			System.out.println("-t <report type> (the report type can be variations of json. If no value is specified, a default json file will be generated. README file contains more details about the different json reports.");
 			System.out.println("-f <path to annotation filter> (Optional file containing the annotations to be analyzed)");
-			System.out.println("-h <current/history> (Optional execution mode. "
+			System.out.println("-h <current/history/history-yearly> (Optional execution mode. "
 					+ "Use 'history' to analyze all commits in the repository history, "
+					+ "'history-yearly' to analyze only the last commit of each year "
+					+ "(years without commits reuse the previous year's last commit), "
 					+ "or 'current' to analyze only the current project state. "
 					+ "If no value is provided, 'current' is used by default.)");
 			System.exit(1);

@@ -160,7 +160,9 @@ public class Parameters {
 		return false;
 	}
 
-    public boolean isHistoryMode() {
-		return "history".equalsIgnoreCase(history);
-    }
+	public HistoryMode getHistoryMode() {
+		if ("history-yearly".equalsIgnoreCase(history)) return HistoryMode.YEARLY;
+		if ("history".equalsIgnoreCase(history))        return HistoryMode.ALL;
+		return HistoryMode.CURRENT;
+	}
 }

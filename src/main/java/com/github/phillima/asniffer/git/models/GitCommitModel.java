@@ -23,6 +23,8 @@ public record GitCommitModel(
 
         String message,
 
-        List<String> parentHashes
+        List<String> parentHashes,
+
+        Integer snapshotYear
 ) {
 }
