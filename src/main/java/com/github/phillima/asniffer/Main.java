@@ -113,11 +113,11 @@ public class Main {
 
 		GitService historyService = new GitService();
 
+		String originalRef = historyService.getCurrentRef(projectPath);
+
 		List<GitCommitModel> commits = yearlyMode
 				? historyService.getYearlyCommits(projectPath)
 				: historyService.getCommits(projectPath);
-
-		GitCommitModel currentCommit = commits.getFirst();
 
 		ASniffer runner = new ASniffer(projectPath, reportPath, reportType, filterPath);
 
@@ -151,9 +151,14 @@ public class Main {
 			}
 		} finally {
 			historyReport.finish();
-		}
 
-		historyService.checkout(projectPath, currentCommit.hash());
+			try {
+				historyService.checkout(projectPath, originalRef);
+				logger.info("Restored repository {} to {}", projectName, originalRef);
+			} catch (Exception ex) {
+				logger.error("Failed to restore repository {} to {}: {}", projectName, originalRef, ex.getMessage(), ex);
+			}
+		}
     }
 
 	//runs runHistorySingle once for every subproject found under rootPath

@@ -89,6 +89,20 @@ public class GitService {
         );
     }
 
+    public String getCurrentRef(String projectPath) {
+        try (Repository repository = openRepository(projectPath)) {
+            String ref = repository.getBranch();
+
+            if (ref == null) {
+                throw new IllegalStateException("Não foi possível localizar a HEAD do repositório: " + projectPath);
+            }
+
+            return ref;
+        } catch (IOException ex) {
+            throw new RuntimeException("Error opening repository: " + projectPath, ex);
+        }
+    }
+
     public void checkout(
             final String projectPath,
             final String hash
